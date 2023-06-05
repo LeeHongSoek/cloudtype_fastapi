@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coffee Style</title>
+
+    <link rel="stylesheet" href="/static/styles.css">
+
+    <script>
+        let socket = null;
+
+        // Start 버튼 클릭 이벤트 핸들러
+        function sendStartMessage() {
+            socket = new WebSocket("ws://localhost:8000/task"); // WebSocket 용 서버를 하나더 만들어야 할듯..
+
+            // WebSocket 연결이 확립되었을 때 실행되는 이벤트 핸들러
+            socket.onopen = function(event) {
+                const msgDiv = document.getElementById('msg');
+                msgDiv.textContent = "WebSocket 연결이 확립되었습니다.";
+            };
+
+            // 서버로부터 메시지를 수신했을 때 실행되는 이벤트 핸들러
+            socket.onmessage = function(event) {
+                const message = event.data;
+
+                const msgDiv = document.getElementById('msg');
+                msgDiv.textContent = "서버로부터 메시지를 수신했습니다: " + message;
+            };
+
+            // WebSocket 연결이 종료되었을 때 실행되는 이벤트 핸들러
+            socket.onclose = function(event) {
+                const msgDiv = document.getElementById('msg');
+                msgDiv.textContent = "WebSocket 연결이 종료되었습니다.";
+            };
+        }               
+
+        // stop 버튼 클릭 이벤트 핸들러
+        function sendStopMessage() {
+            if (socket) {
+                socket.send("stop");
+            }
+        }
+
+        sendStartMessage();
+
+    </script>
+
+</head>
+<body>
+    <div id="stars-container"></div>
+    
+    <h1> FastAPI 웹 소켓 예제 </h1>
+    <div id="msg"></div>
+
+    <div class="buttons">
+        <button onclick="sendStartMessage()">Start</button>
+        <button onclick="sendStopMessage()">Stop</button>
+    </div>
+
+    
+    <script>
+        //debugger;
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+
+        const viewportArea = viewportWidth * viewportHeight;
+
+        const starCount =  Math.floor(viewportArea / 4000); // 원하는 별의 숫자
+        const starsContainer = document.getElementById('stars-container');
+    
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement('div');
+          star.className = 'star';
+    
+          const xPos = Math.random() * window.innerWidth;
+          const yPos = Math.random() * window.innerHeight;
+    
+          star.style.left = `${xPos}px`;
+          star.style.top = `${yPos}px`;
+    
+          starsContainer.appendChild(star);
+        }
+      </script>
+</body>
+</html>
