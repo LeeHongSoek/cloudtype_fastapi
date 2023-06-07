@@ -24,6 +24,7 @@ pip install fastapi
 pip install wsproto
 pip install websockets
 pip install --upgrade requests
+pip install mysql-connector-python
 
 '''
 from fastapi import FastAPI, Request
@@ -35,6 +36,7 @@ from starlette.websockets import WebSocket, WebSocketDisconnect
 import asyncio
 import random
 import os
+from mysql.connector import connect
 
 
 app = FastAPI()
@@ -54,10 +56,46 @@ async def root():
 
 
 
+# html(mysql) 화면 호출 ------------------------------ 1.
+@app.get("/mysql")
+def home_mysql(request: Request):
+    
+    # MySQL 서버에 연결
+    conn = connect(
+        host="localhost",  # MySQL 서버 호스트
+        user="username",  # MySQL 사용자 이름
+        password="password",  # MySQL 사용자 비밀번호
+        database="database_name"  # 사용할 데이터베이스 이름
+    )
+
+    # 커서 생성
+    cursor = conn.cursor()
+
+    # 데이터 조회
+    cursor.execute("SELECT * FROM employees")
+    rows = cursor.fetchall()
+
+    # 연결 종료
+    cursor.close()
+    conn.close()
+
+    return templates.TemplateResponse("index.html", {"request": request, "rows": rows})
+
+
 # html(dashboard) 화면 호출 ------------------------------ 1.
 @app.get("/dashboard")
 def home_dashboard(request: Request):
     return templates.TemplateResponse("dashboard.html", {"request": request})
+
+
+
+
+
+
+
+
+
+
 
 
 # html(WebSocket) 화면 호출 ------------------------------ 1.
