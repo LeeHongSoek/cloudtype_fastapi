@@ -43,7 +43,7 @@ while True:
 
     # 한국 타임존을 설정합니다.
     # 형식에 맞게 현재 시간을 얻습니다.
-    formatted_time = datetime.datetime.now(pytz.timezone("Asia/Seoul")).strftime("%Y-%m-%d %H:%M")
+    formatted_time = datetime.datetime.now(pytz.timezone("Asia/Seoul")).strftime("%Y-%m-%d %H : %M")
 
     # 원격 저장소의 변경 사항을 가져옵니다.
     subprocess.run(["git", "pull", "origin", "main"])
