@@ -62,10 +62,11 @@ def home_mysql(request: Request):
     
     # MySQL 서버에 연결
     conn = connect(
-        host="localhost",  # MySQL 서버 호스트
-        user="username",  # MySQL 사용자 이름
-        password="password",  # MySQL 사용자 비밀번호
-        database="database_name"  # 사용할 데이터베이스 이름
+        host="svc.gksl2.cloudtype.app",  # MySQL 서버 호스트
+        user="root",  # MySQL 사용자 이름
+        password="leehs1181!",  # MySQL 사용자 비밀번호
+        database="classicmodels",  # 사용할 데이터베이스 이름
+        port=32617  # MySQL 접속 포트
     )
 
     # 커서 생성
