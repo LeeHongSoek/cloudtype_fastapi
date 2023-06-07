@@ -63,6 +63,6 @@ while True:
         subprocess.run(["git", "push", "origin", "main"])
 
 
-    # 10 초 동안 대기합니다.
+    # 10 초 동안 대기합니다. 
     time.sleep(10)
     #break
