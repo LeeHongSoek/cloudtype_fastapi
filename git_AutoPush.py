@@ -40,6 +40,7 @@ os.chdir(local_repo)
 subprocess.call(["git", "remote", "add", "origin", remote_url])
 
 #while True:
+
 # 한국 타임존을 설정합니다.
 # 형식에 맞게 현재 시간을 얻습니다.
 formatted_time = datetime.datetime.now(pytz.timezone("Asia/Seoul")).strftime("%Y-%m-%d %H:%M")
