@@ -110,7 +110,8 @@
             // 페이지 수 및 행 수 변경 시 이벤트 핸들러
             $("#rows-per-page, #go-to-page").change(function() {
                 var rowsPerPage = parseInt($("#rows-per-page").val());
-                var currentPage = parseInt($("#go-to-page").val());
+                // var currentPage = parseInt($("#go-to-page").val());
+                var currentPage = 1;
                 window.location.href = "?page=" + currentPage + "&rows_per_page=" + rowsPerPage;
             });
         });
