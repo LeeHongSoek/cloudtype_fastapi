@@ -55,9 +55,10 @@ async def root():
 
 
 
+from math import ceil
 
 @app.get("/mysql")
-def home_mysql(request: Request, page: int = 1):
+def home_mysql(request: Request, page: int = 1, rows_per_page: int = 10):
     # MySQL 서버에 연결
     conn = connect(
         host="svc.gksl2.cloudtype.app",  # MySQL 서버 호스트
@@ -69,9 +70,6 @@ def home_mysql(request: Request, page: int = 1):
 
     # 커서 생성
     cursor = conn.cursor()
-
-    # 페이지당 행의 개수
-    rows_per_page = 10
 
     # 전체 행의 개수 조회
     cursor.execute("SELECT COUNT(*) FROM employees")
@@ -102,8 +100,12 @@ def home_mysql(request: Request, page: int = 1):
             "rows": rows,
             "page": page,
             "total_pages": total_pages,
+            "rows_per_page": rows_per_page,
         },
     )
+
+
+
 
 
 # html(dashboard) 화면 호출 ------------------------------ 1.
