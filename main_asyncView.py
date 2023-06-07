@@ -44,6 +44,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
 
+# html 화면 호출 ------------------------------
 @app.get("/")
 async def root():
     #return {"result": "root"}
@@ -51,10 +52,10 @@ async def root():
     # return RedirectResponse(url="/redoc")
 
 
+# WebSocket 예제.. ---------------------------
 @app.get("/asyncView")
 def home_asyncView(request: Request):
     return templates.TemplateResponse("asyncView.html", {"request": request})
-
 
 
 @app.websocket("/long_running_task")
