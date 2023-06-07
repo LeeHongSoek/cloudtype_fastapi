@@ -30,3 +30,4 @@ watchgod==0.8.2
 websockets==10.3
 wsproto
 asyncio
+mysql-connector-python
