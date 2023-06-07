@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
+  <title>Sales Dashboard</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Sales Dashboard</h1>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Monthly Sales</h3>
+        <canvas id="monthlySalesChart"></canvas>
+      </div>
+      <div class="col-md-6">
+        <h3>Regional Sales</h3>
+        <canvas id="regionalSalesChart"></canvas>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Product List</h3>
+        <ul id="productList">
+          <li>Product A</li>
+          <li>Product B</li>
+          <li>Product C</li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <h3>Customer List</h3>
+        <ul id="customerList">
+          <li>Customer A</li>
+          <li>Customer B</li>
+          <li>Customer C</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sample data for charts
+    const monthlySalesData = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+      datasets: [{
+        label: 'Sales',
+        data: [500, 1000, 750, 1250, 800, 1100],
+        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    };
+
+    const regionalSalesData = {
+      labels: ['Region A', 'Region B', 'Region C'],
+      datasets: [{
+        data: [300, 500, 700],
+        backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)']
+      }]
+    };
+
+    // Create monthly sales chart
+    const monthlySalesChart = document.getElementById('monthlySalesChart').getContext('2d');
+    new Chart(monthlySalesChart, {
+      type: 'bar',
+      data: monthlySalesData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Create regional sales chart
+    const regionalSalesChart = document.getElementById('regionalSalesChart').getContext('2d');
+    new Chart(regionalSalesChart, {
+      type: 'pie',
+      data: regionalSalesData
+    });
+  </script>
+</body>
+</html>
