@@ -41,9 +41,9 @@
         <label for="rows-per-page" class="col-sm-2 col-form-label">Rows per Page:</label>
         <div class="col-sm-4">
             <select id="rows-per-page" class="form-control">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
+                <option value="10" {% if rows_per_page == 10 %}selected{% endif %}>10</option>
+                <option value="20" {% if rows_per_page == 20 %}selected{% endif %}>20</option>
+                <option value="50" {% if rows_per_page == 50 %}selected{% endif %}>50</option>
             </select>
         </div>
     </div>
