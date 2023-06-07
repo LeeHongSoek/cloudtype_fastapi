@@ -27,19 +27,18 @@
       border-bottom: none;
     }
 
-    .list-group-item {
-      background-color: #333;
-      border-color: #444;
-      color: #fff;
-    }
-
-    table {
+    .table {
       background-color: #444;
       color: #fff;
     }
 
-    th, td {
+    .table th {
       border-color: #555;
+    }
+
+    .table td {
+      border-color: #555;
+      vertical-align: middle;
     }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
@@ -85,17 +84,25 @@
               <thead>
                 <tr>
                   <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Product A</td>
+                  <td>$10</td>
+                  <td>100</td>
                 </tr>
                 <tr>
                   <td>Product B</td>
+                  <td>$15</td>
+                  <td>200</td>
                 </tr>
                 <tr>
                   <td>Product C</td>
+                  <td>$20</td>
+                  <td>150</td>
                 </tr>
               </tbody>
             </table>
@@ -112,17 +119,25 @@
               <thead>
                 <tr>
                   <th>Customer</th>
+                  <th>Email</th>
+                  <th>Phone</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Customer A</td>
+                  <td>customerA@example.com</td>
+                  <td>123-456-7890</td>
                 </tr>
                 <tr>
                   <td>Customer B</td>
+                  <td>customerB@example.com</td>
+                  <td>987-654-3210</td>
                 </tr>
                 <tr>
                   <td>Customer C</td>
+                  <td>customerC@example.com</td>
+                  <td>555-555-5555</td>
                 </tr>
               </tbody>
             </table>
