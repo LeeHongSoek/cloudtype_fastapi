@@ -92,5 +92,16 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // 페이지 수 및 행 수 변경 시 이벤트 핸들러
+            $("#rows-per-page, #go-to-page").change(function() {
+                var rowsPerPage = parseInt($("#rows-per-page").val());
+                var currentPage = parseInt($("#go-to-page").val());
+                window.location.href = "?page=" + currentPage + "&rows_per_page=" + rowsPerPage;
+            });
+        });
+    </script>
 </body>
 </html>
