@@ -1,6 +1,6 @@
 import requests # pip install requests
-from bs4 import BeautifulSoup
-import pandas as pd # pip install beautifulsoup4
+from bs4 import BeautifulSoup # pip install beautifulsoup4
+import pandas as pd # pip install pandas
 
 
 def get_stock_closing_prices(stock_code, start_date, end_date):
