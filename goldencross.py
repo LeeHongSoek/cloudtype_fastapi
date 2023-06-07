@@ -4,7 +4,7 @@ import pandas as pd # pip install pandas
 
 
 def get_stock_closing_prices(stock_code, start_date, end_date):
-    url = f"https://finance.yahoo.com/quote/{stock_code}/history?p={stock_code}&guccounter=1"
+    url = f"https://finance.yahoo.com/quote/{stock_code}/history?p={stock_code}"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
 
