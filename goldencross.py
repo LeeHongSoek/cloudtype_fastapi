@@ -9,7 +9,9 @@ def get_stock_closing_prices(stock_code, start_date, end_date):
     soup = BeautifulSoup(response.text, "html.parser")
 
     #table = soup.find("table", {"data-test": "historical-prices"})
-    table = soup.find("table")
+    #table = soup.find("table")
+    table = soup.find("table", attrs={"data-test": "historical-prices"})
+
     rows = table.tbody.find_all("tr")
 
     closing_prices = []
