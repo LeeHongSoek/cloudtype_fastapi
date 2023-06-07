@@ -80,7 +80,9 @@ def home_mysql(request: Request):
     cursor.close()
     conn.close()
 
-    return templates.TemplateResponse("index.html", {"request": request, "rows": rows})
+    return templates.TemplateResponse("mysql.html", {"request": request, "rows": rows})
+
+
 
 
 # html(dashboard) 화면 호출 ------------------------------ 1.
