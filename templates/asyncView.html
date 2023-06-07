@@ -6,11 +6,16 @@
     <link rel="stylesheet" href="/static/styles.css">
 
     <script>
+        
         let socket = null;
 
         // Start 버튼 클릭 이벤트 핸들러
-        function sendStartMessage() {
-            socket = new WebSocket("ws://port-0-cloudtype-fastapi-vpkwa2blihcqitk.sel4.cloudtype.app:8000/task"); // WebSocket 용 서버를 하나더 만들어야 할듯..
+        function sendStartMessage() 
+        {
+            // WebSocket용 Host 주소
+            let wsHost = "ws://127.0.0.1:8000/long_running_task"; // "ws://port-0-cloudtype-fastapi-vpkwa2blihcqitk.sel4.cloudtype.app:8000/long_running_task"); 
+
+            socket = new WebSocket(wsHost); 
 
             // WebSocket 연결이 확립되었을 때 실행되는 이벤트 핸들러
             socket.onopen = function(event) {
@@ -43,8 +48,8 @@
         sendStartMessage();
 
     </script>
-
 </head>
+
 <body>
     <div id="stars-container"></div>
     
