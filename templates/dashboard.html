@@ -4,6 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #222;
+      color: #fff;
+    }
+
+    h1, h3 {
+      color: #fff;
+    }
+
+    .card {
+      background-color: #333;
+      color: #fff;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .card-header {
+      background-color: #444;
+      border-bottom: none;
+    }
+
+    .list-group-item {
+      background-color: #333;
+      border-color: #444;
+      color: #fff;
+    }
+
+    table {
+      background-color: #444;
+      color: #fff;
+    }
+
+    th, td {
+      border-color: #555;
+    }
+  </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
   <title>Sales Dashboard</title>
 </head>
@@ -13,12 +51,24 @@
 
     <div class="row">
       <div class="col-md-6">
-        <h3>Monthly Sales</h3>
-        <canvas id="monthlySalesChart"></canvas>
+        <div class="card">
+          <div class="card-header">
+            <h3>Monthly Sales</h3>
+          </div>
+          <div class="card-body">
+            <canvas id="monthlySalesChart"></canvas>
+          </div>
+        </div>
       </div>
       <div class="col-md-6">
-        <h3>Regional Sales</h3>
-        <canvas id="regionalSalesChart"></canvas>
+        <div class="card">
+          <div class="card-header">
+            <h3>Regional Sales</h3>
+          </div>
+          <div class="card-body">
+            <canvas id="regionalSalesChart"></canvas>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -26,20 +76,58 @@
 
     <div class="row">
       <div class="col-md-6">
-        <h3>Product List</h3>
-        <ul id="productList">
-          <li>Product A</li>
-          <li>Product B</li>
-          <li>Product C</li>
-        </ul>
+        <div class="card">
+          <div class="card-header">
+            <h3>Product List</h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Product A</td>
+                </tr>
+                <tr>
+                  <td>Product B</td>
+                </tr>
+                <tr>
+                  <td>Product C</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
       <div class="col-md-6">
-        <h3>Customer List</h3>
-        <ul id="customerList">
-          <li>Customer A</li>
-          <li>Customer B</li>
-          <li>Customer C</li>
-        </ul>
+        <div class="card">
+          <div class="card-header">
+            <h3>Customer List</h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Customer A</td>
+                </tr>
+                <tr>
+                  <td>Customer B</td>
+                </tr>
+                <tr>
+                  <td>Customer C</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
