@@ -28,6 +28,10 @@
         tbody tr:nth-child(even) {
             background-color: #454d55;
         }
+        .pagination {
+            margin-top: 20px;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -62,6 +66,29 @@
             </tbody>
         </table>
     </div>
+    
+    <nav class="d-flex justify-content-center">
+        <ul class="pagination">
+            {% if page > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page - 1 }}">이전</a>
+            </li>
+            {% endif %}
+            
+            {% for p in range(1, total_pages + 1) %}
+            <li class="page-item {% if p == page %}active{% endif %}">
+                <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+            </li>
+            {% endfor %}
+            
+            {% if page < total_pages %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page + 1 }}">다음</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
