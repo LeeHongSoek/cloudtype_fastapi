@@ -37,17 +37,6 @@
 <body>
     <h1 class="text-center mb-4">Employee List</h1>
     
-    <div class="form-group row">
-        <label for="rows-per-page" class="col-sm-2 col-form-label">Rows per Page:</label>
-        <div class="col-sm-4">
-            <select id="rows-per-page" class="form-control">
-                <option value="10" {% if rows_per_page == 10 %}selected{% endif %}>10</option>
-                <option value="20" {% if rows_per_page == 20 %}selected{% endif %}>20</option>
-                <option value="50" {% if rows_per_page == 50 %}selected{% endif %}>50</option>
-            </select>
-        </div>
-    </div>
-
     <div class="table-responsive">
         <table class="table table-bordered table-dark">
             <thead>
@@ -78,6 +67,17 @@
             </tbody>
         </table>
     </div>
+    
+    <nav class="d-flex justify-content-end">
+        <div class="form-group">
+            <label for="rows-per-page" class="col-form-label">Rows per Page:</label>
+            <select id="rows-per-page" class="form-control">
+                <option value="10" {% if rows_per_page == 10 %}selected{% endif %}>10</option>
+                <option value="20" {% if rows_per_page == 20 %}selected{% endif %}>20</option>
+                <option value="50" {% if rows_per_page == 50 %}selected{% endif %}>50</option>
+            </select>
+        </div>
+    </nav>
     
     <nav class="d-flex justify-content-center">
         <ul class="pagination">
