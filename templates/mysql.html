@@ -2,10 +2,14 @@
 <html>
 <head>
     <title>Employee List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             padding: 20px;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            background-color: #343a40;
+            color: #fff;
         }
         table {
             width: 100%;
@@ -17,19 +21,19 @@
             vertical-align: middle;
         }
         th {
-            background-color: #f8f9fa;
+            background-color: #212529;
             font-weight: bold;
             text-transform: uppercase;
         }
         tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #454d55;
         }
     </style>
 </head>
 <body>
-    <h1>Employee List</h1>
+    <h1 class="text-center mb-4">Employee List</h1>
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-dark">
             <thead>
                 <tr>
                     <th>사원 번호</th>
