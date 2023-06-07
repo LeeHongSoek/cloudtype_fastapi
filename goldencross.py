@@ -1,5 +1,12 @@
+'''
+import requests # pip install requests
+from bs4 import BeautifulSoup # pip install beautifulsoup4
+import pandas as pd # pip install pandas
+
+'''
+
 import asyncio
-import aiohttp
+import aiohttp # pip install aiohttp
 from bs4 import BeautifulSoup
 import pandas as pd
 
