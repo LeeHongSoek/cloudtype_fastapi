@@ -43,7 +43,7 @@ while True:
 
     # 한국 타임존을 설정합니다.
     # 형식에 맞게 현재 시간을 얻습니다.
-    formatted_time = datetime.datetime.now(pytz.timezone("Asia/Seoul")).strftime("%Y - %m - %d  %H : %M")
+    formatted_time = datetime.datetime.now(pytz.timezone("Asia/Seoul")).strftime("%Y / %m / %d  %H : %M")
 
     # 원격 저장소의 변경 사항을 가져옵니다.
     subprocess.run(["git", "pull", "origin", "main"])
@@ -59,7 +59,7 @@ while True:
 
     # 변경된 파일이 있는 경우 커밋하고 푸시합니다.
     if num_files > 0:
-        subprocess.run(["git", "commit", "-m", f"-- 수정 : {formatted_time} --"])
+        subprocess.run(["git", "commit", "-m", f"-- 수정  {formatted_time} --"])
         subprocess.run(["git", "push", "origin", "main"])
 
 
