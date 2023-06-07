@@ -29,7 +29,6 @@
             background-color: #454d55;
         }
         .pagination {
-            margin-top: 20px;
             justify-content: center;
         }
     </style>
@@ -68,7 +67,7 @@
         </table>
     </div>
     
-    <nav class="d-flex justify-content-end">
+    <div class="d-flex justify-content-between align-items-center mb-3">
         <div class="form-group">
             <label for="rows-per-page" class="col-form-label">Rows per Page:</label>
             <select id="rows-per-page" class="form-control">
@@ -77,29 +76,29 @@
                 <option value="50" {% if rows_per_page == 50 %}selected{% endif %}>50</option>
             </select>
         </div>
-    </nav>
     
-    <nav class="d-flex justify-content-center">
-        <ul class="pagination">
-            {% if page > 1 %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page - 1 }}">이전</a>
-            </li>
-            {% endif %}
-            
-            {% for p in range(1, total_pages + 1) %}
-            <li class="page-item {% if p == page %}active{% endif %}">
-                <a class="page-link" href="?page={{ p }}">{{ p }}</a>
-            </li>
-            {% endfor %}
-            
-            {% if page < total_pages %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page + 1 }}">다음</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
+        <nav>
+            <ul class="pagination">
+                {% if page > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page - 1 }}">이전</a>
+                </li>
+                {% endif %}
+                
+                {% for p in range(1, total_pages + 1) %}
+                <li class="page-item {% if p == page %}active{% endif %}">
+                    <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+                </li>
+                {% endfor %}
+                
+                {% if page < total_pages %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page + 1 }}">다음</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -108,9 +107,8 @@
     <script>
         $(document).ready(function() {
             // 페이지 수 및 행 수 변경 시 이벤트 핸들러
-            $("#rows-per-page, #go-to-page").change(function() {
+            $("#rows-per-page").change(function() {
                 var rowsPerPage = parseInt($("#rows-per-page").val());
-                // var currentPage = parseInt($("#go-to-page").val());
                 var currentPage = 1;
                 window.location.href = "?page=" + currentPage + "&rows_per_page=" + rowsPerPage;
             });
