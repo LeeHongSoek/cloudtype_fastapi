@@ -37,7 +37,7 @@ import asyncio
 import random
 import os
 from mysql.connector import connect
-
+from math import ceil
 
 app = FastAPI()
 
@@ -56,10 +56,8 @@ async def root():
 
 
 
-# html(mysql) 화면 호출 ------------------------------ 1.
 @app.get("/mysql")
-def home_mysql(request: Request):
-    
+def home_mysql(request: Request, page: int = 1):
     # MySQL 서버에 연결
     conn = connect(
         host="svc.gksl2.cloudtype.app",  # MySQL 서버 호스트
@@ -72,17 +70,40 @@ def home_mysql(request: Request):
     # 커서 생성
     cursor = conn.cursor()
 
-    # 데이터 조회
-    cursor.execute("SELECT * FROM employees")
+    # 페이지당 행의 개수
+    rows_per_page = 10
+
+    # 전체 행의 개수 조회
+    cursor.execute("SELECT COUNT(*) FROM employees")
+    total_rows = cursor.fetchone()[0]
+
+    # 전체 페이지 수 계산
+    total_pages = ceil(total_rows / rows_per_page)
+
+    # 유효한 페이지 범위 확인
+    if page < 1:
+        page = 1
+    elif page > total_pages:
+        page = total_pages
+
+    # 페이지에 해당하는 데이터 조회
+    offset = (page - 1) * rows_per_page
+    cursor.execute("SELECT * FROM employees LIMIT %s, %s", (offset, rows_per_page))
     rows = cursor.fetchall()
 
     # 연결 종료
     cursor.close()
     conn.close()
 
-    return templates.TemplateResponse("mysql.html", {"request": request, "rows": rows})
-
-
+    return templates.TemplateResponse(
+        "mysql.html",
+        {
+            "request": request,
+            "rows": rows,
+            "page": page,
+            "total_pages": total_pages,
+        },
+    )
 
 
 # html(dashboard) 화면 호출 ------------------------------ 1.
