@@ -52,7 +52,15 @@ async def root():
     # return RedirectResponse(url="/redoc")
 
 
-# html 화면 호출 ------------------------------ 1.
+
+
+# html(dashboard) 화면 호출 ------------------------------ 1.
+@app.get("/dashboard")
+def home_dashboard(request: Request):
+    return templates.TemplateResponse("dashboard.html", {"request": request})
+
+
+# html(WebSocket) 화면 호출 ------------------------------ 1.
 @app.get("/asyncView")
 def home_asyncView(request: Request):
     return templates.TemplateResponse("asyncView.html", {"request": request})
