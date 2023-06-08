@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "svc.gksl2.cloudtype.app",
+            "port": 32617,
+            "driver": "MySQL",
+            "name": "svc.gksl2.cloudtype.app",
+            "username": "root",
+            "password": "leehs1181!",
+            "database": "classicmodels"
+        }
+    ]
+}
