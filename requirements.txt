@@ -31,3 +31,5 @@ websockets==10.3
 wsproto
 asyncio
 mysql-connector-python
+finance-datareader
+pandas_market_calendars
