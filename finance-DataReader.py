@@ -1,6 +1,3 @@
-'''
-https://wikidocs.net/172650
-'''
 import FinanceDataReader as fdr
 from datetime import datetime, timedelta
 import pandas_market_calendars as mcal
@@ -33,10 +30,19 @@ for index, row in sp500_list.iterrows():
     # 개별 종목의 데이터 가져오기
     try:
         stock_data = fdr.DataReader(ticker, trading_days[0].date(), trading_days[-1].date())
-        stock_data['5-day Close Avg'] = stock_data['Close'].rolling(window=5).mean().fillna(-1)
-        stock_data['20-day Close Avg'] = stock_data['Close'].rolling(window=20).mean().fillna(-1)
-        stock_data['5-day Volume Avg'] = stock_data['Volume'].rolling(window=5).mean().fillna(-1)
-        stock_data['20-day Volume Avg'] = stock_data['Volume'].rolling(window=20).mean().fillna(-1)
+
+        # 충분한 데이터가 있는 경우에만 이동평균 계산
+        if len(stock_data) >= 20:
+            stock_data['5-day Close Avg'] = stock_data['Close'].rolling(window=5).mean().fillna(-1)
+            stock_data['20-day Close Avg'] = stock_data['Close'].rolling(window=20).mean().fillna(-1)
+            stock_data['5-day Volume Avg'] = stock_data['Volume'].rolling(window=5).mean().fillna(-1)
+            stock_data['20-day Volume Avg'] = stock_data['Volume'].rolling(window=20).mean().fillna(-1)
+        else:
+            stock_data['5-day Close Avg'] = -1
+            stock_data['20-day Close Avg'] = -1
+            stock_data['5-day Volume Avg'] = -1
+            stock_data['20-day Volume Avg'] = -1
+
         stock_data['Date'] = stock_data.index.strftime('%Y-%m-%d')
         stock_data['Ticker'] = ticker
         stock_data['Name'] = name
@@ -48,7 +54,6 @@ for index, row in sp500_list.iterrows():
         stock_data_list.append(stock_data)
     except Exception as e:
         print(f"Error occurred while fetching data for {name}: {str(e)}")
-    break
 
 # 종목별 데이터를 JSON 형식으로 변환
 json_data = []
