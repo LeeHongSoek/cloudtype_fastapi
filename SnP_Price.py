@@ -63,6 +63,7 @@ for index, row in sp500.iterrows():
     except Exception as e:
         print("Error occurred while fetching data for symbol:", symbol)
         print("Error message:", str(e))
+    break
 
 cursor.close()
 conn.close()
