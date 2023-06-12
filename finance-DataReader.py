@@ -1,9 +1,9 @@
 '''
 https://wikidocs.net/172650
 '''
-import FinanceDataReader as fdr
+import FinanceDataReader as fdr # pip install finance-datareader 
 from datetime import datetime, timedelta
-import pandas_market_calendars as mcal
+import pandas_market_calendars as mcal # pip install pandas_market_calendars
 import pandas as pd
 import json
 import numpy as np
@@ -18,7 +18,7 @@ nyse = mcal.get_calendar('NYSE')
 yesterday = datetime.now() - timedelta(days=1)
 
 # 거래일 필터링
-schedule = nyse.schedule(start_date=yesterday - timedelta(days=45), end_date=yesterday)
+schedule = nyse.schedule(start_date=yesterday - timedelta(days=31), end_date=yesterday)
 trading_days = schedule.index
 
 
