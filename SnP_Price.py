@@ -24,13 +24,14 @@ for index, row in sp500.iterrows():
     symbol = row['Symbol']
     company_name = row['Name']
 
-    days = -20
 
     try:
         # 종목 정보 저장
         cursor.execute("INSERT INTO sp500_stocks (symbol, company_name) VALUES (%s, %s) "
                         "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name)",
                         (symbol, company_name))
+
+        days = -20
 
         # 최신 종가와 시가 가져오기
         data = yf.download(symbol, period='max')
@@ -48,8 +49,7 @@ for index, row in sp500.iterrows():
                (symbol, date, open, close, change_rate if not pd.isna(change_rate) else None))
 
             # 데이터 출력
-            print("Symbol:", symbol, "| Date:", date, "| Open:", open, "| Close:", close,
-                  "| Change Rate:", change_rate)
+            print("Symbol:", symbol, "| Date:", date, "| Open:", open, "| Close:", close,"| Change Rate:", change_rate)
 
         conn.commit()
         print(f"Data saved for Symbol: {symbol} | Company: {company_name}")
