@@ -24,39 +24,31 @@ for index, row in sp500.iterrows():
     symbol = row['Symbol']
     company_name = row['Name']
 
+    days = -12
+
     try:
         # 최신 종가와 시가 가져오기
-        data = yf.download(symbol, period='2d')
-        prices = data.tail(2)  # 최근 두 개의 일자 데이터 선택
-        latest_close = prices['Close'].iloc[-1]
-        latest_open = prices['Open'].iloc[-1]
-        prev_close = prices['Close'].iloc[-2]
-        prev_open = prices['Open'].iloc[-2]
-        latest_date = prices.index[-1].strftime('%Y-%m-%d')
-        prev_date = prices.index[-2].strftime('%Y-%m-%d')
+        data = yf.download(symbol, period='max')
+        prices = data.iloc[days:]  # 최근부터 -12일까지의 데이터 선택
 
-        # 종목 정보 저장
-        cursor.execute("INSERT INTO sp500_stocks (symbol, company_name) VALUES (%s, %s) "
-                       "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name)",
-                       (symbol, company_name))
+        for i in range(len(prices)):
+            close, open, date = prices['Close'].iloc[i], prices['Open'].iloc[i], prices.index[i].strftime('%Y-%m-%d')
+            change_rate = (close - open) / open * 100
 
-        # 등락율 계산
-        latest_change_rate = (latest_close - latest_open) / latest_open * 100
-        prev_change_rate = (prev_close - prev_open) / prev_open * 100
+            # 종목 정보 저장
+            cursor.execute("INSERT INTO sp500_stocks (symbol, company_name) VALUES (%s, %s) "
+                           "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name)",
+                           (symbol, company_name))
 
-        # 최근일자 데이터 저장
-        cursor.execute("INSERT INTO stock_prices (symbol, date, open, close, change_rate) "
-                       "VALUES (%s, %s, %s, %s, %s) "
-                       "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
-                       "change_rate = VALUES(change_rate)",
-                       (symbol, latest_date, latest_open, latest_close, latest_change_rate))
+            # 일자별 데이터 저장
+            cursor.execute("INSERT INTO stock_prices (symbol, date, open, close, change_rate) "
+                           "VALUES (%s, %s, %s, %s, %s) "
+                           "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
+                           "change_rate = VALUES(change_rate)",
+                           (symbol, date, open, close, change_rate))
 
-        # 이전일자 데이터 저장
-        cursor.execute("INSERT INTO stock_prices (symbol, date, open, close, change_rate) "
-                       "VALUES (%s, %s, %s, %s, %s) "
-                       "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
-                       "change_rate = VALUES(change_rate)",
-                       (symbol, prev_date, prev_open, prev_close, prev_change_rate))
+            # 데이터 출력
+            print("Symbol:", symbol, "| Date:", date, "| Open:", open, "| Close:", close, "| Change Rate:", change_rate)
 
         conn.commit()
         print(f"Data saved for Symbol: {symbol} | Company: {company_name}")
