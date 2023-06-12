@@ -32,6 +32,9 @@ for index, row in sp500.iterrows():
         latest_close = prices['Close'].iloc[-1]
         latest_open = prices['Open'].iloc[-1]
         latest_date = prices.index[-1].strftime('%Y-%m-%d')
+        # 등락율 계산
+        change_rate = (latest_open - latest_close) / latest_close * 100
+
 
         # 이전 4일의 종가의 평균 계산
         prev_closes = prices['Close'].iloc[:-1]
