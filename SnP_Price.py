@@ -45,7 +45,7 @@ for index, row in sp500.iterrows():
                "VALUES (%s, %s, %s, %s, %s) "
                "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
                "change_rate = VALUES(change_rate)",
-               (symbol, date, open, close, change_rate if not pd.isna(change_rate) else None)
+               (symbol, date, open, close, change_rate if not pd.isna(change_rate) else None))
 
             # 데이터 출력
             print("Symbol:", symbol, "| Date:", date, "| Open:", open, "| Close:", close,
