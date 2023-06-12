@@ -35,7 +35,7 @@ for index, row in sp500.iterrows():
 
         # 최신 종가와 시가 가져오기
         data = yf.download(symbol, period='max')
-        prices = data.iloc[days:]  # 최근부터 -20일까지의 데이터 선택
+        prices = data.iloc[days:]  # 최근부터 days 일까지의 데이터 선택
 
         for i in range(len(prices)):
             close, open, date = prices['Close'].iloc[i], prices['Open'].iloc[i], prices.index[i].strftime('%Y-%m-%d')
