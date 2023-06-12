@@ -1,15 +1,15 @@
-import yfinance as yf # pip install yfinance
-
+import pandas as pd
+import requests
 
 # S&P 500 종목 가져오기
-sp500 = yf.Tickers('^GSPC')  # ^GSPC는 S&P 500 지수를 나타냅니다
+url = "https://datahub.io/core/s-and-p-500-companies/r/constituents.csv"
+data = requests.get(url).content
+sp500 = pd.read_csv(pd.compat.StringIO(data.decode('utf-8')))
 
 # 각 종목의 시가와 종가 가져오기
-for ticker in sp500.tickers:
-    symbol = ticker.ticker
-
+for symbol in sp500['Symbol']:
     # 최신 종가와 시가 가져오기
-    data = ticker.history(period='1d')
+    data = yf.download(symbol, period='1d')
     latest_close = data['Close'].iloc[-1]
     latest_open = data['Open'].iloc[-1]
 
