@@ -26,10 +26,13 @@ for index, row in sp500.iterrows():
 
     try:
         # 최신 종가와 시가 가져오기
-        data = yf.download(symbol, period='1d')
-        latest_close = data['Close'].iloc[-1]
-        latest_open = data['Open'].iloc[-1]
-        latest_date = data.index[-1].strftime('%Y-%m-%d')
+        data = yf.download(symbol, period='2d')
+        prices = data.tail(2)  # 최근 두 개의 일자 데이터 선택
+        latest_close = prices['Close'].iloc[-1]
+        latest_open = prices['Open'].iloc[-1]
+        prev_close = prices['Close'].iloc[-2]
+        prev_open = prices['Open'].iloc[-2]
+        latest_date = prices.index[-1].strftime('%Y-%m-%d')
 
         # 종목 정보 저장
         cursor.execute("INSERT INTO sp500_stocks (symbol, company_name) VALUES (%s, %s) "
@@ -37,14 +40,22 @@ for index, row in sp500.iterrows():
                        (symbol, company_name))
 
         # 등락율 계산
-        change_rate = (latest_close - latest_open) / latest_open * 100
+        latest_change_rate = (latest_close - latest_open) / latest_open * 100
+        prev_change_rate = (prev_close - prev_open) / prev_open * 100
 
-        # 종목 가격 정보 저장
+        # 최근일자 데이터 저장
         cursor.execute("INSERT INTO stock_prices (symbol, date, open, close, change_rate) "
                        "VALUES (%s, %s, %s, %s, %s) "
                        "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
                        "change_rate = VALUES(change_rate)",
-                       (symbol, latest_date, latest_open, latest_close, change_rate))
+                       (symbol, latest_date, latest_open, latest_close, latest_change_rate))
+
+        # 이전일자 데이터 저장
+        cursor.execute("INSERT INTO stock_prices (symbol, date, open, close, change_rate) "
+                       "VALUES (%s, %s, %s, %s, %s) "
+                       "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
+                       "change_rate = VALUES(change_rate)",
+                       (symbol, latest_date, prev_open, prev_close, prev_change_rate))
 
         conn.commit()
         print(f"Data saved for Symbol: {symbol} | Company: {company_name}")
