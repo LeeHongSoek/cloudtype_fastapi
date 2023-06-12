@@ -3,7 +3,6 @@ import pandas as pd
 import requests
 import io
 import yfinance as yf
-import numpy as np
 
 # MySQL 서버에 연결
 conn = connect(
@@ -25,36 +24,40 @@ for index, row in sp500.iterrows():
     symbol = row['Symbol']
     company_name = row['Name']
 
+    days = -20
+
     try:
         # 최신 종가와 시가 가져오기
-        data = yf.download(symbol, period='20d')
-        prices = data.tail(20)  # 최근 20일의 데이터 선택
-        latest_close = prices['Close'].iloc[-1]
-        latest_open = prices['Open'].iloc[-1]
-        latest_date = prices.index[-1].strftime('%Y-%m-%d')
-        # 등락율 계산
-        change_rate = (latest_open - latest_close) / latest_close * 100
+        data = yf.download(symbol, period='max')
+        prices = data.iloc[days:]  # 최근부터 -20일까지의 데이터 선택
+
+        for i in range(len(prices)):
+            close, open, date = prices['Close'].iloc[i], prices['Open'].iloc[i], prices.index[i].strftime('%Y-%m-%d')
+            change_rate = (close - open) / open * 100
+
+            # 5일 평균 계산
+            avg_5 = prices['Close'].iloc[i-4:i+1].mean()
+
+            # 20일 평균 계산
+            avg_20 = prices['Close'].iloc[i-19:i+1].mean()
+
+            # 종목 정보 저장
+            cursor.execute("INSERT INTO sp500_stocks (symbol, company_name) VALUES (%s, %s) "
+                           "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name)",
+                           (symbol, company_name))
 
 
-        # 이전 4일의 종가의 평균 계산
-        prev_closes = prices['Close'].iloc[:-1]
-        avg_5 = np.mean(prev_closes)
+            # 일자별 데이터 저장
+            cursor.execute("INSERT INTO stock_prices (symbol, date, open, close, change_rate, avg_5, avg_20) "
+               "VALUES (%s, %s, %s, %s, %s, %s, %s) "
+               "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
+               "change_rate = VALUES(change_rate), avg_5 = VALUES(avg_5), avg_20 = VALUES(avg_20)",
+               (symbol, date, open, close, change_rate if not pd.isna(change_rate) else None,
+                avg_5 if not pd.isna(avg_5) else None, avg_20 if not pd.isna(avg_20) else None))
 
-        # 이전 19일의 종가의 평균 계산
-        prev_closes_20 = prices['Close'].iloc[:-1]
-        avg_20 = np.mean(prev_closes_20)
-
-        # 종목 정보 저장
-        cursor.execute("INSERT INTO sp500_stocks (symbol, company_name) VALUES (%s, %s) "
-                       "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name)",
-                       (symbol, company_name))
-
-        # 최근일자 데이터 저장
-        cursor.execute("INSERT INTO stock_prices (symbol, date, open, close, change_rate, avg_5, avg_20) "
-                       "VALUES (%s, %s, %s, %s, %s, %s, %s) "
-                       "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
-                       "change_rate = VALUES(change_rate), avg_5 = VALUES(avg_5), avg_20 = VALUES(avg_20)",
-                       (symbol, latest_date, latest_open, latest_close, change_rate, avg_5 if not np.isnan(avg_5) else None, avg_20 if not np.isnan(avg_20) else None))
+            # 데이터 출력
+            print("Symbol:", symbol, "| Date:", date, "| Open:", open, "| Close:", close,
+                  "| Change Rate:", change_rate, "| 5-day Avg:", avg_5, "| 20-day Avg:", avg_20)
 
         conn.commit()
         print(f"Data saved for Symbol: {symbol} | Company: {company_name}")
