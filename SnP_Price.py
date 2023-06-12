@@ -27,6 +27,11 @@ for index, row in sp500.iterrows():
     days = -20
 
     try:
+        # 종목 정보 저장
+        cursor.execute("INSERT INTO sp500_stocks (symbol, company_name) VALUES (%s, %s) "
+                        "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name)",
+                        (symbol, company_name))
+
         # 최신 종가와 시가 가져오기
         data = yf.download(symbol, period='max')
         prices = data.iloc[days:]  # 최근부터 -20일까지의 데이터 선택
@@ -40,12 +45,6 @@ for index, row in sp500.iterrows():
 
             # 20일 평균 계산
             avg_20 = prices['Close'].iloc[i-19:i+1].mean()
-
-            # 종목 정보 저장
-            cursor.execute("INSERT INTO sp500_stocks (symbol, company_name) VALUES (%s, %s) "
-                           "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name)",
-                           (symbol, company_name))
-
 
             # 일자별 데이터 저장
             cursor.execute("INSERT INTO stock_prices (symbol, date, open, close, change_rate, avg_5, avg_20) "
