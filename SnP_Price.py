@@ -40,23 +40,16 @@ for index, row in sp500.iterrows():
             close, open, date = prices['Close'].iloc[i], prices['Open'].iloc[i], prices.index[i].strftime('%Y-%m-%d')
             change_rate = (close - open) / open * 100
 
-            # 5일 평균 계산
-            avg_5 = prices['Close'].iloc[i-4:i+1].mean()
-
-            # 20일 평균 계산
-            avg_20 = prices['Close'].iloc[i-19:i+1].mean()
-
             # 일자별 데이터 저장
-            cursor.execute("INSERT INTO stock_prices (symbol, tr_date, open, close, change_rate, avg_5, avg_20) "
-               "VALUES (%s, %s, %s, %s, %s, %s, %s) "
+            cursor.execute("INSERT INTO stock_prices (symbol, tr_date, open, close, change_rate "
+               "VALUES (%s, %s, %s, %s, %s) "
                "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
-               "change_rate = VALUES(change_rate), avg_5 = VALUES(avg_5), avg_20 = VALUES(avg_20)",
-               (symbol, date, open, close, change_rate if not pd.isna(change_rate) else None,
-                avg_5 if not pd.isna(avg_5) else None, avg_20 if not pd.isna(avg_20) else None))
+               "change_rate = VALUES(change_rate)",
+               (symbol, date, open, close, change_rate if not pd.isna(change_rate) else None)
 
             # 데이터 출력
             print("Symbol:", symbol, "| Date:", date, "| Open:", open, "| Close:", close,
-                  "| Change Rate:", change_rate, "| 5-day Avg:", avg_5, "| 20-day Avg:", avg_20)
+                  "| Change Rate:", change_rate)
 
         conn.commit()
         print(f"Data saved for Symbol: {symbol} | Company: {company_name}")
