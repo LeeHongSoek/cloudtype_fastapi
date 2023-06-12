@@ -36,10 +36,15 @@ for index, row in sp500.iterrows():
                        "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name)",
                        (symbol, company_name))
 
+        # 등락율 계산
+        change_rate = (latest_close - latest_open) / latest_open * 100
+
         # 종목 가격 정보 저장
-        cursor.execute("INSERT INTO stock_prices (symbol, date, open, close) VALUES (%s, %s, %s, %s) "
-                       "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close)",
-                       (symbol, latest_date, latest_open, latest_close))
+        cursor.execute("INSERT INTO stock_prices (symbol, date, open, close, change_rate) "
+                       "VALUES (%s, %s, %s, %s, %s) "
+                       "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
+                       "change_rate = VALUES(change_rate)",
+                       (symbol, latest_date, latest_open, latest_close, change_rate))
 
         conn.commit()
         print(f"Data saved for Symbol: {symbol} | Company: {company_name}")
