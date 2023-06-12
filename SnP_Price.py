@@ -33,6 +33,7 @@ for index, row in sp500.iterrows():
         prev_close = prices['Close'].iloc[-2]
         prev_open = prices['Open'].iloc[-2]
         latest_date = prices.index[-1].strftime('%Y-%m-%d')
+        prev_date = prices.index[-2].strftime('%Y-%m-%d')
 
         # 종목 정보 저장
         cursor.execute("INSERT INTO sp500_stocks (symbol, company_name) VALUES (%s, %s) "
@@ -55,7 +56,7 @@ for index, row in sp500.iterrows():
                        "VALUES (%s, %s, %s, %s, %s) "
                        "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
                        "change_rate = VALUES(change_rate)",
-                       (symbol, latest_date, prev_open, prev_close, prev_change_rate))
+                       (symbol, prev_date, prev_open, prev_close, prev_change_rate))
 
         conn.commit()
         print(f"Data saved for Symbol: {symbol} | Company: {company_name}")
