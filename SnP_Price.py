@@ -9,7 +9,7 @@ conn = connect(
     host="svc.gksl2.cloudtype.app",  # MySQL 서버 호스트
     user="root",  # MySQL 사용자 이름
     password="leehs1181!",  # MySQL 사용자 비밀번호
-    database="classicmodels",  # 사용할 데이터베이스 이름
+    database="lhs_stock",  # 사용할 데이터베이스 이름
     port=32617  # MySQL 접속 포트
 )
 
@@ -47,7 +47,7 @@ for index, row in sp500.iterrows():
             avg_20 = prices['Close'].iloc[i-19:i+1].mean()
 
             # 일자별 데이터 저장
-            cursor.execute("INSERT INTO stock_prices (symbol, date, open, close, change_rate, avg_5, avg_20) "
+            cursor.execute("INSERT INTO stock_prices (symbol, tr_date, open, close, change_rate, avg_5, avg_20) "
                "VALUES (%s, %s, %s, %s, %s, %s, %s) "
                "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
                "change_rate = VALUES(change_rate), avg_5 = VALUES(avg_5), avg_20 = VALUES(avg_20)",
