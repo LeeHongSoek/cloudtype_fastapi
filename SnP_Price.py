@@ -31,7 +31,7 @@ for index, row in sp500.iterrows():
                         "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name)",
                         (symbol, company_name))
 
-        days = -20
+        days = -30
 
         # 최신 종가와 시가 가져오기
         data = yf.download(symbol, period='max')
@@ -56,7 +56,7 @@ for index, row in sp500.iterrows():
     except Exception as e:
         print("Error occurred while fetching data for symbol:", symbol)
         print("Error message:", str(e))
-    break
+    #break
 
 cursor.close()
 conn.close()
