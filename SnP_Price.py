@@ -26,8 +26,8 @@ for index, row in sp500.iterrows():
 
     try:
         # 종목 정보 저장
-        cursor.execute("INSERT INTO sp500_stocks (symbol, company_name) VALUES (%s, %s) "
-                        "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name)",
+        cursor.execute("INSERT INTO sp500_stocks (symbol, company_name, date_update) VALUES (%s, %s, NOW()) "
+                        "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name), date_update = NOW()",
                         (symbol, company_name))
 
         days = -1
@@ -72,3 +72,5 @@ for index, row in sp500.iterrows():
 
 cursor.close()
 conn.close()
+
+ 
