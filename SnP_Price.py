@@ -46,13 +46,12 @@ for index, row in sp500.iterrows():
             change_rate = (close - open) / open * 100
 
             # 일자별 데이터 저장
-            cursor.execute("INSERT INTO stock_prices (symbol, tr_date, open, close, change_rate, volume) "
-               "VALUES (%s, %s, %s, %s, %s, %s) "
+            cursor.execute("INSERT INTO stock_prices (symbol, tr_date, open, close, change_rate, volume, date_update) "
+               "VALUES (%s, %s, %s, %s, %s, %s, NOW()) "
                "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
                "change_rate = VALUES(change_rate), avg_5 = VALUES(avg_5), avg_20 = VALUES(avg_20), "
-               "volume = VALUES(volume)",
+               "volume = VALUES(volume), date_update = NOW()",
                (symbol, date, open, close, change_rate if not pd.isna(change_rate) else None, int(volume)))
-
 
             # 데이터 출력
             print(
