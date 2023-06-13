@@ -18,8 +18,9 @@ url = "https://datahub.io/core/s-and-p-500-companies/r/constituents.csv"
 data = requests.get(url).content
 sp500 = pd.read_csv(io.StringIO(data.decode('utf-8')))
 
-# 각 종목의 시가, 종가, 거래량 가져와서 MySQL에 저장
+# 각 종목 MySQL에 저장
 cursor = conn.cursor()
+
 for index, row in sp500.iterrows():
     symbol = row['Symbol']
     company_name = row['Name']
@@ -29,7 +30,26 @@ for index, row in sp500.iterrows():
         cursor.execute("INSERT INTO sp500_stocks (symbol, company_name, date_update, date_create) VALUES (%s, %s, NOW(), NOW()) "
                         "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name), date_update = NOW()",
                         (symbol, company_name))
+    except Exception as e:
+        print("Error message:", str(e))
 
+        
+    # break
+
+# 각 종목의 시가, 종가, 거래량 가져와서 MySQL에 저장
+# SELECT 문 실행
+cursor = conn.cursor()
+query = "SELECT symbol, company_name FROM sp500_stocks"
+cursor.execute(query)
+
+# 결과 가져오기
+results = cursor.fetchall()
+
+# 결과 출력
+for row in results:
+    symbol, company_name = row
+    
+    try:
         days = -1
 
         # 최신 종가, 시가, 거래량 가져오기
@@ -68,7 +88,9 @@ for index, row in sp500.iterrows():
     except Exception as e:
         print("Error occurred while fetching data for symbol:", symbol)
         print("Error message:", str(e))
-    # break
+
+
+
 
 cursor.close()
 conn.close()
