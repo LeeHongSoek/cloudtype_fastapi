@@ -71,12 +71,12 @@ for row in results:
 
             # 데이터 출력
             print(
-                "Symbol:", symbol,
-                "| Date:", date,
-                "| Open:", open,
-                "| Close:", close,
-                "| Change Rate:", change_rate,
-                "| Volume:", volume
+                "티거:", symbol,
+                "| 일자:", date,
+                "| 시가:", open,
+                "| 종가:", close,
+                "| 변동률:", change_rate,
+                "| 거래량:", volume
             )
 
         conn.commit()
