@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- 생성 시간: 23-06-13 16:57
+-- 생성 시간: 23-06-13 21:44
 -- 서버 버전: 10.5.21-MariaDB-1:10.5.21+maria~ubu2004
 -- PHP 버전: 8.1.20
 
@@ -25,7 +25,9 @@ CREATE TABLE `sp500_stocks` (
   `symbol` varchar(10) NOT NULL,
   `company_name` varchar(255) NOT NULL,
   `date_update` datetime NOT NULL,
-  `date_create` datetime NOT NULL
+  `date_create` datetime NOT NULL,
+  `able` enum('Y','n') NOT NULL DEFAULT 'Y',
+  `favorite` enum('Y','n') DEFAULT 'n'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
