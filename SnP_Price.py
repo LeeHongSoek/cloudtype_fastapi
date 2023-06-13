@@ -30,7 +30,7 @@ for index, row in sp500.iterrows():
                         "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name)",
                         (symbol, company_name))
 
-        days = -30
+        days = -1
 
         # 최신 종가, 시가, 거래량 가져오기
         data = yf.download(symbol, period='max')
