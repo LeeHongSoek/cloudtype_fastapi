@@ -51,7 +51,8 @@ for index, row in sp500.iterrows():
                "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
                "change_rate = VALUES(change_rate), avg_5 = VALUES(avg_5), avg_20 = VALUES(avg_20), "
                "volume = VALUES(volume)",
-               (symbol, date, open, close, change_rate if not pd.isna(change_rate) else None, volume))
+               (symbol, date, open, close, change_rate if not pd.isna(change_rate) else None, int(volume)))
+
 
             # 데이터 출력
             print(
