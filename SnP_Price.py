@@ -30,6 +30,9 @@ for index, row in sp500.iterrows():
         cursor.execute("INSERT INTO sp500_stocks (symbol, company_name, date_update, date_create) VALUES (%s, %s, NOW(), NOW()) "
                         "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name), date_update = NOW()",
                         (symbol, company_name))
+        # 데이터 출력
+        print("티커:", symbol, "| 종목명:", company_name)
+        
     except Exception as e:
         print("Error message:", str(e))
     # break
@@ -71,7 +74,7 @@ for row in results:
 
             # 데이터 출력
             print(
-                "티거:", symbol,
+                "티커:", symbol,
                 "| 일자:", date,
                 "| 시가:", open,
                 "| 종가:", close,
