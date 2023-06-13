@@ -32,15 +32,12 @@ for index, row in sp500.iterrows():
                         (symbol, company_name))
     except Exception as e:
         print("Error message:", str(e))
-
-        
     # break
 
 # 각 종목의 시가, 종가, 거래량 가져와서 MySQL에 저장
+
 # SELECT 문 실행
-cursor = conn.cursor()
-query = "SELECT symbol, company_name FROM sp500_stocks"
-cursor.execute(query)
+cursor.execute("SELECT symbol, company_name FROM sp500_stocks")
 
 # 결과 가져오기
 results = cursor.fetchall()
@@ -48,10 +45,9 @@ results = cursor.fetchall()
 # 결과 출력
 for row in results:
     symbol, company_name = row
+    days = -1
     
     try:
-        days = -1
-
         # 최신 종가, 시가, 거래량 가져오기
         data = yf.download(symbol, period='max')
         prices = data.iloc[days:]  # 최근부터 days 일까지의 데이터 선택
@@ -88,8 +84,6 @@ for row in results:
     except Exception as e:
         print("Error occurred while fetching data for symbol:", symbol)
         print("Error message:", str(e))
-
-
 
 
 cursor.close()
