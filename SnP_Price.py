@@ -18,12 +18,11 @@ url = "https://datahub.io/core/s-and-p-500-companies/r/constituents.csv"
 data = requests.get(url).content
 sp500 = pd.read_csv(io.StringIO(data.decode('utf-8')))
 
-# 각 종목의 시가와 종가 가져와서 MySQL에 저장
+# 각 종목의 시가, 종가, 거래량 가져와서 MySQL에 저장
 cursor = conn.cursor()
 for index, row in sp500.iterrows():
     symbol = row['Symbol']
     company_name = row['Name']
-
 
     try:
         # 종목 정보 저장
@@ -33,30 +32,43 @@ for index, row in sp500.iterrows():
 
         days = -30
 
-        # 최신 종가와 시가 가져오기
+        # 최신 종가, 시가, 거래량 가져오기
         data = yf.download(symbol, period='max')
         prices = data.iloc[days:]  # 최근부터 days 일까지의 데이터 선택
 
         for i in range(len(prices)):
-            close, open, date = prices['Close'].iloc[i], prices['Open'].iloc[i], prices.index[i].strftime('%Y-%m-%d')
+            close, open, volume, date = (
+                prices['Close'].iloc[i],
+                prices['Open'].iloc[i],
+                prices['Volume'].iloc[i],
+                prices.index[i].strftime('%Y-%m-%d')
+            )
             change_rate = (close - open) / open * 100
 
             # 일자별 데이터 저장
-            cursor.execute("INSERT INTO stock_prices (symbol, tr_date, open, close, change_rate) "
-               "VALUES (%s, %s, %s, %s, %s) "
+            cursor.execute("INSERT INTO stock_prices (symbol, tr_date, open, close, change_rate, volume) "
+               "VALUES (%s, %s, %s, %s, %s, %s) "
                "ON DUPLICATE KEY UPDATE open = VALUES(open), close = VALUES(close), "
-               "change_rate = VALUES(change_rate), avg_5 = VALUES(avg_5), avg_20 = VALUES(avg_20)",
-               (symbol, date, open, close, change_rate if not pd.isna(change_rate) else None))
+               "change_rate = VALUES(change_rate), avg_5 = VALUES(avg_5), avg_20 = VALUES(avg_20), "
+               "volume = VALUES(volume)",
+               (symbol, date, open, close, change_rate if not pd.isna(change_rate) else None, volume))
 
             # 데이터 출력
-            print("Symbol:", symbol, "| Date:", date, "| Open:", open, "| Close:", close,"| Change Rate:", change_rate)
+            print(
+                "Symbol:", symbol,
+                "| Date:", date,
+                "| Open:", open,
+                "| Close:", close,
+                "| Change Rate:", change_rate,
+                "| Volume:", volume
+            )
 
         conn.commit()
         print(f"Data saved for Symbol: {symbol} | Company: {company_name}")
     except Exception as e:
         print("Error occurred while fetching data for symbol:", symbol)
         print("Error message:", str(e))
-    #break
+    # break
 
 cursor.close()
 conn.close()
