@@ -27,10 +27,12 @@ for index, row in sp500.iterrows():
 
     try:
         # 종목 정보 저장
-        cursor.execute("  INSERT INTO sp500_stocks (symbol, company_name, date_update, date_create) "
-                       "       VALUES (%s, %s, NOW(), NOW()) "
-                       "ON DUPLICATE KEY UPDATE company_name = VALUES(company_name), date_update = NOW()",
-                       (symbol, company_name))
+        cursor.execute("     INSERT INTO sp500_stocks                                                "
+                       "                 (symbol, company_name, date_update, date_create)            "
+                       "          VALUES (%s, %s, NOW(), NOW())                                      "
+                       "ON DUPLICATE KEY                                                             "
+                       "          UPDATE company_name = VALUES(company_name), date_update = NOW()    "
+                      ,(symbol, company_name))
         # 데이터 출력
         print("티커:", symbol, "| 종목명:", company_name)
         
@@ -41,9 +43,11 @@ for index, row in sp500.iterrows():
 # 각 종목의 시가, 종가, 거래량 가져와서 MySQL에 저장
 
 # SELECT 문 실행
-cursor.execute("SELECT symbol, company_name "    
+cursor.execute("SELECT symbol        "
+               "     , company_name  "    
                "  FROM sp500_stocks  " 
-               " WHERE able = 'Y'    ")
+               " WHERE able = 'Y'    "
+              )
 
 # 결과 가져오기
 results = cursor.fetchall()
