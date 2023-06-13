@@ -2,7 +2,7 @@ from mysql.connector import connect
 import pandas as pd
 import requests
 import io
-import yfinance as yf
+import yfinance as yf # pip install yfinance
 
 # MySQL 서버에 연결
 conn = connect(

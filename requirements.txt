@@ -33,3 +33,4 @@ asyncio
 mysql-connector-python
 finance-datareader
 pandas_market_calendars
+yfinance
