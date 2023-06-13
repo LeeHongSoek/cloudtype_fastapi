@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- 생성 시간: 23-06-12 17:41
+-- 생성 시간: 23-06-13 16:57
 -- 서버 버전: 10.5.21-MariaDB-1:10.5.21+maria~ubu2004
 -- PHP 버전: 8.1.20
 
@@ -23,7 +23,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `sp500_stocks` (
   `symbol` varchar(10) NOT NULL,
-  `company_name` varchar(255) NOT NULL
+  `company_name` varchar(255) NOT NULL,
+  `date_update` datetime NOT NULL,
+  `date_create` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -38,6 +40,7 @@ CREATE TABLE `stock_prices` (
   `open` decimal(10,2) DEFAULT NULL,
   `close` decimal(10,2) DEFAULT NULL,
   `change_rate` decimal(5,2) DEFAULT NULL,
+  `volume` int(11) DEFAULT NULL,
   `avg_5` decimal(10,2) DEFAULT NULL,
   `avg_20` decimal(10,2) DEFAULT NULL,
   `date_update` datetime DEFAULT NULL
