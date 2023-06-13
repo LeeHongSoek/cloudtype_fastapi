@@ -49,11 +49,9 @@ cursor.execute("SELECT symbol        "
                " WHERE able = 'Y'    "
               )
 
-# 결과 가져오기
-results = cursor.fetchall()
+results = cursor.fetchall()  # 결과 가져오기
 
-# 결과 출력
-for row in results:
+for row in results:  # 결과 출력
     symbol, company_name = row
     days = -1
     
