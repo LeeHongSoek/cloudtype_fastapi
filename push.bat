@@ -1,0 +1,1 @@
+python .\gitAutoPush\gitAutoPush.py
