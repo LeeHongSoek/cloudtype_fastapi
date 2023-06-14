@@ -11,7 +11,7 @@ filename = 'lhs_stock.db'
 fc.file_download(directory, filename)
 
 # Connect to SQLite database
-conn = sqlite3.connect('lhs_stock.db')
+conn = sqlite3.connect(filename)
 
 # Create tables
 cursor = conn.cursor()
