@@ -179,10 +179,10 @@ for row in results:
             
             query = '''
                 UPDATE stock_prices
-                SET avg_5 = ?
-                    , avg_20 = ?
-                WHERE symbol = ?
-                    AND tr_date = ?
+                   SET avg_5 = ?
+                     , avg_20 = ?
+                 WHERE symbol = ?
+                   AND tr_date = ?
             '''
             parameters = (avg_5, avg_20, symbol, date)
 
