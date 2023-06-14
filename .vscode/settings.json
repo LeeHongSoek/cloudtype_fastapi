@@ -12,6 +12,12 @@
             "username": "root",
             "password": "leehs1181!",
             "database": "classicmodels"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "mystok",
+            "database": "${workspaceFolder:cloudtype_fastapi}/lhs_stock.db"
         }
     ]
 }
