@@ -1,7 +1,6 @@
 import pandas as pd
 import requests
 import io
-import yfinance as yf
 import sqlite3
 import Snp_PriceSubfunc as sub
 import ftpCliant as fc
