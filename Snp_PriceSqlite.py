@@ -33,8 +33,7 @@ for index, row in sp500.iterrows():
     # Insert or update the symbol in sp500_stocks table
     sub.insert_update_sp500_stocks(cursor, symbol, company_name)
 
-# Commit the changes
-conn.commit()
+conn.commit() # Commit the changes
 
 # Fetch symbols, company_name from sp500_stocks table
 results = sub.select_sp500_stocks(cursor)

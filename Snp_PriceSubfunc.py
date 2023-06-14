@@ -169,10 +169,10 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             cursor.execute(query, parameters)
 
             # 데이터 출력
-            print("티커:", symbol, "| 일자:", date, "| 시가:", open_, "| 종가:", close_, "| 변동률:", change_rate, "| 거래량:", volume_)
+            print("티커:", symbol, "| 일자:", date, "| 시가:", open_, "| 종가:", close_, "| 변동률:", change_rate, "| 거래량:", volume_)        
+        
+        conn.commit() # Commit the changes for each symbol
 
-        # Commit the changes for each symbol
-        conn.commit()
         print(f"Data저장 - 티커: {symbol} | 종목명: {company_name}")
     except Exception as e:
         print("Error occurred while fetching data for symbol:", symbol)
