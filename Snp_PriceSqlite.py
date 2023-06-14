@@ -11,53 +11,55 @@ conn = sqlite3.connect('lhs_stock.db')
 cursor = conn.cursor()
 
 
-# Check if sp500_stocks table exists
-query = '''
-    SELECT name FROM sqlite_master WHERE type='table' AND name='sp500_stocks'
-'''
-cursor.execute(query)
-table_exists = cursor.fetchone()
-
-# Create sp500_stocks table if it does not exist
-if not table_exists:
-    # Create sp500_stocks table
+def create_sp500_stocks_table():
+    # Check if sp500_stocks table exists
     query = '''
-        CREATE TABLE IF NOT EXISTS sp500_stocks (
-            symbol TEXT PRIMARY KEY,
-            company_name TEXT NOT NULL,
-            date_update DATETIME NOT NULL,
-            date_create DATETIME NOT NULL,
-            able TEXT NOT NULL DEFAULT 'Y',
-            favorite TEXT DEFAULT 'n'
-        )
+        SELECT name FROM sqlite_master WHERE type='table' AND name='sp500_stocks'
     '''
     cursor.execute(query)
+    table_exists = cursor.fetchone()
 
-# Check if stock_prices table exists
-query = '''
-    SELECT name FROM sqlite_master WHERE type='table' AND name='stock_prices'
-'''
-cursor.execute(query)
-table_exists = cursor.fetchone()
+    # Create sp500_stocks table if it does not exist
+    if not table_exists:
+        # Create sp500_stocks table
+        query = '''
+            CREATE TABLE IF NOT EXISTS sp500_stocks (
+                symbol TEXT PRIMARY KEY,
+                company_name TEXT NOT NULL,
+                date_update DATETIME NOT NULL,
+                date_create DATETIME NOT NULL,
+                able TEXT NOT NULL DEFAULT 'Y',
+                favorite TEXT DEFAULT 'n'
+            )
+        '''
+        cursor.execute(query)
 
-# Create stock_prices table if it does not exist
-if not table_exists:
-    # Create stock_prices table
+def create_stock_prices_table():
+    # Check if stock_prices table exists
     query = '''
-        CREATE TABLE IF NOT EXISTS stock_prices (
-            symbol TEXT NOT NULL,
-            tr_date DATE NOT NULL,
-            open DECIMAL(10, 2) DEFAULT NULL,
-            close DECIMAL(10, 2) DEFAULT NULL,
-            change_rate DECIMAL(5, 2) DEFAULT NULL,
-            volume INTEGER DEFAULT NULL,
-            avg_5 DECIMAL(10, 2) DEFAULT NULL,
-            avg_20 DECIMAL(10, 2) DEFAULT NULL,
-            date_update DATETIME DEFAULT NULL,
-            PRIMARY KEY (symbol, tr_date)
-        )
+        SELECT name FROM sqlite_master WHERE type='table' AND name='stock_prices'
     '''
     cursor.execute(query)
+    table_exists = cursor.fetchone()
+
+    # Create stock_prices table if it does not exist
+    if not table_exists:
+        # Create stock_prices table
+        query = '''
+            CREATE TABLE IF NOT EXISTS stock_prices (
+                symbol TEXT NOT NULL,
+                tr_date DATE NOT NULL,
+                open DECIMAL(10, 2) DEFAULT NULL,
+                close DECIMAL(10, 2) DEFAULT NULL,
+                change_rate DECIMAL(5, 2) DEFAULT NULL,
+                volume INTEGER DEFAULT NULL,
+                avg_5 DECIMAL(10, 2) DEFAULT NULL,
+                avg_20 DECIMAL(10, 2) DEFAULT NULL,
+                date_update DATETIME DEFAULT NULL,
+                PRIMARY KEY (symbol, tr_date)
+            )
+        '''
+        cursor.execute(query)
 
 
 # Function to fetch and store stock prices
@@ -177,16 +179,8 @@ def fetch_store_stock_prices(symbol, company_name):
         print("Error message:", str(e))
 
 
-# S&P 500 종목 가져오기
-url = "https://datahub.io/core/s-and-p-500-companies/r/constituents.csv"
-data = requests.get(url).content
-sp500 = pd.read_csv(io.StringIO(data.decode('utf-8')))
 
-# Insert or update each symbol in sp500_stocks table
-for index, row in sp500.iterrows():
-    symbol = row['Symbol']
-    company_name = row['Name']
-
+def insert_update_sp500_stocks(symbol, company_name):
     try:
         query = '''
             INSERT OR IGNORE INTO sp500_stocks
@@ -200,6 +194,27 @@ for index, row in sp500.iterrows():
         print("티커:", symbol, "| 종목명:", company_name)
     except Exception as e:
         print("Error message:", str(e))
+
+
+
+
+# Create sp500_stocks table if it does not exist
+# Create stock_prices table if it does not exist
+create_sp500_stocks_table()
+create_stock_prices_table()
+
+# S&P 500 종목 가져오기
+url = "https://datahub.io/core/s-and-p-500-companies/r/constituents.csv"
+data = requests.get(url).content
+sp500 = pd.read_csv(io.StringIO(data.decode('utf-8')))
+
+# Insert or update each symbol in sp500_stocks table
+for index, row in sp500.iterrows():
+    symbol = row['Symbol']
+    company_name = row['Name']
+
+    # Insert or update the symbol in sp500_stocks table
+    insert_update_sp500_stocks(symbol, company_name)
 
     # Fetch and store stock prices for each symbol
     fetch_store_stock_prices(symbol, company_name)
