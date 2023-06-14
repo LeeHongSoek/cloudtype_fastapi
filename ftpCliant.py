@@ -32,6 +32,8 @@ for file in files:
     print(file)
 
 # Download a file
+'''
+
 filename = 'lhs_stock.db'
 try:
     with open(filename, 'wb') as file:
@@ -42,7 +44,7 @@ except error_perm as e:
         print("File does not exist.")
     else:
         print("Error occurred during file download:", str(e))
-
+'''
 
 
 # Upload a file
