@@ -52,6 +52,16 @@ def create_stock_prices_table(cursor):
         '''
         cursor.execute(query)
 
+# Fetch symbols, company_name from sp500_stocks table
+def select_sp500_stocks(cursor):    
+    query = '''
+        SELECT symbol, company_name
+        FROM sp500_stocks
+        WHERE able = 'Y'
+    '''
+    cursor.execute(query)
+
+    return cursor.fetchall()
 
 # Function to fetch and store stock prices
 def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
