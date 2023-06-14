@@ -99,7 +99,7 @@ results = cursor.fetchall()
 # Fetch stock prices and store them in the database
 for row in results:
     symbol, company_name = row
-    days = -31
+    days = -1
 
     try:
         # Fetch stock prices using yfinance
@@ -207,7 +207,7 @@ for row in results:
             cursor.execute(query, parameters)
             
             # 쿼리와 파라미터를 결합하여 최종 SQL 문을 생성
-            print(query.replace('?', '{}').format(*parameters))
+            # print(query.replace('?', '{}').format(*parameters))
 
         # Commit the changes for each symbol
         conn.commit()
