@@ -95,27 +95,27 @@ for row in results:
         prices = data.iloc[days:]
 
         for i in range(len(prices)):
-            close, open_, volume, date = (
+            close_, open_, volume, date = (
                 prices['Close'].iloc[i],
                 prices['Open'].iloc[i],
                 prices['Volume'].iloc[i],
                 prices.index[i].strftime('%Y-%m-%d')
             )
-            change_rate = (close - open_) / open_ * 100
+            change_rate = (close_ - open_) / open_ * 100
 
             # Insert or update daily stock prices
             cursor.execute('''
                 INSERT OR IGNORE INTO stock_prices
                 (symbol, tr_date, open, close, change_rate, volume, date_update)
                 VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
-            ''', (symbol, date, open_, close, change_rate, int(volume)))
+            ''', (symbol, date, open_, close_, change_rate, int(volume)))
 
             # 데이터 출력
             print(
                 "티커:", symbol,
                 "| 일자:", date,
                 "| 시가:", open_,
-                "| 종가:", close,
+                "| 종가:", close_,
                 "| 변동률:", change_rate,
                 "| 거래량:", volume
             )
@@ -147,7 +147,7 @@ for row in results:
                     ''', (symbol, date))
                     results2 = cursor.fetchall()
                     for row2 in results2:
-                        avg_5 = (row2[0]+close) / 5 
+                        avg_5 = (row2[0]+close_) / 5 
             
             cursor.execute('''
                 SELECT COUNT(*) + 1 
@@ -175,7 +175,7 @@ for row in results:
                     ''', (symbol, date))
                     results2 = cursor.fetchall()
                     for row2 in results2:
-                        avg_20 = (row2[0]+close) / 5 
+                        avg_20 = (row2[0]+close_) / 5 
             
             query = '''
                 UPDATE stock_prices
