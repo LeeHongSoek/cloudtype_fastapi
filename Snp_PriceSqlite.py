@@ -12,13 +12,16 @@ cursor = conn.cursor()
 
 
 # Check if sp500_stocks table exists
-cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='sp500_stocks'")
+query = '''
+    SELECT name FROM sqlite_master WHERE type='table' AND name='sp500_stocks'
+'''
+cursor.execute(query)
 table_exists = cursor.fetchone()
 
 # Create sp500_stocks table if it does not exist
 if not table_exists:
     # Create sp500_stocks table
-    cursor.execute('''
+    query = '''
         CREATE TABLE IF NOT EXISTS sp500_stocks (
             symbol TEXT PRIMARY KEY,
             company_name TEXT NOT NULL,
@@ -27,16 +30,20 @@ if not table_exists:
             able TEXT NOT NULL DEFAULT 'Y',
             favorite TEXT DEFAULT 'n'
         )
-    ''')
+    '''
+    cursor.execute(query)
 
 # Check if stock_prices table exists
-cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='stock_prices'")
+query = '''
+    SELECT name FROM sqlite_master WHERE type='table' AND name='stock_prices'
+'''
+cursor.execute(query)
 table_exists = cursor.fetchone()
 
 # Create sp500_stocks table if it does not exist
 if not table_exists:
     # Create stock_prices table
-    cursor.execute('''
+    query = '''
         CREATE TABLE IF NOT EXISTS stock_prices (
             symbol TEXT NOT NULL,
             tr_date DATE NOT NULL,
@@ -49,7 +56,8 @@ if not table_exists:
             date_update DATETIME DEFAULT NULL,
             PRIMARY KEY (symbol, tr_date)
         )
-    ''')
+    '''
+    cursor.execute(query)
     
 # S&P 500 종목 가져오기
 url = "https://datahub.io/core/s-and-p-500-companies/r/constituents.csv"
@@ -62,11 +70,13 @@ for index, row in sp500.iterrows():
     company_name = row['Name']
 
     try:
-        cursor.execute('''
+        query = '''
             INSERT OR IGNORE INTO sp500_stocks
-            (symbol, company_name, date_update, date_create)
-            VALUES (?, ?, datetime('now'), datetime('now'))
-        ''', (symbol, company_name))
+                                  (symbol, company_name, date_update, date_create)
+                           VALUES (?, ?, datetime('now'), datetime('now'))
+        '''
+        parameters = (symbol, company_name)
+        cursor.execute(query, parameters)
 
         # 데이터 출력
         print("티커:", symbol, "| 종목명:", company_name)
@@ -77,11 +87,13 @@ for index, row in sp500.iterrows():
 conn.commit()
 
 # Fetch symbols from sp500_stocks table
-cursor.execute('''
+query = '''
     SELECT symbol, company_name
-    FROM sp500_stocks
-    WHERE able = 'Y'
-''')
+      FROM sp500_stocks
+     WHERE able = 'Y'
+'''
+cursor.execute(query)
+
 results = cursor.fetchall()
 
 # Fetch stock prices and store them in the database
@@ -95,7 +107,7 @@ for row in results:
         prices = data.iloc[days:]
 
         for i in range(len(prices)):
-            close_, open_, volume, date = (
+            close_, open_, volume_, date = (
                 prices['Close'].iloc[i],
                 prices['Open'].iloc[i],
                 prices['Volume'].iloc[i],
@@ -104,75 +116,82 @@ for row in results:
             change_rate = (close_ - open_) / open_ * 100
 
             # Insert or update daily stock prices
-            cursor.execute('''
+            query = '''
                 INSERT OR IGNORE INTO stock_prices
-                (symbol, tr_date, open, close, change_rate, volume, date_update)
-                VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
-            ''', (symbol, date, open_, close_, change_rate, int(volume)))
-
+                                      (symbol, tr_date, open, close, change_rate, volume, date_update)
+                               VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
+            '''
+            parameters = (symbol, date, open_, close_, change_rate, int(volume_))
+            cursor.execute(query, parameters)
+            
             # 데이터 출력
-            print(
-                "티커:", symbol,
-                "| 일자:", date,
-                "| 시가:", open_,
-                "| 종가:", close_,
-                "| 변동률:", change_rate,
-                "| 거래량:", volume
-            )
+            print("티커:", symbol, "| 일자:", date, "| 시가:", open_, "| 종가:", close_, "| 변동률:", change_rate, "| 거래량:", volume_ )
 
             # Fetch symbols from sp500_stocks table
-            cursor.execute('''
+            query = '''
                 SELECT COUNT(*) + 1 
                   FROM stock_prices
                  WHERE symbol = ?
                    AND tr_date < ?
               ORDER BY tr_date DESC
                  LIMIT 4
-            ''', (symbol, date))
+            '''
+            parameters = (symbol, date)
+            cursor.execute(query, parameters)
+
             results1 = cursor.fetchall()
             for row1 in results1:
                 if row1[0] < 5:
                     avg_5 = None
                 else: 
-                    cursor.execute('''
-                                SELECT IFNULL(SUM(`close`), 0)
-                                  FROM (
-                                        SELECT *
-                                          FROM stock_prices
-                                        WHERE symbol = ?
-                                          AND tr_date < ?
-                                     ORDER BY tr_date DESC
-                                        LIMIT 4
-                                       ) a
-                    ''', (symbol, date))
+                    query = '''
+                        SELECT IFNULL(SUM(`close`), 0)
+                          FROM (
+                                SELECT close
+                                  FROM stock_prices
+                                 WHERE symbol = ?
+                                   AND tr_date < ?
+                              ORDER BY tr_date DESC
+                                 LIMIT 4
+                              ) a
+                    '''
+                    parameters = (symbol, date)
+                    cursor.execute(query, parameters)
+
                     results2 = cursor.fetchall()
                     for row2 in results2:
                         avg_5 = (row2[0]+close_) / 5 
             
-            cursor.execute('''
+            query = '''
                 SELECT COUNT(*) + 1 
                   FROM stock_prices
                  WHERE symbol = ?
                    AND tr_date < ?
               ORDER BY tr_date DESC
                  LIMIT 19
-            ''', (symbol, date))
+            '''
+            parameters = (symbol, date)
+            cursor.execute(query, parameters)
+
             results1 = cursor.fetchall()
             for row1 in results1:
                 if row1[0] < 20:
                     avg_20 = None
                 else: 
-                    cursor.execute('''
-                                SELECT IFNULL(SUM(`close`), 0)
-                                  FROM (
-                                        SELECT *
-                                          FROM stock_prices
-                                        WHERE symbol = ?
-                                          AND tr_date < ?
-                                     ORDER BY tr_date DESC
-                                        LIMIT 19
-                                       ) a
-                    ''', (symbol, date))
+                    query = '''
+                        SELECT IFNULL(SUM(`close`), 0)
+                          FROM (
+                                SELECT close
+                                  FROM stock_prices
+                                 WHERE symbol = ?
+                                   AND tr_date < ?
+                              ORDER BY tr_date DESC
+                                 LIMIT 19
+                              ) a
+                    '''
+                    parameters = (symbol, date)
+                    cursor.execute(query, parameters)
+
                     results2 = cursor.fetchall()
                     for row2 in results2:
                         avg_20 = (row2[0]+close_) / 5 
@@ -185,15 +204,10 @@ for row in results:
                    AND tr_date = ?
             '''
             parameters = (avg_5, avg_20, symbol, date)
-
             cursor.execute(query, parameters)
             
             # 쿼리와 파라미터를 결합하여 최종 SQL 문을 생성
-            final_query = query.replace('?', '{}').format(*parameters)
-
-            # 최종 SQL 문 출력
-            print(final_query)
-
+            print(query.replace('?', '{}').format(*parameters))
 
         # Commit the changes for each symbol
         conn.commit()
