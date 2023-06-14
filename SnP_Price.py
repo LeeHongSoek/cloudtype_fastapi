@@ -5,12 +5,22 @@ import io
 import yfinance as yf # pip install yfinance
 
 # MySQL 서버에 연결
+'''
 conn = connect(
     host="svc.gksl2.cloudtype.app",  # MySQL 서버 호스트
     user="root",  # MySQL 사용자 이름
     password="leehs1181!",  # MySQL 사용자 비밀번호
     database="lhs_stock",  # 사용할 데이터베이스 이름
     port=32617  # MySQL 접속 포트
+)
+
+'''
+conn = connect(
+    host="sql.freedb.tech",  # MySQL 서버 호스트
+    user="freedb_lhs0806",  # MySQL 사용자 이름
+    password="qMVx9Z6QhRgspT&",  # MySQL 사용자 비밀번호
+    database="freedb_Leehs1181_database",  # 사용할 데이터베이스 이름
+    port=3306  # MySQL 접속 포트
 )
 
 # S&P 500 종목 가져오기
