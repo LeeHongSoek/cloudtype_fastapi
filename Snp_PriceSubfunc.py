@@ -67,6 +67,8 @@ def select_sp500_stocks(cursor):
 def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
 
     try:
+        print(f"Data저장({days}) - 티커: {symbol} | 종목명: {company_name}")
+
         # Fetch stock prices using yfinance
         data = yf.download(symbol, period='max')
         prices = data.iloc[days:]
@@ -169,11 +171,10 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             cursor.execute(query, parameters)
 
             # 데이터 출력
-            print("티커:", symbol, "| 일자:", date, "| 시가:", open_, "| 종가:", close_, "| 변동률:", change_rate, "| 거래량:", volume_)        
+            print(i,"| 티커:", symbol, "| 일자:", date, "| 시가:", open_, "| 종가:", close_, "| 변동률:", change_rate, "| 거래량:", volume_)        
         
         conn.commit() # Commit the changes for each symbol
 
-        print(f"Data저장 - 티커: {symbol} | 종목명: {company_name}")
     except Exception as e:
         print("Error occurred while fetching data for symbol:", symbol)
         print("Error message:", str(e))
