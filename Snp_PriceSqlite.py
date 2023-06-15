@@ -4,11 +4,18 @@ import io
 import sqlite3
 import Snp_Subfunc as sub
 import Snp_FtpCliant as fc
+import os
+
+# 현재 실행 중인 스크립트 파일의 경로
+# 디렉토리 경로 추출
+script_path = os.path.realpath(__file__)
+current_directory = os.path.dirname(script_path)
 
 directory = '/sqlite'
 filename = 'lhs_stock.db'
 
-fc.file_download(directory, filename)
+if current_directory != 'C:\\MyProject\\cloudtype_fastapi':
+    fc.file_download(directory, filename)
 
 # Connect to SQLite database
 conn = sqlite3.connect(filename)
@@ -42,10 +49,11 @@ for row in results:
     symbol, company_name = row
     
     # Fetch and store stock prices for each symbol
-    sub.fetch_store_stock_prices(conn, cursor, symbol, company_name, -1)
+    sub.fetch_store_stock_prices(conn, cursor, symbol, company_name, -31)
 
 # Close the cursor and the connection
 cursor.close()
 conn.close()
 
-fc.file_upload(directory, filename)
+if current_directory != 'C:\\MyProject\\cloudtype_fastapi':
+    fc.file_upload(directory, filename)

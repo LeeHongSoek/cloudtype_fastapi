@@ -39,6 +39,7 @@ def create_stock_prices_table(cursor):
                         volume      INTEGER DEFAULT NULL,
                         avg_5       DECIMAL(10, 2) DEFAULT NULL,
                         avg_20      DECIMAL(10, 2) DEFAULT NULL,
+                        crossing 	TEXT DEFAULT NULL,
                         date_update DATETIME DEFAULT NULL,
 
                         PRIMARY KEY (symbol, tr_date)
@@ -74,14 +75,15 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             )
             change_rate = (close_ - open_) / open_ * 100
 
-            # Insert or update daily stock prices
-            query = ''' INSERT OR REPLACE INTO stock_prices
-                                               (symbol, tr_date, open, close, change_rate, volume, date_update)
-                                        VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
+            # 가격정보저장
+            query = ''' INSERT OR REPLACE 
+                                      INTO stock_prices (symbol, tr_date, open, close, change_rate, volume, date_update)
+                                    VALUES              (?, ?, ?, ?, ?, ?, datetime('now'))
             '''
             parameters = (symbol, date, open_, close_, change_rate, int(volume_))
             cursor.execute(query, parameters)
 
+            # 5일 평균 구하기
             query = '''   SELECT COUNT(*) + 1 
                             FROM stock_prices
                            WHERE symbol = ?
@@ -100,11 +102,11 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     query = ''' SELECT IFNULL(SUM(`close`), 0)
                                   FROM (
                                         SELECT close
-                                            FROM stock_prices
-                                            WHERE symbol = ?
-                                            AND tr_date < ?
-                                        ORDER BY tr_date DESC
-                                            LIMIT 4
+                                          FROM stock_prices
+                                         WHERE symbol  = ?
+                                           AND tr_date < ?
+                                      ORDER BY tr_date DESC
+                                         LIMIT 4
                                       ) a
                     '''
                     parameters = (symbol, date)
@@ -114,6 +116,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     for row2 in results2:
                         avg_5 = (row2[0] + close_) / 5
 
+            # 20일 평균구하기
             query = '''  SELECT COUNT(*) + 1 
                            FROM stock_prices
                           WHERE symbol = ?
@@ -131,12 +134,12 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                 else:
                     query = ''' SELECT IFNULL(SUM(`close`), 0)
                                   FROM (
-                                            SELECT close
+                                          SELECT close
                                             FROM stock_prices
-                                            WHERE symbol = ?
-                                            AND tr_date < ?
+                                           WHERE symbol  = ?
+                                             AND tr_date < ?
                                         ORDER BY tr_date DESC
-                                            LIMIT 19
+                                           LIMIT 19
                                        ) a
                     '''
                     parameters = (symbol, date)
@@ -146,17 +149,57 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     for row2 in results2:
                         avg_20 = (row2[0] + close_) / 20
 
+            query = '''  SELECT COUNT(*) 
+                           FROM stock_prices
+                          WHERE symbol = ?
+                            AND tr_date < ?
+                            AND avg_5  IS NOT NULL
+                            AND avg_20 IS NOT NULL
+                       ORDER BY tr_date DESC
+                          LIMIT 1
+            '''
+            parameters = (symbol, date)
+            cursor.execute(query, parameters)
+
+            results2 = cursor.fetchall()
+            for row2 in results2:
+                if row2[0] < 1:
+                    crossing = ''
+                else:
+                    query = '''   SELECT IFNULL(SUM(`close`), 0)
+                                    FROM stock_prices
+                                   WHERE symbol = ?
+                                     AND tr_date < ?
+                                     AND avg_5  IS NOT NULL
+                                     AND avg_20 IS NOT NULL
+                                ORDER BY tr_date DESC
+                                   LIMIT 1
+                    '''
+                    parameters = (symbol, date)
+                    cursor.execute(query, parameters)
+
+                    results3 = cursor.fetchall()
+                    for row3 in results3:
+                        if (row3[0] > close_):
+                            crossing = 'Golden'
+                        else:
+                            crossing = 'Death'
+
+
+
+            # 5일 평균과 20일 평균을 저장
             query = '''  UPDATE stock_prices
-                           SET avg_5  = ?
-                             , avg_20 = ?
+                           SET avg_5    = ?
+                             , avg_20   = ?
+                             , crossing = ?
                          WHERE symbol  = ?
                            AND tr_date = ?
             '''
-            parameters = (avg_5, avg_20, symbol, date)
+            parameters = (avg_5, avg_20, crossing, symbol, date)
             cursor.execute(query, parameters)
 
             # 데이터 출력
-            print(i,"| 티커:", symbol, "| 일자:", date, "| 시가:", open_, "| 종가:", close_, "| 변동률:", change_rate, "| 거래량:", volume_)        
+            print(f"{i+1} |일자: {date} |시가: {open_} |종가: {close_} |변동률:  {change_rate} |5평균:  {avg_5} |20평균:  {avg_20} |거래량: {volume_} |교차: {crossing}")
 
         query = ''' UPDATE sp500_stocks
                        SET date_update = datetime('now')
@@ -175,9 +218,9 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
 
 def insert_update_sp500_stocks(cursor, symbol, company_name):
     try:
-        query = ''' INSERT OR IGNORE INTO sp500_stocks
-                                          (symbol, company_name, date_update, date_create)
-                                   VALUES (?, ?, datetime('now'), datetime('now'))
+        query = ''' INSERT OR IGNORE 
+                                INTO sp500_stocks (symbol, company_name, date_update, date_create)
+                              VALUES              (?, ?, datetime('now'), datetime('now'))
         '''
         parameters = (symbol, company_name)
         cursor.execute(query, parameters)
