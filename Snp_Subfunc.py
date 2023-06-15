@@ -171,7 +171,13 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     sign = '<'
 
             # 데이터 출력
-            print(f"{i+1:4d} | {date} |시: {open_:>4.5f} |종: {close_:>4.5f} |률:  {change_rate:>{'+-' in str(change_rate)}3.2f} |량: {volume_} |5/20: {avg_5} {sign} {avg_20} | /{crossing_}/")
+            if change_rate >= 0:
+                format_specifier = ">3.2f"
+            else:
+                format_specifier = "<3.2f"
+
+
+            print(f"{i+1:4d} | {date} |시: {open_:>4.5f} |종: {close_:>4.5f} |률:  {change_rate:{format_specifier}} |량: {volume_} |5/20: {avg_5} {sign} {avg_20} | /{crossing_}/")
 
 
 
