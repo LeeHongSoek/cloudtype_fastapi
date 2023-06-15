@@ -60,12 +60,12 @@ def select_sp500_stocks(cursor):
 def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
 
     try:
-        print("")
-        print(f"Data저장 - 티커: {symbol} | 종목명: {company_name} ({days*(-1)}일치)")
-
         # Fetch stock prices using yfinance
         data = yf.download(symbol, period='max')
         prices = data.iloc[days:]
+
+        print("")
+        print(f"Data저장 - 티커: {symbol} | 종목명: {company_name} ({days*(-1)}일치)")
 
         for i in range(len(prices)):
             close_, open_, volume_, date = (
@@ -196,10 +196,13 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     results2 = cursor.fetchall()
                     for row2 in results2:
                         crossing_ = row2[2]
+                        sign = ''
                         if ((row2[0] < row2[1]) & (avg_5 > avg_20)):
                             crossing_ = '[G]olden'
+                            sign = '>'
                         if ((row2[0] > row2[1]) & (avg_5 < avg_20)):
                             crossing_ = '[D]eath'
+                            sign = '<'
 
 
 
@@ -215,7 +218,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             cursor.execute(query, parameters)
 
             # 데이터 출력
-            print(f"{i+1} |일자: {date} |교차: {crossing_} |시가: {open_} |종가: {close_} |변동률:  {change_rate} |5평균:  {avg_5} |20평균:  {avg_20} |거래량: {volume_}")
+            print(f"{i+1} |일자: {date} |시가: {open_} |종가: {close_} |변동률:  {change_rate} |거래량: {volume_} |5/20평균: {avg_5} {sign} {avg_20} |교차: {crossing_}")
 
         query = ''' UPDATE sp500_stocks
                        SET date_update = datetime('now')
