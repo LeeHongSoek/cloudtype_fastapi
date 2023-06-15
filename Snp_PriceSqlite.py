@@ -38,19 +38,19 @@ for index, row in sp500.iterrows():
     company_name = row['Name']
 
     # Insert or update the symbol in sp500_stocks table
-    sub.insert_update_sp500_stocks(cursor, symbol, company_name)
+    subfunc.insert_update_sp500_stocks(cursor, symbol, company_name)
 
 conn.commit() # Commit the changes
 
 # Fetch symbols, company_name from sp500_stocks table
-results = sub.select_sp500_stocks(cursor)
+results = subfunc.select_sp500_stocks(cursor)
 
 # Fetch stock prices and store them in the database
 for row in results:
     symbol, company_name = row
     
     # Fetch and store stock prices for each symbol
-    sub.fetch_store_stock_prices(conn, cursor, symbol, company_name, -31)
+    subfunc.fetch_store_stock_prices(conn, cursor, symbol, company_name, -31)
 
 # Close the cursor and the connection
 cursor.close()
