@@ -182,9 +182,8 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
 
         query = ''' UPDATE sp500_stocks
                        SET date_update = datetime('now')
-                     WHERE symbol       = ?
-                       AND company_name = ?                '''
-        parameters = (symbol, company_name)
+                     WHERE symbol = ?                       '''
+        parameters = (symbol)
         cursor.execute(query, parameters)
         
         conn.commit() # Commit the changes for each symbol
@@ -197,8 +196,8 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
 def insert_update_sp500_stocks(cursor, symbol, company_name):
     try:
         query = ''' INSERT OR IGNORE 
-                                INTO sp500_stocks (symbol, company_name, date_update, date_create)
-                              VALUES              (?, ?, datetime('now'), datetime('now'))           '''
+                                INTO sp500_stocks (symbol, company_name, date_create)
+                              VALUES              (?,      ?,            datetime('now'))   '''
         parameters = (symbol, company_name)
         cursor.execute(query, parameters)
 
