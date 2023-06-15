@@ -42,7 +42,6 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                             FROM stock_prices
                            WHERE symbol = ?
                              AND tr_date < ?
-                        ORDER BY tr_date DESC
             '''
             parameters = (symbol, date)
             cursor.execute(query, parameters)
