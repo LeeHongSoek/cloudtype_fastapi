@@ -53,14 +53,17 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     avg_5 = None
                 else:
                     query = ''' SELECT IFNULL(SUM(`close`), 0)
-                                  FROM (
-                                        SELECT close
-                                          FROM stock_prices
-                                         WHERE symbol  = ?
-                                           AND tr_date < ?
-                                      ORDER BY tr_date DESC
-                                     ) a
-                                LIMIT 4
+                                 FROM (
+                                        SELECT tr_date, close
+                                        FROM (
+                                                SELECT tr_date, close
+                                                    FROM stock_prices
+                                                WHERE symbol  = ?
+                                                    AND tr_date < ?
+                                                ORDER BY tr_date DESC    
+                                            ) a                                
+                                        LIMIT 4
+                                      ) b  
                     '''
                     parameters = (symbol, date)
                     cursor.execute(query, parameters)
@@ -73,14 +76,17 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     avg_20 = None
                 else:
                     query = ''' SELECT IFNULL(SUM(`close`), 0)
-                                  FROM (
-                                          SELECT close
-                                            FROM stock_prices
-                                           WHERE symbol  = ?
-                                             AND tr_date < ?
-                                        ORDER BY tr_date DESC
-                                       ) a
-                                 LIMIT 19       
+                                 FROM (
+                                        SELECT tr_date, close
+                                        FROM (
+                                                SELECT tr_date, close
+                                                  FROM stock_prices
+                                                 WHERE symbol  = ?
+                                                   AND tr_date < ?
+                                               ORDER BY tr_date DESC    
+                                            ) a                                
+                                        LIMIT 19
+                                      ) b  
                     '''
                     parameters = (symbol, date)
                     cursor.execute(query, parameters)
