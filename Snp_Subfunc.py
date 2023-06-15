@@ -153,15 +153,15 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                         crossing_ = row2[2]
                         
                         if ((row2[0] < row2[1]) & (avg_5 > avg_20)):
-                            if ((crossing_ != '[U]p') & (crossing_ != 'Up')):
-                                crossing_ = '[U]p'
-                            else:
+                            if crossing_ == '[U]p':
                                 crossing_ = 'Up'
-                        if ((row2[0] > row2[1]) & (avg_5 < avg_20)):
-                            if ((crossing_ != '[D]own') & (crossing_ != 'Down')):
-                                crossing_ = '[D]own'
                             else:
+                                crossing_ = '[U]p'
+                        if ((row2[0] > row2[1]) & (avg_5 < avg_20)):
+                            if crossing_ == '[D]own':
                                 crossing_ = 'Down'
+                            else:
+                                crossing_ = '[D]own'
 
 
             # 5일 평균과 20일 평균을 저장
