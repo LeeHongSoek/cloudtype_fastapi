@@ -59,7 +59,7 @@ while True:
 
     # 변경된 파일이 있는 경우 커밋하고 푸시합니다.
     if num_files > 0:
-        subprocess.run(["git", "commit", "-m", f"-- 수정  {formatted_time} --"])
+        subprocess.run(["git", "commit", "-m", f"-- {formatted_time} --"])
         subprocess.run(["git", "push", "origin", "main"])
 
 
