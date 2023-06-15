@@ -38,20 +38,19 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             parameters = (symbol, date, open_, close_, change_rate, int(volume_))
             cursor.execute(query, parameters)
 
-            # 5일 평균 구하기
-            query = '''   SELECT COUNT(*) + 1 
+            query = '''   SELECT COUNT(*)
                             FROM stock_prices
                            WHERE symbol = ?
                              AND tr_date < ?
                         ORDER BY tr_date DESC
-                           LIMIT 4
             '''
             parameters = (symbol, date)
             cursor.execute(query, parameters)
-
             results1 = cursor.fetchall()
+
+            # 5일 평균 구하기            
             for row1 in results1:
-                if row1[0] < 5:
+                if row1[0] < 4:
                     avg_5 = None
                 else:
                     query = ''' SELECT IFNULL(SUM(`close`), 0)
@@ -61,8 +60,8 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                                          WHERE symbol  = ?
                                            AND tr_date < ?
                                       ORDER BY tr_date DESC
-                                         LIMIT 4
-                                      ) a
+                                     ) a
+                                LIMIT 4
                     '''
                     parameters = (symbol, date)
                     cursor.execute(query, parameters)
@@ -71,20 +70,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     for row2 in results2:
                         avg_5 = (row2[0] + close_) / 5
 
-            # 20일 평균구하기
-            query = '''  SELECT COUNT(*) + 1 
-                           FROM stock_prices
-                          WHERE symbol = ?
-                            AND tr_date < ?
-                       ORDER BY tr_date DESC
-                          LIMIT 19
-            '''
-            parameters = (symbol, date)
-            cursor.execute(query, parameters)
-
-            results1 = cursor.fetchall()
-            for row1 in results1:
-                if row1[0] < 20:
+                if row1[0] < 19:
                     avg_20 = None
                 else:
                     query = ''' SELECT IFNULL(SUM(`close`), 0)
@@ -94,8 +80,8 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                                            WHERE symbol  = ?
                                              AND tr_date < ?
                                         ORDER BY tr_date DESC
-                                           LIMIT 19
                                        ) a
+                                 LIMIT 19       
                     '''
                     parameters = (symbol, date)
                     cursor.execute(query, parameters)
@@ -105,19 +91,13 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                         avg_20 = (row2[0] + close_) / 20
 
             query = ''' SELECT COUNT(*) 
-                          FROM (
-                                 SELECT *
-                                   FROM stock_prices
-                                  WHERE symbol = ?
-                                    AND tr_date < ?
-                                    AND avg_5  IS NOT NULL
-                                    AND avg_20 IS NOT NULL
-                               ORDER BY tr_date DESC
-                                  LIMIT 1
-                               )
+                          FROM stock_prices
+                         WHERE symbol = ?
+                           AND tr_date < ?
+                           AND avg_5  IS NOT NULL
+                           AND avg_20 IS NOT NULL
             '''
-            parameters = (symbol, date)
-              
+            parameters = (symbol, date)              
 
             # 쿼리 확인
             formatted_query = query.replace('?', "'{}'").format(*parameters)
@@ -127,18 +107,21 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
 
             results1 = cursor.fetchall()
             for row1 in results1:
-                if row1[0] < 1:
+                if row1[0] == 0:
                     crossing_ = ''
                 else:
                     query = '''   SELECT IFNULL(avg_5, 0) avg_5
                                        , IFNULL(avg_20, 0) avg_20
                                        , crossing
-                                    FROM stock_prices
-                                   WHERE symbol = ?
-                                     AND tr_date < ?
-                                     AND avg_5  IS NOT NULL
-                                     AND avg_20 IS NOT NULL
-                                ORDER BY tr_date DESC
+                                    FROM (   
+                                            SELECT *    
+                                              FROM stock_prices
+                                             WHERE symbol = ?
+                                               AND tr_date < ?
+                                               AND avg_5  IS NOT NULL
+                                               AND avg_20 IS NOT NULL
+                                           ORDER BY tr_date DESC
+                                         )
                                    LIMIT 1
                     '''
                     parameters = (symbol, date)
