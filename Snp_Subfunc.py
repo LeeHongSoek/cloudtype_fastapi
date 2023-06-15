@@ -144,7 +144,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     parameters = (symbol, date)
 
                     formatted_query = query.replace('?', "'{}'").format(*parameters)
-                    #print("대입된 쿼리:", formatted_query)
+                    print("대입된 쿼리:", formatted_query)
 
                     cursor.execute(query, parameters)
 
