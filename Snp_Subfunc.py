@@ -60,7 +60,8 @@ def select_sp500_stocks(cursor):
 def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
 
     try:
-        print(f"Data저장({days}) - 티커: {symbol} | 종목명: {company_name}")
+        print("")
+        print(f"Data저장 - 티커: {symbol} | 종목명: {company_name} ({days*(-1)}일치)")
 
         # Fetch stock prices using yfinance
         data = yf.download(symbol, period='max')
@@ -199,7 +200,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             cursor.execute(query, parameters)
 
             # 데이터 출력
-            print(f"{i+1} |일자: {date} |시가: {open_} |종가: {close_} |변동률:  {change_rate} |5평균:  {avg_5} |20평균:  {avg_20} |거래량: {volume_} |교차: {crossing}")
+            print(f"{i+1} |일자: {date} |교차: {crossing} |시가: {open_} |종가: {close_} |변동률:  {change_rate} |5평균:  {avg_5} |20평균:  {avg_20} |거래량: {volume_}")
 
         query = ''' UPDATE sp500_stocks
                        SET date_update = datetime('now')
