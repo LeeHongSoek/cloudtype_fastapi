@@ -150,8 +150,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     for row2 in results2:
                         avg_20 = (row2[0] + close_) / 20
 
-            query = ''' 
-                        SELECT COUNT(*) 
+            query = ''' SELECT COUNT(*) 
                           FROM (
                                  SELECT *
                                    FROM stock_prices
@@ -167,7 +166,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             
             # 쿼리 확인
             formatted_query = query.replace('?', "'{}'").format(*parameters)
-            print("대입된 쿼리:", formatted_query)
+            #print("대입된 쿼리:", formatted_query)
 
             cursor.execute(query, parameters)
 
@@ -176,8 +175,8 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                 if row1[0] < 1:
                     crossing_ = ''
                 else:
-                    query = '''   SELECT IFNULL(SUM(`avg_5`), 0) avg_5
-                                       , IFNULL(SUM(`avg_20`), 0) avg_20
+                    query = '''   SELECT IFNULL(avg_5, 0) avg_5
+                                       , IFNULL(avg_20, 0) avg_20
                                        , crossing
                                     FROM stock_prices
                                    WHERE symbol = ?
@@ -188,6 +187,10 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                                    LIMIT 1
                     '''
                     parameters = (symbol, date)
+
+                    formatted_query = query.replace('?', "'{}'").format(*parameters)
+                    #print("대입된 쿼리:", formatted_query)
+
                     cursor.execute(query, parameters)
 
                     results2 = cursor.fetchall()
