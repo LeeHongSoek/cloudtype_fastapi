@@ -163,7 +163,8 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                                )
             '''
             parameters = (symbol, date)
-            
+              
+
             # 쿼리 확인
             formatted_query = query.replace('?', "'{}'").format(*parameters)
             #print("대입된 쿼리:", formatted_query)
@@ -196,18 +197,15 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     results2 = cursor.fetchall()
                     for row2 in results2:
                         crossing_ = row2[2]
-                        sign = ''
+                        
                         if ((row2[0] < row2[1]) & (avg_5 > avg_20)):
                             crossing_ = '[G]olden'
-                            sign = '>'
                         if ((row2[0] > row2[1]) & (avg_5 < avg_20)):
                             crossing_ = '[D]eath'
-                            sign = '<'
-
 
 
             # 5일 평균과 20일 평균을 저장
-            query = '''  UPDATE stock_prices
+            query = ''' UPDATE stock_prices
                            SET avg_5    = ?
                              , avg_20   = ?
                              , crossing = ?
@@ -216,6 +214,13 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             '''
             parameters = (avg_5, avg_20, crossing_, symbol, date)
             cursor.execute(query, parameters)
+
+            sign = '_'
+            if ((avg_5 != None) & (avg_20 != None)):
+                if (avg_5 > avg_20):
+                    sign = '>'
+                if (avg_5 < avg_20):
+                    sign = '<'
 
             # 데이터 출력
             print(f"{i+1} |일자: {date} |시가: {open_} |종가: {close_} |변동률:  {change_rate} |거래량: {volume_} |5/20평균: {avg_5} {sign} {avg_20} |교차: {crossing_}")
