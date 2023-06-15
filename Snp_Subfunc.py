@@ -183,9 +183,9 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     results3 = cursor.fetchall()
                     for row3 in results3:
                         crossing = ''
-                        if ((row3[0] < avg_5) & (row3[1] > avg_20)):
+                        if ((row3[0] < row3[1]) & (avg_5 > avg_20)):
                             crossing = '[G]olden'
-                        if ((row3[0] > avg_5) & (row3[1] < avg_20)):
+                        if ((row3[0] > row3[1]) & (avg_5 < avg_20)):
                             crossing = '[D]eath'
 
 
