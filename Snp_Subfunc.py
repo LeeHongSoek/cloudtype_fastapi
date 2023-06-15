@@ -165,10 +165,11 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             results2 = cursor.fetchall()
             for row2 in results2:
                 if row2[0] < 1:
-                    crossing = ''
+                    crossing_ = ''
                 else:
                     query = '''   SELECT IFNULL(SUM(`avg_5`), 0) avg_5
                                        , IFNULL(SUM(`avg_20`), 0) avg_20
+                                       , crossing
                                     FROM stock_prices
                                    WHERE symbol = ?
                                      AND tr_date < ?
@@ -182,11 +183,11 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
 
                     results3 = cursor.fetchall()
                     for row3 in results3:
-                        crossing = ''
+                        crossing_ = row3[2]
                         if ((row3[0] < row3[1]) & (avg_5 > avg_20)):
-                            crossing = '[G]olden'
+                            crossing_ = '[G]olden'
                         if ((row3[0] > row3[1]) & (avg_5 < avg_20)):
-                            crossing = '[D]eath'
+                            crossing_ = '[D]eath'
 
 
 
@@ -198,11 +199,11 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                          WHERE symbol  = ?
                            AND tr_date = ?
             '''
-            parameters = (avg_5, avg_20, crossing, symbol, date)
+            parameters = (avg_5, avg_20, crossing_, symbol, date)
             cursor.execute(query, parameters)
 
             # 데이터 출력
-            print(f"{i+1} |일자: {date} |교차: {crossing} |시가: {open_} |종가: {close_} |변동률:  {change_rate} |5평균:  {avg_5} |20평균:  {avg_20} |거래량: {volume_}")
+            print(f"{i+1} |일자: {date} |교차: {crossing_} |시가: {open_} |종가: {close_} |변동률:  {change_rate} |5평균:  {avg_5} |20평균:  {avg_20} |거래량: {volume_}")
 
         query = ''' UPDATE sp500_stocks
                        SET date_update = datetime('now')
