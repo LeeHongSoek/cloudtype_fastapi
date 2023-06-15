@@ -97,6 +97,9 @@ def file_upload(directory, filename):
         try:
             # 파일 압축
             zip_file(filename, filename+".zip")
+            
+            # 파일 삭제
+            ftp.delete(filename+".zip")
 
             with open(filename+".zip", 'rb') as file:
                 ftp.storbinary('STOR ' + filename+".zip", file)
