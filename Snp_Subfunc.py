@@ -171,7 +171,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     sign = '<'
 
             # 데이터 출력
-            print(f"{i+1} |일자: {date} |시가: {open_:4.5f} |종가: {close_:4.5f} |변동률:  {change_rate:0.5f} |거래량: {volume_} |5/20평균: {avg_5} {sign} {avg_20} |교차: {crossing_}")
+            print(f"{i+1} |일자: {date} |시가: {open_:4.5f} |종가: {close_:4.5f} |변동률:  {change_rate:0.5f} |거래량: {volume_} |5/20평균: {avg_5} {sign} {avg_20} | /{crossing_}/")
 
 
         query = ''' UPDATE sp500_stocks
