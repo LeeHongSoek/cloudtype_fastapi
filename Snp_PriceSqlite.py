@@ -48,4 +48,4 @@ for row in results:
 cursor.close()
 conn.close()
 
-fc.file_download(directory, filename)
+fc.file_upload(directory, filename)

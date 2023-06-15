@@ -64,5 +64,5 @@ while True:
 
 
     # 10 초 동안 대기합니다. 
-    time.sleep(10)
-    #break
+    #time.sleep(10)
+    break

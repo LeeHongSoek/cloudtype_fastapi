@@ -15,12 +15,12 @@ def create_sp500_stocks_table(cursor):
         # Create sp500_stocks table
         query = '''
             CREATE TABLE IF NOT EXISTS sp500_stocks (
-                symbol TEXT PRIMARY KEY,
-                company_name TEXT NOT NULL,
-                date_update DATETIME NOT NULL,
-                date_create DATETIME NOT NULL,
-                able TEXT NOT NULL DEFAULT 'Y',
-                favorite TEXT DEFAULT 'n'
+                symbol        TEXT PRIMARY KEY,
+                company_name  TEXT NOT NULL,
+                date_update   DATETIME NOT NULL,
+                date_create   DATETIME NOT NULL,
+                able          TEXT NOT NULL DEFAULT 'Y',
+                favorite      TEXT DEFAULT 'n'
             )
         '''
         cursor.execute(query)
@@ -38,15 +38,16 @@ def create_stock_prices_table(cursor):
         # Create stock_prices table
         query = '''
             CREATE TABLE IF NOT EXISTS stock_prices (
-                symbol TEXT NOT NULL,
-                tr_date DATE NOT NULL,
-                open DECIMAL(10, 2) DEFAULT NULL,
-                close DECIMAL(10, 2) DEFAULT NULL,
+                symbol      TEXT NOT NULL,
+                tr_date     DATE NOT NULL,
+                open        DECIMAL(10, 2) DEFAULT NULL,
+                close       DECIMAL(10, 2) DEFAULT NULL,
                 change_rate DECIMAL(5, 2) DEFAULT NULL,
-                volume INTEGER DEFAULT NULL,
-                avg_5 DECIMAL(10, 2) DEFAULT NULL,
-                avg_20 DECIMAL(10, 2) DEFAULT NULL,
+                volume      INTEGER DEFAULT NULL,
+                avg_5       DECIMAL(10, 2) DEFAULT NULL,
+                avg_20      DECIMAL(10, 2) DEFAULT NULL,
                 date_update DATETIME DEFAULT NULL,
+
                 PRIMARY KEY (symbol, tr_date)
             )
         '''
@@ -56,8 +57,8 @@ def create_stock_prices_table(cursor):
 def select_sp500_stocks(cursor):    
     query = '''
         SELECT symbol, company_name
-        FROM sp500_stocks
-        WHERE able = 'Y'
+          FROM sp500_stocks
+         WHERE able = 'Y'
     '''
     cursor.execute(query)
 
@@ -84,9 +85,9 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
 
             # Insert or update daily stock prices
             query = '''
-                INSERT OR IGNORE INTO stock_prices
-                    (symbol, tr_date, open, close, change_rate, volume, date_update)
-                    VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
+                INSERT OR REPLACE INTO stock_prices
+                                       (symbol, tr_date, open, close, change_rate, volume, date_update)
+                                VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
             '''
             parameters = (symbol, date, open_, close_, change_rate, int(volume_))
             cursor.execute(query, parameters)
@@ -94,11 +95,11 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             # Fetch symbols from sp500_stocks table
             query = '''
                 SELECT COUNT(*) + 1 
-                FROM stock_prices
-                WHERE symbol = ?
-                AND tr_date < ?
-                ORDER BY tr_date DESC
-                LIMIT 4
+                  FROM stock_prices
+                 WHERE symbol = ?
+                   AND tr_date < ?
+              ORDER BY tr_date DESC
+                 LIMIT 4
             '''
             parameters = (symbol, date)
             cursor.execute(query, parameters)
@@ -110,14 +111,14 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                 else:
                     query = '''
                         SELECT IFNULL(SUM(`close`), 0)
-                        FROM (
-                            SELECT close
-                            FROM stock_prices
-                            WHERE symbol = ?
-                            AND tr_date < ?
-                            ORDER BY tr_date DESC
-                            LIMIT 4
-                        ) a
+                          FROM (
+                                SELECT close
+                                    FROM stock_prices
+                                    WHERE symbol = ?
+                                    AND tr_date < ?
+                                ORDER BY tr_date DESC
+                                    LIMIT 4
+                              ) a
                     '''
                     parameters = (symbol, date)
                     cursor.execute(query, parameters)
@@ -128,11 +129,11 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
 
             query = '''
                 SELECT COUNT(*) + 1 
-                FROM stock_prices
-                WHERE symbol = ?
-                AND tr_date < ?
-                ORDER BY tr_date DESC
-                LIMIT 19
+                  FROM stock_prices
+                 WHERE symbol = ?
+                   AND tr_date < ?
+              ORDER BY tr_date DESC
+                 LIMIT 19
             '''
             parameters = (symbol, date)
             cursor.execute(query, parameters)
@@ -144,28 +145,28 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                 else:
                     query = '''
                         SELECT IFNULL(SUM(`close`), 0)
-                        FROM (
-                            SELECT close
-                            FROM stock_prices
-                            WHERE symbol = ?
-                            AND tr_date < ?
-                            ORDER BY tr_date DESC
-                            LIMIT 19
-                        ) a
+                          FROM (
+                                    SELECT close
+                                    FROM stock_prices
+                                    WHERE symbol = ?
+                                    AND tr_date < ?
+                                ORDER BY tr_date DESC
+                                    LIMIT 19
+                               ) a
                     '''
                     parameters = (symbol, date)
                     cursor.execute(query, parameters)
 
                     results2 = cursor.fetchall()
                     for row2 in results2:
-                        avg_20 = (row2[0] + close_) / 5
+                        avg_20 = (row2[0] + close_) / 20
 
             query = '''
                 UPDATE stock_prices
-                SET avg_5 = ?,
-                    avg_20 = ?
-                WHERE symbol = ?
-                AND tr_date = ?
+                   SET avg_5  = ?
+                     , avg_20 = ?
+                 WHERE symbol  = ?
+                   AND tr_date = ?
             '''
             parameters = (avg_5, avg_20, symbol, date)
             cursor.execute(query, parameters)
