@@ -33,7 +33,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             # 가격정보저장
             query = ''' INSERT OR REPLACE 
                                       INTO stock_prices (symbol, tr_date, open, close, change_rate, volume, date_update)
-                                    VALUES              (?, ?, ?, ?, ?, ?, datetime('now'))                                    '''
+                                    VALUES              (?,      ?,       ?,    ?,     ?,           ?,      datetime('now'))   '''
             parameters = (symbol, date, open_, close_, change_rate, int(volume_))
             cursor.execute(query, parameters)
 
