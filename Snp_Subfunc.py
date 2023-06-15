@@ -33,16 +33,14 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             # 가격정보저장
             query = ''' INSERT OR REPLACE 
                                       INTO stock_prices (symbol, tr_date, open, close, change_rate, volume, date_update)
-                                    VALUES              (?, ?, ?, ?, ?, ?, datetime('now'))
-            '''
+                                    VALUES              (?, ?, ?, ?, ?, ?, datetime('now'))                                    '''
             parameters = (symbol, date, open_, close_, change_rate, int(volume_))
             cursor.execute(query, parameters)
 
             query = '''   SELECT COUNT(*)
                             FROM stock_prices
                            WHERE symbol = ?
-                             AND tr_date < ?
-            '''
+                             AND tr_date < ?   '''
             parameters = (symbol, date)
             cursor.execute(query, parameters)
             results1 = cursor.fetchall()
@@ -57,14 +55,13 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                                         SELECT tr_date, close
                                         FROM (
                                                 SELECT tr_date, close
-                                                    FROM stock_prices
-                                                WHERE symbol  = ?
-                                                    AND tr_date < ?
-                                                ORDER BY tr_date DESC    
+                                                  FROM stock_prices
+                                                 WHERE symbol  = ?
+                                                   AND tr_date < ?
+                                              ORDER BY tr_date DESC    
                                             ) a                                
                                         LIMIT 4
-                                      ) b  
-                    '''
+                                      ) b                                 '''
                     parameters = (symbol, date)
                     cursor.execute(query, parameters)
 
@@ -86,8 +83,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                                                ORDER BY tr_date DESC    
                                             ) a                                
                                         LIMIT 19
-                                      ) b  
-                    '''
+                                      ) b                               '''
                     parameters = (symbol, date)
                     cursor.execute(query, parameters)
 
@@ -100,8 +96,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                          WHERE symbol = ?
                            AND tr_date < ?
                            AND avg_5  IS NOT NULL
-                           AND avg_20 IS NOT NULL
-            '''
+                           AND avg_20 IS NOT NULL    '''
             parameters = (symbol, date)              
 
             # 쿼리 확인
@@ -115,7 +110,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                 if row1[0] == 0:
                     crossing_ = ''
                 else:
-                    query = '''   SELECT IFNULL(avg_5, 0) avg_5
+                    query = '''   SELECT IFNULL(avg_5, 0)  avg_5
                                        , IFNULL(avg_20, 0) avg_20
                                        , crossing
                                     FROM (   
@@ -125,10 +120,9 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                                                AND tr_date < ?
                                                AND avg_5  IS NOT NULL
                                                AND avg_20 IS NOT NULL
-                                           ORDER BY tr_date DESC
+                                          ORDER BY tr_date DESC
                                          )
-                                   LIMIT 1
-                    '''
+                                   LIMIT 1                             '''
                     parameters = (symbol, date)
 
                     formatted_query = query.replace('?', "'{}'").format(*parameters)
@@ -156,8 +150,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                              , avg_20   = ?
                              , crossing = ?
                          WHERE symbol  = ?
-                           AND tr_date = ?
-            '''
+                           AND tr_date = ?   '''
             parameters = (avg_5, avg_20, crossing_, symbol, date)
             cursor.execute(query, parameters)
 
@@ -174,8 +167,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
         query = ''' UPDATE sp500_stocks
                        SET date_update = datetime('now')
                      WHERE symbol       = ?
-                       AND company_name = ?
-        '''
+                       AND company_name = ?                '''
         parameters = (symbol, company_name)
         cursor.execute(query, parameters)
         
@@ -190,8 +182,7 @@ def insert_update_sp500_stocks(cursor, symbol, company_name):
     try:
         query = ''' INSERT OR IGNORE 
                                 INTO sp500_stocks (symbol, company_name, date_update, date_create)
-                              VALUES              (?, ?, datetime('now'), datetime('now'))
-        '''
+                              VALUES              (?, ?, datetime('now'), datetime('now'))           '''
         parameters = (symbol, company_name)
         cursor.execute(query, parameters)
 
