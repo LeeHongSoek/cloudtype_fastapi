@@ -24,8 +24,8 @@ conn = sqlite3.connect(filename)
 # Create tables
 cursor = conn.cursor()
 
-subinit.create_sp500_stocks_table(cursor) # Create sp500_stocks table if it does not exist
-subinit.create_stock_prices_table(cursor) # Create stock_prices table if it does not exist
+subinit.createtable_sp500_stocks(cursor) # Create sp500_stocks table if it does not exist
+subinit.createtable_stock_prices(cursor) # Create stock_prices table if it does not exist
 
 # S&P 500 종목 가져오기
 url = "https://datahub.io/core/s-and-p-500-companies/r/constituents.csv"

@@ -1,6 +1,6 @@
 import sqlite3
 
-def create_sp500_stocks_table(cursor):
+def createtable_sp500_stocks(cursor):
     # Check if sp500_stocks table exists
     query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='sp500_stocks' '''
     cursor.execute(query)
@@ -20,7 +20,7 @@ def create_sp500_stocks_table(cursor):
         '''
         cursor.execute(query)
 
-def create_stock_prices_table(cursor):
+def createtable_stock_prices(cursor):
     # Check if stock_prices table exists
     query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='stock_prices' '''
     cursor.execute(query)
