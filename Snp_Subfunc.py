@@ -51,6 +51,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                 if row1[0] < 4: # 4개 이하면 평균을 못 구한다.
                     avg_5 = None
                 else:
+                    # 4개의 종가 합계를 구한다.
                     query = ''' SELECT IFNULL(SUM(`close`), 0)
                                  FROM (
                                         SELECT tr_date, close
@@ -73,6 +74,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                 if row1[0] < 19: # 19개 이하면 평균을 못 구한다.
                     avg_20 = None
                 else:
+                    # 19개의 종가 합계를 구한다.
                     query = ''' SELECT IFNULL(SUM(`close`), 0)
                                  FROM (
                                         SELECT tr_date, close
@@ -92,6 +94,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     for row2 in results2:
                         avg_20 = (row2[0] + close_) / 20
 
+            # 5일 평균과 20일 평균이 있는 건의 갯수를 구하야
             query = ''' SELECT COUNT(*) 
                           FROM stock_prices
                          WHERE symbol = ?
@@ -109,8 +112,9 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             results1 = cursor.fetchall()
             for row1 in results1:
                 if row1[0] == 0:
-                    crossing_ = ''
+                    crossing_ = '' # 5일 평균과 20일 평균이 있어야 교차를 확인할 수 있다.
                 else:
+                    # 바로전날(날짜 역순)으로 종가 5일 평균과 20일 평균을 구한다.
                     query = '''   SELECT IFNULL(avg_5, 0)  avg_5
                                        , IFNULL(avg_20, 0) avg_20
                                        , crossing
@@ -134,11 +138,14 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     results2 = cursor.fetchall()
                     for row2 in results2:
                         crossing_ = row2[2]
+
+                        # 바로 전날의 마킹값을 일단 따라 간다.. [연속성]
                         if crossing_ == '[U]p':
                             crossing_ = 'Up'
                         if crossing_ == '[D]own':
                             crossing_ = 'Down'
                         
+                        # 바로전날 종가 5일 평균과 20일 평균과 당일  종가 5일 평균과 20일 비교하여 교차를 확인하고 마킹한다.
                         if ((row2[0] < row2[1]) & (avg_5 > avg_20)):
                             crossing_ = '[U]p'
                         if ((row2[0] > row2[1]) & (avg_5 < avg_20)):
