@@ -152,7 +152,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                             crossing_ = '[D]own'
 
 
-            # 5일 평균과 20일 평균을 저장
+            # 당일 종가 5일 평균과 20일 평균을 저장
             query = ''' UPDATE stock_prices
                            SET avg_5    = ?
                              , avg_20   = ?
@@ -162,6 +162,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             parameters = (avg_5, avg_20, crossing_, symbol, date)
             cursor.execute(query, parameters)
 
+            # 크기 비교 확인을 위해
             sign = '_'
             if ((avg_5 != None) & (avg_20 != None)):
                 if (avg_5 > avg_20):
