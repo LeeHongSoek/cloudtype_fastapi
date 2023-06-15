@@ -37,6 +37,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             parameters = (symbol, date, open_, close_, change_rate, int(volume_))
             cursor.execute(query, parameters)
 
+            # 이전에 수집된 가격자료 갯수
             query = '''   SELECT COUNT(*)
                             FROM stock_prices
                            WHERE symbol = ?
@@ -47,7 +48,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
 
             # 5일 평균 구하기            
             for row1 in results1:
-                if row1[0] < 4:
+                if row1[0] < 4: # 4개 이하면 평균을 못 구한다.
                     avg_5 = None
                 else:
                     query = ''' SELECT IFNULL(SUM(`close`), 0)
@@ -69,7 +70,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     for row2 in results2:
                         avg_5 = (row2[0] + close_) / 5
 
-                if row1[0] < 19:
+                if row1[0] < 19: # 19개 이하면 평균을 못 구한다.
                     avg_20 = None
                 else:
                     query = ''' SELECT IFNULL(SUM(`close`), 0)
