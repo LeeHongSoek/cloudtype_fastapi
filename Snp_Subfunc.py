@@ -163,21 +163,21 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             cursor.execute(query, parameters)
 
             # 크기 비교 확인을 위해
-            sign = '_'
+            compare = '_'
             if ((avg_5 != None) & (avg_20 != None)):
                 if (avg_5 > avg_20):
-                    sign = '>'
+                    compare = '>'
                 if (avg_5 < avg_20):
-                    sign = '<'
+                    compare = '<'
 
             # 데이터 출력
             if change_rate >= 0:
-                format_specifier = ">6.2f"
+                sign = "+"
             else:
-                format_specifier = "<6.2f"
+                sign = "-"
 
 
-            print(f"{i+1:4d} | {date} |시: {open_:>4.5f} |종: {close_:>4.5f} |률:  {change_rate:{format_specifier}} |량: {volume_} |5/20: {avg_5} {sign} {avg_20} | /{crossing_}/")
+            print(f"{i+1:4d} | {date} |시: {open_:>4.5f} |종: {close_:>4.5f} |률:  {sign}{abs(change_rate):>3.4} |량: {volume_} |5/20: {avg_5} {compare} {avg_20} | /{crossing_}/")
 
 
 
