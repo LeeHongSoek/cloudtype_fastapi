@@ -50,7 +50,7 @@ for row in results:
     symbol, company_name = row
     
     # Fetch and store stock prices for each symbol
-    subfunc.fetch_store_stock_prices(conn, cursor, symbol, company_name, -31)
+    subfunc.fetch_store_stock_prices(conn, cursor, symbol, company_name, -61)
 
 # Close the cursor and the connection
 cursor.close()
