@@ -150,21 +150,30 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     for row2 in results2:
                         avg_20 = (row2[0] + close_) / 20
 
-            query = '''  SELECT COUNT(*) 
-                           FROM stock_prices
-                          WHERE symbol = ?
-                            AND tr_date < ?
-                            AND avg_5  IS NOT NULL
-                            AND avg_20 IS NOT NULL
-                       ORDER BY tr_date DESC
-                          LIMIT 1
+            query = ''' 
+                        SELECT COUNT(*) 
+                          FROM (
+                                 SELECT *
+                                   FROM stock_prices
+                                  WHERE symbol = ?
+                                    AND tr_date < ?
+                                    AND avg_5  IS NOT NULL
+                                    AND avg_20 IS NOT NULL
+                               ORDER BY tr_date DESC
+                                  LIMIT 1
+                               )
             '''
             parameters = (symbol, date)
+            
+            # 쿼리 확인
+            formatted_query = query.replace('?', "'{}'").format(*parameters)
+            print("대입된 쿼리:", formatted_query)
+
             cursor.execute(query, parameters)
 
-            results2 = cursor.fetchall()
-            for row2 in results2:
-                if row2[0] < 1:
+            results1 = cursor.fetchall()
+            for row1 in results1:
+                if row1[0] < 1:
                     crossing_ = ''
                 else:
                     query = '''   SELECT IFNULL(SUM(`avg_5`), 0) avg_5
@@ -181,12 +190,12 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                     parameters = (symbol, date)
                     cursor.execute(query, parameters)
 
-                    results3 = cursor.fetchall()
-                    for row3 in results3:
-                        crossing_ = row3[2]
-                        if ((row3[0] < row3[1]) & (avg_5 > avg_20)):
+                    results2 = cursor.fetchall()
+                    for row2 in results2:
+                        crossing_ = row2[2]
+                        if ((row2[0] < row2[1]) & (avg_5 > avg_20)):
                             crossing_ = '[G]olden'
-                        if ((row3[0] > row3[1]) & (avg_5 < avg_20)):
+                        if ((row2[0] > row2[1]) & (avg_5 < avg_20)):
                             crossing_ = '[D]eath'
 
 
