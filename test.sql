@@ -1,3 +1,11 @@
+
+
+
+SELECT distinct m.symbol
+  from stock_prices m
+  
+;
+
 SELECT *
 FROM
 (
@@ -21,8 +29,3 @@ and m.tr_date = d.tr_date
 where uc is not null or  dc is not null 
 ORDER by 1,2
 ;
-
-
-
-SELECT distinct m.symbol
-  from stock_prices m
