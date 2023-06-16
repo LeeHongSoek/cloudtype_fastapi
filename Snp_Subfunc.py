@@ -11,7 +11,7 @@ def select_sp500_stocks(cursor):
 
 
 # Function to fetch and store stock prices
-def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
+def fetch_store_stock_prices(cursor, symbol, company_name, days):
 
     try:
         # Fetch stock prices using yfinance
@@ -176,7 +176,7 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             else:
                 sign = "-"
 
-            print(f"{i+1:3d} | {date} |시: {open_:>4.5f} |종: {close_:>4.5f} |률: {sign}{abs(change_rate):>3.4f} |량: {volume_:8d} |5/20: {avg_5} {compare} {avg_20} | /{crossing_}/")
+            print(f"{symbol}[{i+1:3d}] | {date} |시: {open_:>4.5f} |종: {close_:>4.5f} |률: {sign}{abs(change_rate):>3.4f} |량: {volume_:8d} |5/20: {avg_5} {compare} {avg_20} | /{crossing_}/")
 
         query = ''' UPDATE sp500_stocks
                        SET date_update = datetime('now')
