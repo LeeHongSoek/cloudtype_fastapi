@@ -28,26 +28,24 @@ url = "https://datahub.io/core/s-and-p-500-companies/r/constituents.csv"
 data = requests.get(url).content
 sp500 = pd.read_csv(io.StringIO(data.decode('utf-8')))
 
-# Insert or update each symbol in sp500_stocks table
 for index, row in sp500.iterrows():
     symbol = row['Symbol']
     company_name = row['Name']
 
-    # Insert or update the symbol in sp500_stocks table
+    # S&P 500 종목 전체 저장
     subfunc.insert_update_sp500_stocks(cursor, symbol, company_name)
 
 conn.commit() # Commit the changes
 
-# Fetch symbols, company_name from sp500_stocks table
+# S&P 500 종목 읽어오기
 results = subfunc.select_sp500_stocks(cursor)
-
-# Fetch stock prices and store them in the database
 for row in results:
     symbol, company_name = row
     
-    # Fetch and store stock prices for each symbol
+    # S&P 500 종목 일자별 가격저장
     subfunc.fetch_store_stock_prices(conn, cursor, symbol, company_name, -61)
 
+# 이동평균값이 없으면 삭제
 query = ''' DELETE FROM stock_prices
                   WHERE avg_5 IS NULL OR avg_20 IS NULL   '''
 cursor.execute(query)
