@@ -4,7 +4,6 @@ import io
 import sqlite3
 import Snp_Subfunc as subfunc
 import Snp_SubInit as subinit
-import Snp_FtpCliant as fc
 import os
 
 # 현재 실행 중인 스크립트 파일의 경로
@@ -14,9 +13,6 @@ current_directory = os.path.dirname(script_path)
 
 directory = '/sqlite'
 filename = 'lhs_stock.db'
-
-if current_directory != 'C:\\MyProject\\cloudtype_fastapi':
-    fc.file_download(directory, filename)
 
 # Connect to SQLite database
 conn = sqlite3.connect(filename)
@@ -55,6 +51,3 @@ for row in results:
 # Close the cursor and the connection
 cursor.close()
 conn.close()
-
-if current_directory != 'C:\\MyProject\\cloudtype_fastapi':
-    fc.file_upload(directory, filename)
