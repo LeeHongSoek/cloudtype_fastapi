@@ -48,6 +48,12 @@ for row in results:
     # Fetch and store stock prices for each symbol
     subfunc.fetch_store_stock_prices(conn, cursor, symbol, company_name, -61)
 
+query = ''' DELETE FROM stock_prices
+                  WHERE avg_5 IS NULL OR avg_20 IS NULL   '''
+cursor.execute(query)
+conn.commit() # Commit the changes for each symbol
+
+
 # Close the cursor and the connection
 cursor.close()
 conn.close()

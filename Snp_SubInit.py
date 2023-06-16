@@ -12,11 +12,11 @@ def createtable_sp500_stocks(cursor):
         query = ''' CREATE TABLE IF NOT EXISTS sp500_stocks (
                                                             symbol        TEXT PRIMARY KEY,
                                                             company_name  TEXT NOT NULL,
-                                                            date_update   DATETIME NOT NULL,
+                                                            date_update   DATETIME NULL,
                                                             date_create   DATETIME NOT NULL,
                                                             able          TEXT NOT NULL DEFAULT 'Y',
                                                             favorite      TEXT DEFAULT 'n'
-                                                            )                                              '''
+                                                            )                                           '''
         cursor.execute(query)
 
 def createtable_stock_prices(cursor):

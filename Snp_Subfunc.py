@@ -183,13 +183,9 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
         query = ''' UPDATE sp500_stocks
                        SET date_update = datetime('now')
                      WHERE symbol = ?                       '''
-        parameters = (symbol)
+        parameters = (symbol, )
         cursor.execute(query, parameters)
 
-        query = ''' DELETE FROM stock_prices
-                     WHERE avg_5 IS NULL OR avg_20 IS NULL      '''
-        cursor.execute(query)
-        
         conn.commit() # Commit the changes for each symbol
 
     except Exception as e:
@@ -203,6 +199,10 @@ def insert_update_sp500_stocks(cursor, symbol, company_name):
                                 INTO sp500_stocks (symbol, company_name, date_create)
                               VALUES              (?,      ?,            datetime('now'))   '''
         parameters = (symbol, company_name)
+
+        formatted_query = query.replace('?', "'{}'").format(*parameters)
+        #print("대입된 쿼리:", formatted_query)
+
         cursor.execute(query, parameters)
 
         # 데이터 출력
