@@ -185,6 +185,10 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
                      WHERE symbol = ?                       '''
         parameters = (symbol)
         cursor.execute(query, parameters)
+
+        query = ''' DELETE FROM stock_prices
+                     WHERE avg_5 IS NULL OR avg_20 IS NULL      '''
+        cursor.execute(query)
         
         conn.commit() # Commit the changes for each symbol
 
