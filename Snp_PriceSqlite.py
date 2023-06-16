@@ -22,6 +22,7 @@ cursor = conn.cursor()
 
 subinit.createtable_sp500_stocks(cursor) # Create sp500_stocks table if it does not exist
 subinit.createtable_stock_prices(cursor) # Create stock_prices table if it does not exist
+conn.commit() # Commit the changes for each symbol
 
 # S&P 500 종목 가져오기
 url = "https://datahub.io/core/s-and-p-500-companies/r/constituents.csv"
@@ -44,6 +45,7 @@ for row in results:
     
     # S&P 500 종목 일자별 가격저장
     subfunc.fetch_store_stock_prices(conn, cursor, symbol, company_name, -61)
+conn.commit() # Commit the changes for each symbol    
 
 # 이동평균값이 없으면 삭제
 query = ''' DELETE FROM stock_prices

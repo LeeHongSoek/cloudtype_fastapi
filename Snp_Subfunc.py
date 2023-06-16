@@ -176,17 +176,13 @@ def fetch_store_stock_prices(conn, cursor, symbol, company_name, days):
             else:
                 sign = "-"
 
-
             print(f"{i+1:3d} | {date} |시: {open_:>4.5f} |종: {close_:>4.5f} |률: {sign}{abs(change_rate):>3.4f} |량: {volume_:8d} |5/20: {avg_5} {compare} {avg_20} | /{crossing_}/")
-
 
         query = ''' UPDATE sp500_stocks
                        SET date_update = datetime('now')
                      WHERE symbol = ?                       '''
         parameters = (symbol, )
         cursor.execute(query, parameters)
-
-        conn.commit() # Commit the changes for each symbol
 
     except Exception as e:
         print("Error occurred while fetching data for symbol:", symbol)
