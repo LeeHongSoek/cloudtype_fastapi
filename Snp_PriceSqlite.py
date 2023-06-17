@@ -44,7 +44,7 @@ for row in results:
     symbol, company_name = row
     
     # S&P 500 종목 일자별 가격저장
-    subfunc.fetch_store_stock_prices(cursor, symbol, company_name, -61)
+    subfunc.fetch_store_stock_prices(cursor, symbol, company_name, -3650)
 conn.commit() # Commit the changes for each symbol    
 
 # 이동평균값이 없으면 삭제
