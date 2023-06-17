@@ -1,3 +1,7 @@
+UPDATE sp500_stocks set able = '' 
+;
+
+
  SELECT m.symbol,
            m.tr_date,
            m.close,
