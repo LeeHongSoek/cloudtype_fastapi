@@ -56,7 +56,9 @@ from (
                 WHERE crossing IN ('[D]own')
             ) d ON m.symbol = d.symbol
             AND m.tr_date = d.tr_date
+---       where M.symbol = 'GOOG'			
     )
 where symbol <> ''
     or uc <> ''
     or dc <> ''
+	

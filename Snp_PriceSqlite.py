@@ -11,8 +11,16 @@ import os
 script_path = os.path.realpath(__file__)
 current_directory = os.path.dirname(script_path)
 
-directory = '/sqlite'
 filename = 'lhs_stock.db'
+
+zip_file_name = filename + ".zip"
+zip_path = os.path.join(os.getcwd(), zip_file_name)
+extract_path = os.getcwd()
+
+if os.path.exists(zip_path):
+    subfunc.unzip_file(zip_path, extract_path)
+else:
+    print(f"The '{zip_file_name}' file does not exist. Skipping the extraction step.")
 
 # Connect to SQLite database
 conn = sqlite3.connect(filename)
@@ -53,7 +61,9 @@ query = ''' DELETE FROM stock_prices
 cursor.execute(query)
 conn.commit() # Commit the changes for each symbol
 
-
 # Close the cursor and the connection
 cursor.close()
 conn.close()
+
+# 파일 압축
+subfunc.zip_file(filename, filename+".zip")
