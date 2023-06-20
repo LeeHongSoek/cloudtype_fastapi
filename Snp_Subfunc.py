@@ -58,8 +58,8 @@ def fetch_store_stock_prices(cursor, symbol, company_name, days):
 
             # 5일 평균 구하기            
             for row1 in results1:
-                if row1[0] < 4: # 4개 이하면 평균을 못 구한다.
-                    avg_5 = None
+                if row1[0] < 9: # 9개 이하면 평균을 못 구한다.
+                    avg_short = None
                 else:
                     # 4개의 종가 합계를 구한다.
                     query = ''' SELECT IFNULL(SUM(`close`), 0)
@@ -72,19 +72,19 @@ def fetch_store_stock_prices(cursor, symbol, company_name, days):
                                                    AND tr_date < ?
                                               ORDER BY tr_date DESC    
                                             ) a                                
-                                        LIMIT 4
+                                        LIMIT 9
                                       ) b                                 '''
                     parameters = (symbol, date)
                     cursor.execute(query, parameters)
 
                     results2 = cursor.fetchall()
                     for row2 in results2:
-                        avg_5 = (row2[0] + close_) / 5
+                        avg_short = (row2[0] + close_) / 10
 
-                if row1[0] < 19: # 19개 이하면 평균을 못 구한다.
-                    avg_20 = None
+                if row1[0] < 29: # 29개 이하면 평균을 못 구한다.
+                    avg_long = None
                 else:
-                    # 19개의 종가 합계를 구한다.
+                    # 29개의 종가 합계를 구한다.
                     query = ''' SELECT IFNULL(SUM(`close`), 0)
                                  FROM (
                                         SELECT tr_date, close
@@ -93,24 +93,24 @@ def fetch_store_stock_prices(cursor, symbol, company_name, days):
                                                   FROM stock_prices
                                                  WHERE symbol  = ?
                                                    AND tr_date < ?
-                                               ORDER BY tr_date DESC    
+                                              ORDER BY tr_date DESC    
                                             ) a                                
-                                        LIMIT 19
+                                        LIMIT 29
                                       ) b                               '''
                     parameters = (symbol, date)
                     cursor.execute(query, parameters)
 
                     results2 = cursor.fetchall()
                     for row2 in results2:
-                        avg_20 = (row2[0] + close_) / 20
+                        avg_long = (row2[0] + close_) / 30
 
             # 5일 평균과 20일 평균이 있는 건의 갯수를 구하야
             query = ''' SELECT COUNT(*) 
                           FROM stock_prices
                          WHERE symbol = ?
                            AND tr_date < ?
-                           AND avg_5  IS NOT NULL
-                           AND avg_20 IS NOT NULL    '''
+                           AND avg_short IS NOT NULL
+                           AND avg_long  IS NOT NULL    '''
             parameters = (symbol, date)              
 
             # 쿼리 확인
@@ -125,16 +125,16 @@ def fetch_store_stock_prices(cursor, symbol, company_name, days):
                     crossing_ = '' # 5일 평균과 20일 평균이 있어야 교차를 확인할 수 있다.
                 else:
                     # 바로전날(날짜 역순)으로 종가 5일 평균과 20일 평균을 구한다.
-                    query = '''   SELECT IFNULL(avg_5, 0)  avg_5
-                                       , IFNULL(avg_20, 0) avg_20
+                    query = '''   SELECT IFNULL(avg_short, 0) avg_short
+                                       , IFNULL(avg_long, 0)  avg_long
                                        , crossing
                                     FROM (   
                                             SELECT *    
                                               FROM stock_prices
                                              WHERE symbol = ?
                                                AND tr_date < ?
-                                               AND avg_5  IS NOT NULL
-                                               AND avg_20 IS NOT NULL
+                                               AND avg_short IS NOT NULL
+                                               AND avg_long  IS NOT NULL
                                           ORDER BY tr_date DESC
                                          )
                                    LIMIT 1                             '''
@@ -156,28 +156,28 @@ def fetch_store_stock_prices(cursor, symbol, company_name, days):
                             crossing_ = 'Down'
                         
                         # 바로전날 종가 5일 평균과 20일 평균과 당일  종가 5일 평균과 20일 비교하여 교차를 확인하고 마킹한다.
-                        if ((row2[0] < row2[1]) & (avg_5 > avg_20)):
+                        if ((row2[0] < row2[1]) & (avg_short > avg_long)):
                             crossing_ = '[U]p'
-                        if ((row2[0] > row2[1]) & (avg_5 < avg_20)):
+                        if ((row2[0] > row2[1]) & (avg_short < avg_long)):
                             crossing_ = '[D]own'
 
 
             # 당일 종가 5일 평균과 20일 평균을 저장
             query = ''' UPDATE stock_prices
-                           SET avg_5    = ?
-                             , avg_20   = ?
+                           SET avg_short   = ?
+                             , avg_long   = ?
                              , crossing = ?
                          WHERE symbol  = ?
                            AND tr_date = ?   '''
-            parameters = (avg_5, avg_20, crossing_, symbol, date)
+            parameters = (avg_short, avg_long, crossing_, symbol, date)
             cursor.execute(query, parameters)
 
             # 크기 비교 확인을 위해
             compare = '_'
-            if ((avg_5 != None) & (avg_20 != None)):
-                if (avg_5 > avg_20):
+            if ((avg_short != None) & (avg_long != None)):
+                if (avg_short > avg_long):
                     compare = '>'
-                if (avg_5 < avg_20):
+                if (avg_short < avg_long):
                     compare = '<'
 
             # 데이터 출력
@@ -186,7 +186,7 @@ def fetch_store_stock_prices(cursor, symbol, company_name, days):
             else:
                 sign = "-"
 
-            print(f"{symbol}[{i+1:3d}] | {date} |시: {open_:>4.5f} |종: {close_:>4.5f} |률: {sign}{abs(change_rate):>3.4f} |량: {volume_:8d} |5/20: {avg_5} {compare} {avg_20} | /{crossing_}/")
+            print(f"{symbol}[{i+1:3d}] | {date} |시: {open_:>4.5f} |종: {close_:>4.5f} |률: {sign}{abs(change_rate):>3.4f} |량: {volume_:8d} |10/30: {avg_short} {compare} {avg_long} | /{crossing_}/")
 
         query = ''' UPDATE sp500_stocks
                        SET date_update = datetime('now')

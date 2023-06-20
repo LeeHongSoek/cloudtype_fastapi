@@ -1,6 +1,7 @@
 import sqlite3
 
-def createtable_sp500_stocks(cursor):
+def createtables(cursor):
+    
     # Check if sp500_stocks table exists
     query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='sp500_stocks' '''
     cursor.execute(query)
@@ -19,7 +20,6 @@ def createtable_sp500_stocks(cursor):
                                                             )                                           '''
         cursor.execute(query)
 
-def createtable_stock_prices(cursor):
     # Check if stock_prices table exists
     query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='stock_prices' '''
     cursor.execute(query)
@@ -35,8 +35,8 @@ def createtable_stock_prices(cursor):
                                                             close        DECIMAL(10, 2) DEFAULT NULL,
                                                             change_rate  DECIMAL(5, 2) DEFAULT NULL,
                                                             volume       INTEGER DEFAULT NULL,
-                                                            avg_5        DECIMAL(10, 2) DEFAULT NULL,
-                                                            avg_20       DECIMAL(10, 2) DEFAULT NULL,
+                                                            avg_short    DECIMAL(10, 2) DEFAULT NULL,
+                                                            avg_long     DECIMAL(10, 2) DEFAULT NULL,
                                                             crossing 	 TEXT DEFAULT NULL,
                                                             date_update  DATETIME DEFAULT NULL,
 

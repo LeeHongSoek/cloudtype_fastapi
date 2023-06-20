@@ -25,11 +25,9 @@ else:
 # Connect to SQLite database
 conn = sqlite3.connect(filename)
 
-# Create tables
 cursor = conn.cursor()
 
-subinit.createtable_sp500_stocks(cursor) # Create sp500_stocks table if it does not exist
-subinit.createtable_stock_prices(cursor) # Create stock_prices table if it does not exist
+subinit.createtables(cursor) # Create sp500_stocks, stock_prices table if it does not exist
 conn.commit() # Commit the changes for each symbol
 
 # S&P 500 종목 가져오기
@@ -52,12 +50,13 @@ for row in results:
     symbol, company_name = row
     
     # S&P 500 종목 일자별 가격저장
-    subfunc.fetch_store_stock_prices(cursor, symbol, company_name, -30)
+    subfunc.fetch_store_stock_prices(cursor, symbol, company_name, -3650)
+    #break
 conn.commit() # Commit the changes for each symbol    
 
 # 이동평균값이 없으면 삭제
 query = ''' DELETE FROM stock_prices
-                  WHERE avg_5 IS NULL OR avg_20 IS NULL   '''
+                  WHERE avg_short IS NULL OR avg_long IS NULL   '''
 cursor.execute(query)
 conn.commit() # Commit the changes for each symbol
 
