@@ -61,18 +61,24 @@ class CrawlLotte(Crawl):
         driver.get('https://www.lottecinema.co.kr/NLCHS')
         driver.implicitly_wait(3)
 
-        html = driver.page_source  # 패이지 소스를 읽어온다.....
-
+        html = driver.page_source.replace('\n', '')  # 패이지 소스를 읽어온다.....
         soup = BeautifulSoup(html, "html.parser")
 
         
         # XPath를 사용하여 요소를 선택합니다
         #element = soup.find(xpath="/html/body/div[4]/div[2]/ul/li[3]")
         #element = soup.find('div:nth-child(4) div:nth-child(2) ul li:nth-child(3)')
-        element = soup.find('#header_section')
 
-        # 결과 출력
-        print(element.text)
+        tags1 = soup.select("#nav > ul > li:nth-child(3) > div > ul")
+        for tag1 in tags1:
+            tags2 = tag1.select('li > a[href="#"]')
+            for tag2 in tags2:
+                print('======================================================up')
+                print(tag2)
+            tags2 = tag1.select('li > a:not([href="#"])')
+            for tag2 in tags2:
+                print('======================================================dn')
+                print(tag2)
 
 
         driver.quit()

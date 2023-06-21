@@ -1,0 +1,106 @@
+[    INFO|  Crawl_Lotte.py: 46 ] 
+[    INFO|  Crawl_Lotte.py: 47 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py: 56 ] 
+[    INFO|  Crawl_Lotte.py: 57 ] ### 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:108 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:109 ] no, 코드, 영화명, 장르, 예매, 개봉일, 관람등급
+[    INFO|  Crawl_Lotte.py:110 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:131 ] 1 : 19438,엘리멘탈,애니메이션,Y,20230614,전체관람가
+[    INFO|  Crawl_Lotte.py:131 ] 2 : 19803,범죄도시3,범죄,Y,20230531,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 3 : 19864,귀공자,액션,Y,20230621,청소년관람불가
+[    INFO|  Crawl_Lotte.py:131 ] 4 : 19775,스파이더맨: 어크로스 더 유니버스,애니메이션,Y,20230621,전체관람가
+[    INFO|  Crawl_Lotte.py:131 ] 5 : 19907,플래시,액션,Y,20230614,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 6 : 19850,트랜스포머: 비스트의 서막,액션,Y,20230606,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 7 : 19776,가디언즈 오브 갤럭시: Volume 3,액션,Y,20230503,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 8 : 19952,제이홉 인 더 박스+슈가: 로드 투 디데이,다큐멘터리,Y,20230616,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 9 : 19903,인드림,액션,Y,20230621,청소년관람불가
+[    INFO|  Crawl_Lotte.py:131 ] 10 : 19940,슈가: 로드 투 디데이,다큐멘터리,Y,20230616,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 11 : 19764,포켓 몬스터 DP: 아르세우스 초극의 시공으로,애니메이션,Y,20230531,전체관람가
+[    INFO|  Crawl_Lotte.py:131 ] 12 : 19882,206: 사라지지 않는,다큐멘터리,Y,20230621,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 13 : 19786,분노의 질주: 라이드 오어 다이,액션,Y,20230517,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 14 : 19621,수라,다큐멘터리,Y,20230621,전체관람가
+[    INFO|  Crawl_Lotte.py:131 ] 15 : 19874,인어공주,뮤지컬,Y,20230524,전체관람가
+[    INFO|  Crawl_Lotte.py:131 ] 16 : 19781,블랙워터: 어비스,공포(호러),Y,20230614,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 17 : 19939,제이홉 인 더 박스,다큐멘터리,Y,20230616,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 18 : 19895,북 오브 러브,멜로/로맨스,Y,20230621,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 19 : 19481,스즈메의 문단속,애니메이션,Y,20230308,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 20 : 19956,살롱 드 서울,드라마,Y,20230621,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 21 : 19891,손,공포(호러),Y,20230621,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 22 : 19586,아기공룡 둘리-얼음별 대모험,애니메이션,Y,20230524,전체관람가
+[    INFO|  Crawl_Lotte.py:131 ] 23 : 19581,에브리씽 에브리웨어 올 앳 원스+,액션,Y,20230301,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 24 : 12523,곤지암,공포(호러),Y,20180328,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 25 : 19753,극장판 짱구는 못말려: 동물소환 닌자 배꼽수비대,애니메이션,Y,20230504,전체관람가
+[    INFO|  Crawl_Lotte.py:131 ] 26 : 19831,너의 눈을 들여다보면,드라마,Y,20230614,전체관람가
+[    INFO|  Crawl_Lotte.py:131 ] 27 : 19662,드림,드라마,Y,20230426,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 28 : 19743,드림팰리스,드라마,Y,20230531,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:131 ] 29 : 17630,랑종,공포(호러),Y,20210714,청소년관람불가
+[    INFO|  Crawl_Lotte.py:131 ] 30 : 19751,스트리머,공포(호러),Y,20230510,만15세이상관람가
+[    INFO|  Crawl_Lotte.py: 46 ] 
+[    INFO|  Crawl_Lotte.py: 47 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py: 82 ] 
+[    INFO|  Crawl_Lotte.py: 83 ] ### 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:134 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:135 ] no, 코드, 영화명, 장르, 예매, 개봉일, 관람등급
+[    INFO|  Crawl_Lotte.py:136 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:157 ] 1 : 19438,엘리멘탈,애니메이션,Y,20230614,전체관람가
+[    INFO|  Crawl_Lotte.py:157 ] 2 : 19803,범죄도시3,범죄,Y,20230531,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 3 : 19864,귀공자,액션,Y,20230621,청소년관람불가
+[    INFO|  Crawl_Lotte.py:157 ] 4 : 19775,스파이더맨: 어크로스 더 유니버스,애니메이션,Y,20230621,전체관람가
+[    INFO|  Crawl_Lotte.py:157 ] 5 : 19907,플래시,액션,Y,20230614,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 6 : 19850,트랜스포머: 비스트의 서막,액션,Y,20230606,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 7 : 19776,가디언즈 오브 갤럭시: Volume 3,액션,Y,20230503,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 8 : 19952,제이홉 인 더 박스+슈가: 로드 투 디데이,다큐멘터리,Y,20230616,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 9 : 19903,인드림,액션,Y,20230621,청소년관람불가
+[    INFO|  Crawl_Lotte.py:157 ] 10 : 19940,슈가: 로드 투 디데이,다큐멘터리,Y,20230616,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 11 : 19764,포켓 몬스터 DP: 아르세우스 초극의 시공으로,애니메이션,Y,20230531,전체관람가
+[    INFO|  Crawl_Lotte.py:157 ] 12 : 19882,206: 사라지지 않는,다큐멘터리,Y,20230621,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 13 : 19786,분노의 질주: 라이드 오어 다이,액션,Y,20230517,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 14 : 19621,수라,다큐멘터리,Y,20230621,전체관람가
+[    INFO|  Crawl_Lotte.py:157 ] 15 : 19874,인어공주,뮤지컬,Y,20230524,전체관람가
+[    INFO|  Crawl_Lotte.py:157 ] 16 : 19781,블랙워터: 어비스,공포(호러),Y,20230614,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 17 : 19939,제이홉 인 더 박스,다큐멘터리,Y,20230616,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 18 : 19895,북 오브 러브,멜로/로맨스,Y,20230621,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 19 : 19481,스즈메의 문단속,애니메이션,Y,20230308,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 20 : 19956,살롱 드 서울,드라마,Y,20230621,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 21 : 19891,손,공포(호러),Y,20230621,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 22 : 19586,아기공룡 둘리-얼음별 대모험,애니메이션,Y,20230524,전체관람가
+[    INFO|  Crawl_Lotte.py:157 ] 23 : 19581,에브리씽 에브리웨어 올 앳 원스+,액션,Y,20230301,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 24 : 12523,곤지암,공포(호러),Y,20180328,만15세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 25 : 19753,극장판 짱구는 못말려: 동물소환 닌자 배꼽수비대,애니메이션,Y,20230504,전체관람가
+[    INFO|  Crawl_Lotte.py:157 ] 26 : 19831,너의 눈을 들여다보면,드라마,Y,20230614,전체관람가
+[    INFO|  Crawl_Lotte.py:157 ] 27 : 19662,드림,드라마,Y,20230426,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 28 : 19743,드림팰리스,드라마,Y,20230531,만12세이상관람가
+[    INFO|  Crawl_Lotte.py:157 ] 29 : 17630,랑종,공포(호러),Y,20210714,청소년관람불가
+[    INFO|  Crawl_Lotte.py:157 ] 30 : 19751,스트리머,공포(호러),Y,20230510,만15세이상관람가
+[    INFO|  Crawl_Lotte.py: 49 ] 
+[    INFO|  Crawl_Lotte.py: 50 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py: 50 ] 
+[    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py: 50 ] 
+[    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[   ERROR|  Crawl_Lotte.py: 40 ] LOTTE 크롤링 중 오류발생!
+[    INFO|  Crawl_Lotte.py: 50 ] 
+[    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py: 50 ] 
+[    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py: 50 ] 
+[    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py: 50 ] 
+[    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py: 50 ] 
+[    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py: 50 ] 
+[    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[   ERROR|  Crawl_Lotte.py: 40 ] LOTTE 크롤링 중 오류발생!
+[    INFO|  Crawl_Lotte.py: 50 ] 
+[    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[   ERROR|  Crawl_Lotte.py: 40 ] LOTTE 크롤링 중 오류발생!
+[    INFO|  Crawl_Lotte.py: 50 ] 
+[    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[   ERROR|  Crawl_Lotte.py: 40 ] LOTTE 크롤링 중 오류발생!
+[    INFO|  Crawl_Lotte.py: 50 ] 
+[    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[   ERROR|  Crawl_Lotte.py: 40 ] LOTTE 크롤링 중 오류발생!
+[    INFO|  Crawl_Lotte.py: 50 ] 
+[    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[   ERROR|  Crawl_Lotte.py: 40 ] LOTTE 크롤링 중 오류발생!
