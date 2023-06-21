@@ -17,7 +17,8 @@ long_running_task를 비동기 작업으로 실행합니다.
 이 예제는 WebSocket을 사용하여 작업 상태를 업데이트하고 클라이언트에 전달하는 방법을 보여줍니다. 
 필요에 따라 작업 상태를 데이터베이스에 저장하거나 다른 방법으로 전달할 수도 있습니다.
 
-uvicorn main_asyncView:app --reload  --host=0.0.0.0 --port=10000
+uvicorn main:app --reload  --host=0.0.0.0 --port=10000
+uvicorn main_asyncView:app --reload 
 taskkill /f /im python.exe         프로세서를 완전히 죽이고 하자.. 
 
 pip install fastapi

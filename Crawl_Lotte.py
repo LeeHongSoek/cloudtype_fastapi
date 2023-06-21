@@ -1,5 +1,6 @@
 import sys 
 import json
+from bs4 import BeautifulSoup  # pip install beautifulsoup4
 from selenium import webdriver
 from browsermobproxy import Server # pip install browsermob-proxy
 import time
@@ -29,8 +30,11 @@ class CrawlLotte(Crawl):
     def crawling(self):
         try:
             self.__crawl_lotte_cinema()  # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
+            '''
             self.__crawl_lotte_boxoffice()  # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. (dicMovieData)
-            #self.__crawl_lotte_ticketingdata()  # 영화관 (http://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData1)
+            self.__crawl_lotte_ticketingdata()  # 영화관 (http://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData1)
+            '''
+            
             
         except Exception as e:
             self.logger.error('LOTTE 크롤링 중 오류발생!')
@@ -45,6 +49,45 @@ class CrawlLotte(Crawl):
 
         self.logger.info('')
         self.logger.info('### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###')
+
+        options = webdriver.ChromeOptions()
+        options.add_experimental_option("excludeSwitches", ["enable-logging"])
+        options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
+        options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
+
+        driver = webdriver.Chrome(options=options)  # 다운받은 파일을 압축푼 후 실행파일을 해당경로에 푼다.....
+        driver.implicitly_wait(3)
+
+        driver.get('https://www.lottecinema.co.kr/NLCHS')
+        driver.implicitly_wait(3)
+
+        html = driver.page_source  # 패이지 소스를 읽어온다.....
+
+        soup = BeautifulSoup(html, "html.parser")
+
+        
+        # XPath를 사용하여 요소를 선택합니다
+        #element = soup.find(xpath="/html/body/div[4]/div[2]/ul/li[3]")
+        #element = soup.find('div:nth-child(4) div:nth-child(2) ul li:nth-child(3)')
+        element = soup.find('#header_section')
+
+        # 결과 출력
+        print(element.text)
+
+
+        driver.quit()
+
+
+        '''
+        driver.find_element_by_xpath('//*[@class="btn-more-fontbold"]').click()  # '더보기' 클릭
+        driver.implicitly_wait(3)
+
+        time.sleep(self.delayTime)  # 초 단위 지연...
+
+        
+
+        soup = BeautifulSoup(html, "html.parser")
+        '''
 
     # -------------------------------------------------------------------------------------------------
 
