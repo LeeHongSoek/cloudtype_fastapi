@@ -7,6 +7,7 @@ from selenium import webdriver
 from browsermobproxy import Server # pip install browsermob-proxy
 import time
 from selenium.webdriver.chrome.options import Options
+import requests
 
 
 # browsermob-proxy 서버 시작
@@ -51,6 +52,22 @@ for entry in entries:
     else:
         print("No post data available")
     '''
+
+    url = request['url']
+            
+    if url.endswith('.js'):
+        response = requests.get(url)
+        
+        if response.status_code == 200:
+            # 파일 저장
+            with open('C://Crawlling2//aaa.txt', 'a', encoding='utf-8') as file:
+                file.write(f'url ========= {url}')
+                file.write('\n\n')
+                file.write(response.text)
+                file.write('\n\n')
+                file.write('\n\n')
+                file.write('\n\n')
+                file.write('\n\n')
     
     if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx":
         print(request['url'])
