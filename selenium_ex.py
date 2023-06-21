@@ -30,7 +30,23 @@ driver = webdriver.Chrome(options=chrome_options)
 proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})
 
 # 웹사이트로 이동
-driver.get("https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1")
+#driver.get("https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1")
+
+response = requests.get("https://www.lottecinema.co.kr/NLCHS")
+        
+if response.status_code == 200:
+    # 파일 저장
+    with open('C://Crawlling2//aa1.txt', 'a', encoding='utf-8') as file:
+        file.write(f'url ========= {"https://www.lottecinema.co.kr/NLCHS"}')
+        file.write('\n\n')
+        file.write(response.text)
+        file.write('\n\n')
+        file.write('\n\n')
+        file.write('\n\n')
+        file.write('\n\n')
+
+
+driver.get("https://www.lottecinema.co.kr/NLCHS")
 
 # 3초 대기
 time.sleep(10)
@@ -60,7 +76,7 @@ for entry in entries:
         
         if response.status_code == 200:
             # 파일 저장
-            with open('C://Crawlling2//aaa.txt', 'a', encoding='utf-8') as file:
+            with open('C://Crawlling2//aa2.txt', 'a', encoding='utf-8') as file:
                 file.write(f'url ========= {url}')
                 file.write('\n\n')
                 file.write(response.text)
