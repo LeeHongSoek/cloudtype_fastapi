@@ -26,114 +26,7 @@ class CrawlLotte(Crawl):
         self.dicTicketingData = {}  # 티켓팅 정보
     # -----------------------------------------------------------------------------------
 
-
     def crawling(self):
-
-        # -------------------------------------------------------------------------------------------------
-        # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
-        #
-        def __crawl_lotte_cinema(self):
-
-            self.logger.info('')
-            self.logger.info('### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###')
-
-        # -------------------------------------------------------------------------------------------------
-
-
-    
-        # ----------------------------------------------------------------------------------------------------------------------------
-        # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. (dicMovieData)
-        #
-        def __crawl_lotte_boxoffice(self):
-            self.logger.info('')
-            self.logger.info('### 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. ###')
-
-            movie_count = 0
-
-            # browsermob-proxy 서버 시작
-            server_path = 'C://Crawlling2//browsermob-proxy-2.1.4//bin//browsermob-proxy.bat'
-            server = Server(server_path)
-            server.start()
-
-            # 프록시 생성 및 WebDriver에 프록시 사용 설정
-            proxy = server.create_proxy()
-            chrome_options = webdriver.ChromeOptions()
-            chrome_options.add_argument('--proxy-server={0}'.format(proxy.proxy))
-            chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
-            chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
-            #chrome_options.add_argument('--no-proxy-server')  # 프록시 서버 비활성화 옵션
-            driver = webdriver.Chrome(options=chrome_options)
-
-            # 요청 캡처 활성화
-            proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})
-
-            # 웹사이트로 이동
-            driver.get("https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1")
-
-            # 5초 대기
-            time.sleep(5)
-
-            # 캡처된 요청 가져오기
-            har = proxy.har
-            entries = har['log']['entries']
-
-            # 각 요청의 세부 정보 출력
-            for entry in entries:
-                request = entry['request']
-                
-                if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx":
-                                            
-                    print(request['url'])
-                    print(request['method'])    
-                    response = entry['response']
-                    
-                    print('------------------------')
-                    print(request['headers'])
-
-                    content = response['content']
-                    text = content['text']
-                    
-                    # JSON 파싱
-                    data = json.loads(text)
-
-                    if self.isPrnConsole:  # ################
-                        self.logger.info('-------------------------------------')
-                        self.logger.info('no, 코드, 영화명, 장르, 예매, 개봉일, 관람등급')
-                        self.logger.info('-------------------------------------')
-
-                    json_obj = json.loads(text)
-
-                    jsonpath_expr = parse('Movies.Items[*]')
-
-                    for match in jsonpath_expr.find(json_obj):
-                        representationmoviecode = str(match.value['RepresentationMovieCode'])
-                        movienamekr = str(match.value['MovieNameKR']).strip()
-                        moviegenrename = str(match.value['MovieGenreName'])
-                        bookingyn = str(match.value['BookingYN'])
-                        releasedate = str(match.value['ReleaseDate'])
-                        releasedate = releasedate[0:4] + releasedate[5:7] + releasedate[8:10]
-                        viewgradenameus = str(match.value['ViewGradeNameUS'])
-
-                        if movienamekr == '' or movienamekr == 'AD': continue
-
-                        self.dicMovieData[representationmoviecode] = [movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus, -1]  # 영화데이터 정보
-
-                        if self.isPrnConsole:  # ################
-                            movie_count += 1
-                            self.logger.info(f'{movie_count} : {representationmoviecode},{movienamekr},{moviegenrename},{bookingyn},{releasedate},{viewgradenameus}')
-                        #
-                    #
-                #
-
-            # WebDriver 종료 및 프록시 서버 중지
-            driver.quit()
-            server.stop()
-
-            movie_count = 0
-
-        # -------------------------------------------------------------------------------------------------
-        
-
         try:
             self.__crawl_lotte_cinema()  # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
             self.__crawl_lotte_boxoffice()  # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. (dicMovieData)
@@ -144,6 +37,111 @@ class CrawlLotte(Crawl):
             raise e
 
     #
+
+    # -------------------------------------------------------------------------------------------------
+    # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
+    #
+    def __crawl_lotte_cinema(self):
+
+        self.logger.info('')
+        self.logger.info('### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###')
+
+    # -------------------------------------------------------------------------------------------------
+
+
+    # ----------------------------------------------------------------------------------------------------------------------------
+    # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. (dicMovieData)
+    #
+    def __crawl_lotte_boxoffice(self):
+        self.logger.info('')
+        self.logger.info('### 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. ###')
+
+        movie_count = 0
+
+        # browsermob-proxy 서버 시작
+        server_path = 'C://Crawlling2//browsermob-proxy-2.1.4//bin//browsermob-proxy.bat'
+        server = Server(server_path)
+        server.start()
+
+        # 프록시 생성 및 WebDriver에 프록시 사용 설정
+        proxy = server.create_proxy()
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument('--proxy-server={0}'.format(proxy.proxy))
+        chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
+        chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
+        #chrome_options.add_argument('--no-proxy-server')  # 프록시 서버 비활성화 옵션
+        driver = webdriver.Chrome(options=chrome_options)
+
+        # 요청 캡처 활성화
+        proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})
+
+        # 웹사이트로 이동
+        driver.get("https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1")
+
+        # 5초 대기
+        time.sleep(5)
+
+        # 캡처된 요청 가져오기
+        har = proxy.har
+        entries = har['log']['entries']
+
+        # 각 요청의 세부 정보 출력
+        for entry in entries:
+            request = entry['request']
+            
+            if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx":
+                                        
+                print(request['url'])
+                print(request['method'])    
+                response = entry['response']
+                
+                print('------------------------')
+                print(request['headers'])
+
+                content = response['content']
+                text = content['text']
+                
+                # JSON 파싱
+                data = json.loads(text)
+
+                if self.isPrnConsole:  # ################
+                    self.logger.info('-------------------------------------')
+                    self.logger.info('no, 코드, 영화명, 장르, 예매, 개봉일, 관람등급')
+                    self.logger.info('-------------------------------------')
+
+                json_obj = json.loads(text)
+
+                jsonpath_expr = parse('Movies.Items[*]')
+
+                for match in jsonpath_expr.find(json_obj):
+                    representationmoviecode = str(match.value['RepresentationMovieCode'])
+                    movienamekr = str(match.value['MovieNameKR']).strip()
+                    moviegenrename = str(match.value['MovieGenreName'])
+                    bookingyn = str(match.value['BookingYN'])
+                    releasedate = str(match.value['ReleaseDate'])
+                    releasedate = releasedate[0:4] + releasedate[5:7] + releasedate[8:10]
+                    viewgradenameus = str(match.value['ViewGradeNameUS'])
+
+                    if movienamekr == '' or movienamekr == 'AD': continue
+
+                    self.dicMovieData[representationmoviecode] = [movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus, -1]  # 영화데이터 정보
+
+                    if self.isPrnConsole:  # ################
+                        movie_count += 1
+                        self.logger.info(f'{movie_count} : {representationmoviecode},{movienamekr},{moviegenrename},{bookingyn},{releasedate},{viewgradenameus}')
+                    #
+                #
+            #
+
+        # WebDriver 종료 및 프록시 서버 중지
+        driver.quit()
+        server.stop()
+
+        movie_count = 0
+
+    # -------------------------------------------------------------------------------------------------
+        
+
 
     def uplodding(self):
         try:
