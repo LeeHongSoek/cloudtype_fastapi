@@ -31,11 +31,9 @@ class CrawlLotte(Crawl):
 
     def crawling(self):
         try:
+            #self.__crawl_lotte_boxoffice()  # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. (dicMovieData)
             self.__crawl_lotte_cinema()  # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
-            '''
-            self.__crawl_lotte_boxoffice()  # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. (dicMovieData)
-            self.__crawl_lotte_ticketingdata()  # 영화관 (http://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData1)
-            '''
+            self.__crawl_lotte_ticketingdata()  # 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData1)
             
             
         except Exception as e:
@@ -44,94 +42,42 @@ class CrawlLotte(Crawl):
 
     #
 
-
-    # -------------------------------------------------------------------------------------------------
-    # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
+    # ---------------------------------------------------------------------------------------------------------------------
+    # 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)
     #
-    def __crawl_lotte_cinema(self):
-
-        
-        
-        def parse_links(html):
-            soup = BeautifulSoup(html, 'html.parser')
-            a_tags = soup.find_all('a')
-            
-            parsed_links = []
-            
-            for a_tag in a_tags:
-                link = a_tag['href']
-                parsed_url = urlparse(link)
-                params = parse_qs(parsed_url.query)
-                
-                url = link.split('?')[0]
-                query_params = {key: value[0] for key, value in params.items()}
-                text = a_tag.text
-                
-                parsed_link = {
-                    'url': url,
-                    'query_params': query_params,
-                    'text': text.replace("\n", "").strip()
-                }
-                
-                parsed_links.append(parsed_link)
-
-                # print("URL:", parsed_link['url'],", Query Params:", parsed_link['query_params'],", Text:", parsed_link['text'])
-                
-            return parsed_links
-
-
-
+    def __crawl_lotte_ticketingdata(self):
 
         self.logger.info('')
-        self.logger.info('### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###')
+        self.logger.info('### 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. ###')
 
+        # https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1004
+
+        # browsermob-proxy 서버 시작
+        server_path = 'C://Crawlling2//browsermob-proxy-2.1.4//bin//browsermob-proxy.bat'
+        server = Server(server_path)
+        server.start()
+
+        # 프록시 생성 및 WebDriver에 프록시 사용 설정
+        proxy = server.create_proxy()
         chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
+        chrome_options.add_argument('--proxy-server={0}'.format(proxy.proxy))
         chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
         chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
+        #chrome_options.add_argument('--no-proxy-server')  # 프록시 서버 비활성화 옵션
+        driver = webdriver.Chrome(options=chrome_options)
 
-        driver = webdriver.Chrome(options=chrome_options)  
+        # 요청 캡처 활성화
+        proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})
 
-        driver.get('https://www.lottecinema.co.kr/NLCHS')
-        driver.implicitly_wait(3)
-
-        html = driver.page_source.replace('\n', '')  # 패이지 소스를 읽어온다.....
-        soup = BeautifulSoup(html, "html.parser")
-
-        cinema_count = 0
-
-        if self.isPrnConsole:  # ################
-            self.logger.info('-------------------------------------')
-            self.logger.info('no, 코드, 스페셜관, 정렬일련번호, 극장명')
-            self.logger.info('-------------------------------------')
-
-        tags1 = soup.select("#nav > ul > li:nth-child(3) > div > ul")
-        for tag1 in tags1:
+        for key, value in self.dicCinemas.items():
+            self.logger.info('{} : {},{},'.format(key, value[2], value[3]))
             
-            tagLst = ''
-            tags2 = tag1.select('li > a:not([href="#"])')
-            for tag2 in tags2:                
-                #print(tag2)
-                tagLst += tag2.prettify()
-            
-            parsed_links = parse_links(tagLst)
+            driver.get(value[3]) # 웹사이트로 이동
+            #driver.implicitly_wait(3) # 3초 대기
+            time.sleep(3)
 
-            sortsequence = 0
-            for parsed_link in parsed_links:
-                if parsed_link['url']=='https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema':
-                    sortsequence = sortsequence + 1
-                    self.dicCinemas[parsed_link['query_params']['screendivcd']] = ['Y', sortsequence, parsed_link['text']]  # 극장(스페셜괌)정보저장
-
-                if parsed_link['url'] == 'https://www.lottecinema.co.kr/NLCHS/Cinema/Detail':
-                    sortsequence = sortsequence + 1
-                    self.dicCinemas[parsed_link['query_params']['cinemaID']] = ['N', sortsequence, parsed_link['text']]  # 극장(일반)정보저장
-
-            if self.isPrnConsole:  # ################            
-                for key, value in self.dicCinemas.items():
-                    self.logger.info('{} : {},{},{}'.format(key, value[0], value[1], value[2]))
 
         driver.quit()
-
 
     # -------------------------------------------------------------------------------------------------
 
@@ -161,12 +107,9 @@ class CrawlLotte(Crawl):
 
         # 요청 캡처 활성화
         proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})
-
-        # 웹사이트로 이동
-        driver.get("https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1")
-
-        # 3초 대기
-        driver.implicitly_wait(3)
+        
+        driver.get("https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1") # 웹사이트로 이동
+        driver.implicitly_wait(3) # 3초 대기
 
         # 캡처된 요청 가져오기
         har = proxy.har
@@ -178,12 +121,12 @@ class CrawlLotte(Crawl):
             
             if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx":
                                         
-                print(request['url'])
-                print(request['method'])    
+                #print(request['url'])
+                #print(request['method'])    
                 response = entry['response']
                 
-                print('------------------------')
-                print(request['headers'])
+                #print('------------------------')
+                #print(request['headers'])
 
                 content = response['content']
                 text = content['text']
@@ -224,10 +167,86 @@ class CrawlLotte(Crawl):
         driver.quit()
         server.stop()
 
-        movie_count = 0
-
     # -------------------------------------------------------------------------------------------------
         
+    # -------------------------------------------------------------------------------------------------
+    # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
+    #
+    def __crawl_lotte_cinema(self):
+        
+        self.logger.info('')
+        self.logger.info('### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###')
+
+        def parse_links(html):
+            
+            soup = BeautifulSoup(html, 'html.parser')
+            a_tags = soup.find_all('a')
+            
+            parsed_links = []
+            
+            for a_tag in a_tags:
+                link = a_tag['href']
+                parsed_url = urlparse(link)
+                params = parse_qs(parsed_url.query)
+                
+                url = link.split('?')[0]
+                query_params = {key: value[0] for key, value in params.items()}
+                text = a_tag.text.replace("\n", "").strip()
+                
+                parsed_link = {'url': url, 'query_params': query_params, 'text': text, 'link': link }                
+                parsed_links.append(parsed_link)
+                # print("URL:", parsed_link['url'],", Query Params:", parsed_link['query_params'],", Text:", parsed_link['text'], link:", parsed_link['link'])
+                
+            return parsed_links
+        
+        # ----------------- end of [ def parse_links(html): ]
+
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
+        chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
+        chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
+
+        driver = webdriver.Chrome(options=chrome_options)  
+
+        driver.get('https://www.lottecinema.co.kr/NLCHS')
+        driver.implicitly_wait(3)
+
+        html = driver.page_source.replace('\n', '')  # 패이지 소스를 읽어온다.....
+        soup = BeautifulSoup(html, "html.parser")
+
+        if (tag1 := soup.select("#nav > ul > li:nth-child(3) > div > ul")[0]): # 메인 메뉴의 '영화관' 하위 메뉴 탐색
+            
+            tagLst = ''
+            tags2 = tag1.select('li > a:not([href="#"])')
+            for tag2 in tags2:  # print(tag2)
+                tagLst += tag2.prettify()
+            
+            parsed_links = parse_links(tagLst)
+
+            if self.isPrnConsole:  # ################
+                self.logger.info('-------------------------------------')
+                self.logger.info(' 코드, 스페셜관, 정렬일련번호, 극장명')
+                self.logger.info('-------------------------------------')
+
+
+            sortsequence = 0
+            for parsed_link in parsed_links:
+                print(parsed_link)
+                if parsed_link['url']=='https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema': # 극장(스페셜괌)정보저장
+                    sortsequence = sortsequence + 1
+                    self.dicCinemas[parsed_link['query_params']['screendivcd']] = ['Y', sortsequence, parsed_link['text'], parsed_link['link']] 
+
+                if parsed_link['url'] == 'https://www.lottecinema.co.kr/NLCHS/Cinema/Detail': # 극장(일반)정보저장
+                    sortsequence = sortsequence + 1
+                    self.dicCinemas[parsed_link['query_params']['cinemaID']] = ['N', sortsequence, parsed_link['text'], parsed_link['link']] 
+
+            if self.isPrnConsole:  # ################            
+                for key, value in self.dicCinemas.items():
+                    self.logger.info('{} : {},{},{},{}'.format(key, value[0], value[1], value[2], value[3]))
+
+        driver.quit()
+
+    # -------------------------------------------------------------------------------------------------
 
 
     def uplodding(self):
