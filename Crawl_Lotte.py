@@ -42,6 +42,7 @@ class CrawlLotte(Crawl):
 
     #
 
+
     # -------------------------------------------------------------------------------------------------
     # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
     #
@@ -50,12 +51,12 @@ class CrawlLotte(Crawl):
         self.logger.info('')
         self.logger.info('### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###')
 
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option("excludeSwitches", ["enable-logging"])
-        options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
-        options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
+        chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
+        chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
 
-        driver = webdriver.Chrome(options=options)  # 다운받은 파일을 압축푼 후 실행파일을 해당경로에 푼다.....
+        driver = webdriver.Chrome(options=chrome_options)  
         driver.implicitly_wait(3)
 
         driver.get('https://www.lottecinema.co.kr/NLCHS')
@@ -63,11 +64,6 @@ class CrawlLotte(Crawl):
 
         html = driver.page_source.replace('\n', '')  # 패이지 소스를 읽어온다.....
         soup = BeautifulSoup(html, "html.parser")
-
-        
-        # XPath를 사용하여 요소를 선택합니다
-        #element = soup.find(xpath="/html/body/div[4]/div[2]/ul/li[3]")
-        #element = soup.find('div:nth-child(4) div:nth-child(2) ul li:nth-child(3)')
 
         tags1 = soup.select("#nav > ul > li:nth-child(3) > div > ul")
         for tag1 in tags1:
