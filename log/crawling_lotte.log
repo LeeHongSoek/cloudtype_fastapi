@@ -53,3 +53,2575 @@
 [    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
 [    INFO|  Crawl_Lotte.py: 50 ] 
 [    INFO|  Crawl_Lotte.py: 51 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py: 51 ] 
+[    INFO|  Crawl_Lotte.py: 52 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py: 51 ] 
+[    INFO|  Crawl_Lotte.py: 52 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[   ERROR|  Crawl_Lotte.py: 40 ] LOTTE 크롤링 중 오류발생!
+[    INFO|  Crawl_Lotte.py: 51 ] 
+[    INFO|  Crawl_Lotte.py: 52 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[   ERROR|  Crawl_Lotte.py: 40 ] LOTTE 크롤링 중 오류발생!
+[    INFO|  Crawl_Lotte.py: 51 ] 
+[    INFO|  Crawl_Lotte.py: 52 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[   ERROR|  Crawl_Lotte.py: 42 ] LOTTE 크롤링 중 오류발생!
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:131 ] 1 : 300,N,1,1
+[    INFO|  Crawl_Lotte.py:131 ] 2 : 940,N,1,1
+[    INFO|  Crawl_Lotte.py:131 ] 3 : 980,N,1,1
+[    INFO|  Crawl_Lotte.py:131 ] 4 : 930,N,1,1
+[    INFO|  Crawl_Lotte.py:131 ] 5 : 988,N,1,1
+[    INFO|  Crawl_Lotte.py:131 ] 6 : 986,N,1,1
+[    INFO|  Crawl_Lotte.py:131 ] 7 : 960,N,1,1
+[    INFO|  Crawl_Lotte.py:131 ] 8 : 200,N,1,1
+[    INFO|  Crawl_Lotte.py:131 ] 9 : 950,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 10 : 1013,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 11 : 9094,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 12 : 9010,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 13 : 1004,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 14 : 1009,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 15 : 1003,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 16 : 1023,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 17 : 1017,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 18 : 9056,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 19 : 1012,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 20 : 9099,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 21 : 9104,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 22 : 1024,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 23 : 1015,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 24 : 1007,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 25 : 1001,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 26 : 1002,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 27 : 1014,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 28 : 1016,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 29 : 1021,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 30 : 9083,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 31 : 1008,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 32 : 1010,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 33 : 1005,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 34 : 3030,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 35 : 3027,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 36 : 3025,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 37 : 3020,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 38 : 3026,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 39 : 3048,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 40 : 9095,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 41 : 3021,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 42 : 3046,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 43 : 3017,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 44 : 3011,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 45 : 9054,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 46 : 3003,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 47 : 3050,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 48 : 3008,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 49 : 3045,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 50 : 3031,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 51 : 3043,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 52 : 3041,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 53 : 3012,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 54 : 3029,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 55 : 3024,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 56 : 3044,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 57 : 9088,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 58 : 3049,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 59 : 3004,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 60 : 3028,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 61 : 9106,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 62 : 3007,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 63 : 3032,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 64 : 9077,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 65 : 9079,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 66 : 3039,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 67 : 3040,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 68 : 3037,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 69 : 3033,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 70 : 9100,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 71 : 3035,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 72 : 3038,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 73 : 9087,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 74 : 3010,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 75 : 3034,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 76 : 3047,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 77 : 3018,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 78 : 9075,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 79 : 9111,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 80 : 3036,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 81 : 9085,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 82 : 4002,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 83 : 4009,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 84 : 4006,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 85 : 4008,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 86 : 9044,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 87 : 4004,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 88 : 4005,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 89 : 9101,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 90 : 9112,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 91 : 4007,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 92 : 9078,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 93 : 6001,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 94 : 9065,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 95 : 6007,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 96 : 6009,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 97 : 6004,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 98 : 9070,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 99 : 6002,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 100 : 9102,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 101 : 6006,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 102 : 9047,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 103 : 9090,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 104 : 9091,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 105 : 5013,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 106 : 5012,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 107 : 5006,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 108 : 9107,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 109 : 5005,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 110 : 5016,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 111 : 9080,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 112 : 5004,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 113 : 9064,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 114 : 9098,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 115 : 9097,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 116 : 9067,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 117 : 9066,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 118 : 9074,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 119 : 9057,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 120 : 9082,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 121 : 2009,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 122 : 5015,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 123 : 5011,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 124 : 2012,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 125 : 2007,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 126 : 2010,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 127 : 9042,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 128 : 9092,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 129 : 2004,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 130 : 9084,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 131 : 2008,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 132 : 2006,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 133 : 9103,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 134 : 9105,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 135 : 2011,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 136 : 5001,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 137 : 5014,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 138 : 5017,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 139 : 5009,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 140 : 5002,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 141 : 9036,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 142 : 9072,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 143 : 9059,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 144 : 9108,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 145 : 7002,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 146 : 9089,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 147 : 7003,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 148 : 9081,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 149 : 9013,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 150 : 9068,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 151 : 9071,N,1,1
+[    INFO|  Crawl_Lotte.py:146 ] 152 : 6010,N,1,1
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:131 ] 1 : 300,Y,1,샤롯데
+[    INFO|  Crawl_Lotte.py:131 ] 2 : 940,Y,2,수퍼플렉스
+[    INFO|  Crawl_Lotte.py:131 ] 3 : 980,Y,3,수퍼 S
+[    INFO|  Crawl_Lotte.py:131 ] 4 : 930,Y,4,수퍼 4D
+[    INFO|  Crawl_Lotte.py:131 ] 5 : 988,Y,5,컬러리움
+[    INFO|  Crawl_Lotte.py:131 ] 6 : 986,Y,6,씨네컴포트(리클라이너)
+[    INFO|  Crawl_Lotte.py:131 ] 7 : 960,Y,7,씨네패밀리
+[    INFO|  Crawl_Lotte.py:131 ] 8 : 200,Y,8,씨네커플
+[    INFO|  Crawl_Lotte.py:131 ] 9 : 950,Y,9,씨네비즈
+[    INFO|  Crawl_Lotte.py:146 ] 10 : 1013,N,10,가산디지털
+[    INFO|  Crawl_Lotte.py:146 ] 11 : 9094,N,11,가양
+[    INFO|  Crawl_Lotte.py:146 ] 12 : 9010,N,12,강동
+[    INFO|  Crawl_Lotte.py:146 ] 13 : 1004,N,13,건대입구
+[    INFO|  Crawl_Lotte.py:146 ] 14 : 1009,N,14,김포공항
+[    INFO|  Crawl_Lotte.py:146 ] 15 : 1003,N,15,노원
+[    INFO|  Crawl_Lotte.py:146 ] 16 : 1023,N,16,도곡
+[    INFO|  Crawl_Lotte.py:146 ] 17 : 1017,N,17,독산
+[    INFO|  Crawl_Lotte.py:146 ] 18 : 9056,N,18,브로드웨이(신사)
+[    INFO|  Crawl_Lotte.py:146 ] 19 : 1012,N,19,서울대입구
+[    INFO|  Crawl_Lotte.py:146 ] 20 : 9099,N,20,수락산
+[    INFO|  Crawl_Lotte.py:146 ] 21 : 9104,N,21,수유
+[    INFO|  Crawl_Lotte.py:146 ] 22 : 1024,N,22,신대방(구로디지털역)
+[    INFO|  Crawl_Lotte.py:146 ] 23 : 1015,N,23,신도림
+[    INFO|  Crawl_Lotte.py:146 ] 24 : 1007,N,24,신림
+[    INFO|  Crawl_Lotte.py:146 ] 25 : 1001,N,25,에비뉴엘(명동)
+[    INFO|  Crawl_Lotte.py:146 ] 26 : 1002,N,26,영등포
+[    INFO|  Crawl_Lotte.py:146 ] 27 : 1014,N,27,용산
+[    INFO|  Crawl_Lotte.py:146 ] 28 : 1016,N,28,월드타워
+[    INFO|  Crawl_Lotte.py:146 ] 29 : 1021,N,29,은평(롯데몰)
+[    INFO|  Crawl_Lotte.py:146 ] 30 : 9083,N,30,중랑
+[    INFO|  Crawl_Lotte.py:146 ] 31 : 1008,N,31,청량리
+[    INFO|  Crawl_Lotte.py:146 ] 32 : 1010,N,32,합정
+[    INFO|  Crawl_Lotte.py:146 ] 33 : 1005,N,33,홍대입구
+[    INFO|  Crawl_Lotte.py:146 ] 34 : 3030,N,34,광교아울렛
+[    INFO|  Crawl_Lotte.py:146 ] 35 : 3027,N,35,광명(광명사거리)
+[    INFO|  Crawl_Lotte.py:146 ] 36 : 3025,N,36,광명아울렛
+[    INFO|  Crawl_Lotte.py:146 ] 37 : 3020,N,37,광주터미널
+[    INFO|  Crawl_Lotte.py:146 ] 38 : 3026,N,38,구리아울렛
+[    INFO|  Crawl_Lotte.py:146 ] 39 : 3048,N,39,동탄
+[    INFO|  Crawl_Lotte.py:146 ] 40 : 9095,N,40,라페스타
+[    INFO|  Crawl_Lotte.py:146 ] 41 : 3021,N,41,마석
+[    INFO|  Crawl_Lotte.py:146 ] 42 : 3046,N,42,별내
+[    INFO|  Crawl_Lotte.py:146 ] 43 : 3017,N,43,병점
+[    INFO|  Crawl_Lotte.py:146 ] 44 : 3011,N,44,부천(신중동역)
+[    INFO|  Crawl_Lotte.py:146 ] 45 : 9054,N,45,부천역
+[    INFO|  Crawl_Lotte.py:146 ] 46 : 3003,N,46,부평
+[    INFO|  Crawl_Lotte.py:146 ] 47 : 3050,N,47,부평갈산
+[    INFO|  Crawl_Lotte.py:146 ] 48 : 3008,N,48,부평역사
+[    INFO|  Crawl_Lotte.py:146 ] 49 : 3045,N,49,북수원(천천동)
+[    INFO|  Crawl_Lotte.py:146 ] 50 : 3031,N,50,산본피트인
+[    INFO|  Crawl_Lotte.py:146 ] 51 : 3043,N,51,서수원
+[    INFO|  Crawl_Lotte.py:146 ] 52 : 3041,N,52,성남중앙(신흥역)
+[    INFO|  Crawl_Lotte.py:146 ] 53 : 3012,N,53,센트럴락
+[    INFO|  Crawl_Lotte.py:146 ] 54 : 3029,N,54,송탄
+[    INFO|  Crawl_Lotte.py:146 ] 55 : 3024,N,55,수원(수원역)
+[    INFO|  Crawl_Lotte.py:146 ] 56 : 3044,N,56,수지
+[    INFO|  Crawl_Lotte.py:146 ] 57 : 9088,N,57,시화(정왕역)
+[    INFO|  Crawl_Lotte.py:146 ] 58 : 3049,N,58,시흥장현
+[    INFO|  Crawl_Lotte.py:146 ] 59 : 3004,N,59,안산
+[    INFO|  Crawl_Lotte.py:146 ] 60 : 3028,N,60,안산고잔
+[    INFO|  Crawl_Lotte.py:146 ] 61 : 9106,N,61,안성
+[    INFO|  Crawl_Lotte.py:146 ] 62 : 3007,N,62,안양(안양역)
+[    INFO|  Crawl_Lotte.py:146 ] 63 : 3032,N,63,안양일번가
+[    INFO|  Crawl_Lotte.py:146 ] 64 : 9077,N,64,영종하늘도시
+[    INFO|  Crawl_Lotte.py:146 ] 65 : 9079,N,65,오산(원동)
+[    INFO|  Crawl_Lotte.py:146 ] 66 : 3039,N,66,용인기흥
+[    INFO|  Crawl_Lotte.py:146 ] 67 : 3040,N,67,용인역북
+[    INFO|  Crawl_Lotte.py:146 ] 68 : 3037,N,68,위례
+[    INFO|  Crawl_Lotte.py:146 ] 69 : 3033,N,69,의정부민락
+[    INFO|  Crawl_Lotte.py:146 ] 70 : 9100,N,70,인덕원
+[    INFO|  Crawl_Lotte.py:146 ] 71 : 3035,N,71,인천아시아드
+[    INFO|  Crawl_Lotte.py:146 ] 72 : 3038,N,72,인천터미널
+[    INFO|  Crawl_Lotte.py:146 ] 73 : 9087,N,73,주엽
+[    INFO|  Crawl_Lotte.py:146 ] 74 : 3010,N,74,진접
+[    INFO|  Crawl_Lotte.py:146 ] 75 : 3034,N,75,파주운정
+[    INFO|  Crawl_Lotte.py:146 ] 76 : 3047,N,76,판교(창조경제밸리)
+[    INFO|  Crawl_Lotte.py:146 ] 77 : 3018,N,77,평촌(범계역)
+[    INFO|  Crawl_Lotte.py:146 ] 78 : 9075,N,78,평택비전(뉴코아)
+[    INFO|  Crawl_Lotte.py:146 ] 79 : 9111,N,79,하남미사
+[    INFO|  Crawl_Lotte.py:146 ] 80 : 3036,N,80,향남
+[    INFO|  Crawl_Lotte.py:146 ] 81 : 9085,N,81,당진
+[    INFO|  Crawl_Lotte.py:146 ] 82 : 4002,N,82,대전(백화점)
+[    INFO|  Crawl_Lotte.py:146 ] 83 : 4009,N,83,대전관저
+[    INFO|  Crawl_Lotte.py:146 ] 84 : 4006,N,84,대전둔산(월평동)
+[    INFO|  Crawl_Lotte.py:146 ] 85 : 4008,N,85,대전센트럴
+[    INFO|  Crawl_Lotte.py:146 ] 86 : 9044,N,86,서산
+[    INFO|  Crawl_Lotte.py:146 ] 87 : 4004,N,87,서청주(아울렛)
+[    INFO|  Crawl_Lotte.py:146 ] 88 : 4005,N,88,아산터미널
+[    INFO|  Crawl_Lotte.py:146 ] 89 : 9101,N,89,천안불당
+[    INFO|  Crawl_Lotte.py:146 ] 90 : 9112,N,90,천안청당
+[    INFO|  Crawl_Lotte.py:146 ] 91 : 4007,N,91,청주용암
+[    INFO|  Crawl_Lotte.py:146 ] 92 : 9078,N,92,충주(모다아울렛)
+[    INFO|  Crawl_Lotte.py:146 ] 93 : 6001,N,93,광주(백화점)
+[    INFO|  Crawl_Lotte.py:146 ] 94 : 9065,N,94,광주광산
+[    INFO|  Crawl_Lotte.py:146 ] 95 : 6007,N,95,군산나운
+[    INFO|  Crawl_Lotte.py:146 ] 96 : 6009,N,96,군산몰
+[    INFO|  Crawl_Lotte.py:146 ] 97 : 6004,N,97,수완(아울렛)
+[    INFO|  Crawl_Lotte.py:146 ] 98 : 9070,N,98,익산모현
+[    INFO|  Crawl_Lotte.py:146 ] 99 : 6002,N,99,전주(백화점)
+[    INFO|  Crawl_Lotte.py:146 ] 100 : 9102,N,100,전주송천
+[    INFO|  Crawl_Lotte.py:146 ] 101 : 6006,N,101,전주평화
+[    INFO|  Crawl_Lotte.py:146 ] 102 : 9047,N,102,충장로
+[    INFO|  Crawl_Lotte.py:146 ] 103 : 9090,N,103,경주
+[    INFO|  Crawl_Lotte.py:146 ] 104 : 9091,N,104,경주황성
+[    INFO|  Crawl_Lotte.py:146 ] 105 : 5013,N,105,구미공단
+[    INFO|  Crawl_Lotte.py:146 ] 106 : 5012,N,106,대구광장
+[    INFO|  Crawl_Lotte.py:146 ] 107 : 5006,N,107,대구율하
+[    INFO|  Crawl_Lotte.py:146 ] 108 : 9107,N,108,대구현풍
+[    INFO|  Crawl_Lotte.py:146 ] 109 : 5005,N,109,동성로
+[    INFO|  Crawl_Lotte.py:146 ] 110 : 5016,N,110,상인
+[    INFO|  Crawl_Lotte.py:146 ] 111 : 9080,N,111,상주
+[    INFO|  Crawl_Lotte.py:146 ] 112 : 5004,N,112,성서
+[    INFO|  Crawl_Lotte.py:146 ] 113 : 9064,N,113,영주
+[    INFO|  Crawl_Lotte.py:146 ] 114 : 9098,N,114,영천
+[    INFO|  Crawl_Lotte.py:146 ] 115 : 9097,N,115,포항
+[    INFO|  Crawl_Lotte.py:146 ] 116 : 9067,N,116,프리미엄구미센트럴
+[    INFO|  Crawl_Lotte.py:146 ] 117 : 9066,N,117,프리미엄만경
+[    INFO|  Crawl_Lotte.py:146 ] 118 : 9074,N,118,프리미엄안동
+[    INFO|  Crawl_Lotte.py:146 ] 119 : 9057,N,119,프리미엄칠곡
+[    INFO|  Crawl_Lotte.py:146 ] 120 : 9082,N,120,거창
+[    INFO|  Crawl_Lotte.py:146 ] 121 : 2009,N,121,광복
+[    INFO|  Crawl_Lotte.py:146 ] 122 : 5015,N,122,김해부원
+[    INFO|  Crawl_Lotte.py:146 ] 123 : 5011,N,123,김해아울렛(장유)
+[    INFO|  Crawl_Lotte.py:146 ] 124 : 2012,N,124,대영
+[    INFO|  Crawl_Lotte.py:146 ] 125 : 2007,N,125,동래
+[    INFO|  Crawl_Lotte.py:146 ] 126 : 2010,N,126,동부산아울렛
+[    INFO|  Crawl_Lotte.py:146 ] 127 : 9042,N,127,마산(합성동)
+[    INFO|  Crawl_Lotte.py:146 ] 128 : 9092,N,128,부산명지
+[    INFO|  Crawl_Lotte.py:146 ] 129 : 2004,N,129,부산본점
+[    INFO|  Crawl_Lotte.py:146 ] 130 : 9084,N,130,사천
+[    INFO|  Crawl_Lotte.py:146 ] 131 : 2008,N,131,서면(전포동)
+[    INFO|  Crawl_Lotte.py:146 ] 132 : 2006,N,132,센텀시티
+[    INFO|  Crawl_Lotte.py:146 ] 133 : 9103,N,133,양산물금
+[    INFO|  Crawl_Lotte.py:146 ] 134 : 9105,N,134,엠비씨네(진주)
+[    INFO|  Crawl_Lotte.py:146 ] 135 : 2011,N,135,오투(부산대)
+[    INFO|  Crawl_Lotte.py:146 ] 136 : 5001,N,136,울산(백화점)
+[    INFO|  Crawl_Lotte.py:146 ] 137 : 5014,N,137,울산성남
+[    INFO|  Crawl_Lotte.py:146 ] 138 : 5017,N,138,진주혁신(롯데몰)
+[    INFO|  Crawl_Lotte.py:146 ] 139 : 5009,N,139,진해
+[    INFO|  Crawl_Lotte.py:146 ] 140 : 5002,N,140,창원
+[    INFO|  Crawl_Lotte.py:146 ] 141 : 9036,N,141,통영
+[    INFO|  Crawl_Lotte.py:146 ] 142 : 9072,N,142,프리미엄경남대
+[    INFO|  Crawl_Lotte.py:146 ] 143 : 9059,N,143,프리미엄해운대(장산역)
+[    INFO|  Crawl_Lotte.py:146 ] 144 : 9108,N,144,남원주
+[    INFO|  Crawl_Lotte.py:146 ] 145 : 7002,N,145,동해
+[    INFO|  Crawl_Lotte.py:146 ] 146 : 9089,N,146,속초
+[    INFO|  Crawl_Lotte.py:146 ] 147 : 7003,N,147,원주무실
+[    INFO|  Crawl_Lotte.py:146 ] 148 : 9081,N,148,춘천
+[    INFO|  Crawl_Lotte.py:146 ] 149 : 9013,N,149,서귀포
+[    INFO|  Crawl_Lotte.py:146 ] 150 : 9068,N,150,제주삼화지구
+[    INFO|  Crawl_Lotte.py:146 ] 151 : 9071,N,151,제주아라
+[    INFO|  Crawl_Lotte.py:146 ] 152 : 6010,N,152,제주연동
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[   ERROR|  Crawl_Lotte.py: 42 ] LOTTE 크롤링 중 오류발생!
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[   ERROR|  Crawl_Lotte.py: 42 ] LOTTE 크롤링 중 오류발생!
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:131 ] 1 : 300,Y,1,
+ 샤롯데
+
+[    INFO|  Crawl_Lotte.py:131 ] 2 : 940,Y,2,
+ 수퍼플렉스
+
+[    INFO|  Crawl_Lotte.py:131 ] 3 : 980,Y,3,
+ 수퍼 S
+
+[    INFO|  Crawl_Lotte.py:131 ] 4 : 930,Y,4,
+ 수퍼 4D
+
+[    INFO|  Crawl_Lotte.py:131 ] 5 : 988,Y,5,
+ 컬러리움
+
+[    INFO|  Crawl_Lotte.py:131 ] 6 : 986,Y,6,
+ 씨네컴포트(리클라이너)
+
+[    INFO|  Crawl_Lotte.py:131 ] 7 : 960,Y,7,
+ 씨네패밀리
+
+[    INFO|  Crawl_Lotte.py:131 ] 8 : 200,Y,8,
+ 씨네커플
+
+[    INFO|  Crawl_Lotte.py:131 ] 9 : 950,Y,9,
+ 씨네비즈
+
+[    INFO|  Crawl_Lotte.py:146 ] 10 : 1013,N,10,
+ 가산디지털
+
+[    INFO|  Crawl_Lotte.py:146 ] 11 : 9094,N,11,
+ 가양
+
+[    INFO|  Crawl_Lotte.py:146 ] 12 : 9010,N,12,
+ 강동
+
+[    INFO|  Crawl_Lotte.py:146 ] 13 : 1004,N,13,
+ 건대입구
+
+[    INFO|  Crawl_Lotte.py:146 ] 14 : 1009,N,14,
+ 김포공항
+
+[    INFO|  Crawl_Lotte.py:146 ] 15 : 1003,N,15,
+ 노원
+
+[    INFO|  Crawl_Lotte.py:146 ] 16 : 1023,N,16,
+ 도곡
+
+[    INFO|  Crawl_Lotte.py:146 ] 17 : 1017,N,17,
+ 독산
+
+[    INFO|  Crawl_Lotte.py:146 ] 18 : 9056,N,18,
+ 브로드웨이(신사)
+
+[    INFO|  Crawl_Lotte.py:146 ] 19 : 1012,N,19,
+ 서울대입구
+
+[    INFO|  Crawl_Lotte.py:146 ] 20 : 9099,N,20,
+ 수락산
+
+[    INFO|  Crawl_Lotte.py:146 ] 21 : 9104,N,21,
+ 수유
+
+[    INFO|  Crawl_Lotte.py:146 ] 22 : 1024,N,22,
+ 신대방(구로디지털역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 23 : 1015,N,23,
+ 신도림
+
+[    INFO|  Crawl_Lotte.py:146 ] 24 : 1007,N,24,
+ 신림
+
+[    INFO|  Crawl_Lotte.py:146 ] 25 : 1001,N,25,
+ 에비뉴엘(명동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 26 : 1002,N,26,
+ 영등포
+
+[    INFO|  Crawl_Lotte.py:146 ] 27 : 1014,N,27,
+ 용산
+
+[    INFO|  Crawl_Lotte.py:146 ] 28 : 1016,N,28,
+ 월드타워
+
+[    INFO|  Crawl_Lotte.py:146 ] 29 : 1021,N,29,
+ 은평(롯데몰)
+
+[    INFO|  Crawl_Lotte.py:146 ] 30 : 9083,N,30,
+ 중랑
+
+[    INFO|  Crawl_Lotte.py:146 ] 31 : 1008,N,31,
+ 청량리
+
+[    INFO|  Crawl_Lotte.py:146 ] 32 : 1010,N,32,
+ 합정
+
+[    INFO|  Crawl_Lotte.py:146 ] 33 : 1005,N,33,
+ 홍대입구
+
+[    INFO|  Crawl_Lotte.py:146 ] 34 : 3030,N,34,
+ 광교아울렛
+
+[    INFO|  Crawl_Lotte.py:146 ] 35 : 3027,N,35,
+ 광명(광명사거리)
+
+[    INFO|  Crawl_Lotte.py:146 ] 36 : 3025,N,36,
+ 광명아울렛
+
+[    INFO|  Crawl_Lotte.py:146 ] 37 : 3020,N,37,
+ 광주터미널
+
+[    INFO|  Crawl_Lotte.py:146 ] 38 : 3026,N,38,
+ 구리아울렛
+
+[    INFO|  Crawl_Lotte.py:146 ] 39 : 3048,N,39,
+ 동탄
+
+[    INFO|  Crawl_Lotte.py:146 ] 40 : 9095,N,40,
+ 라페스타
+
+[    INFO|  Crawl_Lotte.py:146 ] 41 : 3021,N,41,
+ 마석
+
+[    INFO|  Crawl_Lotte.py:146 ] 42 : 3046,N,42,
+ 별내
+
+[    INFO|  Crawl_Lotte.py:146 ] 43 : 3017,N,43,
+ 병점
+
+[    INFO|  Crawl_Lotte.py:146 ] 44 : 3011,N,44,
+ 부천(신중동역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 45 : 9054,N,45,
+ 부천역
+
+[    INFO|  Crawl_Lotte.py:146 ] 46 : 3003,N,46,
+ 부평
+
+[    INFO|  Crawl_Lotte.py:146 ] 47 : 3050,N,47,
+ 부평갈산
+
+[    INFO|  Crawl_Lotte.py:146 ] 48 : 3008,N,48,
+ 부평역사
+
+[    INFO|  Crawl_Lotte.py:146 ] 49 : 3045,N,49,
+ 북수원(천천동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 50 : 3031,N,50,
+ 산본피트인
+
+[    INFO|  Crawl_Lotte.py:146 ] 51 : 3043,N,51,
+ 서수원
+
+[    INFO|  Crawl_Lotte.py:146 ] 52 : 3041,N,52,
+ 성남중앙(신흥역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 53 : 3012,N,53,
+ 센트럴락
+
+[    INFO|  Crawl_Lotte.py:146 ] 54 : 3029,N,54,
+ 송탄
+
+[    INFO|  Crawl_Lotte.py:146 ] 55 : 3024,N,55,
+ 수원(수원역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 56 : 3044,N,56,
+ 수지
+
+[    INFO|  Crawl_Lotte.py:146 ] 57 : 9088,N,57,
+ 시화(정왕역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 58 : 3049,N,58,
+ 시흥장현
+
+[    INFO|  Crawl_Lotte.py:146 ] 59 : 3004,N,59,
+ 안산
+
+[    INFO|  Crawl_Lotte.py:146 ] 60 : 3028,N,60,
+ 안산고잔
+
+[    INFO|  Crawl_Lotte.py:146 ] 61 : 9106,N,61,
+ 안성
+
+[    INFO|  Crawl_Lotte.py:146 ] 62 : 3007,N,62,
+ 안양(안양역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 63 : 3032,N,63,
+ 안양일번가
+
+[    INFO|  Crawl_Lotte.py:146 ] 64 : 9077,N,64,
+ 영종하늘도시
+
+[    INFO|  Crawl_Lotte.py:146 ] 65 : 9079,N,65,
+ 오산(원동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 66 : 3039,N,66,
+ 용인기흥
+
+[    INFO|  Crawl_Lotte.py:146 ] 67 : 3040,N,67,
+ 용인역북
+
+[    INFO|  Crawl_Lotte.py:146 ] 68 : 3037,N,68,
+ 위례
+
+[    INFO|  Crawl_Lotte.py:146 ] 69 : 3033,N,69,
+ 의정부민락
+
+[    INFO|  Crawl_Lotte.py:146 ] 70 : 9100,N,70,
+ 인덕원
+
+[    INFO|  Crawl_Lotte.py:146 ] 71 : 3035,N,71,
+ 인천아시아드
+
+[    INFO|  Crawl_Lotte.py:146 ] 72 : 3038,N,72,
+ 인천터미널
+
+[    INFO|  Crawl_Lotte.py:146 ] 73 : 9087,N,73,
+ 주엽
+
+[    INFO|  Crawl_Lotte.py:146 ] 74 : 3010,N,74,
+ 진접
+
+[    INFO|  Crawl_Lotte.py:146 ] 75 : 3034,N,75,
+ 파주운정
+
+[    INFO|  Crawl_Lotte.py:146 ] 76 : 3047,N,76,
+ 판교(창조경제밸리)
+
+[    INFO|  Crawl_Lotte.py:146 ] 77 : 3018,N,77,
+ 평촌(범계역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 78 : 9075,N,78,
+ 평택비전(뉴코아)
+
+[    INFO|  Crawl_Lotte.py:146 ] 79 : 9111,N,79,
+ 하남미사
+
+[    INFO|  Crawl_Lotte.py:146 ] 80 : 3036,N,80,
+ 향남
+
+[    INFO|  Crawl_Lotte.py:146 ] 81 : 9085,N,81,
+ 당진
+
+[    INFO|  Crawl_Lotte.py:146 ] 82 : 4002,N,82,
+ 대전(백화점)
+
+[    INFO|  Crawl_Lotte.py:146 ] 83 : 4009,N,83,
+ 대전관저
+
+[    INFO|  Crawl_Lotte.py:146 ] 84 : 4006,N,84,
+ 대전둔산(월평동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 85 : 4008,N,85,
+ 대전센트럴
+
+[    INFO|  Crawl_Lotte.py:146 ] 86 : 9044,N,86,
+ 서산
+
+[    INFO|  Crawl_Lotte.py:146 ] 87 : 4004,N,87,
+ 서청주(아울렛)
+
+[    INFO|  Crawl_Lotte.py:146 ] 88 : 4005,N,88,
+ 아산터미널
+
+[    INFO|  Crawl_Lotte.py:146 ] 89 : 9101,N,89,
+ 천안불당
+
+[    INFO|  Crawl_Lotte.py:146 ] 90 : 9112,N,90,
+ 천안청당
+
+[    INFO|  Crawl_Lotte.py:146 ] 91 : 4007,N,91,
+ 청주용암
+
+[    INFO|  Crawl_Lotte.py:146 ] 92 : 9078,N,92,
+ 충주(모다아울렛)
+
+[    INFO|  Crawl_Lotte.py:146 ] 93 : 6001,N,93,
+ 광주(백화점)
+
+[    INFO|  Crawl_Lotte.py:146 ] 94 : 9065,N,94,
+ 광주광산
+
+[    INFO|  Crawl_Lotte.py:146 ] 95 : 6007,N,95,
+ 군산나운
+
+[    INFO|  Crawl_Lotte.py:146 ] 96 : 6009,N,96,
+ 군산몰
+
+[    INFO|  Crawl_Lotte.py:146 ] 97 : 6004,N,97,
+ 수완(아울렛)
+
+[    INFO|  Crawl_Lotte.py:146 ] 98 : 9070,N,98,
+ 익산모현
+
+[    INFO|  Crawl_Lotte.py:146 ] 99 : 6002,N,99,
+ 전주(백화점)
+
+[    INFO|  Crawl_Lotte.py:146 ] 100 : 9102,N,100,
+ 전주송천
+
+[    INFO|  Crawl_Lotte.py:146 ] 101 : 6006,N,101,
+ 전주평화
+
+[    INFO|  Crawl_Lotte.py:146 ] 102 : 9047,N,102,
+ 충장로
+
+[    INFO|  Crawl_Lotte.py:146 ] 103 : 9090,N,103,
+ 경주
+
+[    INFO|  Crawl_Lotte.py:146 ] 104 : 9091,N,104,
+ 경주황성
+
+[    INFO|  Crawl_Lotte.py:146 ] 105 : 5013,N,105,
+ 구미공단
+
+[    INFO|  Crawl_Lotte.py:146 ] 106 : 5012,N,106,
+ 대구광장
+
+[    INFO|  Crawl_Lotte.py:146 ] 107 : 5006,N,107,
+ 대구율하
+
+[    INFO|  Crawl_Lotte.py:146 ] 108 : 9107,N,108,
+ 대구현풍
+
+[    INFO|  Crawl_Lotte.py:146 ] 109 : 5005,N,109,
+ 동성로
+
+[    INFO|  Crawl_Lotte.py:146 ] 110 : 5016,N,110,
+ 상인
+
+[    INFO|  Crawl_Lotte.py:146 ] 111 : 9080,N,111,
+ 상주
+
+[    INFO|  Crawl_Lotte.py:146 ] 112 : 5004,N,112,
+ 성서
+
+[    INFO|  Crawl_Lotte.py:146 ] 113 : 9064,N,113,
+ 영주
+
+[    INFO|  Crawl_Lotte.py:146 ] 114 : 9098,N,114,
+ 영천
+
+[    INFO|  Crawl_Lotte.py:146 ] 115 : 9097,N,115,
+ 포항
+
+[    INFO|  Crawl_Lotte.py:146 ] 116 : 9067,N,116,
+ 프리미엄구미센트럴
+
+[    INFO|  Crawl_Lotte.py:146 ] 117 : 9066,N,117,
+ 프리미엄만경
+
+[    INFO|  Crawl_Lotte.py:146 ] 118 : 9074,N,118,
+ 프리미엄안동
+
+[    INFO|  Crawl_Lotte.py:146 ] 119 : 9057,N,119,
+ 프리미엄칠곡
+
+[    INFO|  Crawl_Lotte.py:146 ] 120 : 9082,N,120,
+ 거창
+
+[    INFO|  Crawl_Lotte.py:146 ] 121 : 2009,N,121,
+ 광복
+
+[    INFO|  Crawl_Lotte.py:146 ] 122 : 5015,N,122,
+ 김해부원
+
+[    INFO|  Crawl_Lotte.py:146 ] 123 : 5011,N,123,
+ 김해아울렛(장유)
+
+[    INFO|  Crawl_Lotte.py:146 ] 124 : 2012,N,124,
+ 대영
+
+[    INFO|  Crawl_Lotte.py:146 ] 125 : 2007,N,125,
+ 동래
+
+[    INFO|  Crawl_Lotte.py:146 ] 126 : 2010,N,126,
+ 동부산아울렛
+
+[    INFO|  Crawl_Lotte.py:146 ] 127 : 9042,N,127,
+ 마산(합성동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 128 : 9092,N,128,
+ 부산명지
+
+[    INFO|  Crawl_Lotte.py:146 ] 129 : 2004,N,129,
+ 부산본점
+
+[    INFO|  Crawl_Lotte.py:146 ] 130 : 9084,N,130,
+ 사천
+
+[    INFO|  Crawl_Lotte.py:146 ] 131 : 2008,N,131,
+ 서면(전포동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 132 : 2006,N,132,
+ 센텀시티
+
+[    INFO|  Crawl_Lotte.py:146 ] 133 : 9103,N,133,
+ 양산물금
+
+[    INFO|  Crawl_Lotte.py:146 ] 134 : 9105,N,134,
+ 엠비씨네(진주)
+
+[    INFO|  Crawl_Lotte.py:146 ] 135 : 2011,N,135,
+ 오투(부산대)
+
+[    INFO|  Crawl_Lotte.py:146 ] 136 : 5001,N,136,
+ 울산(백화점)
+
+[    INFO|  Crawl_Lotte.py:146 ] 137 : 5014,N,137,
+ 울산성남
+
+[    INFO|  Crawl_Lotte.py:146 ] 138 : 5017,N,138,
+ 진주혁신(롯데몰)
+
+[    INFO|  Crawl_Lotte.py:146 ] 139 : 5009,N,139,
+ 진해
+
+[    INFO|  Crawl_Lotte.py:146 ] 140 : 5002,N,140,
+ 창원
+
+[    INFO|  Crawl_Lotte.py:146 ] 141 : 9036,N,141,
+ 통영
+
+[    INFO|  Crawl_Lotte.py:146 ] 142 : 9072,N,142,
+ 프리미엄경남대
+
+[    INFO|  Crawl_Lotte.py:146 ] 143 : 9059,N,143,
+ 프리미엄해운대(장산역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 144 : 9108,N,144,
+ 남원주
+
+[    INFO|  Crawl_Lotte.py:146 ] 145 : 7002,N,145,
+ 동해
+
+[    INFO|  Crawl_Lotte.py:146 ] 146 : 9089,N,146,
+ 속초
+
+[    INFO|  Crawl_Lotte.py:146 ] 147 : 7003,N,147,
+ 원주무실
+
+[    INFO|  Crawl_Lotte.py:146 ] 148 : 9081,N,148,
+ 춘천
+
+[    INFO|  Crawl_Lotte.py:146 ] 149 : 9013,N,149,
+ 서귀포
+
+[    INFO|  Crawl_Lotte.py:146 ] 150 : 9068,N,150,
+ 제주삼화지구
+
+[    INFO|  Crawl_Lotte.py:146 ] 151 : 9071,N,151,
+ 제주아라
+
+[    INFO|  Crawl_Lotte.py:146 ] 152 : 6010,N,152,
+ 제주연동
+
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:131 ] 1 : 300,Y,1,
+ 샤롯데
+
+[    INFO|  Crawl_Lotte.py:131 ] 2 : 940,Y,2,
+ 수퍼플렉스
+
+[    INFO|  Crawl_Lotte.py:131 ] 3 : 980,Y,3,
+ 수퍼 S
+
+[    INFO|  Crawl_Lotte.py:131 ] 4 : 930,Y,4,
+ 수퍼 4D
+
+[    INFO|  Crawl_Lotte.py:131 ] 5 : 988,Y,5,
+ 컬러리움
+
+[    INFO|  Crawl_Lotte.py:131 ] 6 : 986,Y,6,
+ 씨네컴포트(리클라이너)
+
+[    INFO|  Crawl_Lotte.py:131 ] 7 : 960,Y,7,
+ 씨네패밀리
+
+[    INFO|  Crawl_Lotte.py:131 ] 8 : 200,Y,8,
+ 씨네커플
+
+[    INFO|  Crawl_Lotte.py:131 ] 9 : 950,Y,9,
+ 씨네비즈
+
+[    INFO|  Crawl_Lotte.py:146 ] 10 : 1013,N,10,
+ 가산디지털
+
+[    INFO|  Crawl_Lotte.py:146 ] 11 : 9094,N,11,
+ 가양
+
+[    INFO|  Crawl_Lotte.py:146 ] 12 : 9010,N,12,
+ 강동
+
+[    INFO|  Crawl_Lotte.py:146 ] 13 : 1004,N,13,
+ 건대입구
+
+[    INFO|  Crawl_Lotte.py:146 ] 14 : 1009,N,14,
+ 김포공항
+
+[    INFO|  Crawl_Lotte.py:146 ] 15 : 1003,N,15,
+ 노원
+
+[    INFO|  Crawl_Lotte.py:146 ] 16 : 1023,N,16,
+ 도곡
+
+[    INFO|  Crawl_Lotte.py:146 ] 17 : 1017,N,17,
+ 독산
+
+[    INFO|  Crawl_Lotte.py:146 ] 18 : 9056,N,18,
+ 브로드웨이(신사)
+
+[    INFO|  Crawl_Lotte.py:146 ] 19 : 1012,N,19,
+ 서울대입구
+
+[    INFO|  Crawl_Lotte.py:146 ] 20 : 9099,N,20,
+ 수락산
+
+[    INFO|  Crawl_Lotte.py:146 ] 21 : 9104,N,21,
+ 수유
+
+[    INFO|  Crawl_Lotte.py:146 ] 22 : 1024,N,22,
+ 신대방(구로디지털역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 23 : 1015,N,23,
+ 신도림
+
+[    INFO|  Crawl_Lotte.py:146 ] 24 : 1007,N,24,
+ 신림
+
+[    INFO|  Crawl_Lotte.py:146 ] 25 : 1001,N,25,
+ 에비뉴엘(명동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 26 : 1002,N,26,
+ 영등포
+
+[    INFO|  Crawl_Lotte.py:146 ] 27 : 1014,N,27,
+ 용산
+
+[    INFO|  Crawl_Lotte.py:146 ] 28 : 1016,N,28,
+ 월드타워
+
+[    INFO|  Crawl_Lotte.py:146 ] 29 : 1021,N,29,
+ 은평(롯데몰)
+
+[    INFO|  Crawl_Lotte.py:146 ] 30 : 9083,N,30,
+ 중랑
+
+[    INFO|  Crawl_Lotte.py:146 ] 31 : 1008,N,31,
+ 청량리
+
+[    INFO|  Crawl_Lotte.py:146 ] 32 : 1010,N,32,
+ 합정
+
+[    INFO|  Crawl_Lotte.py:146 ] 33 : 1005,N,33,
+ 홍대입구
+
+[    INFO|  Crawl_Lotte.py:146 ] 34 : 3030,N,34,
+ 광교아울렛
+
+[    INFO|  Crawl_Lotte.py:146 ] 35 : 3027,N,35,
+ 광명(광명사거리)
+
+[    INFO|  Crawl_Lotte.py:146 ] 36 : 3025,N,36,
+ 광명아울렛
+
+[    INFO|  Crawl_Lotte.py:146 ] 37 : 3020,N,37,
+ 광주터미널
+
+[    INFO|  Crawl_Lotte.py:146 ] 38 : 3026,N,38,
+ 구리아울렛
+
+[    INFO|  Crawl_Lotte.py:146 ] 39 : 3048,N,39,
+ 동탄
+
+[    INFO|  Crawl_Lotte.py:146 ] 40 : 9095,N,40,
+ 라페스타
+
+[    INFO|  Crawl_Lotte.py:146 ] 41 : 3021,N,41,
+ 마석
+
+[    INFO|  Crawl_Lotte.py:146 ] 42 : 3046,N,42,
+ 별내
+
+[    INFO|  Crawl_Lotte.py:146 ] 43 : 3017,N,43,
+ 병점
+
+[    INFO|  Crawl_Lotte.py:146 ] 44 : 3011,N,44,
+ 부천(신중동역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 45 : 9054,N,45,
+ 부천역
+
+[    INFO|  Crawl_Lotte.py:146 ] 46 : 3003,N,46,
+ 부평
+
+[    INFO|  Crawl_Lotte.py:146 ] 47 : 3050,N,47,
+ 부평갈산
+
+[    INFO|  Crawl_Lotte.py:146 ] 48 : 3008,N,48,
+ 부평역사
+
+[    INFO|  Crawl_Lotte.py:146 ] 49 : 3045,N,49,
+ 북수원(천천동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 50 : 3031,N,50,
+ 산본피트인
+
+[    INFO|  Crawl_Lotte.py:146 ] 51 : 3043,N,51,
+ 서수원
+
+[    INFO|  Crawl_Lotte.py:146 ] 52 : 3041,N,52,
+ 성남중앙(신흥역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 53 : 3012,N,53,
+ 센트럴락
+
+[    INFO|  Crawl_Lotte.py:146 ] 54 : 3029,N,54,
+ 송탄
+
+[    INFO|  Crawl_Lotte.py:146 ] 55 : 3024,N,55,
+ 수원(수원역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 56 : 3044,N,56,
+ 수지
+
+[    INFO|  Crawl_Lotte.py:146 ] 57 : 9088,N,57,
+ 시화(정왕역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 58 : 3049,N,58,
+ 시흥장현
+
+[    INFO|  Crawl_Lotte.py:146 ] 59 : 3004,N,59,
+ 안산
+
+[    INFO|  Crawl_Lotte.py:146 ] 60 : 3028,N,60,
+ 안산고잔
+
+[    INFO|  Crawl_Lotte.py:146 ] 61 : 9106,N,61,
+ 안성
+
+[    INFO|  Crawl_Lotte.py:146 ] 62 : 3007,N,62,
+ 안양(안양역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 63 : 3032,N,63,
+ 안양일번가
+
+[    INFO|  Crawl_Lotte.py:146 ] 64 : 9077,N,64,
+ 영종하늘도시
+
+[    INFO|  Crawl_Lotte.py:146 ] 65 : 9079,N,65,
+ 오산(원동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 66 : 3039,N,66,
+ 용인기흥
+
+[    INFO|  Crawl_Lotte.py:146 ] 67 : 3040,N,67,
+ 용인역북
+
+[    INFO|  Crawl_Lotte.py:146 ] 68 : 3037,N,68,
+ 위례
+
+[    INFO|  Crawl_Lotte.py:146 ] 69 : 3033,N,69,
+ 의정부민락
+
+[    INFO|  Crawl_Lotte.py:146 ] 70 : 9100,N,70,
+ 인덕원
+
+[    INFO|  Crawl_Lotte.py:146 ] 71 : 3035,N,71,
+ 인천아시아드
+
+[    INFO|  Crawl_Lotte.py:146 ] 72 : 3038,N,72,
+ 인천터미널
+
+[    INFO|  Crawl_Lotte.py:146 ] 73 : 9087,N,73,
+ 주엽
+
+[    INFO|  Crawl_Lotte.py:146 ] 74 : 3010,N,74,
+ 진접
+
+[    INFO|  Crawl_Lotte.py:146 ] 75 : 3034,N,75,
+ 파주운정
+
+[    INFO|  Crawl_Lotte.py:146 ] 76 : 3047,N,76,
+ 판교(창조경제밸리)
+
+[    INFO|  Crawl_Lotte.py:146 ] 77 : 3018,N,77,
+ 평촌(범계역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 78 : 9075,N,78,
+ 평택비전(뉴코아)
+
+[    INFO|  Crawl_Lotte.py:146 ] 79 : 9111,N,79,
+ 하남미사
+
+[    INFO|  Crawl_Lotte.py:146 ] 80 : 3036,N,80,
+ 향남
+
+[    INFO|  Crawl_Lotte.py:146 ] 81 : 9085,N,81,
+ 당진
+
+[    INFO|  Crawl_Lotte.py:146 ] 82 : 4002,N,82,
+ 대전(백화점)
+
+[    INFO|  Crawl_Lotte.py:146 ] 83 : 4009,N,83,
+ 대전관저
+
+[    INFO|  Crawl_Lotte.py:146 ] 84 : 4006,N,84,
+ 대전둔산(월평동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 85 : 4008,N,85,
+ 대전센트럴
+
+[    INFO|  Crawl_Lotte.py:146 ] 86 : 9044,N,86,
+ 서산
+
+[    INFO|  Crawl_Lotte.py:146 ] 87 : 4004,N,87,
+ 서청주(아울렛)
+
+[    INFO|  Crawl_Lotte.py:146 ] 88 : 4005,N,88,
+ 아산터미널
+
+[    INFO|  Crawl_Lotte.py:146 ] 89 : 9101,N,89,
+ 천안불당
+
+[    INFO|  Crawl_Lotte.py:146 ] 90 : 9112,N,90,
+ 천안청당
+
+[    INFO|  Crawl_Lotte.py:146 ] 91 : 4007,N,91,
+ 청주용암
+
+[    INFO|  Crawl_Lotte.py:146 ] 92 : 9078,N,92,
+ 충주(모다아울렛)
+
+[    INFO|  Crawl_Lotte.py:146 ] 93 : 6001,N,93,
+ 광주(백화점)
+
+[    INFO|  Crawl_Lotte.py:146 ] 94 : 9065,N,94,
+ 광주광산
+
+[    INFO|  Crawl_Lotte.py:146 ] 95 : 6007,N,95,
+ 군산나운
+
+[    INFO|  Crawl_Lotte.py:146 ] 96 : 6009,N,96,
+ 군산몰
+
+[    INFO|  Crawl_Lotte.py:146 ] 97 : 6004,N,97,
+ 수완(아울렛)
+
+[    INFO|  Crawl_Lotte.py:146 ] 98 : 9070,N,98,
+ 익산모현
+
+[    INFO|  Crawl_Lotte.py:146 ] 99 : 6002,N,99,
+ 전주(백화점)
+
+[    INFO|  Crawl_Lotte.py:146 ] 100 : 9102,N,100,
+ 전주송천
+
+[    INFO|  Crawl_Lotte.py:146 ] 101 : 6006,N,101,
+ 전주평화
+
+[    INFO|  Crawl_Lotte.py:146 ] 102 : 9047,N,102,
+ 충장로
+
+[    INFO|  Crawl_Lotte.py:146 ] 103 : 9090,N,103,
+ 경주
+
+[    INFO|  Crawl_Lotte.py:146 ] 104 : 9091,N,104,
+ 경주황성
+
+[    INFO|  Crawl_Lotte.py:146 ] 105 : 5013,N,105,
+ 구미공단
+
+[    INFO|  Crawl_Lotte.py:146 ] 106 : 5012,N,106,
+ 대구광장
+
+[    INFO|  Crawl_Lotte.py:146 ] 107 : 5006,N,107,
+ 대구율하
+
+[    INFO|  Crawl_Lotte.py:146 ] 108 : 9107,N,108,
+ 대구현풍
+
+[    INFO|  Crawl_Lotte.py:146 ] 109 : 5005,N,109,
+ 동성로
+
+[    INFO|  Crawl_Lotte.py:146 ] 110 : 5016,N,110,
+ 상인
+
+[    INFO|  Crawl_Lotte.py:146 ] 111 : 9080,N,111,
+ 상주
+
+[    INFO|  Crawl_Lotte.py:146 ] 112 : 5004,N,112,
+ 성서
+
+[    INFO|  Crawl_Lotte.py:146 ] 113 : 9064,N,113,
+ 영주
+
+[    INFO|  Crawl_Lotte.py:146 ] 114 : 9098,N,114,
+ 영천
+
+[    INFO|  Crawl_Lotte.py:146 ] 115 : 9097,N,115,
+ 포항
+
+[    INFO|  Crawl_Lotte.py:146 ] 116 : 9067,N,116,
+ 프리미엄구미센트럴
+
+[    INFO|  Crawl_Lotte.py:146 ] 117 : 9066,N,117,
+ 프리미엄만경
+
+[    INFO|  Crawl_Lotte.py:146 ] 118 : 9074,N,118,
+ 프리미엄안동
+
+[    INFO|  Crawl_Lotte.py:146 ] 119 : 9057,N,119,
+ 프리미엄칠곡
+
+[    INFO|  Crawl_Lotte.py:146 ] 120 : 9082,N,120,
+ 거창
+
+[    INFO|  Crawl_Lotte.py:146 ] 121 : 2009,N,121,
+ 광복
+
+[    INFO|  Crawl_Lotte.py:146 ] 122 : 5015,N,122,
+ 김해부원
+
+[    INFO|  Crawl_Lotte.py:146 ] 123 : 5011,N,123,
+ 김해아울렛(장유)
+
+[    INFO|  Crawl_Lotte.py:146 ] 124 : 2012,N,124,
+ 대영
+
+[    INFO|  Crawl_Lotte.py:146 ] 125 : 2007,N,125,
+ 동래
+
+[    INFO|  Crawl_Lotte.py:146 ] 126 : 2010,N,126,
+ 동부산아울렛
+
+[    INFO|  Crawl_Lotte.py:146 ] 127 : 9042,N,127,
+ 마산(합성동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 128 : 9092,N,128,
+ 부산명지
+
+[    INFO|  Crawl_Lotte.py:146 ] 129 : 2004,N,129,
+ 부산본점
+
+[    INFO|  Crawl_Lotte.py:146 ] 130 : 9084,N,130,
+ 사천
+
+[    INFO|  Crawl_Lotte.py:146 ] 131 : 2008,N,131,
+ 서면(전포동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 132 : 2006,N,132,
+ 센텀시티
+
+[    INFO|  Crawl_Lotte.py:146 ] 133 : 9103,N,133,
+ 양산물금
+
+[    INFO|  Crawl_Lotte.py:146 ] 134 : 9105,N,134,
+ 엠비씨네(진주)
+
+[    INFO|  Crawl_Lotte.py:146 ] 135 : 2011,N,135,
+ 오투(부산대)
+
+[    INFO|  Crawl_Lotte.py:146 ] 136 : 5001,N,136,
+ 울산(백화점)
+
+[    INFO|  Crawl_Lotte.py:146 ] 137 : 5014,N,137,
+ 울산성남
+
+[    INFO|  Crawl_Lotte.py:146 ] 138 : 5017,N,138,
+ 진주혁신(롯데몰)
+
+[    INFO|  Crawl_Lotte.py:146 ] 139 : 5009,N,139,
+ 진해
+
+[    INFO|  Crawl_Lotte.py:146 ] 140 : 5002,N,140,
+ 창원
+
+[    INFO|  Crawl_Lotte.py:146 ] 141 : 9036,N,141,
+ 통영
+
+[    INFO|  Crawl_Lotte.py:146 ] 142 : 9072,N,142,
+ 프리미엄경남대
+
+[    INFO|  Crawl_Lotte.py:146 ] 143 : 9059,N,143,
+ 프리미엄해운대(장산역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 144 : 9108,N,144,
+ 남원주
+
+[    INFO|  Crawl_Lotte.py:146 ] 145 : 7002,N,145,
+ 동해
+
+[    INFO|  Crawl_Lotte.py:146 ] 146 : 9089,N,146,
+ 속초
+
+[    INFO|  Crawl_Lotte.py:146 ] 147 : 7003,N,147,
+ 원주무실
+
+[    INFO|  Crawl_Lotte.py:146 ] 148 : 9081,N,148,
+ 춘천
+
+[    INFO|  Crawl_Lotte.py:146 ] 149 : 9013,N,149,
+ 서귀포
+
+[    INFO|  Crawl_Lotte.py:146 ] 150 : 9068,N,150,
+ 제주삼화지구
+
+[    INFO|  Crawl_Lotte.py:146 ] 151 : 9071,N,151,
+ 제주아라
+
+[    INFO|  Crawl_Lotte.py:146 ] 152 : 6010,N,152,
+ 제주연동
+
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:131 ] 1 : 300,Y,1,
+ 샤롯데
+
+[    INFO|  Crawl_Lotte.py:131 ] 2 : 940,Y,2,
+ 수퍼플렉스
+
+[    INFO|  Crawl_Lotte.py:131 ] 3 : 980,Y,3,
+ 수퍼 S
+
+[    INFO|  Crawl_Lotte.py:131 ] 4 : 930,Y,4,
+ 수퍼 4D
+
+[    INFO|  Crawl_Lotte.py:131 ] 5 : 988,Y,5,
+ 컬러리움
+
+[    INFO|  Crawl_Lotte.py:131 ] 6 : 986,Y,6,
+ 씨네컴포트(리클라이너)
+
+[    INFO|  Crawl_Lotte.py:131 ] 7 : 960,Y,7,
+ 씨네패밀리
+
+[    INFO|  Crawl_Lotte.py:131 ] 8 : 200,Y,8,
+ 씨네커플
+
+[    INFO|  Crawl_Lotte.py:131 ] 9 : 950,Y,9,
+ 씨네비즈
+
+[    INFO|  Crawl_Lotte.py:146 ] 10 : 1013,N,10,
+ 가산디지털
+
+[    INFO|  Crawl_Lotte.py:146 ] 11 : 9094,N,11,
+ 가양
+
+[    INFO|  Crawl_Lotte.py:146 ] 12 : 9010,N,12,
+ 강동
+
+[    INFO|  Crawl_Lotte.py:146 ] 13 : 1004,N,13,
+ 건대입구
+
+[    INFO|  Crawl_Lotte.py:146 ] 14 : 1009,N,14,
+ 김포공항
+
+[    INFO|  Crawl_Lotte.py:146 ] 15 : 1003,N,15,
+ 노원
+
+[    INFO|  Crawl_Lotte.py:146 ] 16 : 1023,N,16,
+ 도곡
+
+[    INFO|  Crawl_Lotte.py:146 ] 17 : 1017,N,17,
+ 독산
+
+[    INFO|  Crawl_Lotte.py:146 ] 18 : 9056,N,18,
+ 브로드웨이(신사)
+
+[    INFO|  Crawl_Lotte.py:146 ] 19 : 1012,N,19,
+ 서울대입구
+
+[    INFO|  Crawl_Lotte.py:146 ] 20 : 9099,N,20,
+ 수락산
+
+[    INFO|  Crawl_Lotte.py:146 ] 21 : 9104,N,21,
+ 수유
+
+[    INFO|  Crawl_Lotte.py:146 ] 22 : 1024,N,22,
+ 신대방(구로디지털역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 23 : 1015,N,23,
+ 신도림
+
+[    INFO|  Crawl_Lotte.py:146 ] 24 : 1007,N,24,
+ 신림
+
+[    INFO|  Crawl_Lotte.py:146 ] 25 : 1001,N,25,
+ 에비뉴엘(명동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 26 : 1002,N,26,
+ 영등포
+
+[    INFO|  Crawl_Lotte.py:146 ] 27 : 1014,N,27,
+ 용산
+
+[    INFO|  Crawl_Lotte.py:146 ] 28 : 1016,N,28,
+ 월드타워
+
+[    INFO|  Crawl_Lotte.py:146 ] 29 : 1021,N,29,
+ 은평(롯데몰)
+
+[    INFO|  Crawl_Lotte.py:146 ] 30 : 9083,N,30,
+ 중랑
+
+[    INFO|  Crawl_Lotte.py:146 ] 31 : 1008,N,31,
+ 청량리
+
+[    INFO|  Crawl_Lotte.py:146 ] 32 : 1010,N,32,
+ 합정
+
+[    INFO|  Crawl_Lotte.py:146 ] 33 : 1005,N,33,
+ 홍대입구
+
+[    INFO|  Crawl_Lotte.py:146 ] 34 : 3030,N,34,
+ 광교아울렛
+
+[    INFO|  Crawl_Lotte.py:146 ] 35 : 3027,N,35,
+ 광명(광명사거리)
+
+[    INFO|  Crawl_Lotte.py:146 ] 36 : 3025,N,36,
+ 광명아울렛
+
+[    INFO|  Crawl_Lotte.py:146 ] 37 : 3020,N,37,
+ 광주터미널
+
+[    INFO|  Crawl_Lotte.py:146 ] 38 : 3026,N,38,
+ 구리아울렛
+
+[    INFO|  Crawl_Lotte.py:146 ] 39 : 3048,N,39,
+ 동탄
+
+[    INFO|  Crawl_Lotte.py:146 ] 40 : 9095,N,40,
+ 라페스타
+
+[    INFO|  Crawl_Lotte.py:146 ] 41 : 3021,N,41,
+ 마석
+
+[    INFO|  Crawl_Lotte.py:146 ] 42 : 3046,N,42,
+ 별내
+
+[    INFO|  Crawl_Lotte.py:146 ] 43 : 3017,N,43,
+ 병점
+
+[    INFO|  Crawl_Lotte.py:146 ] 44 : 3011,N,44,
+ 부천(신중동역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 45 : 9054,N,45,
+ 부천역
+
+[    INFO|  Crawl_Lotte.py:146 ] 46 : 3003,N,46,
+ 부평
+
+[    INFO|  Crawl_Lotte.py:146 ] 47 : 3050,N,47,
+ 부평갈산
+
+[    INFO|  Crawl_Lotte.py:146 ] 48 : 3008,N,48,
+ 부평역사
+
+[    INFO|  Crawl_Lotte.py:146 ] 49 : 3045,N,49,
+ 북수원(천천동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 50 : 3031,N,50,
+ 산본피트인
+
+[    INFO|  Crawl_Lotte.py:146 ] 51 : 3043,N,51,
+ 서수원
+
+[    INFO|  Crawl_Lotte.py:146 ] 52 : 3041,N,52,
+ 성남중앙(신흥역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 53 : 3012,N,53,
+ 센트럴락
+
+[    INFO|  Crawl_Lotte.py:146 ] 54 : 3029,N,54,
+ 송탄
+
+[    INFO|  Crawl_Lotte.py:146 ] 55 : 3024,N,55,
+ 수원(수원역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 56 : 3044,N,56,
+ 수지
+
+[    INFO|  Crawl_Lotte.py:146 ] 57 : 9088,N,57,
+ 시화(정왕역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 58 : 3049,N,58,
+ 시흥장현
+
+[    INFO|  Crawl_Lotte.py:146 ] 59 : 3004,N,59,
+ 안산
+
+[    INFO|  Crawl_Lotte.py:146 ] 60 : 3028,N,60,
+ 안산고잔
+
+[    INFO|  Crawl_Lotte.py:146 ] 61 : 9106,N,61,
+ 안성
+
+[    INFO|  Crawl_Lotte.py:146 ] 62 : 3007,N,62,
+ 안양(안양역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 63 : 3032,N,63,
+ 안양일번가
+
+[    INFO|  Crawl_Lotte.py:146 ] 64 : 9077,N,64,
+ 영종하늘도시
+
+[    INFO|  Crawl_Lotte.py:146 ] 65 : 9079,N,65,
+ 오산(원동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 66 : 3039,N,66,
+ 용인기흥
+
+[    INFO|  Crawl_Lotte.py:146 ] 67 : 3040,N,67,
+ 용인역북
+
+[    INFO|  Crawl_Lotte.py:146 ] 68 : 3037,N,68,
+ 위례
+
+[    INFO|  Crawl_Lotte.py:146 ] 69 : 3033,N,69,
+ 의정부민락
+
+[    INFO|  Crawl_Lotte.py:146 ] 70 : 9100,N,70,
+ 인덕원
+
+[    INFO|  Crawl_Lotte.py:146 ] 71 : 3035,N,71,
+ 인천아시아드
+
+[    INFO|  Crawl_Lotte.py:146 ] 72 : 3038,N,72,
+ 인천터미널
+
+[    INFO|  Crawl_Lotte.py:146 ] 73 : 9087,N,73,
+ 주엽
+
+[    INFO|  Crawl_Lotte.py:146 ] 74 : 3010,N,74,
+ 진접
+
+[    INFO|  Crawl_Lotte.py:146 ] 75 : 3034,N,75,
+ 파주운정
+
+[    INFO|  Crawl_Lotte.py:146 ] 76 : 3047,N,76,
+ 판교(창조경제밸리)
+
+[    INFO|  Crawl_Lotte.py:146 ] 77 : 3018,N,77,
+ 평촌(범계역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 78 : 9075,N,78,
+ 평택비전(뉴코아)
+
+[    INFO|  Crawl_Lotte.py:146 ] 79 : 9111,N,79,
+ 하남미사
+
+[    INFO|  Crawl_Lotte.py:146 ] 80 : 3036,N,80,
+ 향남
+
+[    INFO|  Crawl_Lotte.py:146 ] 81 : 9085,N,81,
+ 당진
+
+[    INFO|  Crawl_Lotte.py:146 ] 82 : 4002,N,82,
+ 대전(백화점)
+
+[    INFO|  Crawl_Lotte.py:146 ] 83 : 4009,N,83,
+ 대전관저
+
+[    INFO|  Crawl_Lotte.py:146 ] 84 : 4006,N,84,
+ 대전둔산(월평동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 85 : 4008,N,85,
+ 대전센트럴
+
+[    INFO|  Crawl_Lotte.py:146 ] 86 : 9044,N,86,
+ 서산
+
+[    INFO|  Crawl_Lotte.py:146 ] 87 : 4004,N,87,
+ 서청주(아울렛)
+
+[    INFO|  Crawl_Lotte.py:146 ] 88 : 4005,N,88,
+ 아산터미널
+
+[    INFO|  Crawl_Lotte.py:146 ] 89 : 9101,N,89,
+ 천안불당
+
+[    INFO|  Crawl_Lotte.py:146 ] 90 : 9112,N,90,
+ 천안청당
+
+[    INFO|  Crawl_Lotte.py:146 ] 91 : 4007,N,91,
+ 청주용암
+
+[    INFO|  Crawl_Lotte.py:146 ] 92 : 9078,N,92,
+ 충주(모다아울렛)
+
+[    INFO|  Crawl_Lotte.py:146 ] 93 : 6001,N,93,
+ 광주(백화점)
+
+[    INFO|  Crawl_Lotte.py:146 ] 94 : 9065,N,94,
+ 광주광산
+
+[    INFO|  Crawl_Lotte.py:146 ] 95 : 6007,N,95,
+ 군산나운
+
+[    INFO|  Crawl_Lotte.py:146 ] 96 : 6009,N,96,
+ 군산몰
+
+[    INFO|  Crawl_Lotte.py:146 ] 97 : 6004,N,97,
+ 수완(아울렛)
+
+[    INFO|  Crawl_Lotte.py:146 ] 98 : 9070,N,98,
+ 익산모현
+
+[    INFO|  Crawl_Lotte.py:146 ] 99 : 6002,N,99,
+ 전주(백화점)
+
+[    INFO|  Crawl_Lotte.py:146 ] 100 : 9102,N,100,
+ 전주송천
+
+[    INFO|  Crawl_Lotte.py:146 ] 101 : 6006,N,101,
+ 전주평화
+
+[    INFO|  Crawl_Lotte.py:146 ] 102 : 9047,N,102,
+ 충장로
+
+[    INFO|  Crawl_Lotte.py:146 ] 103 : 9090,N,103,
+ 경주
+
+[    INFO|  Crawl_Lotte.py:146 ] 104 : 9091,N,104,
+ 경주황성
+
+[    INFO|  Crawl_Lotte.py:146 ] 105 : 5013,N,105,
+ 구미공단
+
+[    INFO|  Crawl_Lotte.py:146 ] 106 : 5012,N,106,
+ 대구광장
+
+[    INFO|  Crawl_Lotte.py:146 ] 107 : 5006,N,107,
+ 대구율하
+
+[    INFO|  Crawl_Lotte.py:146 ] 108 : 9107,N,108,
+ 대구현풍
+
+[    INFO|  Crawl_Lotte.py:146 ] 109 : 5005,N,109,
+ 동성로
+
+[    INFO|  Crawl_Lotte.py:146 ] 110 : 5016,N,110,
+ 상인
+
+[    INFO|  Crawl_Lotte.py:146 ] 111 : 9080,N,111,
+ 상주
+
+[    INFO|  Crawl_Lotte.py:146 ] 112 : 5004,N,112,
+ 성서
+
+[    INFO|  Crawl_Lotte.py:146 ] 113 : 9064,N,113,
+ 영주
+
+[    INFO|  Crawl_Lotte.py:146 ] 114 : 9098,N,114,
+ 영천
+
+[    INFO|  Crawl_Lotte.py:146 ] 115 : 9097,N,115,
+ 포항
+
+[    INFO|  Crawl_Lotte.py:146 ] 116 : 9067,N,116,
+ 프리미엄구미센트럴
+
+[    INFO|  Crawl_Lotte.py:146 ] 117 : 9066,N,117,
+ 프리미엄만경
+
+[    INFO|  Crawl_Lotte.py:146 ] 118 : 9074,N,118,
+ 프리미엄안동
+
+[    INFO|  Crawl_Lotte.py:146 ] 119 : 9057,N,119,
+ 프리미엄칠곡
+
+[    INFO|  Crawl_Lotte.py:146 ] 120 : 9082,N,120,
+ 거창
+
+[    INFO|  Crawl_Lotte.py:146 ] 121 : 2009,N,121,
+ 광복
+
+[    INFO|  Crawl_Lotte.py:146 ] 122 : 5015,N,122,
+ 김해부원
+
+[    INFO|  Crawl_Lotte.py:146 ] 123 : 5011,N,123,
+ 김해아울렛(장유)
+
+[    INFO|  Crawl_Lotte.py:146 ] 124 : 2012,N,124,
+ 대영
+
+[    INFO|  Crawl_Lotte.py:146 ] 125 : 2007,N,125,
+ 동래
+
+[    INFO|  Crawl_Lotte.py:146 ] 126 : 2010,N,126,
+ 동부산아울렛
+
+[    INFO|  Crawl_Lotte.py:146 ] 127 : 9042,N,127,
+ 마산(합성동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 128 : 9092,N,128,
+ 부산명지
+
+[    INFO|  Crawl_Lotte.py:146 ] 129 : 2004,N,129,
+ 부산본점
+
+[    INFO|  Crawl_Lotte.py:146 ] 130 : 9084,N,130,
+ 사천
+
+[    INFO|  Crawl_Lotte.py:146 ] 131 : 2008,N,131,
+ 서면(전포동)
+
+[    INFO|  Crawl_Lotte.py:146 ] 132 : 2006,N,132,
+ 센텀시티
+
+[    INFO|  Crawl_Lotte.py:146 ] 133 : 9103,N,133,
+ 양산물금
+
+[    INFO|  Crawl_Lotte.py:146 ] 134 : 9105,N,134,
+ 엠비씨네(진주)
+
+[    INFO|  Crawl_Lotte.py:146 ] 135 : 2011,N,135,
+ 오투(부산대)
+
+[    INFO|  Crawl_Lotte.py:146 ] 136 : 5001,N,136,
+ 울산(백화점)
+
+[    INFO|  Crawl_Lotte.py:146 ] 137 : 5014,N,137,
+ 울산성남
+
+[    INFO|  Crawl_Lotte.py:146 ] 138 : 5017,N,138,
+ 진주혁신(롯데몰)
+
+[    INFO|  Crawl_Lotte.py:146 ] 139 : 5009,N,139,
+ 진해
+
+[    INFO|  Crawl_Lotte.py:146 ] 140 : 5002,N,140,
+ 창원
+
+[    INFO|  Crawl_Lotte.py:146 ] 141 : 9036,N,141,
+ 통영
+
+[    INFO|  Crawl_Lotte.py:146 ] 142 : 9072,N,142,
+ 프리미엄경남대
+
+[    INFO|  Crawl_Lotte.py:146 ] 143 : 9059,N,143,
+ 프리미엄해운대(장산역)
+
+[    INFO|  Crawl_Lotte.py:146 ] 144 : 9108,N,144,
+ 남원주
+
+[    INFO|  Crawl_Lotte.py:146 ] 145 : 7002,N,145,
+ 동해
+
+[    INFO|  Crawl_Lotte.py:146 ] 146 : 9089,N,146,
+ 속초
+
+[    INFO|  Crawl_Lotte.py:146 ] 147 : 7003,N,147,
+ 원주무실
+
+[    INFO|  Crawl_Lotte.py:146 ] 148 : 9081,N,148,
+ 춘천
+
+[    INFO|  Crawl_Lotte.py:146 ] 149 : 9013,N,149,
+ 서귀포
+
+[    INFO|  Crawl_Lotte.py:146 ] 150 : 9068,N,150,
+ 제주삼화지구
+
+[    INFO|  Crawl_Lotte.py:146 ] 151 : 9071,N,151,
+ 제주아라
+
+[    INFO|  Crawl_Lotte.py:146 ] 152 : 6010,N,152,
+ 제주연동
+
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:131 ] 1 : 300,Y,1, 샤롯데
+[    INFO|  Crawl_Lotte.py:131 ] 2 : 940,Y,2, 수퍼플렉스
+[    INFO|  Crawl_Lotte.py:131 ] 3 : 980,Y,3, 수퍼 S
+[    INFO|  Crawl_Lotte.py:131 ] 4 : 930,Y,4, 수퍼 4D
+[    INFO|  Crawl_Lotte.py:131 ] 5 : 988,Y,5, 컬러리움
+[    INFO|  Crawl_Lotte.py:131 ] 6 : 986,Y,6, 씨네컴포트(리클라이너)
+[    INFO|  Crawl_Lotte.py:131 ] 7 : 960,Y,7, 씨네패밀리
+[    INFO|  Crawl_Lotte.py:131 ] 8 : 200,Y,8, 씨네커플
+[    INFO|  Crawl_Lotte.py:131 ] 9 : 950,Y,9, 씨네비즈
+[    INFO|  Crawl_Lotte.py:146 ] 10 : 1013,N,10, 가산디지털
+[    INFO|  Crawl_Lotte.py:146 ] 11 : 9094,N,11, 가양
+[    INFO|  Crawl_Lotte.py:146 ] 12 : 9010,N,12, 강동
+[    INFO|  Crawl_Lotte.py:146 ] 13 : 1004,N,13, 건대입구
+[    INFO|  Crawl_Lotte.py:146 ] 14 : 1009,N,14, 김포공항
+[    INFO|  Crawl_Lotte.py:146 ] 15 : 1003,N,15, 노원
+[    INFO|  Crawl_Lotte.py:146 ] 16 : 1023,N,16, 도곡
+[    INFO|  Crawl_Lotte.py:146 ] 17 : 1017,N,17, 독산
+[    INFO|  Crawl_Lotte.py:146 ] 18 : 9056,N,18, 브로드웨이(신사)
+[    INFO|  Crawl_Lotte.py:146 ] 19 : 1012,N,19, 서울대입구
+[    INFO|  Crawl_Lotte.py:146 ] 20 : 9099,N,20, 수락산
+[    INFO|  Crawl_Lotte.py:146 ] 21 : 9104,N,21, 수유
+[    INFO|  Crawl_Lotte.py:146 ] 22 : 1024,N,22, 신대방(구로디지털역)
+[    INFO|  Crawl_Lotte.py:146 ] 23 : 1015,N,23, 신도림
+[    INFO|  Crawl_Lotte.py:146 ] 24 : 1007,N,24, 신림
+[    INFO|  Crawl_Lotte.py:146 ] 25 : 1001,N,25, 에비뉴엘(명동)
+[    INFO|  Crawl_Lotte.py:146 ] 26 : 1002,N,26, 영등포
+[    INFO|  Crawl_Lotte.py:146 ] 27 : 1014,N,27, 용산
+[    INFO|  Crawl_Lotte.py:146 ] 28 : 1016,N,28, 월드타워
+[    INFO|  Crawl_Lotte.py:146 ] 29 : 1021,N,29, 은평(롯데몰)
+[    INFO|  Crawl_Lotte.py:146 ] 30 : 9083,N,30, 중랑
+[    INFO|  Crawl_Lotte.py:146 ] 31 : 1008,N,31, 청량리
+[    INFO|  Crawl_Lotte.py:146 ] 32 : 1010,N,32, 합정
+[    INFO|  Crawl_Lotte.py:146 ] 33 : 1005,N,33, 홍대입구
+[    INFO|  Crawl_Lotte.py:146 ] 34 : 3030,N,34, 광교아울렛
+[    INFO|  Crawl_Lotte.py:146 ] 35 : 3027,N,35, 광명(광명사거리)
+[    INFO|  Crawl_Lotte.py:146 ] 36 : 3025,N,36, 광명아울렛
+[    INFO|  Crawl_Lotte.py:146 ] 37 : 3020,N,37, 광주터미널
+[    INFO|  Crawl_Lotte.py:146 ] 38 : 3026,N,38, 구리아울렛
+[    INFO|  Crawl_Lotte.py:146 ] 39 : 3048,N,39, 동탄
+[    INFO|  Crawl_Lotte.py:146 ] 40 : 9095,N,40, 라페스타
+[    INFO|  Crawl_Lotte.py:146 ] 41 : 3021,N,41, 마석
+[    INFO|  Crawl_Lotte.py:146 ] 42 : 3046,N,42, 별내
+[    INFO|  Crawl_Lotte.py:146 ] 43 : 3017,N,43, 병점
+[    INFO|  Crawl_Lotte.py:146 ] 44 : 3011,N,44, 부천(신중동역)
+[    INFO|  Crawl_Lotte.py:146 ] 45 : 9054,N,45, 부천역
+[    INFO|  Crawl_Lotte.py:146 ] 46 : 3003,N,46, 부평
+[    INFO|  Crawl_Lotte.py:146 ] 47 : 3050,N,47, 부평갈산
+[    INFO|  Crawl_Lotte.py:146 ] 48 : 3008,N,48, 부평역사
+[    INFO|  Crawl_Lotte.py:146 ] 49 : 3045,N,49, 북수원(천천동)
+[    INFO|  Crawl_Lotte.py:146 ] 50 : 3031,N,50, 산본피트인
+[    INFO|  Crawl_Lotte.py:146 ] 51 : 3043,N,51, 서수원
+[    INFO|  Crawl_Lotte.py:146 ] 52 : 3041,N,52, 성남중앙(신흥역)
+[    INFO|  Crawl_Lotte.py:146 ] 53 : 3012,N,53, 센트럴락
+[    INFO|  Crawl_Lotte.py:146 ] 54 : 3029,N,54, 송탄
+[    INFO|  Crawl_Lotte.py:146 ] 55 : 3024,N,55, 수원(수원역)
+[    INFO|  Crawl_Lotte.py:146 ] 56 : 3044,N,56, 수지
+[    INFO|  Crawl_Lotte.py:146 ] 57 : 9088,N,57, 시화(정왕역)
+[    INFO|  Crawl_Lotte.py:146 ] 58 : 3049,N,58, 시흥장현
+[    INFO|  Crawl_Lotte.py:146 ] 59 : 3004,N,59, 안산
+[    INFO|  Crawl_Lotte.py:146 ] 60 : 3028,N,60, 안산고잔
+[    INFO|  Crawl_Lotte.py:146 ] 61 : 9106,N,61, 안성
+[    INFO|  Crawl_Lotte.py:146 ] 62 : 3007,N,62, 안양(안양역)
+[    INFO|  Crawl_Lotte.py:146 ] 63 : 3032,N,63, 안양일번가
+[    INFO|  Crawl_Lotte.py:146 ] 64 : 9077,N,64, 영종하늘도시
+[    INFO|  Crawl_Lotte.py:146 ] 65 : 9079,N,65, 오산(원동)
+[    INFO|  Crawl_Lotte.py:146 ] 66 : 3039,N,66, 용인기흥
+[    INFO|  Crawl_Lotte.py:146 ] 67 : 3040,N,67, 용인역북
+[    INFO|  Crawl_Lotte.py:146 ] 68 : 3037,N,68, 위례
+[    INFO|  Crawl_Lotte.py:146 ] 69 : 3033,N,69, 의정부민락
+[    INFO|  Crawl_Lotte.py:146 ] 70 : 9100,N,70, 인덕원
+[    INFO|  Crawl_Lotte.py:146 ] 71 : 3035,N,71, 인천아시아드
+[    INFO|  Crawl_Lotte.py:146 ] 72 : 3038,N,72, 인천터미널
+[    INFO|  Crawl_Lotte.py:146 ] 73 : 9087,N,73, 주엽
+[    INFO|  Crawl_Lotte.py:146 ] 74 : 3010,N,74, 진접
+[    INFO|  Crawl_Lotte.py:146 ] 75 : 3034,N,75, 파주운정
+[    INFO|  Crawl_Lotte.py:146 ] 76 : 3047,N,76, 판교(창조경제밸리)
+[    INFO|  Crawl_Lotte.py:146 ] 77 : 3018,N,77, 평촌(범계역)
+[    INFO|  Crawl_Lotte.py:146 ] 78 : 9075,N,78, 평택비전(뉴코아)
+[    INFO|  Crawl_Lotte.py:146 ] 79 : 9111,N,79, 하남미사
+[    INFO|  Crawl_Lotte.py:146 ] 80 : 3036,N,80, 향남
+[    INFO|  Crawl_Lotte.py:146 ] 81 : 9085,N,81, 당진
+[    INFO|  Crawl_Lotte.py:146 ] 82 : 4002,N,82, 대전(백화점)
+[    INFO|  Crawl_Lotte.py:146 ] 83 : 4009,N,83, 대전관저
+[    INFO|  Crawl_Lotte.py:146 ] 84 : 4006,N,84, 대전둔산(월평동)
+[    INFO|  Crawl_Lotte.py:146 ] 85 : 4008,N,85, 대전센트럴
+[    INFO|  Crawl_Lotte.py:146 ] 86 : 9044,N,86, 서산
+[    INFO|  Crawl_Lotte.py:146 ] 87 : 4004,N,87, 서청주(아울렛)
+[    INFO|  Crawl_Lotte.py:146 ] 88 : 4005,N,88, 아산터미널
+[    INFO|  Crawl_Lotte.py:146 ] 89 : 9101,N,89, 천안불당
+[    INFO|  Crawl_Lotte.py:146 ] 90 : 9112,N,90, 천안청당
+[    INFO|  Crawl_Lotte.py:146 ] 91 : 4007,N,91, 청주용암
+[    INFO|  Crawl_Lotte.py:146 ] 92 : 9078,N,92, 충주(모다아울렛)
+[    INFO|  Crawl_Lotte.py:146 ] 93 : 6001,N,93, 광주(백화점)
+[    INFO|  Crawl_Lotte.py:146 ] 94 : 9065,N,94, 광주광산
+[    INFO|  Crawl_Lotte.py:146 ] 95 : 6007,N,95, 군산나운
+[    INFO|  Crawl_Lotte.py:146 ] 96 : 6009,N,96, 군산몰
+[    INFO|  Crawl_Lotte.py:146 ] 97 : 6004,N,97, 수완(아울렛)
+[    INFO|  Crawl_Lotte.py:146 ] 98 : 9070,N,98, 익산모현
+[    INFO|  Crawl_Lotte.py:146 ] 99 : 6002,N,99, 전주(백화점)
+[    INFO|  Crawl_Lotte.py:146 ] 100 : 9102,N,100, 전주송천
+[    INFO|  Crawl_Lotte.py:146 ] 101 : 6006,N,101, 전주평화
+[    INFO|  Crawl_Lotte.py:146 ] 102 : 9047,N,102, 충장로
+[    INFO|  Crawl_Lotte.py:146 ] 103 : 9090,N,103, 경주
+[    INFO|  Crawl_Lotte.py:146 ] 104 : 9091,N,104, 경주황성
+[    INFO|  Crawl_Lotte.py:146 ] 105 : 5013,N,105, 구미공단
+[    INFO|  Crawl_Lotte.py:146 ] 106 : 5012,N,106, 대구광장
+[    INFO|  Crawl_Lotte.py:146 ] 107 : 5006,N,107, 대구율하
+[    INFO|  Crawl_Lotte.py:146 ] 108 : 9107,N,108, 대구현풍
+[    INFO|  Crawl_Lotte.py:146 ] 109 : 5005,N,109, 동성로
+[    INFO|  Crawl_Lotte.py:146 ] 110 : 5016,N,110, 상인
+[    INFO|  Crawl_Lotte.py:146 ] 111 : 9080,N,111, 상주
+[    INFO|  Crawl_Lotte.py:146 ] 112 : 5004,N,112, 성서
+[    INFO|  Crawl_Lotte.py:146 ] 113 : 9064,N,113, 영주
+[    INFO|  Crawl_Lotte.py:146 ] 114 : 9098,N,114, 영천
+[    INFO|  Crawl_Lotte.py:146 ] 115 : 9097,N,115, 포항
+[    INFO|  Crawl_Lotte.py:146 ] 116 : 9067,N,116, 프리미엄구미센트럴
+[    INFO|  Crawl_Lotte.py:146 ] 117 : 9066,N,117, 프리미엄만경
+[    INFO|  Crawl_Lotte.py:146 ] 118 : 9074,N,118, 프리미엄안동
+[    INFO|  Crawl_Lotte.py:146 ] 119 : 9057,N,119, 프리미엄칠곡
+[    INFO|  Crawl_Lotte.py:146 ] 120 : 9082,N,120, 거창
+[    INFO|  Crawl_Lotte.py:146 ] 121 : 2009,N,121, 광복
+[    INFO|  Crawl_Lotte.py:146 ] 122 : 5015,N,122, 김해부원
+[    INFO|  Crawl_Lotte.py:146 ] 123 : 5011,N,123, 김해아울렛(장유)
+[    INFO|  Crawl_Lotte.py:146 ] 124 : 2012,N,124, 대영
+[    INFO|  Crawl_Lotte.py:146 ] 125 : 2007,N,125, 동래
+[    INFO|  Crawl_Lotte.py:146 ] 126 : 2010,N,126, 동부산아울렛
+[    INFO|  Crawl_Lotte.py:146 ] 127 : 9042,N,127, 마산(합성동)
+[    INFO|  Crawl_Lotte.py:146 ] 128 : 9092,N,128, 부산명지
+[    INFO|  Crawl_Lotte.py:146 ] 129 : 2004,N,129, 부산본점
+[    INFO|  Crawl_Lotte.py:146 ] 130 : 9084,N,130, 사천
+[    INFO|  Crawl_Lotte.py:146 ] 131 : 2008,N,131, 서면(전포동)
+[    INFO|  Crawl_Lotte.py:146 ] 132 : 2006,N,132, 센텀시티
+[    INFO|  Crawl_Lotte.py:146 ] 133 : 9103,N,133, 양산물금
+[    INFO|  Crawl_Lotte.py:146 ] 134 : 9105,N,134, 엠비씨네(진주)
+[    INFO|  Crawl_Lotte.py:146 ] 135 : 2011,N,135, 오투(부산대)
+[    INFO|  Crawl_Lotte.py:146 ] 136 : 5001,N,136, 울산(백화점)
+[    INFO|  Crawl_Lotte.py:146 ] 137 : 5014,N,137, 울산성남
+[    INFO|  Crawl_Lotte.py:146 ] 138 : 5017,N,138, 진주혁신(롯데몰)
+[    INFO|  Crawl_Lotte.py:146 ] 139 : 5009,N,139, 진해
+[    INFO|  Crawl_Lotte.py:146 ] 140 : 5002,N,140, 창원
+[    INFO|  Crawl_Lotte.py:146 ] 141 : 9036,N,141, 통영
+[    INFO|  Crawl_Lotte.py:146 ] 142 : 9072,N,142, 프리미엄경남대
+[    INFO|  Crawl_Lotte.py:146 ] 143 : 9059,N,143, 프리미엄해운대(장산역)
+[    INFO|  Crawl_Lotte.py:146 ] 144 : 9108,N,144, 남원주
+[    INFO|  Crawl_Lotte.py:146 ] 145 : 7002,N,145, 동해
+[    INFO|  Crawl_Lotte.py:146 ] 146 : 9089,N,146, 속초
+[    INFO|  Crawl_Lotte.py:146 ] 147 : 7003,N,147, 원주무실
+[    INFO|  Crawl_Lotte.py:146 ] 148 : 9081,N,148, 춘천
+[    INFO|  Crawl_Lotte.py:146 ] 149 : 9013,N,149, 서귀포
+[    INFO|  Crawl_Lotte.py:146 ] 150 : 9068,N,150, 제주삼화지구
+[    INFO|  Crawl_Lotte.py:146 ] 151 : 9071,N,151, 제주아라
+[    INFO|  Crawl_Lotte.py:146 ] 152 : 6010,N,152, 제주연동
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:131 ] 1 : 300,Y,1,샤롯데
+[    INFO|  Crawl_Lotte.py:131 ] 2 : 940,Y,2,수퍼플렉스
+[    INFO|  Crawl_Lotte.py:131 ] 3 : 980,Y,3,수퍼 S
+[    INFO|  Crawl_Lotte.py:131 ] 4 : 930,Y,4,수퍼 4D
+[    INFO|  Crawl_Lotte.py:131 ] 5 : 988,Y,5,컬러리움
+[    INFO|  Crawl_Lotte.py:131 ] 6 : 986,Y,6,씨네컴포트(리클라이너)
+[    INFO|  Crawl_Lotte.py:131 ] 7 : 960,Y,7,씨네패밀리
+[    INFO|  Crawl_Lotte.py:131 ] 8 : 200,Y,8,씨네커플
+[    INFO|  Crawl_Lotte.py:131 ] 9 : 950,Y,9,씨네비즈
+[    INFO|  Crawl_Lotte.py:146 ] 10 : 1013,N,10,가산디지털
+[    INFO|  Crawl_Lotte.py:146 ] 11 : 9094,N,11,가양
+[    INFO|  Crawl_Lotte.py:146 ] 12 : 9010,N,12,강동
+[    INFO|  Crawl_Lotte.py:146 ] 13 : 1004,N,13,건대입구
+[    INFO|  Crawl_Lotte.py:146 ] 14 : 1009,N,14,김포공항
+[    INFO|  Crawl_Lotte.py:146 ] 15 : 1003,N,15,노원
+[    INFO|  Crawl_Lotte.py:146 ] 16 : 1023,N,16,도곡
+[    INFO|  Crawl_Lotte.py:146 ] 17 : 1017,N,17,독산
+[    INFO|  Crawl_Lotte.py:146 ] 18 : 9056,N,18,브로드웨이(신사)
+[    INFO|  Crawl_Lotte.py:146 ] 19 : 1012,N,19,서울대입구
+[    INFO|  Crawl_Lotte.py:146 ] 20 : 9099,N,20,수락산
+[    INFO|  Crawl_Lotte.py:146 ] 21 : 9104,N,21,수유
+[    INFO|  Crawl_Lotte.py:146 ] 22 : 1024,N,22,신대방(구로디지털역)
+[    INFO|  Crawl_Lotte.py:146 ] 23 : 1015,N,23,신도림
+[    INFO|  Crawl_Lotte.py:146 ] 24 : 1007,N,24,신림
+[    INFO|  Crawl_Lotte.py:146 ] 25 : 1001,N,25,에비뉴엘(명동)
+[    INFO|  Crawl_Lotte.py:146 ] 26 : 1002,N,26,영등포
+[    INFO|  Crawl_Lotte.py:146 ] 27 : 1014,N,27,용산
+[    INFO|  Crawl_Lotte.py:146 ] 28 : 1016,N,28,월드타워
+[    INFO|  Crawl_Lotte.py:146 ] 29 : 1021,N,29,은평(롯데몰)
+[    INFO|  Crawl_Lotte.py:146 ] 30 : 9083,N,30,중랑
+[    INFO|  Crawl_Lotte.py:146 ] 31 : 1008,N,31,청량리
+[    INFO|  Crawl_Lotte.py:146 ] 32 : 1010,N,32,합정
+[    INFO|  Crawl_Lotte.py:146 ] 33 : 1005,N,33,홍대입구
+[    INFO|  Crawl_Lotte.py:146 ] 34 : 3030,N,34,광교아울렛
+[    INFO|  Crawl_Lotte.py:146 ] 35 : 3027,N,35,광명(광명사거리)
+[    INFO|  Crawl_Lotte.py:146 ] 36 : 3025,N,36,광명아울렛
+[    INFO|  Crawl_Lotte.py:146 ] 37 : 3020,N,37,광주터미널
+[    INFO|  Crawl_Lotte.py:146 ] 38 : 3026,N,38,구리아울렛
+[    INFO|  Crawl_Lotte.py:146 ] 39 : 3048,N,39,동탄
+[    INFO|  Crawl_Lotte.py:146 ] 40 : 9095,N,40,라페스타
+[    INFO|  Crawl_Lotte.py:146 ] 41 : 3021,N,41,마석
+[    INFO|  Crawl_Lotte.py:146 ] 42 : 3046,N,42,별내
+[    INFO|  Crawl_Lotte.py:146 ] 43 : 3017,N,43,병점
+[    INFO|  Crawl_Lotte.py:146 ] 44 : 3011,N,44,부천(신중동역)
+[    INFO|  Crawl_Lotte.py:146 ] 45 : 9054,N,45,부천역
+[    INFO|  Crawl_Lotte.py:146 ] 46 : 3003,N,46,부평
+[    INFO|  Crawl_Lotte.py:146 ] 47 : 3050,N,47,부평갈산
+[    INFO|  Crawl_Lotte.py:146 ] 48 : 3008,N,48,부평역사
+[    INFO|  Crawl_Lotte.py:146 ] 49 : 3045,N,49,북수원(천천동)
+[    INFO|  Crawl_Lotte.py:146 ] 50 : 3031,N,50,산본피트인
+[    INFO|  Crawl_Lotte.py:146 ] 51 : 3043,N,51,서수원
+[    INFO|  Crawl_Lotte.py:146 ] 52 : 3041,N,52,성남중앙(신흥역)
+[    INFO|  Crawl_Lotte.py:146 ] 53 : 3012,N,53,센트럴락
+[    INFO|  Crawl_Lotte.py:146 ] 54 : 3029,N,54,송탄
+[    INFO|  Crawl_Lotte.py:146 ] 55 : 3024,N,55,수원(수원역)
+[    INFO|  Crawl_Lotte.py:146 ] 56 : 3044,N,56,수지
+[    INFO|  Crawl_Lotte.py:146 ] 57 : 9088,N,57,시화(정왕역)
+[    INFO|  Crawl_Lotte.py:146 ] 58 : 3049,N,58,시흥장현
+[    INFO|  Crawl_Lotte.py:146 ] 59 : 3004,N,59,안산
+[    INFO|  Crawl_Lotte.py:146 ] 60 : 3028,N,60,안산고잔
+[    INFO|  Crawl_Lotte.py:146 ] 61 : 9106,N,61,안성
+[    INFO|  Crawl_Lotte.py:146 ] 62 : 3007,N,62,안양(안양역)
+[    INFO|  Crawl_Lotte.py:146 ] 63 : 3032,N,63,안양일번가
+[    INFO|  Crawl_Lotte.py:146 ] 64 : 9077,N,64,영종하늘도시
+[    INFO|  Crawl_Lotte.py:146 ] 65 : 9079,N,65,오산(원동)
+[    INFO|  Crawl_Lotte.py:146 ] 66 : 3039,N,66,용인기흥
+[    INFO|  Crawl_Lotte.py:146 ] 67 : 3040,N,67,용인역북
+[    INFO|  Crawl_Lotte.py:146 ] 68 : 3037,N,68,위례
+[    INFO|  Crawl_Lotte.py:146 ] 69 : 3033,N,69,의정부민락
+[    INFO|  Crawl_Lotte.py:146 ] 70 : 9100,N,70,인덕원
+[    INFO|  Crawl_Lotte.py:146 ] 71 : 3035,N,71,인천아시아드
+[    INFO|  Crawl_Lotte.py:146 ] 72 : 3038,N,72,인천터미널
+[    INFO|  Crawl_Lotte.py:146 ] 73 : 9087,N,73,주엽
+[    INFO|  Crawl_Lotte.py:146 ] 74 : 3010,N,74,진접
+[    INFO|  Crawl_Lotte.py:146 ] 75 : 3034,N,75,파주운정
+[    INFO|  Crawl_Lotte.py:146 ] 76 : 3047,N,76,판교(창조경제밸리)
+[    INFO|  Crawl_Lotte.py:146 ] 77 : 3018,N,77,평촌(범계역)
+[    INFO|  Crawl_Lotte.py:146 ] 78 : 9075,N,78,평택비전(뉴코아)
+[    INFO|  Crawl_Lotte.py:146 ] 79 : 9111,N,79,하남미사
+[    INFO|  Crawl_Lotte.py:146 ] 80 : 3036,N,80,향남
+[    INFO|  Crawl_Lotte.py:146 ] 81 : 9085,N,81,당진
+[    INFO|  Crawl_Lotte.py:146 ] 82 : 4002,N,82,대전(백화점)
+[    INFO|  Crawl_Lotte.py:146 ] 83 : 4009,N,83,대전관저
+[    INFO|  Crawl_Lotte.py:146 ] 84 : 4006,N,84,대전둔산(월평동)
+[    INFO|  Crawl_Lotte.py:146 ] 85 : 4008,N,85,대전센트럴
+[    INFO|  Crawl_Lotte.py:146 ] 86 : 9044,N,86,서산
+[    INFO|  Crawl_Lotte.py:146 ] 87 : 4004,N,87,서청주(아울렛)
+[    INFO|  Crawl_Lotte.py:146 ] 88 : 4005,N,88,아산터미널
+[    INFO|  Crawl_Lotte.py:146 ] 89 : 9101,N,89,천안불당
+[    INFO|  Crawl_Lotte.py:146 ] 90 : 9112,N,90,천안청당
+[    INFO|  Crawl_Lotte.py:146 ] 91 : 4007,N,91,청주용암
+[    INFO|  Crawl_Lotte.py:146 ] 92 : 9078,N,92,충주(모다아울렛)
+[    INFO|  Crawl_Lotte.py:146 ] 93 : 6001,N,93,광주(백화점)
+[    INFO|  Crawl_Lotte.py:146 ] 94 : 9065,N,94,광주광산
+[    INFO|  Crawl_Lotte.py:146 ] 95 : 6007,N,95,군산나운
+[    INFO|  Crawl_Lotte.py:146 ] 96 : 6009,N,96,군산몰
+[    INFO|  Crawl_Lotte.py:146 ] 97 : 6004,N,97,수완(아울렛)
+[    INFO|  Crawl_Lotte.py:146 ] 98 : 9070,N,98,익산모현
+[    INFO|  Crawl_Lotte.py:146 ] 99 : 6002,N,99,전주(백화점)
+[    INFO|  Crawl_Lotte.py:146 ] 100 : 9102,N,100,전주송천
+[    INFO|  Crawl_Lotte.py:146 ] 101 : 6006,N,101,전주평화
+[    INFO|  Crawl_Lotte.py:146 ] 102 : 9047,N,102,충장로
+[    INFO|  Crawl_Lotte.py:146 ] 103 : 9090,N,103,경주
+[    INFO|  Crawl_Lotte.py:146 ] 104 : 9091,N,104,경주황성
+[    INFO|  Crawl_Lotte.py:146 ] 105 : 5013,N,105,구미공단
+[    INFO|  Crawl_Lotte.py:146 ] 106 : 5012,N,106,대구광장
+[    INFO|  Crawl_Lotte.py:146 ] 107 : 5006,N,107,대구율하
+[    INFO|  Crawl_Lotte.py:146 ] 108 : 9107,N,108,대구현풍
+[    INFO|  Crawl_Lotte.py:146 ] 109 : 5005,N,109,동성로
+[    INFO|  Crawl_Lotte.py:146 ] 110 : 5016,N,110,상인
+[    INFO|  Crawl_Lotte.py:146 ] 111 : 9080,N,111,상주
+[    INFO|  Crawl_Lotte.py:146 ] 112 : 5004,N,112,성서
+[    INFO|  Crawl_Lotte.py:146 ] 113 : 9064,N,113,영주
+[    INFO|  Crawl_Lotte.py:146 ] 114 : 9098,N,114,영천
+[    INFO|  Crawl_Lotte.py:146 ] 115 : 9097,N,115,포항
+[    INFO|  Crawl_Lotte.py:146 ] 116 : 9067,N,116,프리미엄구미센트럴
+[    INFO|  Crawl_Lotte.py:146 ] 117 : 9066,N,117,프리미엄만경
+[    INFO|  Crawl_Lotte.py:146 ] 118 : 9074,N,118,프리미엄안동
+[    INFO|  Crawl_Lotte.py:146 ] 119 : 9057,N,119,프리미엄칠곡
+[    INFO|  Crawl_Lotte.py:146 ] 120 : 9082,N,120,거창
+[    INFO|  Crawl_Lotte.py:146 ] 121 : 2009,N,121,광복
+[    INFO|  Crawl_Lotte.py:146 ] 122 : 5015,N,122,김해부원
+[    INFO|  Crawl_Lotte.py:146 ] 123 : 5011,N,123,김해아울렛(장유)
+[    INFO|  Crawl_Lotte.py:146 ] 124 : 2012,N,124,대영
+[    INFO|  Crawl_Lotte.py:146 ] 125 : 2007,N,125,동래
+[    INFO|  Crawl_Lotte.py:146 ] 126 : 2010,N,126,동부산아울렛
+[    INFO|  Crawl_Lotte.py:146 ] 127 : 9042,N,127,마산(합성동)
+[    INFO|  Crawl_Lotte.py:146 ] 128 : 9092,N,128,부산명지
+[    INFO|  Crawl_Lotte.py:146 ] 129 : 2004,N,129,부산본점
+[    INFO|  Crawl_Lotte.py:146 ] 130 : 9084,N,130,사천
+[    INFO|  Crawl_Lotte.py:146 ] 131 : 2008,N,131,서면(전포동)
+[    INFO|  Crawl_Lotte.py:146 ] 132 : 2006,N,132,센텀시티
+[    INFO|  Crawl_Lotte.py:146 ] 133 : 9103,N,133,양산물금
+[    INFO|  Crawl_Lotte.py:146 ] 134 : 9105,N,134,엠비씨네(진주)
+[    INFO|  Crawl_Lotte.py:146 ] 135 : 2011,N,135,오투(부산대)
+[    INFO|  Crawl_Lotte.py:146 ] 136 : 5001,N,136,울산(백화점)
+[    INFO|  Crawl_Lotte.py:146 ] 137 : 5014,N,137,울산성남
+[    INFO|  Crawl_Lotte.py:146 ] 138 : 5017,N,138,진주혁신(롯데몰)
+[    INFO|  Crawl_Lotte.py:146 ] 139 : 5009,N,139,진해
+[    INFO|  Crawl_Lotte.py:146 ] 140 : 5002,N,140,창원
+[    INFO|  Crawl_Lotte.py:146 ] 141 : 9036,N,141,통영
+[    INFO|  Crawl_Lotte.py:146 ] 142 : 9072,N,142,프리미엄경남대
+[    INFO|  Crawl_Lotte.py:146 ] 143 : 9059,N,143,프리미엄해운대(장산역)
+[    INFO|  Crawl_Lotte.py:146 ] 144 : 9108,N,144,남원주
+[    INFO|  Crawl_Lotte.py:146 ] 145 : 7002,N,145,동해
+[    INFO|  Crawl_Lotte.py:146 ] 146 : 9089,N,146,속초
+[    INFO|  Crawl_Lotte.py:146 ] 147 : 7003,N,147,원주무실
+[    INFO|  Crawl_Lotte.py:146 ] 148 : 9081,N,148,춘천
+[    INFO|  Crawl_Lotte.py:146 ] 149 : 9013,N,149,서귀포
+[    INFO|  Crawl_Lotte.py:146 ] 150 : 9068,N,150,제주삼화지구
+[    INFO|  Crawl_Lotte.py:146 ] 151 : 9071,N,151,제주아라
+[    INFO|  Crawl_Lotte.py:146 ] 152 : 6010,N,152,제주연동
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[   ERROR|  Crawl_Lotte.py: 42 ] LOTTE 크롤링 중 오류발생!
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[   ERROR|  Crawl_Lotte.py: 42 ] LOTTE 크롤링 중 오류발생!
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py: 83 ] 
+[    INFO|  Crawl_Lotte.py: 84 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:102 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:103 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:129 ] 300 : Y,1,샤롯데
+[    INFO|  Crawl_Lotte.py:129 ] 940 : Y,2,수퍼플렉스
+[    INFO|  Crawl_Lotte.py:129 ] 980 : Y,3,수퍼 S
+[    INFO|  Crawl_Lotte.py:129 ] 930 : Y,4,수퍼 4D
+[    INFO|  Crawl_Lotte.py:129 ] 988 : Y,5,컬러리움
+[    INFO|  Crawl_Lotte.py:129 ] 986 : Y,6,씨네컴포트(리클라이너)
+[    INFO|  Crawl_Lotte.py:129 ] 960 : Y,7,씨네패밀리
+[    INFO|  Crawl_Lotte.py:129 ] 200 : Y,8,씨네커플
+[    INFO|  Crawl_Lotte.py:129 ] 950 : Y,9,씨네비즈
+[    INFO|  Crawl_Lotte.py:129 ] 1013 : N,10,가산디지털
+[    INFO|  Crawl_Lotte.py:129 ] 9094 : N,11,가양
+[    INFO|  Crawl_Lotte.py:129 ] 9010 : N,12,강동
+[    INFO|  Crawl_Lotte.py:129 ] 1004 : N,13,건대입구
+[    INFO|  Crawl_Lotte.py:129 ] 1009 : N,14,김포공항
+[    INFO|  Crawl_Lotte.py:129 ] 1003 : N,15,노원
+[    INFO|  Crawl_Lotte.py:129 ] 1023 : N,16,도곡
+[    INFO|  Crawl_Lotte.py:129 ] 1017 : N,17,독산
+[    INFO|  Crawl_Lotte.py:129 ] 9056 : N,18,브로드웨이(신사)
+[    INFO|  Crawl_Lotte.py:129 ] 1012 : N,19,서울대입구
+[    INFO|  Crawl_Lotte.py:129 ] 9099 : N,20,수락산
+[    INFO|  Crawl_Lotte.py:129 ] 9104 : N,21,수유
+[    INFO|  Crawl_Lotte.py:129 ] 1024 : N,22,신대방(구로디지털역)
+[    INFO|  Crawl_Lotte.py:129 ] 1015 : N,23,신도림
+[    INFO|  Crawl_Lotte.py:129 ] 1007 : N,24,신림
+[    INFO|  Crawl_Lotte.py:129 ] 1001 : N,25,에비뉴엘(명동)
+[    INFO|  Crawl_Lotte.py:129 ] 1002 : N,26,영등포
+[    INFO|  Crawl_Lotte.py:129 ] 1014 : N,27,용산
+[    INFO|  Crawl_Lotte.py:129 ] 1016 : N,28,월드타워
+[    INFO|  Crawl_Lotte.py:129 ] 1021 : N,29,은평(롯데몰)
+[    INFO|  Crawl_Lotte.py:129 ] 9083 : N,30,중랑
+[    INFO|  Crawl_Lotte.py:129 ] 1008 : N,31,청량리
+[    INFO|  Crawl_Lotte.py:129 ] 1010 : N,32,합정
+[    INFO|  Crawl_Lotte.py:129 ] 1005 : N,33,홍대입구
+[    INFO|  Crawl_Lotte.py:129 ] 3030 : N,34,광교아울렛
+[    INFO|  Crawl_Lotte.py:129 ] 3027 : N,35,광명(광명사거리)
+[    INFO|  Crawl_Lotte.py:129 ] 3025 : N,36,광명아울렛
+[    INFO|  Crawl_Lotte.py:129 ] 3020 : N,37,광주터미널
+[    INFO|  Crawl_Lotte.py:129 ] 3026 : N,38,구리아울렛
+[    INFO|  Crawl_Lotte.py:129 ] 3048 : N,39,동탄
+[    INFO|  Crawl_Lotte.py:129 ] 9095 : N,40,라페스타
+[    INFO|  Crawl_Lotte.py:129 ] 3021 : N,41,마석
+[    INFO|  Crawl_Lotte.py:129 ] 3046 : N,42,별내
+[    INFO|  Crawl_Lotte.py:129 ] 3017 : N,43,병점
+[    INFO|  Crawl_Lotte.py:129 ] 3011 : N,44,부천(신중동역)
+[    INFO|  Crawl_Lotte.py:129 ] 9054 : N,45,부천역
+[    INFO|  Crawl_Lotte.py:129 ] 3003 : N,46,부평
+[    INFO|  Crawl_Lotte.py:129 ] 3050 : N,47,부평갈산
+[    INFO|  Crawl_Lotte.py:129 ] 3008 : N,48,부평역사
+[    INFO|  Crawl_Lotte.py:129 ] 3045 : N,49,북수원(천천동)
+[    INFO|  Crawl_Lotte.py:129 ] 3031 : N,50,산본피트인
+[    INFO|  Crawl_Lotte.py:129 ] 3043 : N,51,서수원
+[    INFO|  Crawl_Lotte.py:129 ] 3041 : N,52,성남중앙(신흥역)
+[    INFO|  Crawl_Lotte.py:129 ] 3012 : N,53,센트럴락
+[    INFO|  Crawl_Lotte.py:129 ] 3029 : N,54,송탄
+[    INFO|  Crawl_Lotte.py:129 ] 3024 : N,55,수원(수원역)
+[    INFO|  Crawl_Lotte.py:129 ] 3044 : N,56,수지
+[    INFO|  Crawl_Lotte.py:129 ] 9088 : N,57,시화(정왕역)
+[    INFO|  Crawl_Lotte.py:129 ] 3049 : N,58,시흥장현
+[    INFO|  Crawl_Lotte.py:129 ] 3004 : N,59,안산
+[    INFO|  Crawl_Lotte.py:129 ] 3028 : N,60,안산고잔
+[    INFO|  Crawl_Lotte.py:129 ] 9106 : N,61,안성
+[    INFO|  Crawl_Lotte.py:129 ] 3007 : N,62,안양(안양역)
+[    INFO|  Crawl_Lotte.py:129 ] 3032 : N,63,안양일번가
+[    INFO|  Crawl_Lotte.py:129 ] 9077 : N,64,영종하늘도시
+[    INFO|  Crawl_Lotte.py:129 ] 9079 : N,65,오산(원동)
+[    INFO|  Crawl_Lotte.py:129 ] 3039 : N,66,용인기흥
+[    INFO|  Crawl_Lotte.py:129 ] 3040 : N,67,용인역북
+[    INFO|  Crawl_Lotte.py:129 ] 3037 : N,68,위례
+[    INFO|  Crawl_Lotte.py:129 ] 3033 : N,69,의정부민락
+[    INFO|  Crawl_Lotte.py:129 ] 9100 : N,70,인덕원
+[    INFO|  Crawl_Lotte.py:129 ] 3035 : N,71,인천아시아드
+[    INFO|  Crawl_Lotte.py:129 ] 3038 : N,72,인천터미널
+[    INFO|  Crawl_Lotte.py:129 ] 9087 : N,73,주엽
+[    INFO|  Crawl_Lotte.py:129 ] 3010 : N,74,진접
+[    INFO|  Crawl_Lotte.py:129 ] 3034 : N,75,파주운정
+[    INFO|  Crawl_Lotte.py:129 ] 3047 : N,76,판교(창조경제밸리)
+[    INFO|  Crawl_Lotte.py:129 ] 3018 : N,77,평촌(범계역)
+[    INFO|  Crawl_Lotte.py:129 ] 9075 : N,78,평택비전(뉴코아)
+[    INFO|  Crawl_Lotte.py:129 ] 9111 : N,79,하남미사
+[    INFO|  Crawl_Lotte.py:129 ] 3036 : N,80,향남
+[    INFO|  Crawl_Lotte.py:129 ] 9085 : N,81,당진
+[    INFO|  Crawl_Lotte.py:129 ] 4002 : N,82,대전(백화점)
+[    INFO|  Crawl_Lotte.py:129 ] 4009 : N,83,대전관저
+[    INFO|  Crawl_Lotte.py:129 ] 4006 : N,84,대전둔산(월평동)
+[    INFO|  Crawl_Lotte.py:129 ] 4008 : N,85,대전센트럴
+[    INFO|  Crawl_Lotte.py:129 ] 9044 : N,86,서산
+[    INFO|  Crawl_Lotte.py:129 ] 4004 : N,87,서청주(아울렛)
+[    INFO|  Crawl_Lotte.py:129 ] 4005 : N,88,아산터미널
+[    INFO|  Crawl_Lotte.py:129 ] 9101 : N,89,천안불당
+[    INFO|  Crawl_Lotte.py:129 ] 9112 : N,90,천안청당
+[    INFO|  Crawl_Lotte.py:129 ] 4007 : N,91,청주용암
+[    INFO|  Crawl_Lotte.py:129 ] 9078 : N,92,충주(모다아울렛)
+[    INFO|  Crawl_Lotte.py:129 ] 6001 : N,93,광주(백화점)
+[    INFO|  Crawl_Lotte.py:129 ] 9065 : N,94,광주광산
+[    INFO|  Crawl_Lotte.py:129 ] 6007 : N,95,군산나운
+[    INFO|  Crawl_Lotte.py:129 ] 6009 : N,96,군산몰
+[    INFO|  Crawl_Lotte.py:129 ] 6004 : N,97,수완(아울렛)
+[    INFO|  Crawl_Lotte.py:129 ] 9070 : N,98,익산모현
+[    INFO|  Crawl_Lotte.py:129 ] 6002 : N,99,전주(백화점)
+[    INFO|  Crawl_Lotte.py:129 ] 9102 : N,100,전주송천
+[    INFO|  Crawl_Lotte.py:129 ] 6006 : N,101,전주평화
+[    INFO|  Crawl_Lotte.py:129 ] 9047 : N,102,충장로
+[    INFO|  Crawl_Lotte.py:129 ] 9090 : N,103,경주
+[    INFO|  Crawl_Lotte.py:129 ] 9091 : N,104,경주황성
+[    INFO|  Crawl_Lotte.py:129 ] 5013 : N,105,구미공단
+[    INFO|  Crawl_Lotte.py:129 ] 5012 : N,106,대구광장
+[    INFO|  Crawl_Lotte.py:129 ] 5006 : N,107,대구율하
+[    INFO|  Crawl_Lotte.py:129 ] 9107 : N,108,대구현풍
+[    INFO|  Crawl_Lotte.py:129 ] 5005 : N,109,동성로
+[    INFO|  Crawl_Lotte.py:129 ] 5016 : N,110,상인
+[    INFO|  Crawl_Lotte.py:129 ] 9080 : N,111,상주
+[    INFO|  Crawl_Lotte.py:129 ] 5004 : N,112,성서
+[    INFO|  Crawl_Lotte.py:129 ] 9064 : N,113,영주
+[    INFO|  Crawl_Lotte.py:129 ] 9098 : N,114,영천
+[    INFO|  Crawl_Lotte.py:129 ] 9097 : N,115,포항
+[    INFO|  Crawl_Lotte.py:129 ] 9067 : N,116,프리미엄구미센트럴
+[    INFO|  Crawl_Lotte.py:129 ] 9066 : N,117,프리미엄만경
+[    INFO|  Crawl_Lotte.py:129 ] 9074 : N,118,프리미엄안동
+[    INFO|  Crawl_Lotte.py:129 ] 9057 : N,119,프리미엄칠곡
+[    INFO|  Crawl_Lotte.py:129 ] 9082 : N,120,거창
+[    INFO|  Crawl_Lotte.py:129 ] 2009 : N,121,광복
+[    INFO|  Crawl_Lotte.py:129 ] 5015 : N,122,김해부원
+[    INFO|  Crawl_Lotte.py:129 ] 5011 : N,123,김해아울렛(장유)
+[    INFO|  Crawl_Lotte.py:129 ] 2012 : N,124,대영
+[    INFO|  Crawl_Lotte.py:129 ] 2007 : N,125,동래
+[    INFO|  Crawl_Lotte.py:129 ] 2010 : N,126,동부산아울렛
+[    INFO|  Crawl_Lotte.py:129 ] 9042 : N,127,마산(합성동)
+[    INFO|  Crawl_Lotte.py:129 ] 9092 : N,128,부산명지
+[    INFO|  Crawl_Lotte.py:129 ] 2004 : N,129,부산본점
+[    INFO|  Crawl_Lotte.py:129 ] 9084 : N,130,사천
+[    INFO|  Crawl_Lotte.py:129 ] 2008 : N,131,서면(전포동)
+[    INFO|  Crawl_Lotte.py:129 ] 2006 : N,132,센텀시티
+[    INFO|  Crawl_Lotte.py:129 ] 9103 : N,133,양산물금
+[    INFO|  Crawl_Lotte.py:129 ] 9105 : N,134,엠비씨네(진주)
+[    INFO|  Crawl_Lotte.py:129 ] 2011 : N,135,오투(부산대)
+[    INFO|  Crawl_Lotte.py:129 ] 5001 : N,136,울산(백화점)
+[    INFO|  Crawl_Lotte.py:129 ] 5014 : N,137,울산성남
+[    INFO|  Crawl_Lotte.py:129 ] 5017 : N,138,진주혁신(롯데몰)
+[    INFO|  Crawl_Lotte.py:129 ] 5009 : N,139,진해
+[    INFO|  Crawl_Lotte.py:129 ] 5002 : N,140,창원
+[    INFO|  Crawl_Lotte.py:129 ] 9036 : N,141,통영
+[    INFO|  Crawl_Lotte.py:129 ] 9072 : N,142,프리미엄경남대
+[    INFO|  Crawl_Lotte.py:129 ] 9059 : N,143,프리미엄해운대(장산역)
+[    INFO|  Crawl_Lotte.py:129 ] 9108 : N,144,남원주
+[    INFO|  Crawl_Lotte.py:129 ] 7002 : N,145,동해
+[    INFO|  Crawl_Lotte.py:129 ] 9089 : N,146,속초
+[    INFO|  Crawl_Lotte.py:129 ] 7003 : N,147,원주무실
+[    INFO|  Crawl_Lotte.py:129 ] 9081 : N,148,춘천
+[    INFO|  Crawl_Lotte.py:129 ] 9013 : N,149,서귀포
+[    INFO|  Crawl_Lotte.py:129 ] 9068 : N,150,제주삼화지구
+[    INFO|  Crawl_Lotte.py:129 ] 9071 : N,151,제주아라
+[    INFO|  Crawl_Lotte.py:129 ] 6010 : N,152,제주연동
+[    INFO|  Crawl_Lotte.py: 89 ] 
+[    INFO|  Crawl_Lotte.py: 90 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:108 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:109 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:110 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:135 ] 300 : Y,1,샤롯데
+[    INFO|  Crawl_Lotte.py:135 ] 940 : Y,2,수퍼플렉스
+[    INFO|  Crawl_Lotte.py:135 ] 980 : Y,3,수퍼 S
+[    INFO|  Crawl_Lotte.py:135 ] 930 : Y,4,수퍼 4D
+[    INFO|  Crawl_Lotte.py:135 ] 988 : Y,5,컬러리움
+[    INFO|  Crawl_Lotte.py:135 ] 986 : Y,6,씨네컴포트(리클라이너)
+[    INFO|  Crawl_Lotte.py:135 ] 960 : Y,7,씨네패밀리
+[    INFO|  Crawl_Lotte.py:135 ] 200 : Y,8,씨네커플
+[    INFO|  Crawl_Lotte.py:135 ] 950 : Y,9,씨네비즈
+[    INFO|  Crawl_Lotte.py:135 ] 1013 : N,10,가산디지털
+[    INFO|  Crawl_Lotte.py:135 ] 9094 : N,11,가양
+[    INFO|  Crawl_Lotte.py:135 ] 9010 : N,12,강동
+[    INFO|  Crawl_Lotte.py:135 ] 1004 : N,13,건대입구
+[    INFO|  Crawl_Lotte.py:135 ] 1009 : N,14,김포공항
+[    INFO|  Crawl_Lotte.py:135 ] 1003 : N,15,노원
+[    INFO|  Crawl_Lotte.py:135 ] 1023 : N,16,도곡
+[    INFO|  Crawl_Lotte.py:135 ] 1017 : N,17,독산
+[    INFO|  Crawl_Lotte.py:135 ] 9056 : N,18,브로드웨이(신사)
+[    INFO|  Crawl_Lotte.py:135 ] 1012 : N,19,서울대입구
+[    INFO|  Crawl_Lotte.py:135 ] 9099 : N,20,수락산
+[    INFO|  Crawl_Lotte.py:135 ] 9104 : N,21,수유
+[    INFO|  Crawl_Lotte.py:135 ] 1024 : N,22,신대방(구로디지털역)
+[    INFO|  Crawl_Lotte.py:135 ] 1015 : N,23,신도림
+[    INFO|  Crawl_Lotte.py:135 ] 1007 : N,24,신림
+[    INFO|  Crawl_Lotte.py:135 ] 1001 : N,25,에비뉴엘(명동)
+[    INFO|  Crawl_Lotte.py:135 ] 1002 : N,26,영등포
+[    INFO|  Crawl_Lotte.py:135 ] 1014 : N,27,용산
+[    INFO|  Crawl_Lotte.py:135 ] 1016 : N,28,월드타워
+[    INFO|  Crawl_Lotte.py:135 ] 1021 : N,29,은평(롯데몰)
+[    INFO|  Crawl_Lotte.py:135 ] 9083 : N,30,중랑
+[    INFO|  Crawl_Lotte.py:135 ] 1008 : N,31,청량리
+[    INFO|  Crawl_Lotte.py:135 ] 1010 : N,32,합정
+[    INFO|  Crawl_Lotte.py:135 ] 1005 : N,33,홍대입구
+[    INFO|  Crawl_Lotte.py:135 ] 3030 : N,34,광교아울렛
+[    INFO|  Crawl_Lotte.py:135 ] 3027 : N,35,광명(광명사거리)
+[    INFO|  Crawl_Lotte.py:135 ] 3025 : N,36,광명아울렛
+[    INFO|  Crawl_Lotte.py:135 ] 3020 : N,37,광주터미널
+[    INFO|  Crawl_Lotte.py:135 ] 3026 : N,38,구리아울렛
+[    INFO|  Crawl_Lotte.py:135 ] 3048 : N,39,동탄
+[    INFO|  Crawl_Lotte.py:135 ] 9095 : N,40,라페스타
+[    INFO|  Crawl_Lotte.py:135 ] 3021 : N,41,마석
+[    INFO|  Crawl_Lotte.py:135 ] 3046 : N,42,별내
+[    INFO|  Crawl_Lotte.py:135 ] 3017 : N,43,병점
+[    INFO|  Crawl_Lotte.py:135 ] 3011 : N,44,부천(신중동역)
+[    INFO|  Crawl_Lotte.py:135 ] 9054 : N,45,부천역
+[    INFO|  Crawl_Lotte.py:135 ] 3003 : N,46,부평
+[    INFO|  Crawl_Lotte.py:135 ] 3050 : N,47,부평갈산
+[    INFO|  Crawl_Lotte.py:135 ] 3008 : N,48,부평역사
+[    INFO|  Crawl_Lotte.py:135 ] 3045 : N,49,북수원(천천동)
+[    INFO|  Crawl_Lotte.py:135 ] 3031 : N,50,산본피트인
+[    INFO|  Crawl_Lotte.py:135 ] 3043 : N,51,서수원
+[    INFO|  Crawl_Lotte.py:135 ] 3041 : N,52,성남중앙(신흥역)
+[    INFO|  Crawl_Lotte.py:135 ] 3012 : N,53,센트럴락
+[    INFO|  Crawl_Lotte.py:135 ] 3029 : N,54,송탄
+[    INFO|  Crawl_Lotte.py:135 ] 3024 : N,55,수원(수원역)
+[    INFO|  Crawl_Lotte.py:135 ] 3044 : N,56,수지
+[    INFO|  Crawl_Lotte.py:135 ] 9088 : N,57,시화(정왕역)
+[    INFO|  Crawl_Lotte.py:135 ] 3049 : N,58,시흥장현
+[    INFO|  Crawl_Lotte.py:135 ] 3004 : N,59,안산
+[    INFO|  Crawl_Lotte.py:135 ] 3028 : N,60,안산고잔
+[    INFO|  Crawl_Lotte.py:135 ] 9106 : N,61,안성
+[    INFO|  Crawl_Lotte.py:135 ] 3007 : N,62,안양(안양역)
+[    INFO|  Crawl_Lotte.py:135 ] 3032 : N,63,안양일번가
+[    INFO|  Crawl_Lotte.py:135 ] 9077 : N,64,영종하늘도시
+[    INFO|  Crawl_Lotte.py:135 ] 9079 : N,65,오산(원동)
+[    INFO|  Crawl_Lotte.py:135 ] 3039 : N,66,용인기흥
+[    INFO|  Crawl_Lotte.py:135 ] 3040 : N,67,용인역북
+[    INFO|  Crawl_Lotte.py:135 ] 3037 : N,68,위례
+[    INFO|  Crawl_Lotte.py:135 ] 3033 : N,69,의정부민락
+[    INFO|  Crawl_Lotte.py:135 ] 9100 : N,70,인덕원
+[    INFO|  Crawl_Lotte.py:135 ] 3035 : N,71,인천아시아드
+[    INFO|  Crawl_Lotte.py:135 ] 3038 : N,72,인천터미널
+[    INFO|  Crawl_Lotte.py:135 ] 9087 : N,73,주엽
+[    INFO|  Crawl_Lotte.py:135 ] 3010 : N,74,진접
+[    INFO|  Crawl_Lotte.py:135 ] 3034 : N,75,파주운정
+[    INFO|  Crawl_Lotte.py:135 ] 3047 : N,76,판교(창조경제밸리)
+[    INFO|  Crawl_Lotte.py:135 ] 3018 : N,77,평촌(범계역)
+[    INFO|  Crawl_Lotte.py:135 ] 9075 : N,78,평택비전(뉴코아)
+[    INFO|  Crawl_Lotte.py:135 ] 9111 : N,79,하남미사
+[    INFO|  Crawl_Lotte.py:135 ] 3036 : N,80,향남
+[    INFO|  Crawl_Lotte.py:135 ] 9085 : N,81,당진
+[    INFO|  Crawl_Lotte.py:135 ] 4002 : N,82,대전(백화점)
+[    INFO|  Crawl_Lotte.py:135 ] 4009 : N,83,대전관저
+[    INFO|  Crawl_Lotte.py:135 ] 4006 : N,84,대전둔산(월평동)
+[    INFO|  Crawl_Lotte.py:135 ] 4008 : N,85,대전센트럴
+[    INFO|  Crawl_Lotte.py:135 ] 9044 : N,86,서산
+[    INFO|  Crawl_Lotte.py:135 ] 4004 : N,87,서청주(아울렛)
+[    INFO|  Crawl_Lotte.py:135 ] 4005 : N,88,아산터미널
+[    INFO|  Crawl_Lotte.py:135 ] 9101 : N,89,천안불당
+[    INFO|  Crawl_Lotte.py:135 ] 9112 : N,90,천안청당
+[    INFO|  Crawl_Lotte.py:135 ] 4007 : N,91,청주용암
+[    INFO|  Crawl_Lotte.py:135 ] 9078 : N,92,충주(모다아울렛)
+[    INFO|  Crawl_Lotte.py:135 ] 6001 : N,93,광주(백화점)
+[    INFO|  Crawl_Lotte.py:135 ] 9065 : N,94,광주광산
+[    INFO|  Crawl_Lotte.py:135 ] 6007 : N,95,군산나운
+[    INFO|  Crawl_Lotte.py:135 ] 6009 : N,96,군산몰
+[    INFO|  Crawl_Lotte.py:135 ] 6004 : N,97,수완(아울렛)
+[    INFO|  Crawl_Lotte.py:135 ] 9070 : N,98,익산모현
+[    INFO|  Crawl_Lotte.py:135 ] 6002 : N,99,전주(백화점)
+[    INFO|  Crawl_Lotte.py:135 ] 9102 : N,100,전주송천
+[    INFO|  Crawl_Lotte.py:135 ] 6006 : N,101,전주평화
+[    INFO|  Crawl_Lotte.py:135 ] 9047 : N,102,충장로
+[    INFO|  Crawl_Lotte.py:135 ] 9090 : N,103,경주
+[    INFO|  Crawl_Lotte.py:135 ] 9091 : N,104,경주황성
+[    INFO|  Crawl_Lotte.py:135 ] 5013 : N,105,구미공단
+[    INFO|  Crawl_Lotte.py:135 ] 5012 : N,106,대구광장
+[    INFO|  Crawl_Lotte.py:135 ] 5006 : N,107,대구율하
+[    INFO|  Crawl_Lotte.py:135 ] 9107 : N,108,대구현풍
+[    INFO|  Crawl_Lotte.py:135 ] 5005 : N,109,동성로
+[    INFO|  Crawl_Lotte.py:135 ] 5016 : N,110,상인
+[    INFO|  Crawl_Lotte.py:135 ] 9080 : N,111,상주
+[    INFO|  Crawl_Lotte.py:135 ] 5004 : N,112,성서
+[    INFO|  Crawl_Lotte.py:135 ] 9064 : N,113,영주
+[    INFO|  Crawl_Lotte.py:135 ] 9098 : N,114,영천
+[    INFO|  Crawl_Lotte.py:135 ] 9097 : N,115,포항
+[    INFO|  Crawl_Lotte.py:135 ] 9067 : N,116,프리미엄구미센트럴
+[    INFO|  Crawl_Lotte.py:135 ] 9066 : N,117,프리미엄만경
+[    INFO|  Crawl_Lotte.py:135 ] 9074 : N,118,프리미엄안동
+[    INFO|  Crawl_Lotte.py:135 ] 9057 : N,119,프리미엄칠곡
+[    INFO|  Crawl_Lotte.py:135 ] 9082 : N,120,거창
+[    INFO|  Crawl_Lotte.py:135 ] 2009 : N,121,광복
+[    INFO|  Crawl_Lotte.py:135 ] 5015 : N,122,김해부원
+[    INFO|  Crawl_Lotte.py:135 ] 5011 : N,123,김해아울렛(장유)
+[    INFO|  Crawl_Lotte.py:135 ] 2012 : N,124,대영
+[    INFO|  Crawl_Lotte.py:135 ] 2007 : N,125,동래
+[    INFO|  Crawl_Lotte.py:135 ] 2010 : N,126,동부산아울렛
+[    INFO|  Crawl_Lotte.py:135 ] 9042 : N,127,마산(합성동)
+[    INFO|  Crawl_Lotte.py:135 ] 9092 : N,128,부산명지
+[    INFO|  Crawl_Lotte.py:135 ] 2004 : N,129,부산본점
+[    INFO|  Crawl_Lotte.py:135 ] 9084 : N,130,사천
+[    INFO|  Crawl_Lotte.py:135 ] 2008 : N,131,서면(전포동)
+[    INFO|  Crawl_Lotte.py:135 ] 2006 : N,132,센텀시티
+[    INFO|  Crawl_Lotte.py:135 ] 9103 : N,133,양산물금
+[    INFO|  Crawl_Lotte.py:135 ] 9105 : N,134,엠비씨네(진주)
+[    INFO|  Crawl_Lotte.py:135 ] 2011 : N,135,오투(부산대)
+[    INFO|  Crawl_Lotte.py:135 ] 5001 : N,136,울산(백화점)
+[    INFO|  Crawl_Lotte.py:135 ] 5014 : N,137,울산성남
+[    INFO|  Crawl_Lotte.py:135 ] 5017 : N,138,진주혁신(롯데몰)
+[    INFO|  Crawl_Lotte.py:135 ] 5009 : N,139,진해
+[    INFO|  Crawl_Lotte.py:135 ] 5002 : N,140,창원
+[    INFO|  Crawl_Lotte.py:135 ] 9036 : N,141,통영
+[    INFO|  Crawl_Lotte.py:135 ] 9072 : N,142,프리미엄경남대
+[    INFO|  Crawl_Lotte.py:135 ] 9059 : N,143,프리미엄해운대(장산역)
+[    INFO|  Crawl_Lotte.py:135 ] 9108 : N,144,남원주
+[    INFO|  Crawl_Lotte.py:135 ] 7002 : N,145,동해
+[    INFO|  Crawl_Lotte.py:135 ] 9089 : N,146,속초
+[    INFO|  Crawl_Lotte.py:135 ] 7003 : N,147,원주무실
+[    INFO|  Crawl_Lotte.py:135 ] 9081 : N,148,춘천
+[    INFO|  Crawl_Lotte.py:135 ] 9013 : N,149,서귀포
+[    INFO|  Crawl_Lotte.py:135 ] 9068 : N,150,제주삼화지구
+[    INFO|  Crawl_Lotte.py:135 ] 9071 : N,151,제주아라
+[    INFO|  Crawl_Lotte.py:135 ] 6010 : N,152,제주연동
+[    INFO|  Crawl_Lotte.py: 85 ] 
+[    INFO|  Crawl_Lotte.py: 86 ] ### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###
+[    INFO|  Crawl_Lotte.py:104 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:105 ] no, 코드, 스페셜관, 정렬일련번호, 극장명
+[    INFO|  Crawl_Lotte.py:106 ] -------------------------------------
+[    INFO|  Crawl_Lotte.py:131 ] 300 : Y,1,샤롯데
+[    INFO|  Crawl_Lotte.py:131 ] 940 : Y,2,수퍼플렉스
+[    INFO|  Crawl_Lotte.py:131 ] 980 : Y,3,수퍼 S
+[    INFO|  Crawl_Lotte.py:131 ] 930 : Y,4,수퍼 4D
+[    INFO|  Crawl_Lotte.py:131 ] 988 : Y,5,컬러리움
+[    INFO|  Crawl_Lotte.py:131 ] 986 : Y,6,씨네컴포트(리클라이너)
+[    INFO|  Crawl_Lotte.py:131 ] 960 : Y,7,씨네패밀리
+[    INFO|  Crawl_Lotte.py:131 ] 200 : Y,8,씨네커플
+[    INFO|  Crawl_Lotte.py:131 ] 950 : Y,9,씨네비즈
+[    INFO|  Crawl_Lotte.py:131 ] 1013 : N,10,가산디지털
+[    INFO|  Crawl_Lotte.py:131 ] 9094 : N,11,가양
+[    INFO|  Crawl_Lotte.py:131 ] 9010 : N,12,강동
+[    INFO|  Crawl_Lotte.py:131 ] 1004 : N,13,건대입구
+[    INFO|  Crawl_Lotte.py:131 ] 1009 : N,14,김포공항
+[    INFO|  Crawl_Lotte.py:131 ] 1003 : N,15,노원
+[    INFO|  Crawl_Lotte.py:131 ] 1023 : N,16,도곡
+[    INFO|  Crawl_Lotte.py:131 ] 1017 : N,17,독산
+[    INFO|  Crawl_Lotte.py:131 ] 9056 : N,18,브로드웨이(신사)
+[    INFO|  Crawl_Lotte.py:131 ] 1012 : N,19,서울대입구
+[    INFO|  Crawl_Lotte.py:131 ] 9099 : N,20,수락산
+[    INFO|  Crawl_Lotte.py:131 ] 9104 : N,21,수유
+[    INFO|  Crawl_Lotte.py:131 ] 1024 : N,22,신대방(구로디지털역)
+[    INFO|  Crawl_Lotte.py:131 ] 1015 : N,23,신도림
+[    INFO|  Crawl_Lotte.py:131 ] 1007 : N,24,신림
+[    INFO|  Crawl_Lotte.py:131 ] 1001 : N,25,에비뉴엘(명동)
+[    INFO|  Crawl_Lotte.py:131 ] 1002 : N,26,영등포
+[    INFO|  Crawl_Lotte.py:131 ] 1014 : N,27,용산
+[    INFO|  Crawl_Lotte.py:131 ] 1016 : N,28,월드타워
+[    INFO|  Crawl_Lotte.py:131 ] 1021 : N,29,은평(롯데몰)
+[    INFO|  Crawl_Lotte.py:131 ] 9083 : N,30,중랑
+[    INFO|  Crawl_Lotte.py:131 ] 1008 : N,31,청량리
+[    INFO|  Crawl_Lotte.py:131 ] 1010 : N,32,합정
+[    INFO|  Crawl_Lotte.py:131 ] 1005 : N,33,홍대입구
+[    INFO|  Crawl_Lotte.py:131 ] 3030 : N,34,광교아울렛
+[    INFO|  Crawl_Lotte.py:131 ] 3027 : N,35,광명(광명사거리)
+[    INFO|  Crawl_Lotte.py:131 ] 3025 : N,36,광명아울렛
+[    INFO|  Crawl_Lotte.py:131 ] 3020 : N,37,광주터미널
+[    INFO|  Crawl_Lotte.py:131 ] 3026 : N,38,구리아울렛
+[    INFO|  Crawl_Lotte.py:131 ] 3048 : N,39,동탄
+[    INFO|  Crawl_Lotte.py:131 ] 9095 : N,40,라페스타
+[    INFO|  Crawl_Lotte.py:131 ] 3021 : N,41,마석
+[    INFO|  Crawl_Lotte.py:131 ] 3046 : N,42,별내
+[    INFO|  Crawl_Lotte.py:131 ] 3017 : N,43,병점
+[    INFO|  Crawl_Lotte.py:131 ] 3011 : N,44,부천(신중동역)
+[    INFO|  Crawl_Lotte.py:131 ] 9054 : N,45,부천역
+[    INFO|  Crawl_Lotte.py:131 ] 3003 : N,46,부평
+[    INFO|  Crawl_Lotte.py:131 ] 3050 : N,47,부평갈산
+[    INFO|  Crawl_Lotte.py:131 ] 3008 : N,48,부평역사
+[    INFO|  Crawl_Lotte.py:131 ] 3045 : N,49,북수원(천천동)
+[    INFO|  Crawl_Lotte.py:131 ] 3031 : N,50,산본피트인
+[    INFO|  Crawl_Lotte.py:131 ] 3043 : N,51,서수원
+[    INFO|  Crawl_Lotte.py:131 ] 3041 : N,52,성남중앙(신흥역)
+[    INFO|  Crawl_Lotte.py:131 ] 3012 : N,53,센트럴락
+[    INFO|  Crawl_Lotte.py:131 ] 3029 : N,54,송탄
+[    INFO|  Crawl_Lotte.py:131 ] 3024 : N,55,수원(수원역)
+[    INFO|  Crawl_Lotte.py:131 ] 3044 : N,56,수지
+[    INFO|  Crawl_Lotte.py:131 ] 9088 : N,57,시화(정왕역)
+[    INFO|  Crawl_Lotte.py:131 ] 3049 : N,58,시흥장현
+[    INFO|  Crawl_Lotte.py:131 ] 3004 : N,59,안산
+[    INFO|  Crawl_Lotte.py:131 ] 3028 : N,60,안산고잔
+[    INFO|  Crawl_Lotte.py:131 ] 9106 : N,61,안성
+[    INFO|  Crawl_Lotte.py:131 ] 3007 : N,62,안양(안양역)
+[    INFO|  Crawl_Lotte.py:131 ] 3032 : N,63,안양일번가
+[    INFO|  Crawl_Lotte.py:131 ] 9077 : N,64,영종하늘도시
+[    INFO|  Crawl_Lotte.py:131 ] 9079 : N,65,오산(원동)
+[    INFO|  Crawl_Lotte.py:131 ] 3039 : N,66,용인기흥
+[    INFO|  Crawl_Lotte.py:131 ] 3040 : N,67,용인역북
+[    INFO|  Crawl_Lotte.py:131 ] 3037 : N,68,위례
+[    INFO|  Crawl_Lotte.py:131 ] 3033 : N,69,의정부민락
+[    INFO|  Crawl_Lotte.py:131 ] 9100 : N,70,인덕원
+[    INFO|  Crawl_Lotte.py:131 ] 3035 : N,71,인천아시아드
+[    INFO|  Crawl_Lotte.py:131 ] 3038 : N,72,인천터미널
+[    INFO|  Crawl_Lotte.py:131 ] 9087 : N,73,주엽
+[    INFO|  Crawl_Lotte.py:131 ] 3010 : N,74,진접
+[    INFO|  Crawl_Lotte.py:131 ] 3034 : N,75,파주운정
+[    INFO|  Crawl_Lotte.py:131 ] 3047 : N,76,판교(창조경제밸리)
+[    INFO|  Crawl_Lotte.py:131 ] 3018 : N,77,평촌(범계역)
+[    INFO|  Crawl_Lotte.py:131 ] 9075 : N,78,평택비전(뉴코아)
+[    INFO|  Crawl_Lotte.py:131 ] 9111 : N,79,하남미사
+[    INFO|  Crawl_Lotte.py:131 ] 3036 : N,80,향남
+[    INFO|  Crawl_Lotte.py:131 ] 9085 : N,81,당진
+[    INFO|  Crawl_Lotte.py:131 ] 4002 : N,82,대전(백화점)
+[    INFO|  Crawl_Lotte.py:131 ] 4009 : N,83,대전관저
+[    INFO|  Crawl_Lotte.py:131 ] 4006 : N,84,대전둔산(월평동)
+[    INFO|  Crawl_Lotte.py:131 ] 4008 : N,85,대전센트럴
+[    INFO|  Crawl_Lotte.py:131 ] 9044 : N,86,서산
+[    INFO|  Crawl_Lotte.py:131 ] 4004 : N,87,서청주(아울렛)
+[    INFO|  Crawl_Lotte.py:131 ] 4005 : N,88,아산터미널
+[    INFO|  Crawl_Lotte.py:131 ] 9101 : N,89,천안불당
+[    INFO|  Crawl_Lotte.py:131 ] 9112 : N,90,천안청당
+[    INFO|  Crawl_Lotte.py:131 ] 4007 : N,91,청주용암
+[    INFO|  Crawl_Lotte.py:131 ] 9078 : N,92,충주(모다아울렛)
+[    INFO|  Crawl_Lotte.py:131 ] 6001 : N,93,광주(백화점)
+[    INFO|  Crawl_Lotte.py:131 ] 9065 : N,94,광주광산
+[    INFO|  Crawl_Lotte.py:131 ] 6007 : N,95,군산나운
+[    INFO|  Crawl_Lotte.py:131 ] 6009 : N,96,군산몰
+[    INFO|  Crawl_Lotte.py:131 ] 6004 : N,97,수완(아울렛)
+[    INFO|  Crawl_Lotte.py:131 ] 9070 : N,98,익산모현
+[    INFO|  Crawl_Lotte.py:131 ] 6002 : N,99,전주(백화점)
+[    INFO|  Crawl_Lotte.py:131 ] 9102 : N,100,전주송천
+[    INFO|  Crawl_Lotte.py:131 ] 6006 : N,101,전주평화
+[    INFO|  Crawl_Lotte.py:131 ] 9047 : N,102,충장로
+[    INFO|  Crawl_Lotte.py:131 ] 9090 : N,103,경주
+[    INFO|  Crawl_Lotte.py:131 ] 9091 : N,104,경주황성
+[    INFO|  Crawl_Lotte.py:131 ] 5013 : N,105,구미공단
+[    INFO|  Crawl_Lotte.py:131 ] 5012 : N,106,대구광장
+[    INFO|  Crawl_Lotte.py:131 ] 5006 : N,107,대구율하
+[    INFO|  Crawl_Lotte.py:131 ] 9107 : N,108,대구현풍
+[    INFO|  Crawl_Lotte.py:131 ] 5005 : N,109,동성로
+[    INFO|  Crawl_Lotte.py:131 ] 5016 : N,110,상인
+[    INFO|  Crawl_Lotte.py:131 ] 9080 : N,111,상주
+[    INFO|  Crawl_Lotte.py:131 ] 5004 : N,112,성서
+[    INFO|  Crawl_Lotte.py:131 ] 9064 : N,113,영주
+[    INFO|  Crawl_Lotte.py:131 ] 9098 : N,114,영천
+[    INFO|  Crawl_Lotte.py:131 ] 9097 : N,115,포항
+[    INFO|  Crawl_Lotte.py:131 ] 9067 : N,116,프리미엄구미센트럴
+[    INFO|  Crawl_Lotte.py:131 ] 9066 : N,117,프리미엄만경
+[    INFO|  Crawl_Lotte.py:131 ] 9074 : N,118,프리미엄안동
+[    INFO|  Crawl_Lotte.py:131 ] 9057 : N,119,프리미엄칠곡
+[    INFO|  Crawl_Lotte.py:131 ] 9082 : N,120,거창
+[    INFO|  Crawl_Lotte.py:131 ] 2009 : N,121,광복
+[    INFO|  Crawl_Lotte.py:131 ] 5015 : N,122,김해부원
+[    INFO|  Crawl_Lotte.py:131 ] 5011 : N,123,김해아울렛(장유)
+[    INFO|  Crawl_Lotte.py:131 ] 2012 : N,124,대영
+[    INFO|  Crawl_Lotte.py:131 ] 2007 : N,125,동래
+[    INFO|  Crawl_Lotte.py:131 ] 2010 : N,126,동부산아울렛
+[    INFO|  Crawl_Lotte.py:131 ] 9042 : N,127,마산(합성동)
+[    INFO|  Crawl_Lotte.py:131 ] 9092 : N,128,부산명지
+[    INFO|  Crawl_Lotte.py:131 ] 2004 : N,129,부산본점
+[    INFO|  Crawl_Lotte.py:131 ] 9084 : N,130,사천
+[    INFO|  Crawl_Lotte.py:131 ] 2008 : N,131,서면(전포동)
+[    INFO|  Crawl_Lotte.py:131 ] 2006 : N,132,센텀시티
+[    INFO|  Crawl_Lotte.py:131 ] 9103 : N,133,양산물금
+[    INFO|  Crawl_Lotte.py:131 ] 9105 : N,134,엠비씨네(진주)
+[    INFO|  Crawl_Lotte.py:131 ] 2011 : N,135,오투(부산대)
+[    INFO|  Crawl_Lotte.py:131 ] 5001 : N,136,울산(백화점)
+[    INFO|  Crawl_Lotte.py:131 ] 5014 : N,137,울산성남
+[    INFO|  Crawl_Lotte.py:131 ] 5017 : N,138,진주혁신(롯데몰)
+[    INFO|  Crawl_Lotte.py:131 ] 5009 : N,139,진해
+[    INFO|  Crawl_Lotte.py:131 ] 5002 : N,140,창원
+[    INFO|  Crawl_Lotte.py:131 ] 9036 : N,141,통영
+[    INFO|  Crawl_Lotte.py:131 ] 9072 : N,142,프리미엄경남대
+[    INFO|  Crawl_Lotte.py:131 ] 9059 : N,143,프리미엄해운대(장산역)
+[    INFO|  Crawl_Lotte.py:131 ] 9108 : N,144,남원주
+[    INFO|  Crawl_Lotte.py:131 ] 7002 : N,145,동해
+[    INFO|  Crawl_Lotte.py:131 ] 9089 : N,146,속초
+[    INFO|  Crawl_Lotte.py:131 ] 7003 : N,147,원주무실
+[    INFO|  Crawl_Lotte.py:131 ] 9081 : N,148,춘천
+[    INFO|  Crawl_Lotte.py:131 ] 9013 : N,149,서귀포
+[    INFO|  Crawl_Lotte.py:131 ] 9068 : N,150,제주삼화지구
+[    INFO|  Crawl_Lotte.py:131 ] 9071 : N,151,제주아라
+[    INFO|  Crawl_Lotte.py:131 ] 6010 : N,152,제주연동

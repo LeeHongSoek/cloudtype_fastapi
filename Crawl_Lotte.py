@@ -7,6 +7,8 @@ import time
 from selenium.webdriver.chrome.options import Options
 from Crawl_Supper import Crawl
 from jsonpath_rw import parse  # pip install jsonpath-rw      https://pypi.python.org/pypi/jsonpath-rw
+import requests
+from urllib.parse import parse_qs, urlparse
 
 from Crawling_Logger import get_logger, clean_logger
 
@@ -48,6 +50,38 @@ class CrawlLotte(Crawl):
     #
     def __crawl_lotte_cinema(self):
 
+        
+        
+        def parse_links(html):
+            soup = BeautifulSoup(html, 'html.parser')
+            a_tags = soup.find_all('a')
+            
+            parsed_links = []
+            
+            for a_tag in a_tags:
+                link = a_tag['href']
+                parsed_url = urlparse(link)
+                params = parse_qs(parsed_url.query)
+                
+                url = link.split('?')[0]
+                query_params = {key: value[0] for key, value in params.items()}
+                text = a_tag.text
+                
+                parsed_link = {
+                    'url': url,
+                    'query_params': query_params,
+                    'text': text.replace("\n", "").strip()
+                }
+                
+                parsed_links.append(parsed_link)
+
+                # print("URL:", parsed_link['url'],", Query Params:", parsed_link['query_params'],", Text:", parsed_link['text'])
+                
+            return parsed_links
+
+
+
+
         self.logger.info('')
         self.logger.info('### 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ###')
 
@@ -64,16 +98,37 @@ class CrawlLotte(Crawl):
         html = driver.page_source.replace('\n', '')  # 패이지 소스를 읽어온다.....
         soup = BeautifulSoup(html, "html.parser")
 
+        cinema_count = 0
+
+        if self.isPrnConsole:  # ################
+            self.logger.info('-------------------------------------')
+            self.logger.info('no, 코드, 스페셜관, 정렬일련번호, 극장명')
+            self.logger.info('-------------------------------------')
+
         tags1 = soup.select("#nav > ul > li:nth-child(3) > div > ul")
         for tag1 in tags1:
-            tags2 = tag1.select('li > a[href="#"]')
-            for tag2 in tags2:
-                print('======================================================up')
-                print(tag2)
+            
+            tagLst = ''
             tags2 = tag1.select('li > a:not([href="#"])')
-            for tag2 in tags2:
-                print('======================================================dn')
-                print(tag2)
+            for tag2 in tags2:                
+                #print(tag2)
+                tagLst += tag2.prettify()
+            
+            parsed_links = parse_links(tagLst)
+
+            sortsequence = 0
+            for parsed_link in parsed_links:
+                if parsed_link['url']=='https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema':
+                    sortsequence = sortsequence + 1
+                    self.dicCinemas[parsed_link['query_params']['screendivcd']] = ['Y', sortsequence, parsed_link['text']]  # 극장(스페셜괌)정보저장
+
+                if parsed_link['url'] == 'https://www.lottecinema.co.kr/NLCHS/Cinema/Detail':
+                    sortsequence = sortsequence + 1
+                    self.dicCinemas[parsed_link['query_params']['cinemaID']] = ['N', sortsequence, parsed_link['text']]  # 극장(일반)정보저장
+
+            if self.isPrnConsole:  # ################            
+                for key, value in self.dicCinemas.items():
+                    self.logger.info('{} : {},{},{}'.format(key, value[0], value[1], value[2]))
 
         driver.quit()
 
