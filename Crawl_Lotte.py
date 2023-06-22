@@ -57,7 +57,6 @@ class CrawlLotte(Crawl):
         chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
 
         driver = webdriver.Chrome(options=chrome_options)  
-        driver.implicitly_wait(3)
 
         driver.get('https://www.lottecinema.co.kr/NLCHS')
         driver.implicitly_wait(3)
@@ -76,20 +75,8 @@ class CrawlLotte(Crawl):
                 print('======================================================dn')
                 print(tag2)
 
-
         driver.quit()
 
-
-        '''
-        driver.find_element_by_xpath('//*[@class="btn-more-fontbold"]').click()  # '더보기' 클릭
-        driver.implicitly_wait(3)
-
-        time.sleep(self.delayTime)  # 초 단위 지연...
-
-        
-
-        soup = BeautifulSoup(html, "html.parser")
-        '''
 
     # -------------------------------------------------------------------------------------------------
 
@@ -123,8 +110,8 @@ class CrawlLotte(Crawl):
         # 웹사이트로 이동
         driver.get("https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1")
 
-        # 5초 대기
-        time.sleep(5)
+        # 3초 대기
+        driver.implicitly_wait(3)
 
         # 캡처된 요청 가져오기
         har = proxy.har
