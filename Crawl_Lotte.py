@@ -70,11 +70,78 @@ class CrawlLotte(Crawl):
         proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})
 
         for key, value in self.dicCinemas.items():
-            if value[0] == 'N':
+            if value[0] == 'N' and key == '1013':
                 self.logger.info(f'{value[0]}/{value[2]} ({key}) : URL {value[3]}')
                 driver.get(value[3]) # 웹사이트로 이동
                 
                 time.sleep(1) #driver.implicitly_wait(3) # 3초 대기
+
+                # 캡처된 요청 가져오기
+                har = proxy.har
+                entries = har['log']['entries']
+
+                # 각 요청의 세부 정보 출력
+                for entry in entries:
+                    request = entry['request']
+                    
+                    if request['url'] == "https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx":
+                                                
+                        print(request['url'])
+                        
+                        print(request['method'])    
+
+                        print('headers < ------------------------')
+                        print(request['headers'])
+                        print('headers > ------------------------')
+                        
+                        
+                        print('postData < ------------------------')
+                        postData = request['postData']
+                        print(postData['text'])  # POST 데이터 본문 출력
+                        print('postData > ------------------------')
+
+                        response = entry['response']
+
+                        content = response['content']
+                        text = content['text']
+                        
+                        print(' Json < ------------------------')                        
+                        print(text)
+                        print(' Json > ------------------------')
+                        
+                        # JSON 파싱
+                        data = json.loads(text)
+
+                        ''''                        
+                        if self.isPrnConsole:  # ################
+                            self.logger.info('-------------------------------------')
+                            self.logger.info('no, 코드, 영화명, 장르, 예매, 개봉일, 관람등급')
+                            self.logger.info('-------------------------------------')
+
+                        json_obj = json.loads(text)
+
+                        jsonpath_expr = parse('Movies.Items[*]')
+
+                        for match in jsonpath_expr.find(json_obj):
+                            representationmoviecode = str(match.value['RepresentationMovieCode'])
+                            movienamekr = str(match.value['MovieNameKR']).strip()
+                            moviegenrename = str(match.value['MovieGenreName'])
+                            bookingyn = str(match.value['BookingYN'])
+                            releasedate = str(match.value['ReleaseDate'])
+                            releasedate = releasedate[0:4] + releasedate[5:7] + releasedate[8:10]
+                            viewgradenameus = str(match.value['ViewGradeNameUS'])
+
+                            if movienamekr == '' or movienamekr == 'AD': continue
+
+                            self.dicMovieData[representationmoviecode] = [movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus, -1]  # 영화데이터 정보
+
+                            if self.isPrnConsole:  # ################
+                                movie_count += 1
+                                self.logger.info(f'{movie_count} : {representationmoviecode},{movienamekr},{moviegenrename},{bookingyn},{releasedate},{viewgradenameus}')
+                            #
+                        #
+                        '''
+                    #
 
 
         driver.quit()
