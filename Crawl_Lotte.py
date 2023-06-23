@@ -70,11 +70,11 @@ class CrawlLotte(Crawl):
         proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})
 
         for key, value in self.dicCinemas.items():
-            self.logger.info('{} : {},{},'.format(key, value[2], value[3]))
-            
-            driver.get(value[3]) # 웹사이트로 이동
-            #driver.implicitly_wait(3) # 3초 대기
-            time.sleep(3)
+            if value[0] == 'N':
+                self.logger.info(f'{value[0]}/{value[2]} ({key}) : URL {value[3]}')
+                driver.get(value[3]) # 웹사이트로 이동
+                
+                time.sleep(1) #driver.implicitly_wait(3) # 3초 대기
 
 
         driver.quit()
@@ -253,6 +253,9 @@ class CrawlLotte(Crawl):
         try:
             self.logger.info('')
             self.logger.info('### LOTTE 서버 전송 시작 ###')
+
+            for key in self.dicCinemas.keys(): # dicCinemas의 모든 키들을 얻음
+                self.dicCinemas[key] = self.dicCinemas[key][:-1] # 마지막 'link'는 삭제
 
             fields = {
                 "moviedata": str(self.dicMovieData),
