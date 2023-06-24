@@ -91,7 +91,7 @@ class CrawlLotte(Crawl):
                         print(request['method'])    
 
                         print('headers < ------------------------')
-                        print(request['headers'].replace("\"", "`").replace("'", "\"").replace( "`","\""))
+                        print(((request['headers'].replace("\"", "`")).replace("'", "\"")).replace( "`","\""))
                         print('headers > ------------------------')
                         
                         
