@@ -6,7 +6,7 @@ import requests
 
 from bs4 import BeautifulSoup  # pip install beautifulsoup4
 from browsermobproxy import Server  # pip install browsermob-proxy
-from jsonpath_rw import parse  # pip install jsonpath-rw      https://pypi.python.org/pypi/jsonpath-rw
+from jsonpath_rw import parse  # pip install jsonpath-rw  https://pypi.python.org/pypi/jsonpath-rw
 from urllib.parse import parse_qs, urlparse
 
 from selenium import webdriver
@@ -406,9 +406,9 @@ class CrawlLotte(Crawl):
                     except Exception as e:    
                         self.dicCinemas[cn_key][4] = 'X'  # 크롤링에 예외가 발생되어 실패
 
-                        self.logger.info('-----------------------------------------------------------------------')
-                        self.logger.info(f'상영관({cn_value[2]})크롤링에 예외가 발생되어 실패')
-                        self.logger.info('-----------------------------------------------------------------------')
+                        self.logger.error('-----------------------------------------------------------------------')
+                        self.logger.error(f'상영관({cn_value[2]})크롤링에 예외가 발생되어 실패')
+                        self.logger.error('-----------------------------------------------------------------------')
                     else:
                         self.dicCinemas[cn_key][4] = 'O'  # 정상적으로 크롤링된 상영관
                     finally: 
