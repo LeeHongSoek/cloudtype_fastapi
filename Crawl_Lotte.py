@@ -143,14 +143,14 @@ class CrawlLotte(Crawl):
                 for parsed_link in parsed_links:  # print(parsed_link)
                     if parsed_link['url'] == 'https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema':  # 극장(스페셜괌)정보저장
                         sortsequence = sortsequence + 1
-                        self.dicCinemas[parsed_link['query_params']['screendivcd']] = ['Y', sortsequence, parsed_link['text'], parsed_link['link'], '']
+                        self.dicCinemas[parsed_link['query_params']['screendivcd']] = ['Y', sortsequence, parsed_link['text'], parsed_link['link'], '_']
 
                     if parsed_link['url'] == 'https://www.lottecinema.co.kr/NLCHS/Cinema/Detail':  # 극장(일반)정보저장
 
                         if parsed_link['query_params']['cinemaID'] != '1017':  # --------------------------------------------------------------- 디버깅용
                             continue
                         sortsequence = sortsequence + 1
-                        self.dicCinemas[parsed_link['query_params']['cinemaID']] = ['N', sortsequence, parsed_link['text'], parsed_link['link'], '']
+                        self.dicCinemas[parsed_link['query_params']['cinemaID']] = ['N', sortsequence, parsed_link['text'], parsed_link['link'], '_']
 
                 self.logger.info('-------------------------------------')
                 self.logger.info(' 코드, 스페셜관, 정렬일련번호, 극장명')
@@ -170,7 +170,7 @@ class CrawlLotte(Crawl):
             self.logger.info('영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)')
             self.logger.info('--------------------------------------------------------------------------------------------------------------------------')
 
-            def __read_cinemas():
+            def __daily_ticketingdata():
                 _dicTeather = {}
                 movie_count = 0
 
@@ -200,11 +200,9 @@ class CrawlLotte(Crawl):
 
                 for i in range(1, (len(button) + 1)):  # 전체 상영일 순환
 
-                    element = chm_driverdriver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}]/li/a')  # 일자 선택 버튼
-                    parent_div = element.find_element(By.XPATH, '..').find_element(By.XPATH, '..')
-                    parent_div_class = parent_div.get_attribute('class')
+                    day_a_tag = chm_driverdriver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}]/li/a')  # 일자 선택 버튼
 
-                    if 'disabled' in element.get_attribute('class'):
+                    if 'disabled' in day_a_tag.get_attribute('class'):
                         arr_ablity_day.append('F')  # 무효한 상영일
                     else:
                         arr_ablity_day.append('T')  # 유효한 상영일
@@ -367,6 +365,8 @@ class CrawlLotte(Crawl):
 
                                     degree_no += 1
                                     dicTime[(screen_no * 100) + degree_no] = [starttime, endtime, bookingseatcount, moviecode, self.dicMovies[moviecode][1], self.dicMovies[moviecode][2]]
+                                    
+                                    self.logger.info(f'{(screen_no * 100) + degree_no}, {playdt[-2:]}, {self.dicMovies[moviecode][0]}[{self.dicMovies[moviecode][1]}]({self.dicMovies[moviecode][2]}), {starttime}~{endtime}, {bookingseatcount}/{totalseatcount}')
 
                                     ticket_count += 1
 
@@ -376,6 +376,7 @@ class CrawlLotte(Crawl):
                                     dic_screen[screenid].append(dicTime)
 
                                 _dicTeather[cn_key] = [dic_screen]
+                                
 
                             # end of [ if len(jsonpath_expr = parse('PlaySeqs.Items').find(json_obj)) == 1:]
                         # end of [if request['url'] == "https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx":]
@@ -383,20 +384,41 @@ class CrawlLotte(Crawl):
 
                     self.dicTicketingData[play_date[0:4] + play_date[5:7] + play_date[8:10]] = [_dicTeather]
 
-                    # break  # ------------------------------------- 디버깅용
+                    break  # ------------------------------------- 디버깅용
 
                 # end of [for i in range(nMin, (nMax+1)):  # 유효한 상영일만 순환  ]
-            #
+            # def __read_cinemas():
 
-            for cn_key, cn_value in self.dicCinemas.items():  # 전체 극장을 순회한다.
+            while True:  # 루프를 계속해서 반복합니다.
 
-                if cn_value[0] == 'Y':  # 스페셜 극장은 빠진다.
-                    continue
+                doit = False
 
-                __read_cinemas()
+                for cn_key, cn_value in self.dicCinemas.items():  # 전체 극장을 순회한다.
+                    if cn_value[0] == 'Y':  # 스페셜 극장은 빠진다.
+                        continue
+                    if cn_value[4] == 'O':  # 이미 크롤링에 성공한 상영관은 열외
+                        continue
 
-            # end of [for key, value in self.dicCinemas.items():  # 전체 극장을 순회한다.]
+                    try:
+                        doit = True
+                        __daily_ticketingdata()  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test 1 / 0
+                    except Exception as e:    
+                        self.dicCinemas[cn_key][4] = 'X'  # 크롤링에 예외가 발생되어 실패
 
+                        self.logger.info('-----------------------------------------------------------------------')
+                        self.logger.info(f'상영관({cn_value[2]})크롤링에 예외가 발생되어 실패')
+                        self.logger.info('-----------------------------------------------------------------------')
+                    else:
+                        self.dicCinemas[cn_key][4] = 'O'  # 정상적으로 크롤링된 상영관
+                    finally: 
+                        pass  # 예외 발생 여부와 관계없이 항상 실행되는 코드
+                #  end of [for cn_key, cn_value in self.dicCinemas.items():  # 전체 극장을 순회한다.]
+
+                if doit == False:  # 완전히 모든 상영관이 크롤링에 성공 했을시 빠저나간다.
+                    break
+
+            # end of [while True:  # 루프를 계속해서 반복합니다.]
+            
         # end of [def _crawl_lotte_ticketingdata(self):]
 
         ############################################
@@ -414,8 +436,8 @@ class CrawlLotte(Crawl):
             chrome_driver = webdriver.Chrome(options=chrome_options)
 
             # ------------------------------
-            _crawl_lotte_boxoffice(chrome_driver)  # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. (dicMovieData)
-            _crawl_lotte_cinema(chrome_driver)  # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
+            _crawl_lotte_boxoffice(chrome_driver)      # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. (dicMovieData)
+            _crawl_lotte_cinema(chrome_driver)         # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
             _crawl_lotte_ticketingdata(chrome_driver)  # 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)
             # ------------------------------
 
@@ -433,10 +455,10 @@ class CrawlLotte(Crawl):
         try:
             self.logger.info('')
             self.logger.info('')
-
             self.logger.info('### LOTTE 서버 전송 시작 ###')
 
             for key in self.dicCinemas.keys():  # dicCinemas의 모든 키들을 얻음
+                self.dicCinemas[key] = self.dicCinemas[key][:-1]  # 마지막 '성공여부'는 삭제
                 self.dicCinemas[key] = self.dicCinemas[key][:-1]  # 마지막 'link'는 삭제
 
             url = 'http://www.mtns7.co.kr/totalscore/upload_lotte.php'  # POST 요청을 보낼 PHP 스크립트의 URL
