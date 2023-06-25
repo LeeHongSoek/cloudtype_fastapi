@@ -147,8 +147,8 @@ class CrawlLotte(Crawl):
 
                     if parsed_link['url'] == 'https://www.lottecinema.co.kr/NLCHS/Cinema/Detail':  # 극장(일반)정보저장
 
-                        if parsed_link['query_params']['cinemaID'] != '1017':  # --------------------------------------------------------------- 디버깅용
-                            continue
+                        #if parsed_link['query_params']['cinemaID'] != '1017':  # --------------------------------------------------------------- 디버깅용
+                        #    continue
                         sortsequence = sortsequence + 1
                         self.dicCinemas[parsed_link['query_params']['cinemaID']] = ['N', sortsequence, parsed_link['text'], parsed_link['link'], '_']
 
@@ -221,10 +221,10 @@ class CrawlLotte(Crawl):
                     div_act = chm_driverdriver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}][contains(@class, "active")]')
                     if not div_act:
                         chm_driverdriver.find_element(By.XPATH, '//*[@id="timeTable"]/div[1]/div/ul/div[2]/button[2]').click()  # 다음페이지 누르기..!!!
-                        time.sleep(1)
+                        time.sleep(0.5)
 
                     chm_driverdriver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}]/li/a').click()  # 상영일 누르기..!!!
-                    time.sleep(1)
+                    time.sleep(0.5)
 
                     play_date = ''
 
@@ -384,7 +384,7 @@ class CrawlLotte(Crawl):
 
                     self.dicTicketingData[play_date[0:4] + play_date[5:7] + play_date[8:10]] = [_dicTeather]
 
-                    break  # ------------------------------------- 디버깅용
+                    #break  # ------------------------------------- 디버깅용
 
                 # end of [for i in range(nMin, (nMax+1)):  # 유효한 상영일만 순환  ]
             # def __read_cinemas():
@@ -401,7 +401,8 @@ class CrawlLotte(Crawl):
 
                     try:
                         doit = True
-                        __daily_ticketingdata()  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test 1 / 0
+                        __daily_ticketingdata()  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test
+                        1 / 0
                     except Exception as e:    
                         self.dicCinemas[cn_key][4] = 'X'  # 크롤링에 예외가 발생되어 실패
 

@@ -1,10 +1,10 @@
 Running BrowserMob Proxy using LittleProxy implementation. To revert to the legacy implementation, run the proxy with the command-line option '--use-littleproxy false'.
-[INFO  2023-06-25T23:29:55,164 net.lightbody.bmp.proxy.Main] (main) Starting BrowserMob Proxy version 2.1.4 
-[INFO  2023-06-25T23:29:55,221 org.eclipse.jetty.util.log] (main) jetty-7.x.y-SNAPSHOT 
-[INFO  2023-06-25T23:29:55,514 org.eclipse.jetty.util.log] (main) started o.e.j.s.ServletContextHandler{/,null} 
-[WARN  2023-06-25T23:29:55,718 org.eclipse.jetty.util.log] (main) FAILED SelectChannelConnector@0.0.0.0:8080: java.net.BindException: Address already in use: bind 
-[WARN  2023-06-25T23:29:55,718 org.eclipse.jetty.util.log] (main) FAILED org.eclipse.jetty.server.Server@59d2400d: java.net.BindException: Address already in use: bind 
-[ERROR 2023-06-25T23:29:55,720 net.lightbody.bmp.proxy.Main] (main) Failed to start Jetty server. Aborting. java.net.BindException: Address already in use: bind
+[INFO  2023-06-26T00:00:14,466 net.lightbody.bmp.proxy.Main] (main) Starting BrowserMob Proxy version 2.1.4 
+[INFO  2023-06-26T00:00:14,501 org.eclipse.jetty.util.log] (main) jetty-7.x.y-SNAPSHOT 
+[INFO  2023-06-26T00:00:14,730 org.eclipse.jetty.util.log] (main) started o.e.j.s.ServletContextHandler{/,null} 
+[WARN  2023-06-26T00:00:14,869 org.eclipse.jetty.util.log] (main) FAILED SelectChannelConnector@0.0.0.0:8080: java.net.BindException: Address already in use: bind 
+[WARN  2023-06-26T00:00:14,870 org.eclipse.jetty.util.log] (main) FAILED org.eclipse.jetty.server.Server@59d2400d: java.net.BindException: Address already in use: bind 
+[ERROR 2023-06-26T00:00:14,870 net.lightbody.bmp.proxy.Main] (main) Failed to start Jetty server. Aborting. java.net.BindException: Address already in use: bind
 	at sun.nio.ch.Net.bind0(Native Method) ~[?:1.8.0_333]
 	at sun.nio.ch.Net.bind(Unknown Source) ~[?:1.8.0_333]
 	at sun.nio.ch.Net.bind(Unknown Source) ~[?:1.8.0_333]
