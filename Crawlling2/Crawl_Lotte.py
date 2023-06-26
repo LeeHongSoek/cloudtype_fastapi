@@ -147,7 +147,7 @@ class CrawlLotte(Crawl):
 
                     if parsed_link['url'] == 'https://www.lottecinema.co.kr/NLCHS/Cinema/Detail':  # 극장(일반)정보저장
 
-                        if parsed_link['query_params']['cinemaID'] != '1017':  # --------------------------------------------------------------- 디버깅용
+                        if parsed_link['query_params']['cinemaID'] != '1013' and parsed_link['query_params']['cinemaID'] != '1017':  # --------------------------------------------------------------- 디버깅용
                             continue
                         sortsequence = sortsequence + 1
                         self.dicCinemas[parsed_link['query_params']['cinemaID']] = ['N', sortsequence, parsed_link['text'], parsed_link['link'], '_']
@@ -170,8 +170,13 @@ class CrawlLotte(Crawl):
             self.logger.info('영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)')
             self.logger.info('--------------------------------------------------------------------------------------------------------------------------')
 
-            def __daily_ticketingdata():
-                _dicTeather = {}
+            _dicTeather = {}
+
+            def __daily_ticketingdata():                
+                
+                if cn_key in _dicTeather: # 극장이 있으면 (이전에 예외 에러가 발생되면 찌거기가 있으니까..)
+                    del _dicTeather[cn_key]
+
                 movie_count = 0
 
                 self.logger.info(f'{cn_value[0]}/{cn_value[2]} ({cn_key}) : URL {cn_value[3]}')
@@ -402,13 +407,17 @@ class CrawlLotte(Crawl):
                     try:
                         doit = True
                         __daily_ticketingdata()  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test
-                        1 / 0
+                        
+                        if cn_key == '1017':
+                            1 / 0
                     except Exception as e:    
                         self.dicCinemas[cn_key][4] = 'X'  # 크롤링에 예외가 발생되어 실패
 
                         self.logger.error('-----------------------------------------------------------------------')
                         self.logger.error(f'상영관({cn_value[2]})크롤링에 예외가 발생되어 실패')
                         self.logger.error('-----------------------------------------------------------------------')
+
+                        # print(json.dumps(self.dicTicketingData)) e
                     else:
                         self.dicCinemas[cn_key][4] = 'O'  # 정상적으로 크롤링된 상영관
                     finally: 
