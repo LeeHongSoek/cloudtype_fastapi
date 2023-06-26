@@ -4,6 +4,9 @@ import time
 import urllib3  # pip install urllib3
 import requests
 
+import numpy as np
+from itertools import groupby
+
 from bs4 import BeautifulSoup  # pip install beautifulsoup4
 from browsermobproxy import Server  # pip install browsermob-proxy
 from jsonpath_rw import parse  # pip install jsonpath-rw  https://pypi.python.org/pypi/jsonpath-rw
@@ -34,6 +37,10 @@ class CrawlLotte(Crawl):
         self.dicMovies = {}  # 영화 코드 정보
 
         self.dicTicketingData = {}  # 티켓팅 정보
+
+        self.arrTickecting1 = []  # 티켓팅 정보1 [playdate, cinemaid, cinemaname] 극장에 상영예정일 리스트
+        self.arrTickecting2 = []  # 티켓팅 정보2 [playdate, cinemaid, screenid,           cinemaname, screennamekr, totalseatcount] 상영관 리스트
+        self.arrTickecting3 = []  # 티켓팅 정보3 [playdate ,cinemaid ,screenid ,degreeNo ,cinemaname ,screennamekr ,starttime ,endtime ,bookingseatcount ,moviecode ,moviename ,filmnamekr ,gubun ] 상영시간 리스트
 
     # ===================================================================================
 
@@ -148,6 +155,7 @@ class CrawlLotte(Crawl):
                     if parsed_link['url'] == 'https://www.lottecinema.co.kr/NLCHS/Cinema/Detail':  # 극장(일반)정보저장
 
                         if parsed_link['query_params']['cinemaID'] != '1013' and parsed_link['query_params']['cinemaID'] != '1017':  # --------------------------------------------------------------- 디버깅용
+                        #if parsed_link['query_params']['cinemaID'] != '1013':
                             continue
                         sortsequence = sortsequence + 1
                         self.dicCinemas[parsed_link['query_params']['cinemaID']] = ['N', sortsequence, parsed_link['text'], parsed_link['link'], '_']
@@ -170,10 +178,16 @@ class CrawlLotte(Crawl):
             self.logger.info('영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)')
             self.logger.info('--------------------------------------------------------------------------------------------------------------------------')
 
+            
+
+
+
             _dicTeather = {}
 
             def __daily_ticketingdata():                
-                
+
+                _arrPlayItemList = []  # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.영화코드 , 6.영화명 )의 배열 - 한개 극장단위 리턴값
+
                 if cn_key in _dicTeather: # 극장이 있으면 (이전에 예외 에러가 발생되면 찌거기가 있으니까..)
                     del _dicTeather[cn_key]
 
@@ -220,6 +234,8 @@ class CrawlLotte(Crawl):
 
                     if ablityDay == 'F' or i > 14:  # 다음 페이지 문제로 인해 무조건 14 일자 까지만..
                         continue
+
+                    seq_no = 0  # 상영일련번호
 
                     proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 복수 실행을 위해 캡처된 요청 초기화
 
@@ -375,7 +391,13 @@ class CrawlLotte(Crawl):
 
                                     ticket_count += 1
 
+                                    
+                                    # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.영화코드 , 6.영화명 )의 배열
+                                    _arrPlayItemList.append([playdt, screennamekr, starttime, endtime, bookingseatcount, moviecode, self.dicMovies[moviecode][0]])
+
                                 # end of [for PlayDate in jsonpath_expr[0].value:]
+
+                                
 
                                 if screenid_old is not None:
                                     dic_screen[screenid].append(dicTime)
@@ -389,9 +411,11 @@ class CrawlLotte(Crawl):
 
                     self.dicTicketingData[play_date[0:4] + play_date[5:7] + play_date[8:10]] = [_dicTeather]
 
-                    break  # ------------------------------------- 디버깅용
+                    #break  # ------------------------------------- 디버깅용
 
                 # end of [for i in range(nMin, (nMax+1)):  # 유효한 상영일만 순환  ]
+
+                return _arrPlayItemList
             # def __read_cinemas():
 
             while True:  # 루프를 계속해서 반복합니다.
@@ -406,16 +430,50 @@ class CrawlLotte(Crawl):
 
                     try:
                         doit = True
-                        __daily_ticketingdata()  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test
+                        _arrPlayItemList = __daily_ticketingdata()  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test
+                        print(_arrPlayItemList) # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.영화코드 , 6.영화명 )의 배열
+
                         
-                        if cn_key == '1017':
-                            1 / 0
+
+                        # playdt 값을 추출하여 중복 제거 후 numpy 배열로 변환
+                        playdt_array = np.unique(np.array(_arrPlayItemList)[:, 0])
+                        for playdt in playdt_array:
+                            self.arrTickecting1.append([playdt, cn_key, cn_value[2]])
+
+                                                
+                        # 입력을 playdt, screennamekr, totalseatcount 순서로 정렬
+                        sorted_input = sorted(_arrPlayItemList, key=lambda x: (x[0], x[1], x[4]))
+
+                        # playdt, screennamekr, totalseatcount로 그룹핑
+                        groups = groupby(sorted_input, key=lambda x: (x[0], x[1], x[4]))
+
+                        # 그룹화된 결과 출력
+                        for idx, (key, group) in enumerate(groups):
+                            playdt, screennamekr, totalseatcount = key  # key 언패킹
+                            idx_str = str(idx+1).zfill(2)  # 일련번호를 0으로 채워진 2자리로 출력
+
+                            self.arrTickecting2.append([playdt, cn_key, str(cn_key)+str(idx_str), cn_value[2], screennamekr, totalseatcount])
+
+                            n_item = 0
+                            for item in group:
+                                n_item = n_item + 1
+                                self.arrTickecting3.append([playdt, cn_key, str(cn_key)+str(idx_str), (idx+1)*100+n_item, cn_value[2], screennamekr, item[2], item[3], item[4], item[5]])
+                        
+                        #if cn_key == '1017':
+                        #    1 / 0
+
+
+
+
+
                     except Exception as e:    
                         self.dicCinemas[cn_key][4] = 'X'  # 크롤링에 예외가 발생되어 실패
 
                         self.logger.error('-----------------------------------------------------------------------')
                         self.logger.error(f'상영관({cn_value[2]})크롤링에 예외가 발생되어 실패')
                         self.logger.error('-----------------------------------------------------------------------')
+
+                        raise e
 
                         # print(json.dumps(self.dicTicketingData)) e
                     else:
@@ -475,7 +533,10 @@ class CrawlLotte(Crawl):
             data = {  # POST 데이터
                 'moviedata': str(self.dicMovieData),
                 'cinemas': str(self.dicCinemas),
-                'ticketingdata': str(self.dicTicketingData)
+                'ticketingdata': str(self.dicTicketingData),
+
+                'arrTicketing1': self.arrTickecting1,
+                'arrTicketing2': self.arrTickecting2
             }
             response = requests.post(url, data=data)  # POST 요청 보내기
             print('[', response.text, ']')  # 응답 결과 출력
