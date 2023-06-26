@@ -9,7 +9,7 @@ from browsermobproxy import Server  # pip install browsermob-proxy
 from jsonpath_rw import parse  # pip install jsonpath-rw  https://pypi.python.org/pypi/jsonpath-rw
 from urllib.parse import parse_qs, urlparse
 
-from selenium import webdriver
+from selenium import webdriver # pip install selenium
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -147,8 +147,8 @@ class CrawlLotte(Crawl):
 
                     if parsed_link['url'] == 'https://www.lottecinema.co.kr/NLCHS/Cinema/Detail':  # 극장(일반)정보저장
 
-                        #if parsed_link['query_params']['cinemaID'] != '1017':  # --------------------------------------------------------------- 디버깅용
-                        #    continue
+                        if parsed_link['query_params']['cinemaID'] != '1017':  # --------------------------------------------------------------- 디버깅용
+                            continue
                         sortsequence = sortsequence + 1
                         self.dicCinemas[parsed_link['query_params']['cinemaID']] = ['N', sortsequence, parsed_link['text'], parsed_link['link'], '_']
 
@@ -384,7 +384,7 @@ class CrawlLotte(Crawl):
 
                     self.dicTicketingData[play_date[0:4] + play_date[5:7] + play_date[8:10]] = [_dicTeather]
 
-                    #break  # ------------------------------------- 디버깅용
+                    break  # ------------------------------------- 디버깅용
 
                 # end of [for i in range(nMin, (nMax+1)):  # 유효한 상영일만 순환  ]
             # def __read_cinemas():
