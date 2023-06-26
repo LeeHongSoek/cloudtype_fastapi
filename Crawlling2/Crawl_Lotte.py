@@ -428,19 +428,14 @@ class CrawlLotte(Crawl):
                         # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.영화코드 , 6.영화명 )의 배열
                         _arrPlayItemList = __daily_ticketingdata()  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test
 
-                        # playdt 값을 추출하여 중복 제거 후 numpy 배열로 변환
-                        playdt_array = np.unique(np.array(_arrPlayItemList)[:, 0])
+                        
+                        playdt_array = np.unique(np.array(_arrPlayItemList)[:, 0]) # playdt 값을 추출하여 중복 제거 후 numpy 배열로 변환
                         for playdt in playdt_array:
                             self.arrTickecting1.append([playdt, cn_key, cn_value[2]])
                                                 
-                        # 입력을 playdt, screennamekr, totalseatcount 순서로 정렬
-                        sorted_input = sorted(_arrPlayItemList, key=lambda x: (x[0], x[1], x[4]))
-
-                        # playdt, screennamekr, totalseatcount로 그룹핑
-                        groups = groupby(sorted_input, key=lambda x: (x[0], x[1], x[4]))
-
-                        # 그룹화된 결과 출력
-                        for idx, (key, group) in enumerate(groups):
+                        sorted_input = sorted(_arrPlayItemList, key=lambda x: (x[0], x[1], x[4]))  # 입력을 playdt, screennamekr, totalseatcount 순서로 정렬
+                        groups = groupby(sorted_input, key=lambda x: (x[0], x[1], x[4]))  # playdt, screennamekr, totalseatcount로 그룹핑
+                        for idx, (key, group) in enumerate(groups):  # 그룹화된 결과 출력
                             playdt, screennamekr, totalseatcount = key  # key 언패킹
                             idx_str = str(idx+1).zfill(2)  # 일련번호를 0으로 채워진 2자리로 출력
 
