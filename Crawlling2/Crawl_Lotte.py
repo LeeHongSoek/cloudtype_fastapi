@@ -39,8 +39,8 @@ class CrawlLotte(Crawl):
         self.dicTicketingData = {}  # 티켓팅 정보
 
         self.arrTickecting1 = []  # 티켓팅 정보1 [playdate, cinemaid, cinemaname] 극장에 상영예정일 리스트
-        self.arrTickecting2 = []  # 티켓팅 정보2 [playdate, cinemaid, screenid,           cinemaname, screennamekr, totalseatcount] 상영관 리스트
-        self.arrTickecting3 = []  # 티켓팅 정보3 [playdate ,cinemaid ,screenid ,degreeNo ,cinemaname ,screennamekr ,starttime ,endtime ,bookingseatcount ,moviecode ,moviename ,filmnamekr ,gubun ] 상영시간 리스트
+        self.arrTickecting2 = []  # 티켓팅 정보2 [playdate, cinemaid, screenid, cinemaname, screennamekr, totalseatcount] 상영관 리스트
+        self.arrTickecting3 = []  # 티켓팅 정보3 [playdate, cinemaid, screenid, degreeNo, cinemaname, screennamekr, starttime, endtime, bookingseatcount, moviecode, moviename, filmnamekr, gubun ] 상영시간 리스트
 
     # ===================================================================================
 
@@ -182,7 +182,7 @@ class CrawlLotte(Crawl):
 
             def __daily_ticketingdata():                
 
-                _arrPlayItemList = []  # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.영화코드 , 6.영화명 )의 배열 - 한개 극장단위 리턴값
+                _arrPlayItemList = []  # 상영정보( 0.일자, 1.상영관코드, 2.회차번호, 3.상영관명, 4.시작시간, 5.종료시간, 6.예약좌석수, 7.총좌석수, 8.영화코드, 9.영화명 )의 배열 - 한개 극장단위 리턴값
 
                 if cn_key in _dicTeather: # 극장이 있으면 (이전에 예외 에러가 발생되면 찌거기가 있으니까..)
                     del _dicTeather[cn_key]
@@ -384,8 +384,8 @@ class CrawlLotte(Crawl):
                                     ticket_count += 1
 
                                     
-                                    # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.영화코드 , 6.영화명 )의 배열
-                                    _arrPlayItemList.append([playdt, screennamekr, starttime, endtime, bookingseatcount, moviecode, self.dicMovies[moviecode][0]])
+                                    # 상영정보( 0.일자, 1.상영관코드, 2.회차번호, 3.상영관명, 4.시작시간, 5.종료시간, 6.예약좌석수, 7.총좌석수, 8.영화코드, 9.영화명 )의 배열
+                                    _arrPlayItemList.append([playdt, screenid, (screen_no * 100) + degree_no, screennamekr, starttime, endtime, bookingseatcount, totalseatcount, moviecode, self.dicMovies[moviecode][0]])
 
                                 # end of [for PlayDate in jsonpath_expr[0].value:]
 
@@ -412,6 +412,9 @@ class CrawlLotte(Crawl):
 
             #####################################################
 
+
+            dicNewTickecting = {} 
+
             while True:  # 루프를 계속해서 반복합니다.
 
                 doit = False
@@ -425,32 +428,64 @@ class CrawlLotte(Crawl):
                     try:
                         doit = True
 
-                        # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.영화코드 , 6.영화명 )의 배열
+                        # 상영정보( 0.일자, 1.상영관코드, 2.회차번호, 3.상영관명, 4.시작시간, 5.종료시간, 6.예약좌석수, 7.총좌석수, 8.영화코드, 9.영화명 )의 배열
                         _arrPlayItemList = __daily_ticketingdata()  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test
-
                         
                         playdt_array = np.unique(np.array(_arrPlayItemList)[:, 0]) # playdt 값을 추출하여 중복 제거 후 numpy 배열로 변환
-                        for playdt in playdt_array:
-                            self.arrTickecting1.append([playdt, cn_key, cn_value[2]])
+                        for arting1_playdt in playdt_array:
+                            self.arrTickecting1.append([arting1_playdt, cn_key, cn_value[2]])
                                                 
-                        sorted_input = sorted(_arrPlayItemList, key=lambda x: (x[0], x[1], x[4]))  # 입력을 playdt, screennamekr, totalseatcount 순서로 정렬
-                        groups = groupby(sorted_input, key=lambda x: (x[0], x[1], x[4]))  # playdt, screennamekr, totalseatcount로 그룹핑
-                        for idx, (key, group) in enumerate(groups):  # 그룹화된 결과 출력
-                            playdt, screennamekr, totalseatcount = key  # key 언패킹
-                            idx_str = str(idx+1).zfill(2)  # 일련번호를 0으로 채워진 2자리로 출력
+                        sorted_input = sorted(_arrPlayItemList, key=lambda x: (x[0], x[1], x[3], x[7]))  # 입력을 playdt, screenid, screennamekr, totalseatcount 순서로 정렬
+                        groups = groupby(sorted_input, key=lambda x: (x[0], x[1], x[3], x[7]))  # playdt, screenid, screennamekr, totalseatcount로 그룹핑
+                        for idx1, (key, group) in enumerate(groups):  # 그룹화된 결과 출력
+                            arting1_playdt, screenid, screennamekr, totalseatcount = key  # key 언패킹
 
-                            self.arrTickecting2.append([playdt, cn_key, str(cn_key)+str(idx_str), cn_value[2], screennamekr, totalseatcount])
+                            self.arrTickecting2.append([arting1_playdt, cn_key, screenid,  cn_value[2], screennamekr, totalseatcount])
 
-                            n_item = 0
+                            idx2 = 0
                             for item in group:
-                                n_item = n_item + 1
-                                self.arrTickecting3.append([playdt, cn_key, str(cn_key)+str(idx_str), (idx+1)*100+n_item, cn_value[2], screennamekr, item[2], item[3], item[4], item[5]])
+                                idx2 = idx2 + 1 
+                                self.arrTickecting3.append([arting1_playdt, cn_key, screenid,  item[2], cn_value[2], screennamekr, item[4], item[6], item[7], item[8], item[9]])
+
+
+
+
+
                         
+
+                        # self.arrTickecting1을 딕셔너리(dicTickecting1)로 변경
+                        for data in self.arrTickecting1:
+                            arting1_playdt = data[0]  # 상영일자. 
+                            arting1_values = data[1:] # ex ['1013', '가산디지털']
+
+                            arr_temp1 = []
+                            arr_temp1.append(arting1_values) # arting1_values을 배열로 만든다. # ex [['1013', '가산디지털']]
+
+                            for arr_temp1_values in arr_temp1:
+                                arting1_cn_key = arr_temp1_values[0] # 극장코드.
+
+                                matching_entries = [
+                                    entry for entry in self.arrTickecting2   # .append([arting1_playdt, cn_key, screenid,  cn_value[2], screennamekr, totalseatcount])
+                                    if entry[0] == arting1_playdt and entry[1] == arting1_cn_key
+                                ]
+                                
+                                for entry in matching_entries:                                    
+                                    new_entry2 = [entry[2], entry[3], entry[4], entry[5]]
+
+                                    arr_temp1_values.append(new_entry2)
+
+                            dicNewTickecting.setdefault(arting1_playdt, []).append(arr_temp1)
+                        pass
+
+
+
+
+
                         #if cn_key == '1017':
                         #    1 / 0
-                        print(self.arrTickecting1)
-                        print(self.arrTickecting2)
-                        print(self.arrTickecting3)
+
+                        print(dicNewTickecting)
+                        pass
 
                     except Exception as e:    
                         self.dicCinemas[cn_key][4] = 'X'  # 크롤링에 예외가 발생되어 실패
