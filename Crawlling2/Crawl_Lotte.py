@@ -191,9 +191,7 @@ class CrawlLotte(Crawl):
 
                 self.logger.info(f'{cn_value[0]}/{cn_value[2]} ({cn_key}) : URL {cn_value[3]}')
 
-                url = cn_value[3]  # 웹사이트로 이동
-
-                chm_driverdriver.get(url)
+                chm_driverdriver.get(cn_value[3])   # 웹사이트로 이동
 
                 html = chm_driverdriver.page_source.replace('\n', '')  # 패이지 소스를 읽어온다.....
                 soup = BeautifulSoup(html, 'html.parser')
@@ -339,9 +337,9 @@ class CrawlLotte(Crawl):
                                     self.logger.info(f'{scr_value[0]}({scr_key}), {scr_value[1]}석')
 
 
-                                self.logger.info('--------------------------------------------------------------------------------')
-                                self.logger.info(f'[{theather_nm}] 일자, 상영관, 시작시간~끝시간, 예약좌석수/총좌석수, 영화, 개봉일')
-                                self.logger.info('--------------------------------------------------------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------')
+                                self.logger.info(f'[{theather_nm}] 일자, 상영관, 회차, 영화, 시작시간~끝시간, 예약좌석수/총좌석수')
+                                self.logger.info('-------------------------------------------------------------------------------')
 
                                 screenid_old = None
                                 screen_no = 0
@@ -375,9 +373,9 @@ class CrawlLotte(Crawl):
                                         screenid_old = screenid
                                     #
 
-                                    degree_no += 1
-                                    
-                                    self.logger.info(f'{(screen_no * 100) + degree_no}, {playdt[-2:]}, {self.dicMovies[moviecode][0]}[{self.dicMovies[moviecode][1]}]({self.dicMovies[moviecode][2]}), {starttime}~{endtime}, {bookingseatcount}/{totalseatcount}')
+                                    degree_no += 1                                    
+                                     
+                                    self.logger.info(f'{playdt[-2:]}, screennamekr, {(screen_no * 100) + degree_no}, {self.dicMovies[moviecode][0]}[{self.dicMovies[moviecode][1]}]({self.dicMovies[moviecode][2]}), {starttime}~{endtime}, {bookingseatcount}/{totalseatcount}')
 
                                     # 상영정보( 0.일자, 1.상영관코드, 2.회차번호, 3.상영관명, 4.시작시간, 5.종료시간, 6.예약좌석수, 7.총좌석수, 8.영화코드, 9.영화명 )의 배열
                                     _arrTickectRaw.append([playdt, screenid, (screen_no * 100) + degree_no, screennamekr, starttime, endtime, bookingseatcount, totalseatcount, moviecode, self.dicMovies[moviecode][0]])
@@ -509,7 +507,7 @@ class CrawlLotte(Crawl):
                         self.logger.error(f'상영관({cn_value[2]})크롤링에 예외가 발생되어 실패')
                         self.logger.error('-----------------------------------------------------------------------')
 
-                        # print(json.dumps(self.dicTicketingData)) 
+                        chm_driverdriver.refresh() # 새로고침 수행
                     else:
                         self.dicCinemas[cn_key][4] = 'O'  # 정상적으로 크롤링된 상영관
                     finally: 
