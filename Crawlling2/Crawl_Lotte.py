@@ -454,13 +454,9 @@ class CrawlLotte(Crawl):
                     dicTickecting.setdefault(play_date, []).append(arting1_values)
 
                 return dicTickecting
-
             # end of [def __makedic_ticketingdata(_arrTickectRaw):]
 
-
-
             #####################################################
-
 
             dicTickecting = {} 
 
@@ -507,7 +503,11 @@ class CrawlLotte(Crawl):
                         self.logger.error(f'상영관({cn_value[2]})크롤링에 예외가 발생되어 실패')
                         self.logger.error('-----------------------------------------------------------------------')
 
-                        chm_driverdriver.refresh() # 새로고침 수행
+                        chm_driverdriver.quit()
+                        server.stop()
+
+                        server.start()
+                        chm_driverdriver = webdriver.Chrome(options=chrome_options)
                     else:
                         self.dicCinemas[cn_key][4] = 'O'  # 정상적으로 크롤링된 상영관
                     finally: 
@@ -519,7 +519,7 @@ class CrawlLotte(Crawl):
 
             # end of [while True:  # 루프를 계속해서 반복합니다.]
             
-        # end of [def _crawl_lotte_ticketingdata(self):]
+        # end of [def _crawl_lotte_ticketing(chm_driverdriver):]
 
         ############################################
 

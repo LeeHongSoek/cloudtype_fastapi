@@ -7,6 +7,19 @@ from logging import handlers
 import datetime
 import glob
 import os
+import logging
+import time
+
+
+class CustomFormatter(logging.Formatter):
+    def formatTime(self, record, datefmt=None):
+        ct = self.converter(record.created)
+        if datefmt:
+            s = time.strftime(datefmt, ct)
+        else:
+            t = time.strftime("%H:%M", ct)
+            s = "%s" % t
+        return s
 
 
 log_dir = 'log'
@@ -38,7 +51,9 @@ def get_logger(gubun=''):  # 로거 인스턴스를 구한다.
 
     # 포매터를 만든다  / 출력시간, 레벨이름, 파일명, 라인번호, 메시지 /
     # fomatter = log.Formatter(' %(asctime)10s [ %(levelname)8s | %(filename)15s:%(lineno)3s ] %(message)s')
-    fomatter = log.Formatter('[%(levelname)8s| %(filename)15s:%(lineno)3s ] %(message)s')
+    #fomatter = log.Formatter('[%(asctime)s|%(levelname)8s| %(filename)15s:%(lineno)3s ] %(message)s')
+    fomatter = CustomFormatter('[%(asctime)s|%(levelname)8s|%(filename)15s:%(lineno)3s] %(message)s')
+
 
     # '스트림'과 '파일'로 로그를 출력하는 핸들러를 각각 만든다.
     # fileHandler = log.FileHandler(filename='crawling.log', mode='w', encoding='utf-8')
