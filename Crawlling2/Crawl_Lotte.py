@@ -246,6 +246,9 @@ class CrawlLotte(Crawl):
                         request = entry['request']
                         response = entry['response']
 
+                        if response['content']['size'] == 0:
+                            continue
+
                         if request['url'] == "https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx":
 
                             json_obj = json.loads(request['postData']['text'].split('\r\n')[3])
@@ -254,7 +257,11 @@ class CrawlLotte(Crawl):
                             play_date = jsonpath_expr[0].value if jsonpath_expr else None
 
                             # JSON 파싱
-                            json_obj = json.loads(response['content']['text'])  ###########################
+                            try:
+                                json_obj = json.loads(response['content']['text'])  ###########################
+                            except Exception as e:
+                                self.logger.error(f'오류 발생! {e}')
+                                raise e
 
                             jsonpath_expr = parse('PlaySeqsHeader.Items').find(json_obj)
                             if len(jsonpath_expr) == 1:
@@ -501,6 +508,7 @@ class CrawlLotte(Crawl):
 
                         self.logger.error('-----------------------------------------------------------------------')
                         self.logger.error(f'상영관({cn_value[2]})크롤링에 예외가 발생되어 실패')
+                        self.logger.error(f'{e}')
                         self.logger.error('-----------------------------------------------------------------------')
 
                         chm_driverdriver.quit()
