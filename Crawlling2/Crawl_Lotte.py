@@ -14,8 +14,9 @@ import json
 import time
 import urllib3  # pip install urllib3
 import requests
+import traceback
 
-import numpy as np
+import numpy as np  # pip install numpy
 from itertools import groupby
 
 from bs4 import BeautifulSoup  # pip install beautifulsoup4
@@ -177,7 +178,7 @@ class CrawlLotte(Crawl):
         # -----------------------------------------------------------------------------------
         # 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)
         #
-        def _crawl_lotte_ticketing(chm_driverdriver):
+        def _crawl_lotte_ticketing(chm_driver):
 
             self.logger.info('==========================================================================================================================')
             self.logger.info('영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)')
@@ -189,15 +190,16 @@ class CrawlLotte(Crawl):
 
                 movie_count = 0
 
-                self.logger.info(f'{cn_value[0]}/{cn_value[2]} ({cn_key}) : URL {cn_value[3]}')
+                self.logger.info(f'{cn_value[0]}/{cn_value[2]} ({cn_key}[{cn_value[4]}]) : URL {cn_value[3]}')
 
-                chm_driverdriver.get(cn_value[3])   # 웹사이트로 이동
+                chm_driver.get(cn_value[3])   # 웹사이트로 이동
+                time.sleep(0.5)
 
-                html = chm_driverdriver.page_source.replace('\n', '')  # 패이지 소스를 읽어온다.....
+                html = chm_driver.page_source.replace('\n', '')  # 패이지 소스를 읽어온다.....
                 soup = BeautifulSoup(html, 'html.parser')
 
                 if soup.select_one("ul > li"):  # 메인 메뉴의 '영화관' 하위 메뉴 탐색
-                    button = chm_driverdriver.find_elements(By.XPATH, '//*[text()="확인"]')  # 난데없는 팝업창이 나오면 '확인'을 누를다...
+                    button = chm_driver.find_elements(By.XPATH, '//*[text()="확인"]')  # 난데없는 팝업창이 나오면 '확인'을 누를다...
                     if len(button) > 0:  # 버튼이 발견되면...
                         element = button[0]
                         element.click()
@@ -205,15 +207,15 @@ class CrawlLotte(Crawl):
                     #
                 #
 
-                theather_nm = chm_driverdriver.find_elements(By.XPATH, '//*[@id="contents"]/div[1]/div[1]/h3')[0].text  # 타이틀의 극장명을 읽는다.
+                theather_nm = chm_driver.find_elements(By.XPATH, '//*[@id="contents"]/div[1]/div[1]/h3')[0].text  # 타이틀의 극장명을 읽는다.
 
-                button = chm_driverdriver.find_elements(By.XPATH, '//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div')  # 전체 상영일들을 구한다.
+                button = chm_driver.find_elements(By.XPATH, '//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div')  # 전체 상영일들을 구한다.
 
                 arr_ablity_day = []
 
                 for i in range(1, (len(button) + 1)):  # 전체 상영일 순환
 
-                    day_a_tag = chm_driverdriver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}]/li/a')  # 일자 선택 버튼
+                    day_a_tag = chm_driver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}]/li/a')  # 일자 선택 버튼
 
                     if i <= (self.dateRage+1):
                         if 'disabled' in day_a_tag.get_attribute('class'):
@@ -232,12 +234,12 @@ class CrawlLotte(Crawl):
                     if ablityDay == 'F' or i > 14:  # 다음 페이지 문제로 인해 무조건 14 일자 까지만..
                         continue
 
-                    div_act = chm_driverdriver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}][contains(@class, "active")]')
+                    div_act = chm_driver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}][contains(@class, "active")]')
                     if not div_act:
-                        chm_driverdriver.find_element(By.XPATH, '//*[@id="timeTable"]/div[1]/div/ul/div[2]/button[2]').click()  # 다음페이지 누르기..!!!
-                        time.sleep(0.5)
+                        chm_driver.find_element(By.XPATH, '//*[@id="timeTable"]/div[1]/div/ul/div[2]/button[2]').click()  # 다음페이지 누르기..!!!
+                        time.sleep(1)
 
-                    chm_driverdriver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}]/li/a').click()  # 상영일 누르기..!!!
+                    chm_driver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}]/li/a').click()  # 상영일 누르기..!!!
                     time.sleep(0.5)
 
                     play_date = ''
@@ -382,7 +384,7 @@ class CrawlLotte(Crawl):
 
                                     degree_no += 1                                    
                                      
-                                    self.logger.info(f'{playdt[-2:]}, screennamekr, {(screen_no * 100) + degree_no}, {self.dicMovies[moviecode][0]}[{self.dicMovies[moviecode][1]}]({self.dicMovies[moviecode][2]}), {starttime}~{endtime}, {bookingseatcount}/{totalseatcount}')
+                                    self.logger.info(f'{playdt[-2:]}, {screennamekr}, {(screen_no * 100) + degree_no}, {self.dicMovies[moviecode][0]}[{self.dicMovies[moviecode][1]}]({self.dicMovies[moviecode][2]}), {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
 
                                     # 상영정보( 0.일자, 1.상영관코드, 2.회차번호, 3.상영관명, 4.시작시간, 5.종료시간, 6.예약좌석수, 7.총좌석수, 8.영화코드, 9.영화명 )의 배열
                                     _arrTickectRaw.append([playdt, screenid, (screen_no * 100) + degree_no, screennamekr, starttime, endtime, bookingseatcount, totalseatcount, moviecode, self.dicMovies[moviecode][0]])
@@ -509,13 +511,14 @@ class CrawlLotte(Crawl):
                         self.logger.error('-----------------------------------------------------------------------')
                         self.logger.error(f'상영관({cn_value[2]})크롤링에 예외가 발생되어 실패')
                         self.logger.error(f'{e}')
+                        self.logger.error(f'{traceback.print_exc()}')
                         self.logger.error('-----------------------------------------------------------------------')
 
-                        chm_driverdriver.quit()
+                        chm_driver.quit()
                         server.stop()
 
                         server.start()
-                        chm_driverdriver = webdriver.Chrome(options=chrome_options)
+                        chm_driver = webdriver.Chrome(options=chrome_options)
                     else:
                         self.dicCinemas[cn_key][4] = 'O'  # 정상적으로 크롤링된 상영관
                     finally: 
@@ -538,7 +541,13 @@ class CrawlLotte(Crawl):
 
             proxy = server.create_proxy()
             chrome_options = webdriver.ChromeOptions()
-            #chrome_options.add_argument('--headless')  # Headless 모드 설정
+            """
+            chrome_options.add_argument('--headless')  # Headless 모드 설정
+            chrome_options.add_argument("--start-maximized")  # 창을 최대화로 시작
+            """
+            chrome_options.add_argument("--excludeSwitches=enable-automation")
+            chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+            chrome_options.add_argument("--start-minimized")  # 최소화된 상태로 창을 시작
             chrome_options.add_argument('--proxy-server={0}'.format(proxy.proxy))
             chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
             chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
