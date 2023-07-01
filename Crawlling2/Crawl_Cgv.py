@@ -53,10 +53,11 @@ class CrawlCgv(Crawl):
         self.logger.info('### 영화/무비차트(http://www.cgv.co.kr/movies/) ###  [__crawl_cgv_moviechart(self)]')
         self.logger.info('-----------------------------------------------------------------------------------')
 
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
-        chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
-        driver = webdriver.Chrome(options=chrome_options)
+        options = webdriver.ChromeOptions()
+        options.add_argument('--whitelisted-ips')        
+
+        driver = webdriver.Chrome(executable_path='C:\\Crawlling2\\chromedriver.exe', options=options)  # 다운받은 파일을 압축푼 후 실행파일을 해당경로에 푼다.....
+        driver.implicitly_wait(3)
 
         driver.get('http://www.cgv.co.kr/movies/')
         driver.implicitly_wait(3)
