@@ -22,7 +22,6 @@
 
 '''
 import subprocess
-import time
 import os
 import datetime
 import pytz
@@ -30,57 +29,28 @@ import pytz
 # 로컬 저장소의 경로
 local_repo = r"C:\MyProject\cloudtype_fastapi"
 
-# 원격 저장소의 URL
-remote_url = "https://github.com/LeeHongSoek/cloudtype_fastapi.git"
-
 # 로컬 저장소로 이동합니다.
 os.chdir(local_repo)
 
-# 원격 저장소를 추가합니다.
-# subprocess.call(["git", "remote", "add", "origin", remote_url])
-
 while True:
-
     # 한국 타임존을 설정합니다.
-    # 형식에 맞게 현재 시간을 얻습니다.
-    formatted_time = datetime.datetime.now(pytz.timezone("Asia/Seoul")).strftime("%Y / %m / %d   %H : %M")
+    now = datetime.datetime.now(pytz.timezone("Asia/Seoul"))
+    formatted_time = now.strftime("%Y / %m / %d   %H : %M")
 
     # 원격 저장소의 변경 사항을 가져옵니다.
     subprocess.run(["git", "pull", "origin", "main"])
 
-    # git status
-    result = subprocess.run(["git", "status"], capture_output=True, text=True)
-
-    # git add --all
-    subprocess.run(["git", "add", "--all"])
-
-    # 변경된 파일 및 삭제된 파일 목록 가져오기
-    changed_files = []
-    deleted_files = []
-    lines = result.stdout.splitlines()
-    for line in lines:
-        if line.startswith("\tmodified:") or line.startswith("\tnew file:"):
-            # 변경된 파일 또는 새로 생성된 파일의 경로만 추출하여 리스트에 추가
-            file_path = line.split(":")[1].strip()
-            changed_files.append(file_path)
-        elif line.startswith("\tdeleted:"):
-            # 삭제된 파일의 경로만 추출하여 리스트에 추가
-            file_path = line.split(":")[1].strip()
-            deleted_files.append(file_path)
-
-    # 변경된 파일 및 삭제된 파일 스테이징
-    for file_path in changed_files + deleted_files:
-        subprocess.run(["git", "add", file_path])
-
+    # 변경된 파일 및 새로 생성된 파일을 스테이징합니다.
+    subprocess.run(["git", "add", "."])
 
     # 변경된 파일의 수
-    num_files = len(result.stdout.splitlines()) - 1
+    result = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
+    num_files = len(result.stdout.splitlines())
 
     # 변경된 파일이 있는 경우 커밋하고 푸시합니다.
     if num_files > 0:
         subprocess.run(["git", "commit", "-m", f"[ {formatted_time} ]"])
         subprocess.run(["git", "push", "origin", "main"])
-
 
     # 10 초 동안 대기합니다. 
     #time.sleep(10)
