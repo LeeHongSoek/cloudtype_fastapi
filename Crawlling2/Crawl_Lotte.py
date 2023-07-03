@@ -267,6 +267,7 @@ class CrawlLotte(Crawl):
                                 json_obj = json.loads(response['content']['text'])  ###########################
                             except Exception as e:
                                 self.logger.error(f'오류 내용! {e}')
+                                self.logger.error(f'{traceback.print_exc()}')
                                 raise e
 
                             jsonpath_expr = parse('PlaySeqsHeader.Items').find(json_obj)
@@ -573,6 +574,7 @@ class CrawlLotte(Crawl):
         except Exception as e:
             self.logger.error('LOTTE 크롤링 중 오류발생!')
             self.logger.error(f'오류 내용! {e}')
+            self.logger.error(f'{traceback.print_exc()}')
             raise e
 
     # ===================================================================================
@@ -613,6 +615,7 @@ class CrawlLotte(Crawl):
         except Exception as e:
             self.logger.error('LOTTE 전송 중 오류 발생!')
             self.logger.error(f'오류 내용! {e}')
+            self.logger.error(f'{traceback.print_exc()}')
             raise e
         pass
     # ===================================================================================

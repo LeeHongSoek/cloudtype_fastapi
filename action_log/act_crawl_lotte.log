@@ -1,438 +1,161 @@
-[15:53|    INFO|Act_Crl_Lotte.py: 47] =======================================================================================================================
-[15:53|    INFO|Act_Crl_Lotte.py: 48] 영화 / 현재상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1),                                              
-[15:53|    INFO|Act_Crl_Lotte.py: 49] 영화 / 상영예정작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5) 에서 영화데이터를 가지고 온다. (dicMovieData) 
-[15:53|    INFO|Act_Crl_Lotte.py: 50] -----------------------------------------------------------------------------------------------------------------------
-[15:53|    INFO|Act_Crl_Lotte.py: 54] -------------------------------------------------------------------------------
-[15:53|    INFO|Act_Crl_Lotte.py: 55] no, 코드, 영화명, 장르, 예매, 개봉일, 관람등급
-[15:53|    INFO|Act_Crl_Lotte.py: 56] -------------------------------------------------------------------------------
-
-self.dicMovieData[representationmoviecode] = [movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus, -1]  # 영화데이터 정보
-
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 1 : 19438,엘리멘탈,애니메이션,Y,20230614,전체관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 2 : 19962,인디아나 존스: 운명의 다이얼,어드벤쳐,Y,20230628,만12세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 3 : 19803,범죄도시3,범죄,Y,20230531,만15세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 4 : 19775,스파이더맨: 어크로스 더 유니버스,애니메이션,Y,20230621,전체관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 5 : 19864,귀공자,액션,Y,20230621,청소년관람불가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 6 : 12900,미션 임파서블: 폴아웃,액션,Y,20180725,만15세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 7 : 17726,여름날 우리,코미디,Y,20230628,만12세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 8 : 19621,수라,다큐멘터리,Y,20230621,전체관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 9 : 19832,파이어하트,애니메이션,Y,20230628,전체관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 10 : 19875,애스터로이드 시티,드라마,Y,20230628,만12세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 11 : 19869,라방,드라마,Y,20230628,청소년관람불가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 12 : 19907,플래시,액션,Y,20230614,만12세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 13 : 19888,하나님의 마음,드라마,Y,20230628,만12세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 14 : 19972,만해 한용운 님의침묵,드라마,Y,20230629,만15세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 15 : 19776,가디언즈 오브 갤럭시: Volume 3,액션,Y,20230503,만12세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 16 : 19850,트랜스포머: 비스트의 서막,액션,Y,20230606,만12세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 17 : 19874,인어공주,뮤지컬,Y,20230524,전체관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 18 : 12523,곤지암,공포(호러),Y,20180328,만15세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 19 : 19831,너의 눈을 들여다보면,드라마,Y,20230614,전체관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 20 : 17630,랑종,공포(호러),Y,20210714,청소년관람불가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 21 : 19882,206: 사라지지 않는,다큐멘터리,Y,20230621,만12세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 22 : 19976,룸 203,공포(호러),Y,20230628,만15세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 23 : 19481,스즈메의 문단속,애니메이션,Y,20230308,만12세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 24 : 19893,엽문의 시작,액션,Y,20230623,만15세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 25 : 19786,분노의 질주: 라이드 오어 다이,액션,Y,20230517,만15세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 26 : 19956,살롱 드 서울,드라마,Y,20230621,만15세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 27 : 19891,손,공포(호러),Y,20230621,만15세이상관람가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 28 : 19903,인드림,액션,Y,20230621,청소년관람불가
-[15:53|    INFO|Act_Crl_Lotte.py: 89] 29 : 19764,포켓 몬스터 DP: 아르세우스 초극의 시공으로,애니메이션,Y,20230531,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 30 : 19890,악마들,액션,Y,20230705,청소년관람불가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 31 : 19862,빈틈없는 사이,멜로/로맨스,Y,20230705,만15세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 32 : 19942,풍재기시,범죄,Y,20230705,만15세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 33 : 19887,보 이즈 어프레이드,어드벤쳐,Y,20230705,청소년관람불가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 34 : 19894,플래닛,SF,Y,20230705,만12세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 35 : 19876,1986 그 여름, 그리고 고등어통조림,드라마,Y,20230705,만12세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 36 : 19902,엔니오: 더 마에스트로,다큐멘터리,Y,20230705,만12세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 37 : 19203,기적을 믿는 소녀,드라마,Y,20230705,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 38 : 19855,어디로 가고 싶으신가요,드라마,Y,20230705,만12세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 39 : 19949,군산전기,다큐멘터리,Y,20230706,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 40 : 20006,V-llage 1st Live Concert ~ First Step ~,,Y,20230708,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 41 : 20034,2022 심규선 단독 콘서트 [밤의 정원: 앙코르],공연,N,20230708,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 42 : 20002,미션 임파서블: 데드 레코닝 PART ONE,액션,Y,20230712,만15세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 43 : 19815,슬기로운 아내 수업,코미디,N,20230712,만12세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 44 : 20009,극장판 아름다운 그: 이터널,멜로/로맨스,N,20230712,만15세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 45 : 19971,작은정원,다큐멘터리,N,20230712,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 46 : 19958,디어 마이 러브,멜로/로맨스,N,20230712,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 47 : 19960,비밀의 언덕,드라마,N,20230712,관람등급미정
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 48 : 19961,좋.댓.구,코미디,N,20230712,만15세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 49 : 19951,극장판 피노키오 위대한 모험,애니메이션,N,20230713,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 50 : 19957,더 썬,드라마,N,20230719,만15세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 51 : 19967,보통의 카스미,드라마,N,20230719,만12세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 52 : 20003,인시디어스: 빨간 문,공포(호러),N,20230719,관람등급미정
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 53 : 20015,러브 라이프,드라마,N,20230719,만12세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 54 : 20019,그녀가 좋아하는 것은,멜로/로맨스,N,20230719,만15세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 55 : 20039,극장판 슈퍼윙스: 맥시멈 스피드,애니메이션,N,20230720,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 56 : 19938,아버지의 마음,다큐멘터리,N,20230720,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 57 : 20010,차선변경-큐폴라를 올려다보며-,드라마,N,20230720,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 58 : 20011,슈퍼 키드 헤일리,애니메이션,N,20230720,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 59 : 20012,명탐정코난: 흑철의 어영,애니메이션,N,20230720,만12세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 60 : 20027,틴에이지 크라켄 루비,애니메이션,N,20230725,전체관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 61 : 20013,비닐하우스,범죄,N,20230726,만15세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 62 : 19782,밀수,범죄,N,20230726,만15세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 63 : 19977,블레이즈,드라마,N,20230731,만15세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 64 : 19994,비공식작전,드라마,N,20230802,관람등급미정
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 65 : 19825,더 문,SF,N,20230802,관람등급미정
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 66 : 19974,콘크리트 유토피아,드라마,N,20230809,관람등급미정
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 67 : 20031,오펜하이머,스릴러,N,20230815,관람등급미정
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 68 : 20017,퀴어 마이 프렌즈,다큐멘터리,N,20230831,관람등급미정
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 69 : 20018,다섯 번째 흉추,드라마,N,20230831,만15세이상관람가
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 70 : 19516,1947 보스톤,드라마,N,20230930,관람등급미정
-[15:54|    INFO|Act_Crl_Lotte.py: 89] 71 : 19729,프리 철수 리,다큐멘터리,N,20230930,관람등급미정
-[15:54|    INFO|Act_Crl_Lotte.py:109] =========================================================================================
-[15:54|    INFO|Act_Crl_Lotte.py:110] 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
-[15:54|    INFO|Act_Crl_Lotte.py:111] -----------------------------------------------------------------------------------------
-[15:54|    INFO|Act_Crl_Lotte.py:119] ==========================================================================================================================
-[15:54|    INFO|Act_Crl_Lotte.py:120] 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)
-[15:54|    INFO|Act_Crl_Lotte.py:121] --------------------------------------------------------------------------------------------------------------------------
-[16:16|    INFO|Act_Crl_Lotte.py: 50] =======================================================================================================================
-[16:16|    INFO|Act_Crl_Lotte.py: 51] 영화 / 현재상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1),                                              
-[16:16|    INFO|Act_Crl_Lotte.py: 52] 영화 / 상영예정작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5) 에서 영화데이터를 가지고 온다. (dicMovieData) 
-[16:16|    INFO|Act_Crl_Lotte.py: 53] -----------------------------------------------------------------------------------------------------------------------
-[16:16|    INFO|Act_Crl_Lotte.py: 57] -------------------------------------------------------------------------------
-[16:16|    INFO|Act_Crl_Lotte.py: 58] no, 코드, 영화명, 장르, 예매, 개봉일, 관람등급
-[16:16|    INFO|Act_Crl_Lotte.py: 59] -------------------------------------------------------------------------------
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 1 : 19438,엘리멘탈,애니메이션,Y,20230614,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 2 : 19962,인디아나 존스: 운명의 다이얼,어드벤쳐,Y,20230628,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 3 : 19803,범죄도시3,범죄,Y,20230531,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 4 : 19775,스파이더맨: 어크로스 더 유니버스,애니메이션,Y,20230621,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 5 : 19864,귀공자,액션,Y,20230621,청소년관람불가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 6 : 12900,미션 임파서블: 폴아웃,액션,Y,20180725,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 7 : 17726,여름날 우리,코미디,Y,20230628,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 8 : 19621,수라,다큐멘터리,Y,20230621,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 9 : 19832,파이어하트,애니메이션,Y,20230628,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 10 : 19875,애스터로이드 시티,드라마,Y,20230628,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 11 : 19869,라방,드라마,Y,20230628,청소년관람불가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 12 : 19972,만해 한용운 님의침묵,드라마,Y,20230629,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 13 : 19907,플래시,액션,Y,20230614,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 14 : 19888,하나님의 마음,드라마,Y,20230628,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 15 : 19776,가디언즈 오브 갤럭시: Volume 3,액션,Y,20230503,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 16 : 19850,트랜스포머: 비스트의 서막,액션,Y,20230606,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 17 : 19874,인어공주,뮤지컬,Y,20230524,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 18 : 12523,곤지암,공포(호러),Y,20180328,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 19 : 19831,너의 눈을 들여다보면,드라마,Y,20230614,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 20 : 17630,랑종,공포(호러),Y,20210714,청소년관람불가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 21 : 19882,206: 사라지지 않는,다큐멘터리,Y,20230621,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 22 : 19976,룸 203,공포(호러),Y,20230628,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 23 : 19481,스즈메의 문단속,애니메이션,Y,20230308,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 24 : 19893,엽문의 시작,액션,Y,20230623,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 25 : 19786,분노의 질주: 라이드 오어 다이,액션,Y,20230517,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 26 : 19956,살롱 드 서울,드라마,Y,20230621,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 27 : 19891,손,공포(호러),Y,20230621,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 28 : 19903,인드림,액션,Y,20230621,청소년관람불가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 29 : 19764,포켓 몬스터 DP: 아르세우스 초극의 시공으로,애니메이션,Y,20230531,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 30 : 19890,악마들,액션,Y,20230705,청소년관람불가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 31 : 19862,빈틈없는 사이,멜로/로맨스,Y,20230705,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 32 : 19887,보 이즈 어프레이드,어드벤쳐,Y,20230705,청소년관람불가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 33 : 19942,풍재기시,범죄,Y,20230705,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 34 : 19894,플래닛,SF,Y,20230705,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 35 : 19203,기적을 믿는 소녀,드라마,Y,20230705,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 36 : 19876,1986 그 여름, 그리고 고등어통조림,드라마,Y,20230705,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 37 : 19902,엔니오: 더 마에스트로,다큐멘터리,Y,20230705,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 38 : 19855,어디로 가고 싶으신가요,드라마,Y,20230705,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 39 : 19949,군산전기,다큐멘터리,Y,20230706,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 40 : 20006,V-llage 1st Live Concert ~ First Step ~,,Y,20230708,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 41 : 20034,2022 심규선 단독 콘서트 [밤의 정원: 앙코르],공연,N,20230708,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 42 : 20002,미션 임파서블: 데드 레코닝 PART ONE,액션,Y,20230712,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 43 : 19971,작은정원,다큐멘터리,N,20230712,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 44 : 19815,슬기로운 아내 수업,코미디,N,20230712,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 45 : 20009,극장판 아름다운 그: 이터널,멜로/로맨스,N,20230712,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 46 : 19958,디어 마이 러브,멜로/로맨스,N,20230712,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 47 : 19960,비밀의 언덕,드라마,N,20230712,관람등급미정
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 48 : 19961,좋.댓.구,코미디,N,20230712,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 49 : 19951,극장판 피노키오 위대한 모험,애니메이션,N,20230713,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 50 : 19957,더 썬,드라마,N,20230719,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 51 : 19967,보통의 카스미,드라마,N,20230719,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 52 : 20003,인시디어스: 빨간 문,공포(호러),N,20230719,관람등급미정
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 53 : 20015,러브 라이프,드라마,N,20230719,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 54 : 20019,그녀가 좋아하는 것은,멜로/로맨스,N,20230719,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 55 : 20039,극장판 슈퍼윙스: 맥시멈 스피드,애니메이션,N,20230720,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 56 : 19938,아버지의 마음,다큐멘터리,N,20230720,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 57 : 20010,차선변경-큐폴라를 올려다보며-,드라마,N,20230720,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 58 : 20011,슈퍼 키드 헤일리,애니메이션,N,20230720,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 59 : 20012,명탐정코난: 흑철의 어영,애니메이션,N,20230720,만12세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 60 : 20027,틴에이지 크라켄 루비,애니메이션,N,20230725,전체관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 61 : 20013,비닐하우스,범죄,N,20230726,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 62 : 19782,밀수,범죄,N,20230726,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 63 : 19977,블레이즈,드라마,N,20230731,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 64 : 19994,비공식작전,드라마,N,20230802,관람등급미정
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 65 : 19825,더 문,SF,N,20230802,관람등급미정
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 66 : 19974,콘크리트 유토피아,드라마,N,20230809,관람등급미정
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 67 : 20031,오펜하이머,스릴러,N,20230815,관람등급미정
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 68 : 20017,퀴어 마이 프렌즈,다큐멘터리,N,20230831,관람등급미정
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 69 : 20018,다섯 번째 흉추,드라마,N,20230831,만15세이상관람가
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 70 : 19516,1947 보스톤,드라마,N,20230930,관람등급미정
-[16:16|    INFO|Act_Crl_Lotte.py: 92] 71 : 19729,프리 철수 리,다큐멘터리,N,20230930,관람등급미정
-[16:16|    INFO|Act_Crl_Lotte.py:120] =========================================================================================
-[16:16|    INFO|Act_Crl_Lotte.py:121] 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
-[16:16|    INFO|Act_Crl_Lotte.py:122] -----------------------------------------------------------------------------------------
-[16:16|    INFO|Act_Crl_Lotte.py:130] ==========================================================================================================================
-[16:16|    INFO|Act_Crl_Lotte.py:131] 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)
-[16:16|    INFO|Act_Crl_Lotte.py:132] --------------------------------------------------------------------------------------------------------------------------
-[16:52|    INFO|Act_Crl_Lotte.py: 51] ========================================================================================================
-[16:52|    INFO|Act_Crl_Lotte.py: 52] 영화 / 현재상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1),                               
-[16:52|    INFO|Act_Crl_Lotte.py: 53] 영화 / 상영예정작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5) 에서 영화데이터를 가지고 온다. 
-[16:52|    INFO|Act_Crl_Lotte.py: 54] --------------------------------------------------------------------------------------------------------
-[16:52|    INFO|Act_Crl_Lotte.py: 58] -------------------------------------------------------------------------------
-[16:52|    INFO|Act_Crl_Lotte.py: 59] 코드, 영화명, 장르, 예매, 개봉일, 관람등급                                     
-[16:52|    INFO|Act_Crl_Lotte.py: 60] -------------------------------------------------------------------------------
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19438,엘리멘탈,애니메이션,Y,20230614,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19962,인디아나 존스: 운명의 다이얼,어드벤쳐,Y,20230628,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19803,범죄도시3,범죄,Y,20230531,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19775,스파이더맨: 어크로스 더 유니버스,애니메이션,Y,20230621,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19864,귀공자,액션,Y,20230621,청소년관람불가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 12900,미션 임파서블: 폴아웃,액션,Y,20180725,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 17726,여름날 우리,코미디,Y,20230628,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19621,수라,다큐멘터리,Y,20230621,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19832,파이어하트,애니메이션,Y,20230628,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19875,애스터로이드 시티,드라마,Y,20230628,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19869,라방,드라마,Y,20230628,청소년관람불가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19972,만해 한용운 님의침묵,드라마,Y,20230629,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19907,플래시,액션,Y,20230614,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19888,하나님의 마음,드라마,Y,20230628,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19776,가디언즈 오브 갤럭시: Volume 3,액션,Y,20230503,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19850,트랜스포머: 비스트의 서막,액션,Y,20230606,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19874,인어공주,뮤지컬,Y,20230524,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 12523,곤지암,공포(호러),Y,20180328,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19831,너의 눈을 들여다보면,드라마,Y,20230614,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 17630,랑종,공포(호러),Y,20210714,청소년관람불가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19882,206: 사라지지 않는,다큐멘터리,Y,20230621,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19976,룸 203,공포(호러),Y,20230628,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19481,스즈메의 문단속,애니메이션,Y,20230308,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19893,엽문의 시작,액션,Y,20230623,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19786,분노의 질주: 라이드 오어 다이,액션,Y,20230517,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19956,살롱 드 서울,드라마,Y,20230621,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19891,손,공포(호러),Y,20230621,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19903,인드림,액션,Y,20230621,청소년관람불가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19764,포켓 몬스터 DP: 아르세우스 초극의 시공으로,애니메이션,Y,20230531,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19890,악마들,액션,Y,20230705,청소년관람불가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19862,빈틈없는 사이,멜로/로맨스,Y,20230705,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19887,보 이즈 어프레이드,어드벤쳐,Y,20230705,청소년관람불가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19942,풍재기시,범죄,Y,20230705,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19894,플래닛,SF,Y,20230705,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19203,기적을 믿는 소녀,드라마,Y,20230705,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19876,1986 그 여름, 그리고 고등어통조림,드라마,Y,20230705,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19902,엔니오: 더 마에스트로,다큐멘터리,Y,20230705,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19855,어디로 가고 싶으신가요,드라마,Y,20230705,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19949,군산전기,다큐멘터리,Y,20230706,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20006,V-llage 1st Live Concert ~ First Step ~,,Y,20230708,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20034,2022 심규선 단독 콘서트 [밤의 정원: 앙코르],공연,N,20230708,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20002,미션 임파서블: 데드 레코닝 PART ONE,액션,Y,20230712,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19971,작은정원,다큐멘터리,N,20230712,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19815,슬기로운 아내 수업,코미디,N,20230712,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20009,극장판 아름다운 그: 이터널,멜로/로맨스,N,20230712,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19958,디어 마이 러브,멜로/로맨스,N,20230712,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19960,비밀의 언덕,드라마,N,20230712,관람등급미정
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19961,좋.댓.구,코미디,N,20230712,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19951,극장판 피노키오 위대한 모험,애니메이션,N,20230713,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19957,더 썬,드라마,N,20230719,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19967,보통의 카스미,드라마,N,20230719,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20003,인시디어스: 빨간 문,공포(호러),N,20230719,관람등급미정
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20015,러브 라이프,드라마,N,20230719,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20019,그녀가 좋아하는 것은,멜로/로맨스,N,20230719,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20039,극장판 슈퍼윙스: 맥시멈 스피드,애니메이션,N,20230720,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19938,아버지의 마음,다큐멘터리,N,20230720,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20010,차선변경-큐폴라를 올려다보며-,드라마,N,20230720,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20011,슈퍼 키드 헤일리,애니메이션,N,20230720,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20012,명탐정코난: 흑철의 어영,애니메이션,N,20230720,만12세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20027,틴에이지 크라켄 루비,애니메이션,N,20230725,전체관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20013,비닐하우스,범죄,N,20230726,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19782,밀수,범죄,N,20230726,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19977,블레이즈,드라마,N,20230731,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19994,비공식작전,드라마,N,20230802,관람등급미정
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19825,더 문,SF,N,20230802,관람등급미정
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19974,콘크리트 유토피아,드라마,N,20230809,관람등급미정
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20031,오펜하이머,스릴러,N,20230815,관람등급미정
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20017,퀴어 마이 프렌즈,다큐멘터리,N,20230831,관람등급미정
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 20018,다섯 번째 흉추,드라마,N,20230831,만15세이상관람가
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19516,1947 보스톤,드라마,N,20230930,관람등급미정
-[16:52|    INFO|Act_Crl_Lotte.py: 95] 19729,프리 철수 리,다큐멘터리,N,20230930,관람등급미정
-[16:52|    INFO|Act_Crl_Lotte.py:119] =========================================================================================
-[16:52|    INFO|Act_Crl_Lotte.py:120] 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)
-[16:52|    INFO|Act_Crl_Lotte.py:121] -----------------------------------------------------------------------------------------
-[16:52|    INFO|Act_Crl_Lotte.py:162] --------------------------------------
-[16:52|    INFO|Act_Crl_Lotte.py:163] 코드, 스페셜관, 극장명, 링크, 성공여부
-[16:52|    INFO|Act_Crl_Lotte.py:164] --------------------------------------
-[16:52|   ERROR|Act_Crl_Lotte.py:234] LOTTE 크롤링 중 오류발생!
-[16:52|   ERROR|Act_Crl_Lotte.py:235] 오류 내용! 'cinemaID'
-[16:54|    INFO|Act_Crl_Lotte.py:118] =========================================================================================
-[16:54|    INFO|Act_Crl_Lotte.py:119] 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. 
-[16:54|    INFO|Act_Crl_Lotte.py:120] -----------------------------------------------------------------------------------------
-[16:54|    INFO|Act_Crl_Lotte.py:161] --------------------------------------
-[16:54|    INFO|Act_Crl_Lotte.py:162] 코드, 스페셜관, 극장명, 링크, 성공여부
-[16:54|    INFO|Act_Crl_Lotte.py:163] --------------------------------------
-[17:06|    INFO|Act_Crl_Lotte.py:118] =========================================================================================
-[17:06|    INFO|Act_Crl_Lotte.py:119] 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. 
-[17:06|    INFO|Act_Crl_Lotte.py:120] -----------------------------------------------------------------------------------------
-[17:06|    INFO|Act_Crl_Lotte.py:161] --------------------------------------
-[17:06|    INFO|Act_Crl_Lotte.py:162] 코드, 스페셜관, 극장명, 링크, 성공여부
-[17:06|    INFO|Act_Crl_Lotte.py:163] --------------------------------------
-[17:06|   ERROR|Act_Crl_Lotte.py:235] LOTTE 크롤링 중 오류발생!
-[17:06|   ERROR|Act_Crl_Lotte.py:236] 오류 내용! 'cinemaID'
-[17:07|    INFO|Act_Crl_Lotte.py:118] =========================================================================================
-[17:07|    INFO|Act_Crl_Lotte.py:119] 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. 
-[17:07|    INFO|Act_Crl_Lotte.py:120] -----------------------------------------------------------------------------------------
-[17:07|    INFO|Act_Crl_Lotte.py:161] --------------------------------------
-[17:07|    INFO|Act_Crl_Lotte.py:162] 코드, 스페셜관, 극장명, 링크, 성공여부
-[17:07|    INFO|Act_Crl_Lotte.py:163] --------------------------------------
-[17:12|    INFO|Act_Crl_Lotte.py:118] =========================================================================================
-[17:12|    INFO|Act_Crl_Lotte.py:119] 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. 
-[17:12|    INFO|Act_Crl_Lotte.py:120] -----------------------------------------------------------------------------------------
-[17:12|    INFO|Act_Crl_Lotte.py:161] --------------------------------------
-[17:12|    INFO|Act_Crl_Lotte.py:162] 코드, 스페셜관, 극장명, 링크, 성공여부
-[17:12|    INFO|Act_Crl_Lotte.py:163] --------------------------------------
-[17:12|    INFO|Act_Crl_Lotte.py:180] 300, Y, 샤롯데, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=300
-[17:12|    INFO|Act_Crl_Lotte.py:180] 940, Y, 수퍼플렉스, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=940
-[17:12|    INFO|Act_Crl_Lotte.py:180] 980, Y, 수퍼 S, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=980
-[17:12|    INFO|Act_Crl_Lotte.py:180] 930, Y, 수퍼 4D, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=930
-[17:12|    INFO|Act_Crl_Lotte.py:180] 988, Y, 컬러리움, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=988
-[17:12|    INFO|Act_Crl_Lotte.py:180] 986, Y, 씨네컴포트(리클라이너), https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=986
-[17:12|    INFO|Act_Crl_Lotte.py:180] 960, Y, 씨네패밀리, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=960
-[17:12|    INFO|Act_Crl_Lotte.py:180] 200, Y, 씨네커플, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=200
-[17:12|    INFO|Act_Crl_Lotte.py:180] 950, Y, 씨네비즈, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=950
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1013, N, 가산디지털, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1013
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9094, N, 가양, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=9094
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9010, N, 강동, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=9010
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1004, N, 건대입구, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1004
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1009, N, 김포공항, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1009
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1003, N, 노원, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1003
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1023, N, 도곡, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1023
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1017, N, 독산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1017
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9056, N, 브로드웨이(신사), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=9056
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1012, N, 서울대입구, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1012
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9099, N, 수락산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=9099
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9104, N, 수유, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=9104
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1024, N, 신대방(구로디지털역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1024
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1015, N, 신도림, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1015
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1007, N, 신림, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1007
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1001, N, 에비뉴엘(명동), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1001
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1002, N, 영등포, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1002
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1014, N, 용산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1014
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1016, N, 월드타워, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1016
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1021, N, 은평(롯데몰), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1021
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9083, N, 중랑, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=9083
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1008, N, 청량리, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1008
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1010, N, 합정, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1010
-[17:12|    INFO|Act_Crl_Lotte.py:180] 1005, N, 홍대입구, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1005
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3030, N, 광교아울렛, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3030
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3027, N, 광명(광명사거리), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3027
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3025, N, 광명아울렛, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3025
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3020, N, 광주터미널, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3020
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3026, N, 구리아울렛, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3026
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3048, N, 동탄, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3048
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9095, N, 라페스타, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9095
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3021, N, 마석, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3021
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3046, N, 별내, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3046
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3017, N, 병점, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3017
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3011, N, 부천(신중동역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3011
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9054, N, 부천역, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9054
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3003, N, 부평, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3003
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3050, N, 부평갈산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3050
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3008, N, 부평역사, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3008
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3045, N, 북수원(천천동), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3045
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3031, N, 산본피트인, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3031
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3043, N, 서수원, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3043
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3041, N, 성남중앙(신흥역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3041
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3012, N, 센트럴락, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3012
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3029, N, 송탄, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3029
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3024, N, 수원(수원역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3024
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3044, N, 수지, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3044
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9088, N, 시화(정왕역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9088
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3049, N, 시흥장현, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3049
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3004, N, 안산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3004
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3028, N, 안산고잔, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3028
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9106, N, 안성, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9106
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3007, N, 안양(안양역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3007
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3032, N, 안양일번가, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3032
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9077, N, 영종하늘도시, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9077
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9079, N, 오산(원동), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9079
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3039, N, 용인기흥, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3039
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3040, N, 용인역북, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3040
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3037, N, 위례, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3037
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3033, N, 의정부민락, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3033
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9100, N, 인덕원, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9100
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3035, N, 인천아시아드, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3035
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3038, N, 인천터미널, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3038
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9087, N, 주엽, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9087
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3010, N, 진접, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3010
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3034, N, 파주운정, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3034
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3047, N, 판교(창조경제밸리), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3047
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3018, N, 평촌(범계역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3018
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9075, N, 평택비전(뉴코아), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9075
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9111, N, 하남미사, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9111
-[17:12|    INFO|Act_Crl_Lotte.py:180] 3036, N, 향남, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3036
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9085, N, 당진, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=9085
-[17:12|    INFO|Act_Crl_Lotte.py:180] 4002, N, 대전(백화점), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4002
-[17:12|    INFO|Act_Crl_Lotte.py:180] 4009, N, 대전관저, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4009
-[17:12|    INFO|Act_Crl_Lotte.py:180] 4006, N, 대전둔산(월평동), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4006
-[17:12|    INFO|Act_Crl_Lotte.py:180] 4008, N, 대전센트럴, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4008
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9044, N, 서산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=9044
-[17:12|    INFO|Act_Crl_Lotte.py:180] 4004, N, 서청주(아울렛), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4004
-[17:12|    INFO|Act_Crl_Lotte.py:180] 4005, N, 아산터미널, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4005
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9101, N, 천안불당, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=9101
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9112, N, 천안청당, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=9112
-[17:12|    INFO|Act_Crl_Lotte.py:180] 4007, N, 청주용암, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4007
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9078, N, 충주(모다아울렛), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=9078
-[17:12|    INFO|Act_Crl_Lotte.py:180] 6001, N, 광주(백화점), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=6001
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9065, N, 광주광산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=9065
-[17:12|    INFO|Act_Crl_Lotte.py:180] 6007, N, 군산나운, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=6007
-[17:12|    INFO|Act_Crl_Lotte.py:180] 6009, N, 군산몰, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=6009
-[17:12|    INFO|Act_Crl_Lotte.py:180] 6004, N, 수완(아울렛), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=6004
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9070, N, 익산모현, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=9070
-[17:12|    INFO|Act_Crl_Lotte.py:180] 6002, N, 전주(백화점), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=6002
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9102, N, 전주송천, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=9102
-[17:12|    INFO|Act_Crl_Lotte.py:180] 6006, N, 전주평화, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=6006
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9047, N, 충장로, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=9047
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9090, N, 경주, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9090
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9091, N, 경주황성, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9091
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5013, N, 구미공단, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=5013
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5012, N, 대구광장, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=5012
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5006, N, 대구율하, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=5006
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9107, N, 대구현풍, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9107
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5005, N, 동성로, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=5005
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5016, N, 상인, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=5016
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9080, N, 상주, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9080
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5004, N, 성서, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=5004
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9064, N, 영주, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9064
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9098, N, 영천, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9098
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9097, N, 포항, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9097
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9067, N, 프리미엄구미센트럴, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9067
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9066, N, 프리미엄만경, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9066
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9074, N, 프리미엄안동, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9074
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9057, N, 프리미엄칠곡, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9057
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9082, N, 거창, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9082
-[17:12|    INFO|Act_Crl_Lotte.py:180] 2009, N, 광복, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2009
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5015, N, 김해부원, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5015
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5011, N, 김해아울렛(장유), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5011
-[17:12|    INFO|Act_Crl_Lotte.py:180] 2012, N, 대영, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2012
-[17:12|    INFO|Act_Crl_Lotte.py:180] 2007, N, 동래, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2007
-[17:12|    INFO|Act_Crl_Lotte.py:180] 2010, N, 동부산아울렛, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2010
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9042, N, 마산(합성동), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9042
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9092, N, 부산명지, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9092
-[17:12|    INFO|Act_Crl_Lotte.py:180] 2004, N, 부산본점, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2004
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9084, N, 사천, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9084
-[17:12|    INFO|Act_Crl_Lotte.py:180] 2008, N, 서면(전포동), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2008
-[17:12|    INFO|Act_Crl_Lotte.py:180] 2006, N, 센텀시티, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2006
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9103, N, 양산물금, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9103
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9105, N, 엠비씨네(진주), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9105
-[17:12|    INFO|Act_Crl_Lotte.py:180] 2011, N, 오투(부산대), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2011
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5001, N, 울산(백화점), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5001
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5014, N, 울산성남, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5014
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5017, N, 진주혁신(롯데몰), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5017
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5009, N, 진해, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5009
-[17:12|    INFO|Act_Crl_Lotte.py:180] 5002, N, 창원, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5002
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9036, N, 통영, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9036
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9072, N, 프리미엄경남대, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9072
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9059, N, 프리미엄해운대(장산역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9059
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9108, N, 남원주, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=6&cinemaID=9108
-[17:12|    INFO|Act_Crl_Lotte.py:180] 7002, N, 동해, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=6&cinemaID=7002
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9089, N, 속초, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=6&cinemaID=9089
-[17:12|    INFO|Act_Crl_Lotte.py:180] 7003, N, 원주무실, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=6&cinemaID=7003
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9081, N, 춘천, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=6&cinemaID=9081
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9013, N, 서귀포, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=7&cinemaID=9013
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9068, N, 제주삼화지구, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=7&cinemaID=9068
-[17:12|    INFO|Act_Crl_Lotte.py:180] 9071, N, 제주아라, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=7&cinemaID=9071
-[17:12|    INFO|Act_Crl_Lotte.py:180] 6010, N, 제주연동, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=7&cinemaID=6010
-[17:12|    INFO|Act_Crl_Lotte.py:196] ==========================================================================================================================
-[17:12|    INFO|Act_Crl_Lotte.py:197] 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)
-[17:12|    INFO|Act_Crl_Lotte.py:198] --------------------------------------------------------------------------------------------------------------------------
+[19:25|    INFO|Act_Crl_Lotte.py:118] =========================================================================================
+[19:25|    INFO|Act_Crl_Lotte.py:119] 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. 
+[19:25|    INFO|Act_Crl_Lotte.py:120] -----------------------------------------------------------------------------------------
+[19:25|    INFO|Act_Crl_Lotte.py:161] --------------------------------------
+[19:25|    INFO|Act_Crl_Lotte.py:162] 코드, 스페셜관, 극장명, 링크, 성공여부
+[19:25|    INFO|Act_Crl_Lotte.py:163] --------------------------------------
+[19:25|    INFO|Act_Crl_Lotte.py:180] 300, Y, 샤롯데, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=300
+[19:25|    INFO|Act_Crl_Lotte.py:180] 940, Y, 수퍼플렉스, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=940
+[19:25|    INFO|Act_Crl_Lotte.py:180] 980, Y, 수퍼 S, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=980
+[19:25|    INFO|Act_Crl_Lotte.py:180] 930, Y, 수퍼 4D, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=930
+[19:25|    INFO|Act_Crl_Lotte.py:180] 988, Y, 컬러리움, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=988
+[19:25|    INFO|Act_Crl_Lotte.py:180] 986, Y, 씨네컴포트(리클라이너), https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=986
+[19:25|    INFO|Act_Crl_Lotte.py:180] 960, Y, 씨네패밀리, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=960
+[19:25|    INFO|Act_Crl_Lotte.py:180] 200, Y, 씨네커플, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=200
+[19:25|    INFO|Act_Crl_Lotte.py:180] 950, Y, 씨네비즈, https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema?divisionCode=2&screendivcd=950
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1013, N, 가산디지털, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1013
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9094, N, 가양, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=9094
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9010, N, 강동, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=9010
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1004, N, 건대입구, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1004
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1009, N, 김포공항, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1009
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1003, N, 노원, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1003
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1023, N, 도곡, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1023
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1017, N, 독산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1017
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9056, N, 브로드웨이(신사), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=9056
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1012, N, 서울대입구, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1012
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9099, N, 수락산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=9099
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9104, N, 수유, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=9104
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1024, N, 신대방(구로디지털역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1024
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1015, N, 신도림, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1015
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1007, N, 신림, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1007
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1001, N, 에비뉴엘(명동), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1001
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1002, N, 영등포, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1002
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1014, N, 용산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1014
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1016, N, 월드타워, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1016
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1021, N, 은평(롯데몰), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1021
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9083, N, 중랑, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=9083
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1008, N, 청량리, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1008
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1010, N, 합정, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1010
+[19:25|    INFO|Act_Crl_Lotte.py:180] 1005, N, 홍대입구, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=1&cinemaID=1005
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3030, N, 광교아울렛, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3030
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3027, N, 광명(광명사거리), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3027
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3025, N, 광명아울렛, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3025
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3020, N, 광주터미널, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3020
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3026, N, 구리아울렛, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3026
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3048, N, 동탄, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3048
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9095, N, 라페스타, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9095
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3021, N, 마석, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3021
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3046, N, 별내, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3046
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3017, N, 병점, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3017
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3011, N, 부천(신중동역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3011
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9054, N, 부천역, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9054
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3003, N, 부평, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3003
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3050, N, 부평갈산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3050
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3008, N, 부평역사, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3008
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3045, N, 북수원(천천동), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3045
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3031, N, 산본피트인, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3031
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3043, N, 서수원, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3043
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3041, N, 성남중앙(신흥역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3041
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3012, N, 센트럴락, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3012
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3029, N, 송탄, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3029
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3024, N, 수원(수원역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3024
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3044, N, 수지, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3044
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9088, N, 시화(정왕역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9088
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3049, N, 시흥장현, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3049
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3004, N, 안산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3004
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3028, N, 안산고잔, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3028
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9106, N, 안성, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9106
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3007, N, 안양(안양역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3007
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3032, N, 안양일번가, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3032
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9077, N, 영종하늘도시, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9077
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9079, N, 오산(원동), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9079
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3039, N, 용인기흥, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3039
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3040, N, 용인역북, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3040
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3037, N, 위례, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3037
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3033, N, 의정부민락, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3033
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9100, N, 인덕원, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9100
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3035, N, 인천아시아드, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3035
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3038, N, 인천터미널, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3038
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9087, N, 주엽, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9087
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3010, N, 진접, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3010
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3034, N, 파주운정, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3034
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3047, N, 판교(창조경제밸리), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3047
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3018, N, 평촌(범계역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3018
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9075, N, 평택비전(뉴코아), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9075
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9111, N, 하남미사, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=9111
+[19:25|    INFO|Act_Crl_Lotte.py:180] 3036, N, 향남, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=2&cinemaID=3036
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9085, N, 당진, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=9085
+[19:25|    INFO|Act_Crl_Lotte.py:180] 4002, N, 대전(백화점), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4002
+[19:25|    INFO|Act_Crl_Lotte.py:180] 4009, N, 대전관저, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4009
+[19:25|    INFO|Act_Crl_Lotte.py:180] 4006, N, 대전둔산(월평동), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4006
+[19:25|    INFO|Act_Crl_Lotte.py:180] 4008, N, 대전센트럴, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4008
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9044, N, 서산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=9044
+[19:25|    INFO|Act_Crl_Lotte.py:180] 4004, N, 서청주(아울렛), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4004
+[19:25|    INFO|Act_Crl_Lotte.py:180] 4005, N, 아산터미널, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4005
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9101, N, 천안불당, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=9101
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9112, N, 천안청당, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=9112
+[19:25|    INFO|Act_Crl_Lotte.py:180] 4007, N, 청주용암, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=4007
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9078, N, 충주(모다아울렛), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=3&cinemaID=9078
+[19:25|    INFO|Act_Crl_Lotte.py:180] 6001, N, 광주(백화점), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=6001
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9065, N, 광주광산, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=9065
+[19:25|    INFO|Act_Crl_Lotte.py:180] 6007, N, 군산나운, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=6007
+[19:25|    INFO|Act_Crl_Lotte.py:180] 6009, N, 군산몰, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=6009
+[19:25|    INFO|Act_Crl_Lotte.py:180] 6004, N, 수완(아울렛), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=6004
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9070, N, 익산모현, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=9070
+[19:25|    INFO|Act_Crl_Lotte.py:180] 6002, N, 전주(백화점), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=6002
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9102, N, 전주송천, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=9102
+[19:25|    INFO|Act_Crl_Lotte.py:180] 6006, N, 전주평화, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=6006
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9047, N, 충장로, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=4&cinemaID=9047
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9090, N, 경주, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9090
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9091, N, 경주황성, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9091
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5013, N, 구미공단, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=5013
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5012, N, 대구광장, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=5012
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5006, N, 대구율하, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=5006
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9107, N, 대구현풍, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9107
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5005, N, 동성로, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=5005
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5016, N, 상인, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=5016
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9080, N, 상주, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9080
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5004, N, 성서, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=5004
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9064, N, 영주, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9064
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9098, N, 영천, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9098
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9097, N, 포항, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9097
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9067, N, 프리미엄구미센트럴, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9067
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9066, N, 프리미엄만경, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9066
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9074, N, 프리미엄안동, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9074
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9057, N, 프리미엄칠곡, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=5&cinemaID=9057
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9082, N, 거창, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9082
+[19:25|    INFO|Act_Crl_Lotte.py:180] 2009, N, 광복, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2009
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5015, N, 김해부원, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5015
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5011, N, 김해아울렛(장유), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5011
+[19:25|    INFO|Act_Crl_Lotte.py:180] 2012, N, 대영, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2012
+[19:25|    INFO|Act_Crl_Lotte.py:180] 2007, N, 동래, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2007
+[19:25|    INFO|Act_Crl_Lotte.py:180] 2010, N, 동부산아울렛, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2010
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9042, N, 마산(합성동), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9042
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9092, N, 부산명지, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9092
+[19:25|    INFO|Act_Crl_Lotte.py:180] 2004, N, 부산본점, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2004
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9084, N, 사천, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9084
+[19:25|    INFO|Act_Crl_Lotte.py:180] 2008, N, 서면(전포동), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2008
+[19:25|    INFO|Act_Crl_Lotte.py:180] 2006, N, 센텀시티, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2006
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9103, N, 양산물금, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9103
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9105, N, 엠비씨네(진주), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9105
+[19:25|    INFO|Act_Crl_Lotte.py:180] 2011, N, 오투(부산대), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=2011
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5001, N, 울산(백화점), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5001
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5014, N, 울산성남, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5014
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5017, N, 진주혁신(롯데몰), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5017
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5009, N, 진해, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5009
+[19:25|    INFO|Act_Crl_Lotte.py:180] 5002, N, 창원, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=5002
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9036, N, 통영, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9036
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9072, N, 프리미엄경남대, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9072
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9059, N, 프리미엄해운대(장산역), https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=101&cinemaID=9059
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9108, N, 남원주, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=6&cinemaID=9108
+[19:25|    INFO|Act_Crl_Lotte.py:180] 7002, N, 동해, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=6&cinemaID=7002
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9089, N, 속초, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=6&cinemaID=9089
+[19:25|    INFO|Act_Crl_Lotte.py:180] 7003, N, 원주무실, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=6&cinemaID=7003
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9081, N, 춘천, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=6&cinemaID=9081
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9013, N, 서귀포, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=7&cinemaID=9013
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9068, N, 제주삼화지구, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=7&cinemaID=9068
+[19:25|    INFO|Act_Crl_Lotte.py:180] 9071, N, 제주아라, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=7&cinemaID=9071
+[19:25|    INFO|Act_Crl_Lotte.py:180] 6010, N, 제주연동, https://www.lottecinema.co.kr/NLCHS/Cinema/Detail?divisionCode=1&detailDivisionCode=7&cinemaID=6010
+[19:25|    INFO|Act_Crl_Lotte.py:196] ==========================================================================================================================
+[19:25|    INFO|Act_Crl_Lotte.py:197] 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)
+[19:25|    INFO|Act_Crl_Lotte.py:198] --------------------------------------------------------------------------------------------------------------------------
