@@ -4,6 +4,7 @@
 from Act_Crl_Supper import ActCrlSupper
 from Act_Tol_Logger import get_logger, clear_logger
 
+import sqlite3
 import traceback
 import platform
 import os
@@ -30,9 +31,7 @@ class ActCrlLotte(ActCrlSupper):
         super().__init__()
 
         self.logger = get_logger('lotte')   # 파이션 로그
-        self.dateRage = date_range           # 크롤링 할 날 수
-
-        self.dicTickecting = {}  # 티켓팅 정보     
+        self.date_range = date_range        # 크롤링 할 날 수
 
     def __del__(self): # 소멸자
 
@@ -76,9 +75,8 @@ class ActCrlLotte(ActCrlSupper):
                         # JSON 파싱
                         json_obj = json.loads(response['content']['text'])
 
-                        query = ''' INSERT OR REPLACE 
-                                                 INTO lotte_movie (moviecode, movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus)
-                                               VALUES             (?,         ?,           ?,              ?,         ?,           ?              )   '''
+                        query = ''' INSERT OR REPLACE INTO lotte_movie (moviecode, movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus)
+                                                    VALUES             (?,         ?,           ?,              ?,         ?,           ?              )   '''
                         
                         for match in parse('Movies.Items[*]').find(json_obj):
 
@@ -164,9 +162,8 @@ class ActCrlLotte(ActCrlSupper):
                 self.logger.info('--------------------------------------')
 
                 arrUrl = ['https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema','https://www.lottecinema.co.kr/NLCHS/Cinema/Detail']
-                query = ''' INSERT OR REPLACE 
-                                         INTO lotte_cinema (cinemacode, spacialyn, cinemaname, link, succese )
-                                       VALUES              (?,          ?,         ?,          ?,    '_'     )   '''
+                query = ''' INSERT OR REPLACE INTO lotte_cinema (cinemacode, spacialyn, cinemaname, link, succese )
+                                            VALUES              (?,          ?,         ?,          ?,    '_'     )   '''
                 for parsed_link in parsed_links:  # print(parsed_link)
                     if parsed_link['url'] in arrUrl:
                     
@@ -198,11 +195,28 @@ class ActCrlLotte(ActCrlSupper):
             self.logger.info('영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. ')
             self.logger.info('--------------------------------------------------------------------------------------------------------')
 
-            def __daily_ticketingdata(cinemacode, cinemaname, link):
+            def __daily_ticketingdata(cinemacode, spacialyn, cinemaname, link, succese):
+                
+                def ___get_ability_day(chm_driver, date_range): # 유효한 날짜들의 인덱스만 배열로 구성한다.
+                    
 
-                _arrTickectRaw = []  # 상영정보( 0.일자, 1.상영관코드, 2.회차번호, 3.상영관명, 4.시작시간, 5.종료시간, 6.예약좌석수, 7.총좌석수, 8.영화코드, 9.영화명 )의 배열 - 한개 극장단위 리턴값
+                    buttons = chm_driver.find_elements(By.XPATH, '//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div')  # 전체 상영일 버튼들..
 
-                movie_count = 0
+                    arr_ability_day = []
+
+                    for i in range(1, (len(buttons) + 1)):  # 전체 상영일 순환
+                        day_a_tag = chm_driver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}]/li/a')  # 일자 선택 버튼
+
+                        if i <= (date_range+1):
+                            if 'disabled' not in day_a_tag.get_attribute('class'):
+                                arr_ability_day.append(i)  # 무효한 상영일
+
+                    return arr_ability_day
+                
+                # end of [def ___get_ability_day(chm_driver, date_range):]
+
+                # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.총좌석수, 6.영화코드 )의 배열
+                _arrTickectRaw = []
 
                 self.logger.info(f'{spacialyn} {cinemaname}({cinemacode}[{succese}]) : URL {link}')
 
@@ -223,40 +237,16 @@ class ActCrlLotte(ActCrlSupper):
 
                 theather_nm = chm_driver.find_elements(By.XPATH, '//*[@id="contents"]/div[1]/div[1]/h3')[0].text  # 타이틀의 극장명을 읽는다.
 
-                button = chm_driver.find_elements(By.XPATH, '//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div')  # 전체 상영일들을 구한다.
+                arr_ablity_days = ___get_ability_day(chm_driver, self.date_range)
+                for ablityDay in arr_ablity_days:  # 유효한 상영일만 순환
 
-                arr_ablity_day = []
-
-                for i in range(1, (len(button) + 1)):  # 전체 상영일 순환
-
-                    day_a_tag = chm_driver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}]/li/a')  # 일자 선택 버튼
-
-                    if i <= (self.dateRage+1):
-                        if 'disabled' in day_a_tag.get_attribute('class'):
-                            arr_ablity_day.append('F')  # 무효한 상영일
-                        else:
-                            arr_ablity_day.append('T')  # 유효한 상영일
-                    else:
-                        arr_ablity_day.append('F')  # 무효한 상영일
-                # end of [for i in range(1, (count+1)):  # 전체 상영일 순환 ]
-
-                i = 0
-                for ablityDay in arr_ablity_day:  # 유효한 상영일만 순환
-
-                    i = i + 1
-
-                    if ablityDay == 'F' or i > 14:  # 다음 페이지 문제로 인해 무조건 14 일자 까지만..
-                        continue
-
-                    div_act = chm_driver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}][contains(@class, "active")]')
+                    div_act = chm_driver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{ablityDay}][contains(@class, "active")]')
                     if not div_act:
                         chm_driver.find_element(By.XPATH, '//*[@id="timeTable"]/div[1]/div/ul/div[2]/button[2]').click()  # 다음페이지 누르기..!!!
                         time.sleep(1)
 
-                    chm_driver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{i}]/li/a').click()  # 상영일 누르기..!!!
+                    chm_driver.find_element(By.XPATH, f'//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div[{ablityDay}]/li/a').click()  # 상영일 누르기..!!!
                     time.sleep(0.5)
-
-                    play_date = ''
 
                     for entry in proxy.har['log']['entries']:  # 캡처된 각 요청의 세부 정보 출력
                         request = entry['request']
@@ -272,43 +262,65 @@ class ActCrlLotte(ActCrlSupper):
                             jsonpath_expr = parse('playDate').find(json_obj)
                             play_date = jsonpath_expr[0].value if jsonpath_expr else None
 
-                            # JSON 파싱
-                            try:
-                                json_obj = json.loads(response['content']['text'])  ###########################
-                            except Exception as e:
-                                self.logger.error(f'오류 내용! {e}')
-                                raise e
+                            
+                            json_obj = json.loads(response['content']['text'])  # JSON 파싱
 
                             jsonpath_expr = parse('PlaySeqsHeader.Items').find(json_obj)
                             if len(jsonpath_expr) == 1:
 
-                                self.logger.info('-------------------------------------')
-                                self.logger.info('no: 영화코드, 영화명,       더빙/자막')
-                                self.logger.info('-------------------------------------')
+                                self.logger.info('----------------------------------')
+                                self.logger.info(' 영화코드,    영화명,    더빙/자막')
+                                self.logger.info('----------------------------------')
 
                                 moviecode_old = ''
                                 for match1 in jsonpath_expr[0].value:
                                     moviecode = match1['MovieCode']  # 영화코드
 
                                     if moviecode_old != moviecode:  # 같은 영화정보가(영화코드가) 여러번 들어오는걸 거른다.
-                                        moviename = match1['MovieNameKR']  # 영화명
-                                        filmnamekr = match1['FilmNameKR']  # 필름종류
+                                        moviename = match1['MovieNameKR']  # 영화명 ex) 엘리멘탈
+                                        filmnamekr = match1['FilmNameKR']  # 필름종류  ex) 2D
                                         gubun = match1['TranslationDivisionNameKR']  # 더빙/자막
 
-                                        self.dicMovies[moviecode] = [moviename, filmnamekr, gubun]  # 영화정보를 저장한다. 영화명 + 필름종류 + 더빙/자막
+                                        query = '''SELECT count(*) cnt FROM lotte_movie WHERE moviecode = ? '''
+                                        parameters = (moviecode,)
+                                        self.sql_cursor.execute(query, parameters)                            
+                                        result = self.sql_cursor.fetchone() # 첫 번째 결과 행 가져오기
 
-                                        if moviecode not in self.dicMovieData:  # 박스 오피스에서 긁어온 영화리스트에 없는 영화코드가 발생되면..
+                                        if result['cnt'] > 0:
+                                            query = ''' UPDATE lotte_movie
+                                                           SET filmnamekr = ?
+                                                             , gubun      = ?
+                                                         WHERE moviecode  = ?   '''
+                                            parameters = (filmnamekr, gubun, moviecode)
+                                            self.sql_cursor.execute(query, parameters)
+                                        else:
+                                            orgcode = ''
+                                            
+                                            # 영화명이 같지만 영화코드가 다르다면 원래 코드하나로 통일한다.
+                                            query = '''SELECT moviecode 
+                                                         FROM lotte_movie 
+                                                        WHERE moviecode <> ? 
+                                                          AND movienamekr = ?
+                                                          AND bookingyn IS NOT NULL
+                                                          AND releasedate IS NOT NULL
+                                                          AND viewgradenameus IS NOT NULL   '''
+                                            parameters = (moviecode, moviename)
+                                            self.sql_cursor.execute(query, parameters)                            
+                                            self.sql_cursor.row_factory = sqlite3.Row
+                                            results = self.sql_cursor.fetchall() # 결과 가져오기
 
-                                            findkey = -1
-                                            for md_key, md_value in self.dicMovieData.items():
-                                                if md_value[0] == moviename and md_value[5] == -1 and moviecode != md_key:  # 영화명이 같지만 영화코드가 다르다면 원래 코드하나로 통일한다.
-                                                    findkey = md_key
+                                            for row in results:
+                                                orgcode = row['moviecode']
 
-                                            self.dicMovieData[moviecode] = [moviename, filmnamekr, "", "", "", findkey]  # 영화데이터 정보 (박스 오피스에서 긁어온 영화리스트에 추가한다...)
+                                                query = ''' INSERT OR REPLACE INTO lotte_movie (moviecode, movienamekr, filmnamekr, gubun, orgcode)
+                                                                            VALUES             (?,         ?,           ?,          ?,     ?      )   '''
+                                                parameters = (moviecode, moviename, filmnamekr, gubun, orgcode)
+                                                self.sql_cursor.execute(query, parameters)                            
                                         #
+                                        self.sql_conn.commit()
 
-                                        movie_count += 1
-                                        self.logger.info(f"{movie_count} : {moviecode}, {moviename}({filmnamekr}), {gubun}")
+                                        self.logger.info(f"{moviecode}, {moviename}, {filmnamekr}, {gubun}")
+
 
                                         moviecode_old = moviecode
                                     # end of [if moviecode_old != moviecode:  # 같은 영화정보가(영화코드가) 여러번 들어오는걸 거른다. ]
@@ -322,7 +334,7 @@ class ActCrlLotte(ActCrlSupper):
                             if len(jsonpath_expr) == 1:
 
                                 self.logger.info('-------------------------------------')
-                                self.logger.info(f'상영일 ({item_count})')
+                                self.logger.info(f'상영일 리스트 ({item_count}일간)    ')
                                 self.logger.info('-------------------------------------')
 
                                 for items in jsonpath_expr[0].value:
@@ -352,9 +364,9 @@ class ActCrlLotte(ActCrlSupper):
 
                                 # end of [for PlayDate in jsonpath_expr[0].value:]
 
-                                self.logger.info('----------------')
-                                self.logger.info('관(코드), 좌석수')
-                                self.logger.info('----------------')
+                                self.logger.info('--------------------')
+                                self.logger.info('상영관(코드), 좌석수')
+                                self.logger.info('--------------------')
 
                                 for scr_key, scr_value in dic_screen.items():
                                     self.logger.info(f'{scr_value[0]}({scr_key}), {scr_value[1]}석')
@@ -387,7 +399,7 @@ class ActCrlLotte(ActCrlSupper):
                                     if cinemaid == "1016" and screendivcode == "960":  # 월드타워 점 씨네패밀리 관 인경우
                                         screenid = screenid + "*"
                                         screennamekr = screennamekr + " " + screendivnamekr
-                                    # print(self.dicMovies[moviecode][1]+':'+self.dicMovies[moviecode][0])
+                                    #
 
                                     if screenid_old != screenid:
 
@@ -398,10 +410,10 @@ class ActCrlLotte(ActCrlSupper):
 
                                     degree_no += 1                                    
                                      
-                                    self.logger.info(f'{playdt[-2:]}, {screennamekr}, {(screen_no * 100) + degree_no}, {self.dicMovies[moviecode][0]}[{self.dicMovies[moviecode][1]}]({self.dicMovies[moviecode][2]}), {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
+                                    #self.logger.info(f'{playdt[-2:]}, {screennamekr}, {(screen_no * 100) + degree_no}, {self.dicMovies[moviecode][0]}[{self.dicMovies[moviecode][1]}]({self.dicMovies[moviecode][2]}), {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
 
-                                    # 상영정보( 0.일자, 1.상영관코드, 2.회차번호, 3.상영관명, 4.시작시간, 5.종료시간, 6.예약좌석수, 7.총좌석수, 8.영화코드, 9.영화명 )의 배열
-                                    _arrTickectRaw.append([playdt, screenid, (screen_no * 100) + degree_no, screennamekr, starttime, endtime, bookingseatcount, totalseatcount, moviecode, self.dicMovies[moviecode][0]])
+                                    # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.총좌석수, 6.영화코드 )의 배열
+                                    _arrTickectRaw.append([playdt, screennamekr, starttime, endtime, bookingseatcount, totalseatcount, moviecode])
 
                                 # end of [for PlayDate in jsonpath_expr[0].value:]
 
@@ -413,71 +425,12 @@ class ActCrlLotte(ActCrlSupper):
 
                     proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 복수 실행을 위해 캡처된 요청 초기화
 
-                    #break  # ------------------------------------- 디버깅용
+                    break  # ------------------------------------- 디버깅용
 
                 # end of [for i in range(nMin, (nMax+1)):  # 유효한 상영일만 순환  ]
 
                 return _arrTickectRaw
-            # end of [def __read_cinemas():]
-
-            def __makedic_ticketingdata(_arrTickectRaw):
-
-                _arrTickect1 = []  # 티켓팅 정보1 [playdate, cinemaid, cinemaname] 극장에 상영예정일 리스트
-                _arrTickect2 = []  # 티켓팅 정보2 [playdate, cinemaid, screenid, cinemaname, screennamekr, totalseatcount] 상영관 리스트
-                _arrTickect3 = []  # 티켓팅 정보3 [playdate, cinemaid, screenid, degreeNo, cinemaname, screennamekr, starttime, endtime, bookingseatcount, moviecode, moviename, filmnamekr, gubun ] 상영시간 리스트
-
-                play_dates = np.unique(np.array(_arrTickectRaw)[:, 0]) # playdt 값을 추출하여 중복 제거 후 numpy 배열로 변환
-                for play_date in play_dates:
-                    # 티켓팅 정보1 [playdate, cinemaid, cinemaname] 극장에 상영예정일 리스트
-                    _arrTickect1.append([play_date, cinemacode, cinemaname])  
-
-                sorted_input = sorted(_arrTickectRaw, key=lambda x: (x[0], x[1], x[3], x[7]))  # 입력을 playdt, screenid, screennamekr, totalseatcount 순서로 정렬
-                groups = groupby(sorted_input, key=lambda x: (x[0], x[1], x[3], x[7]))  # playdt, screenid, screennamekr, totalseatcount로 그룹핑
-                for idx1, (key, group) in enumerate(groups):  # 그룹화된 결과 출력
-                    play_date, screenid, screennamekr, totalseatcount = key  # key 언패킹
-
-                    # 티켓팅 정보2 [playdate, cinemaid, screenid, cinemaname, screennamekr, totalseatcount] 상영관 리스트
-                    _arrTickect2.append([play_date, cinemacode, screenid,  cinemaname, screennamekr, totalseatcount]) 
-
-                    for item in group:
-                        # 티켓팅 정보3 [playdate, cinemaid, screenid, degreeNo, cinemaname, screennamekr, starttime, endtime, bookingseatcount, moviecode, moviename, filmnamekr, gubun ] 상영시간 리스트
-                        _arrTickect3.append([play_date, cinemacode, screenid,  item[2], cinemaname, screennamekr, item[4], item[5], item[6], item[7], item[8], item[9]])  
-
-                #self.logger.error( f'json.dumps(_arrTickect1) => {json.dumps(_arrTickect1)}')
-                #self.logger.error( f'json.dumps(_arrTickect2) => {json.dumps(_arrTickect2)}')    
-                #self.logger.error( f'json.dumps(_arrTickect3) => {json.dumps(_arrTickect3)}')
-
-                # _arrTickect1을 딕셔너리(dicTickecting1)로 변경
-                for data in _arrTickect1:
-                    play_date = data[0]  # 상영일자. 
-                    arting1_values = data[1:] # ex ['1013', '가산디지털'] ['101705', '독산']
-    
-                    matching_entries1 = [
-                        entry for entry in _arrTickect2   # .append([arting1_playdt, cinemacode, screenid,  cinemaname, screennamekr, totalseatcount])
-                        if entry[0] == play_date and entry[1] == arting1_values[0]  # [상영일자, 극장코드]로 그룹핑
-                    ]
-                    
-                    for entry1 in matching_entries1:                                    
-                        #new_entry2 = [entry[2], entry[3], entry[4], entry[5]] # 상영코드, [극장명], 상영관명, 총좌석수
-                        new_entry2 = [entry1[2],  entry1[4], entry1[5]] # 상영코드,  상영관명, 총좌석수
-
-                        matching_entries2 = [
-                            entry for entry in _arrTickect3 
-                            if entry[0] == play_date and entry[1] == arting1_values[0] and entry[2] == entry1[2]  # [상영일자, 극장코드, 상영코드]로 그룹핑
-                        ]
-
-                        for entry2 in matching_entries2:                                    
-                            # [degreeNo, cinemaname, screennamekr, starttime, endtime, bookingseatcount, moviecode, moviename, filmnamekr]
-                            new_entry3 = [entry2[3],  entry2[4], entry2[5],  entry2[6], entry2[7], entry2[8], entry2[9], entry2[10], entry2[11]]  
-
-                            new_entry2.append(new_entry3)
-                                            
-                        arting1_values.append(new_entry2)
-                                                
-                    dicTickecting.setdefault(play_date, []).append(arting1_values)
-
-                return dicTickecting
-            # end of [def __makedic_ticketingdata(_arrTickectRaw):]
+            # end of [def __daily_ticketingdata(cinemacode, spacialyn, cinemaname, link, succese):]
 
 
             while True:  # 루프를 계속해서 반복합니다.
@@ -486,35 +439,29 @@ class ActCrlLotte(ActCrlSupper):
 
                 # 스페셜 극장은 빠진다.  이미 크롤링에 성공한 상영관은 열외
                 query = ''' SELECT cinemacode, spacialyn, cinemaname, link, succese  FROM lotte_cinema  WHERE spacialyn='N' AND succese = '_' '''  
-                self.sql_cursor.execute(query)                
+                self.sql_cursor.execute(query)
+                self.sql_cursor.row_factory = sqlite3.Row
                 results = self.sql_cursor.fetchall() # 결과 가져오기
 
                 for row in results:
-                    cinemacode  = row[0]
-                    spacialyn   = row[1]
-                    cinemaname  = row[2]
-                    link        = row[3]
-                    succese     = row[4]
+                    cinemacode = row['cinemacode']
+                    spacialyn  = row['spacialyn']
+                    cinemaname = row['cinemaname']
+                    link       = row['link']
+                    succese    = row['succese']
 
-                    #if cinemacode not in ['1024'
-                    #                 #, '9098'
-                    #                 #, '9101'
-                    #                 #, '9102'
-                    #                 ]:  # --------------------------------------------------------------- 디버깅용
-                    #    continue
+                    if cinemacode not in ['1024'
+                                     , '9098'
+                                     , '9101'
+                                     , '9102'
+                                     ]:  # --------------------------------------------------------------- 디버깅용
+                        continue
 
                     try:
                         doit = True
 
                         # 상영정보( 0.일자, 1.상영관코드, 2.회차번호, 3.상영관명, 4.시작시간, 5.종료시간, 6.예약좌석수, 7.총좌석수, 8.영화코드, 9.영화명 )의 배열
                         _arrTickectRaw = __daily_ticketingdata(cinemacode, spacialyn, cinemaname, link, succese)  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test
-
-                        if len(_arrTickectRaw) > 0:
-                            dicTickecting = __makedic_ticketingdata(_arrTickectRaw)
-
-                            self.dicTickecting.update(dicTickecting)
-
-                        #self.logger.error( json.dumps(self.dicTickecting))
 
                     except Exception as e:    
                         # 크롤링에 예외가 발생되어 실패
@@ -554,6 +501,7 @@ class ActCrlLotte(ActCrlSupper):
             # end of [while True:  # 루프를 계속해서 반복합니다.]
             
         # end of [def _crawlingLotte_ticketing(chm_driver):]
+        
 
         try:
             if platform.system() == 'Windows':
@@ -580,7 +528,7 @@ class ActCrlLotte(ActCrlSupper):
             proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 요청 캡처 활성화
 
             # ------------------------------
-            #_crawlingLotte_boxoffice(chrome_driver)  # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
+            _crawlingLotte_boxoffice(chrome_driver)  # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
             _crawlingLotte_cinema(chrome_driver)     # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. 
             _crawlingLotte_ticketing(chrome_driver)  # 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)
             # ------------------------------

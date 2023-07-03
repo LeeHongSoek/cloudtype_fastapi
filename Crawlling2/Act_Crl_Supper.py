@@ -39,11 +39,14 @@ class ActCrlSupper(metaclass=ABCMeta):
 
         if not table_exists:
             query = ''' CREATE TABLE IF NOT EXISTS lotte_movie ( moviecode        TEXT PRIMARY KEY
-                                                               , movienamekr      TEXT NOT NULL
-                                                               , moviegenrename   TEXT NOT NULL
-                                                               , bookingyn        TEXT NOT NULL
-                                                               , releasedate      TEXT NOT NULL
-                                                               , viewgradenameus  TEXT NOT NULL
+                                                               , movienamekr      TEXT NOT NULL  /* 영화명 */
+                                                               , moviegenrename   TEXT NULL      /* ex) 공포, 다큐, 드라마 */
+                                                               , filmnamekr       TEXT NULL      /* ex) 2D 4D */
+                                                               , gubun            TEXT NULL      /* ex) 더빙 자막 */
+                                                               , bookingyn        TEXT NULL      /* 예매여부 */
+                                                               , releasedate      TEXT NULL      /* 개봉일 */
+                                                               , viewgradenameus  TEXT NULL      /* ..관람가 */
+                                                               , orgcode          TEXT NULL      /* 영화명이 같고 코드가 다를때 기준영화의 코드 */
                                                                )                                           '''
             self.sql_cursor.execute(query)
 
@@ -53,10 +56,10 @@ class ActCrlSupper(metaclass=ABCMeta):
 
         if not table_exists:
             query = ''' CREATE TABLE IF NOT EXISTS lotte_cinema ( cinemacode  TEXT PRIMARY KEY
-                                                                , spacialyn   TEXT NOT NULL
-                                                                , cinemaname  TEXT NOT NULL
-                                                                , link        TEXT NOT NULL
-                                                                , succese     TEXT NOT NULL
+                                                                , spacialyn   TEXT NOT NULL /* 스페셜관여부 */
+                                                                , cinemaname  TEXT NOT NULL /* 극장명 */
+                                                                , link        TEXT NOT NULL /* url(임시) */
+                                                                , succese     TEXT NOT NULL /* 크롤링성공여부(임시) */
                                                                 )                                           '''
             self.sql_cursor.execute(query)
 
