@@ -52,15 +52,15 @@ while True:
     result = subprocess.run(["git", "status"], capture_output=True, text=True)
 
     # git add --all
-    # subprocess.run(["git", "add", "."])
+    subprocess.run(["git", "add", "--all"])
 
     # 변경된 파일 및 삭제된 파일 목록 가져오기
     changed_files = []
     deleted_files = []
     lines = result.stdout.splitlines()
     for line in lines:
-        if line.startswith("\tmodified:"):
-            # 변경된 파일의 경로만 추출하여 리스트에 추가
+        if line.startswith("\tmodified:") or line.startswith("\tnew file:"):
+            # 변경된 파일 또는 새로 생성된 파일의 경로만 추출하여 리스트에 추가
             file_path = line.split(":")[1].strip()
             changed_files.append(file_path)
         elif line.startswith("\tdeleted:"):
