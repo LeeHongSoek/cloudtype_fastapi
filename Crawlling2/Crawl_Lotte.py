@@ -62,50 +62,56 @@ class CrawlLotte(Crawl):
         def _crawl_lotte_boxoffice(chm_driver):
 
             self.logger.info('=======================================================================================================================')
-            self.logger.info('영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. (dicMovieData)')
+            self.logger.info('영화 / 현재상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1),                                              ')
+            self.logger.info('영화 / 상영예정작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5) 에서 영화데이터를 가지고 온다. (dicMovieData) ')
             self.logger.info('-----------------------------------------------------------------------------------------------------------------------')
 
             movie_count = 0
 
             proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 요청 캡처 활성화
 
-            chm_driver.get("https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1")  # 웹사이트로 이동
-            chm_driver.implicitly_wait(3)  # 3초 대기
+            arrUrl = ["https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1", "https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5"]
+            for url in arrUrl:
+                chm_driver.get(url)  # 웹사이트로 이동
+                chm_driver.implicitly_wait(1)  # 1초 대기
+    
+                for entry in proxy.har['log']['entries']:  # 각 캡처된 요청의 세부 정보 출력
+                    request = entry['request']
+                    response = entry['response']
 
-            for entry in proxy.har['log']['entries']:  # 각 캡처된 요청의 세부 정보 출력
+                    if response['content']['size'] == 0:
+                            continue
 
-                request = entry['request']
-                response = entry['response']
+                    if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx":
 
-                if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx":
+                        self.logger.info('-------------------------------------------------------------------------------')
+                        self.logger.info('no, 코드, 영화명, 장르, 예매, 개봉일, 관람등급')
+                        self.logger.info('-------------------------------------------------------------------------------')
 
-                    self.logger.info('-------------------------------------------------------------------------------')
-                    self.logger.info('no, 코드, 영화명, 장르, 예매, 개봉일, 관람등급')
-                    self.logger.info('-------------------------------------------------------------------------------')
+                        # JSON 파싱
+                        json_obj = json.loads(response['content']['text'])
 
-                    # JSON 파싱
-                    json_obj = json.loads(response['content']['text'])
+                        for match in parse('Movies.Items[*]').find(json_obj):
 
-                    for match in parse('Movies.Items[*]').find(json_obj):
+                            representationmoviecode = str(match.value['RepresentationMovieCode'])
+                            movienamekr = str(match.value['MovieNameKR']).strip()
+                            moviegenrename = str(match.value['MovieGenreName'])
+                            bookingyn = str(match.value['BookingYN'])
+                            releasedate = str(match.value['ReleaseDate'])
+                            releasedate = releasedate[0:4] + releasedate[5:7] + releasedate[8:10]
+                            viewgradenameus = str(match.value['ViewGradeNameUS'])
 
-                        representationmoviecode = str(match.value['RepresentationMovieCode'])
-                        movienamekr = str(match.value['MovieNameKR']).strip()
-                        moviegenrename = str(match.value['MovieGenreName'])
-                        bookingyn = str(match.value['BookingYN'])
-                        releasedate = str(match.value['ReleaseDate'])
-                        releasedate = releasedate[0:4] + releasedate[5:7] + releasedate[8:10]
-                        viewgradenameus = str(match.value['ViewGradeNameUS'])
+                            if movienamekr == '' or movienamekr == 'AD': continue
 
-                        if movienamekr == '' or movienamekr == 'AD': continue
+                            self.dicMovieData[representationmoviecode] = [movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus, -1]  # 영화데이터 정보
 
-                        self.dicMovieData[representationmoviecode] = [movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus, -1]  # 영화데이터 정보
+                            movie_count += 1
+                            self.logger.info(f'{movie_count} : {representationmoviecode},{movienamekr},{moviegenrename},{bookingyn},{releasedate},{viewgradenameus}')
+                        #
 
-                        movie_count += 1
-                        self.logger.info(f'{movie_count} : {representationmoviecode},{movienamekr},{moviegenrename},{bookingyn},{releasedate},{viewgradenameus}')
-                    #
-
-                # end of [if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx": ]
-            # end of [for entry in proxy.har['log']['entries']:  # 각 캡처된 요청의 세부 정보 출력 ]
+                    # end of [if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx": ]
+                # end of [for entry in proxy.har['log']['entries']:  # 각 캡처된 요청의 세부 정보 출력 ]
+            # end of [for url in arrUrl:]
 
         # end of [def _crawl_lotte_boxoffice(self): ]
 
@@ -141,7 +147,7 @@ class CrawlLotte(Crawl):
             # ----------------- end of [ def parse_links(html): ]
 
             chm_driver.get('https://www.lottecinema.co.kr/NLCHS')
-            chm_driver.implicitly_wait(3)
+            chm_driver.implicitly_wait(1)
 
             html = chm_driver.page_source.replace('\n', '')  # 패이지 소스를 읽어온다.....
             soup = BeautifulSoup(html, "html.parser")
@@ -262,7 +268,7 @@ class CrawlLotte(Crawl):
                             try:
                                 json_obj = json.loads(response['content']['text'])  ###########################
                             except Exception as e:
-                                self.logger.error(f'오류 발생! {e}')
+                                self.logger.error(f'오류 내용! {e}')
                                 raise e
 
                             jsonpath_expr = parse('PlaySeqsHeader.Items').find(json_obj)
@@ -510,7 +516,7 @@ class CrawlLotte(Crawl):
 
                         self.logger.error('-----------------------------------------------------------------------')
                         self.logger.error(f'상영관({cn_value[2]})크롤링에 예외가 발생되어 실패')
-                        self.logger.error(f'{e}')
+                        self.logger.error(f'오류 내용! {e}')
                         self.logger.error(f'{traceback.print_exc()}')
                         self.logger.error('-----------------------------------------------------------------------')
 
@@ -566,6 +572,7 @@ class CrawlLotte(Crawl):
 
         except Exception as e:
             self.logger.error('LOTTE 크롤링 중 오류발생!')
+            self.logger.error(f'오류 내용! {e}')
             raise e
 
     # ===================================================================================
@@ -605,6 +612,7 @@ class CrawlLotte(Crawl):
 
         except Exception as e:
             self.logger.error('LOTTE 전송 중 오류 발생!')
+            self.logger.error(f'오류 내용! {e}')
             raise e
         pass
     # ===================================================================================
