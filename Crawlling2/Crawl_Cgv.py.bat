@@ -1,1 +1,0 @@
-python Crawl_Cgv.py %1

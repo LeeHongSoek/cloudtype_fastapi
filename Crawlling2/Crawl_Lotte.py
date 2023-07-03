@@ -12,7 +12,6 @@ Chrome 브라우저를 엽니다.
 import sys
 import json
 import time
-import urllib3  # pip install urllib3
 import requests
 import traceback
 
@@ -39,10 +38,8 @@ class CrawlLotte(Crawl):
     # ===================================================================================
     def __init__(self, log_lotte, date_rage):
 
-        self.dateRage = date_rage
-        self.http = urllib3.PoolManager()
-
         self.logger = log_lotte  # 파이션 로그
+        self.dateRage = date_rage  # 크롤링 할 날수
 
         self.dicMovieData = {}  # 영화데이터 정보
         self.dicCinemas = {}  # 극장 코드 정보
@@ -66,9 +63,11 @@ class CrawlLotte(Crawl):
             self.logger.info('영화 / 상영예정작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5) 에서 영화데이터를 가지고 온다. (dicMovieData) ')
             self.logger.info('-----------------------------------------------------------------------------------------------------------------------')
 
-            movie_count = 0
+            movie_count = 1
 
-            proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 요청 캡처 활성화
+            self.logger.info('-------------------------------------------------------------------------------')
+            self.logger.info('no, 코드, 영화명, 장르, 예매, 개봉일, 관람등급')
+            self.logger.info('-------------------------------------------------------------------------------')
 
             arrUrl = ["https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1", "https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5"]
             for url in arrUrl:
@@ -83,10 +82,6 @@ class CrawlLotte(Crawl):
                             continue
 
                     if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx":
-
-                        self.logger.info('-------------------------------------------------------------------------------')
-                        self.logger.info('no, 코드, 영화명, 장르, 예매, 개봉일, 관람등급')
-                        self.logger.info('-------------------------------------------------------------------------------')
 
                         # JSON 파싱
                         json_obj = json.loads(response['content']['text'])
@@ -105,8 +100,8 @@ class CrawlLotte(Crawl):
 
                             self.dicMovieData[representationmoviecode] = [movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus, -1]  # 영화데이터 정보
 
-                            movie_count += 1
                             self.logger.info(f'{movie_count} : {representationmoviecode},{movienamekr},{moviegenrename},{bookingyn},{releasedate},{viewgradenameus}')
+                            movie_count += 1
                         #
 
                     # end of [if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx": ]
@@ -168,7 +163,7 @@ class CrawlLotte(Crawl):
                 for parsed_link in parsed_links:  # print(parsed_link)
                     sortsequence = sortsequence + 1
 
-                    if parsed_link['url'] == 'https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema':  # 극장(스페셜괌)정보저장                        
+                    if parsed_link['url'] == 'https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema':  # 극장(스페셜관)정보저장                        
                         self.dicCinemas[parsed_link['query_params']['screendivcd']] = ['Y', sortsequence, parsed_link['text'], parsed_link['link'], '_']
 
                     if parsed_link['url'] == 'https://www.lottecinema.co.kr/NLCHS/Cinema/Detail':  # 극장(일반)정보저장                        
@@ -552,17 +547,19 @@ class CrawlLotte(Crawl):
             chrome_options = webdriver.ChromeOptions()
             """
             chrome_options.add_argument('--headless')  # Headless 모드 설정
-            chrome_options.add_argument("--start-maximized")  # 창을 최대화로 시작
+            chrome_options.add_argument('--start-maximized')  # 창을 최대화로 시작
             """
-            chrome_options.add_argument("--excludeSwitches=enable-automation")
-            chrome_options.add_argument("--disable-blink-features=AutomationControlled")
-            chrome_options.add_argument("--start-minimized")  # 최소화된 상태로 창을 시작
+            chrome_options.add_argument('--excludeSwitches=enable-automation')
+            chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+            chrome_options.add_argument('--start-minimized')  # 최소화된 상태로 창을 시작
             chrome_options.add_argument('--proxy-server={0}'.format(proxy.proxy))
             chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
             chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
             chrome_options.add_argument('--ignore-certificate-errors')
             chrome_options.add_argument('--ignore-ssl-errors')
             chrome_driver = webdriver.Chrome(options=chrome_options)
+
+            proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 요청 캡처 활성화
 
             # ------------------------------
             _crawl_lotte_boxoffice(chrome_driver)  # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. (dicMovieData)
