@@ -111,8 +111,11 @@ class CrawlLotte(Crawl):
 
                     # end of [if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx": ]
                 # end of [for entry in proxy.har['log']['entries']:  # 각 캡처된 요청의 세부 정보 출력 ]
-            # end of [for url in arrUrl:]
 
+                proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 복수 실행을 위해 캡처된 요청 초기화
+
+            # end of [for url in arrUrl:]
+            pass
         # end of [def _crawl_lotte_boxoffice(self): ]
 
         # -----------------------------------------------------------------------------------
