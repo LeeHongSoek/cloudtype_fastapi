@@ -45,7 +45,7 @@ class ActCrlLotte(ActCrlSupper):
         # -----------------------------------------------------------------------------------
         #  영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
         #
-        def _crawlingLotte_boxoffice(chm_driver):
+        def _crawlLotte_1_boxoffice(chm_driver):
 
             self.logger.info('========================================================================================================')
             self.logger.info('영화 / 현재상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1),                               ')
@@ -58,7 +58,7 @@ class ActCrlLotte(ActCrlSupper):
             self.logger.info('코드, 영화명, 장르, 예매, 개봉일, 관람등급                                     ')
             self.logger.info('-------------------------------------------------------------------------------')
 
-            arrUrl = ["https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1", "https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5"]
+            arrUrl = ["https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1", "https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5"]  # 상영영화와 상영예정영화
             for url in arrUrl:
                 chm_driver.get(url)  # 웹사이트로 이동
                 chm_driver.implicitly_wait(1)  # 1초 대기
@@ -74,9 +74,6 @@ class ActCrlLotte(ActCrlSupper):
 
                         # JSON 파싱
                         json_obj = json.loads(response['content']['text'])
-
-                        query = ''' INSERT OR REPLACE INTO lotte_movie (moviecode, movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus)
-                                                    VALUES             (?,         ?,           ?,              ?,         ?,           ?              )   '''
                         
                         for match in parse('Movies.Items[*]').find(json_obj):
 
@@ -92,33 +89,40 @@ class ActCrlLotte(ActCrlSupper):
 
                             self.logger.info(f'{representationmoviecode},{movienamekr},{moviegenrename},{bookingyn},{releasedate},{viewgradenameus}')
 
+                            query = ''' INSERT OR REPLACE INTO lotte_movie (moviecode, movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus)
+                                                        VALUES             (?,         ?,           ?,              ?,         ?,           ?              )   '''
                             parameters = (representationmoviecode, movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus)
                             self.sql_cursor.execute(query, parameters)                            
 
-                        # end of [for match in parse('Movies.Items[*]').find(json_obj):]
+                        # [for match in parse('Movies.Items[*]').find(json_obj):]
 
                         self.sql_conn.commit()
 
-                    # end of [if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx": ]
+                    # [if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx": ]
 
-                # end of [for entry in proxy.har['log']['entries']:  # 각 캡처된 요청의 세부 정보 출력 ]
+                # [for entry in proxy.har['log']['entries']:  # 각 캡처된 요청의 세부 정보 출력 ]
 
                 proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 복수 실행을 위해 캡처된 요청 초기화
 
-            # end of [for url in arrUrl:]
+            # [for url in arrUrl: # 상영영화와 상영예정영화 ]
 
-        # end of [def _crawlingLotte_boxoffice(chm_driver):]
+        # [def _crawlLotte_1_boxoffice(chm_driver):]
 
         # -----------------------------------------------------------------------------------
         #  영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. 
         #
-        def _crawlingLotte_cinema(chm_driver):
+        def _crawlLotte_2_cinema(chm_driver):
 
             self.logger.info('=========================================================================================')
             self.logger.info('영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ')
             self.logger.info('-----------------------------------------------------------------------------------------')
 
-            def __parse_links(tag_lst):
+            def __parse_links(tag1, arrUrl):
+
+                tag_lst = ''
+                tags2 = tag1.select('li > a:not([href="#"])')
+                for tag2 in tags2:  # print(tag2)
+                    tag_lst += tag2.prettify()
 
                 a_tags = BeautifulSoup(tag_lst, 'html.parser').find_all('a')
 
@@ -133,12 +137,13 @@ class ActCrlLotte(ActCrlSupper):
                     query_params = {ikey: ivalue[0] for ikey, ivalue in params.items()}
                     text = a_tag.text.replace("\n", "").strip()
 
-                    pas_links.append({'url': url, 'query_params': query_params, 'text': text, 'link': link})
-                    # print("URL:", parsed_link['url'],", Query Params:", parsed_link['query_params'],", Text:", parsed_link['text'], link:", parsed_link['link'])
+                    if  url in arrUrl: # 스폐셜 영화관과 일반영화관 url만 파싱한다.
+                        pas_links.append({'url': url, 'query_params': query_params, 'text': text, 'link': link})
+                        # print("URL:", parsed_link['url'],", Query Params:", parsed_link['query_params'],", Text:", parsed_link['text'], link:", parsed_link['link'])
 
                 return pas_links
 
-            # ----------------- end of [ def parse_links(html): ]
+            # [def __parse_links(tag1, arrUrl):]
 
             chm_driver.get('https://www.lottecinema.co.kr/NLCHS')
             chm_driver.implicitly_wait(1)
@@ -146,14 +151,11 @@ class ActCrlLotte(ActCrlSupper):
             html = chm_driver.page_source.replace('\n', '')  # 패이지 소스를 읽어온다.....
             soup = BeautifulSoup(html, "html.parser")
 
-            if tag1 := soup.select_one("#nav > ul > li:nth-child(3) > div > ul"):  # 메인 메뉴의 '영화관' 하위 메뉴 탐색
+            if tag1 := soup.select_one("#nav > ul > li:nth-child(3) > div > ul"):  # 메인 메뉴의 '영화관' 하위 메뉴 탐색                
 
-                tag_lst = ''
-                tags2 = tag1.select('li > a:not([href="#"])')
-                for tag2 in tags2:  # print(tag2)
-                    tag_lst += tag2.prettify()
-
-                parsed_links = __parse_links(tag_lst)  # <a> 태그 분해
+                # 스폐셜 영화관과 일반영화관 url만 파싱한다.
+                arrUrl = ['https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema','https://www.lottecinema.co.kr/NLCHS/Cinema/Detail']
+                parsed_links = __parse_links(tag1, arrUrl)  # <a> 태그 분해
 
                 self.sql_cursor.execute(' DELETE FROM lotte_cinema ')
 
@@ -161,35 +163,34 @@ class ActCrlLotte(ActCrlSupper):
                 self.logger.info('코드, 스페셜관, 극장명, 링크, 성공여부')
                 self.logger.info('--------------------------------------')
 
-                arrUrl = ['https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema','https://www.lottecinema.co.kr/NLCHS/Cinema/Detail']
-                query = ''' INSERT OR REPLACE INTO lotte_cinema (cinemacode, spacialyn, cinemaname, link, succese )
-                                            VALUES              (?,          ?,         ?,          ?,    '_'     )   '''
-                for parsed_link in parsed_links:  # print(parsed_link)
-                    if parsed_link['url'] in arrUrl:
+                for parsed_link in parsed_links:  # print(parsed_link)                    
                     
-                        if parsed_link['url'] == arrUrl[0]:  # 극장(스페셜관)정보저장
-                            spacialyn = 'Y'
-                            cinemacode = parsed_link['query_params']['screendivcd']
+                    if parsed_link['url'] == arrUrl[0]:  # 극장(스페셜관)정보저장
+                        spacialyn = 'Y'
+                        cinemacode = parsed_link['query_params']['screendivcd']
 
-                        if parsed_link['url'] == arrUrl[1]:  # 극장(일반)정보저장                        
-                            spacialyn = 'N'
-                            cinemacode = parsed_link['query_params']['cinemaID']
+                    if parsed_link['url'] == arrUrl[1]:  # 극장(일반)정보저장                        
+                        spacialyn = 'N'
+                        cinemacode = parsed_link['query_params']['cinemaID']
 
-                        self.logger.info(f"{cinemacode}, {spacialyn}, {parsed_link['text']}, {parsed_link['link']}")
+                    self.logger.info(f"{cinemacode}, {spacialyn}, {parsed_link['text']}, {parsed_link['link']}, '_'")
 
-                        parameters = (cinemacode, spacialyn, parsed_link['text'], parsed_link['link'])
-                        self.sql_cursor.execute(query, parameters)                            
+                    query = ''' INSERT OR REPLACE INTO lotte_cinema (cinemacode, spacialyn, cinemaname, link, succese )
+                                                VALUES              (?,          ?,         ?,          ?,    '_'     )   '''
+                    parameters = (cinemacode, spacialyn, parsed_link['text'], parsed_link['link'])
+                    self.sql_cursor.execute(query, parameters)                            
+                # [for parsed_link in parsed_links:]
 
                 self.sql_conn.commit()
             
-            # end of [if tag1 := soup.select_one("#nav > ul > li:nth-child(3) > div > ul"):  # 메인 메뉴의 '영화관' 하위 메뉴 탐색]    
+            # [if tag1 := soup.select_one("#nav > ul > li:nth-child(3) > div > ul"):  # 메인 메뉴의 '영화관' 하위 메뉴 탐색]    
 
-        # end of [def _crawlingLotte_cinema(chm_driver):]
+        # [def _crawlLotte_2_cinema(chm_driver):]
 
         # -----------------------------------------------------------------------------------
         # 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다.
         #
-        def _crawlingLotte_ticketing(chm_driver):
+        def _crawlLotte_3_ticketing(chm_driver):
 
             self.logger.info('========================================================================================================')
             self.logger.info('영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. ')
@@ -213,7 +214,7 @@ class ActCrlLotte(ActCrlSupper):
 
                     return arr_ability_day
                 
-                # end of [def ___get_ability_day(chm_driver, date_range):]
+                # [def ___get_ability_day(chm_driver, date_range):]
 
                 # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.총좌석수, 6.영화코드 )의 배열
                 _arrTickectRaw = []
@@ -323,9 +324,9 @@ class ActCrlLotte(ActCrlSupper):
 
 
                                         moviecode_old = moviecode
-                                    # end of [if moviecode_old != moviecode:  # 같은 영화정보가(영화코드가) 여러번 들어오는걸 거른다. ]
-                                # end of [for match1 in jsonpath_expr[0].value: ]
-                            # end of [if len(parse('PlaySeqsHeader.Items').find(json_obj)) == 1: ]
+                                    # [if moviecode_old != moviecode:  # 같은 영화정보가(영화코드가) 여러번 들어오는걸 거른다. ]
+                                # [for match1 in jsonpath_expr[0].value: ]
+                            # [if len(parse('PlaySeqsHeader.Items').find(json_obj)) == 1: ]
 
                             jsonpath_expr = parse('PlayDates.ItemCount').find(json_obj)
                             item_count = jsonpath_expr[0].value if jsonpath_expr else None
@@ -362,7 +363,7 @@ class ActCrlLotte(ActCrlSupper):
 
                                     dic_screen[screenid] = [screennamekr, totalseatcount]
 
-                                # end of [for PlayDate in jsonpath_expr[0].value:]
+                                # [for PlayDate in jsonpath_expr[0].value:]
 
                                 self.logger.info('--------------------')
                                 self.logger.info('상영관(코드), 좌석수')
@@ -415,22 +416,22 @@ class ActCrlLotte(ActCrlSupper):
                                     # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.총좌석수, 6.영화코드 )의 배열
                                     _arrTickectRaw.append([playdt, screennamekr, starttime, endtime, bookingseatcount, totalseatcount, moviecode])
 
-                                # end of [for PlayDate in jsonpath_expr[0].value:]
+                                # [for PlayDate in jsonpath_expr[0].value:]
 
-                            # end of [ if len(jsonpath_expr = parse('PlaySeqs.Items').find(json_obj)) == 1:]
+                            # [ if len(jsonpath_expr = parse('PlaySeqs.Items').find(json_obj)) == 1:]
 
-                        # end of [if request['url'] == "https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx":]
+                        # [if request['url'] == "https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx":]
 
-                    # end of [for entry in proxy.har['log']['entries']:  # 캡처된 각 요청의 세부 정보 출력]
+                    # [for entry in proxy.har['log']['entries']:  # 캡처된 각 요청의 세부 정보 출력]
 
                     proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 복수 실행을 위해 캡처된 요청 초기화
 
                     break  # ------------------------------------- 디버깅용
 
-                # end of [for i in range(nMin, (nMax+1)):  # 유효한 상영일만 순환  ]
+                # [for i in range(nMin, (nMax+1)):  # 유효한 상영일만 순환  ]
 
                 return _arrTickectRaw
-            # end of [def __daily_ticketingdata(cinemacode, spacialyn, cinemaname, link, succese):]
+            # [def __daily_ticketingdata(cinemacode, spacialyn, cinemaname, link, succese):]
 
 
             while True:  # 루프를 계속해서 반복합니다.
@@ -451,9 +452,9 @@ class ActCrlLotte(ActCrlSupper):
                     succese    = row['succese']
 
                     if cinemacode not in ['1024'
-                                     , '9098'
-                                     , '9101'
-                                     , '9102'
+                                     #, '9098'
+                                     #, '9101'
+                                     #, '9102'
                                      ]:  # --------------------------------------------------------------- 디버깅용
                         continue
 
@@ -493,14 +494,14 @@ class ActCrlLotte(ActCrlSupper):
                     finally: 
                         pass  # 예외 발생 여부와 관계없이 항상 실행되는 코드
 
-                #  end of [for cinemacode, cn_value in self.dicCinemas.items():  # 전체 극장을 순회한다.]
+                #  [for cinemacode, cn_value in self.dicCinemas.items():  # 전체 극장을 순회한다.]
 
                 if doit == False:  # 완전히 모든 상영관이 크롤링에 성공 했을시 빠저나간다.
                     break
 
-            # end of [while True:  # 루프를 계속해서 반복합니다.]
+            # [while True:  # 루프를 계속해서 반복합니다.]
             
-        # end of [def _crawlingLotte_ticketing(chm_driver):]
+        # [def _crawlLotte_3_ticketing(chm_driver):]
         
 
         try:
@@ -528,9 +529,9 @@ class ActCrlLotte(ActCrlSupper):
             proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 요청 캡처 활성화
 
             # ------------------------------
-            _crawlingLotte_boxoffice(chrome_driver)  # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
-            _crawlingLotte_cinema(chrome_driver)     # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. 
-            _crawlingLotte_ticketing(chrome_driver)  # 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)
+            #_crawlLotte_1_boxoffice(chrome_driver)  # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
+            #_crawlLotte_2_cinema(chrome_driver)     # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다.             
+            _crawlLotte_3_ticketing(chrome_driver)  # 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)
             # ------------------------------
 
             chrome_driver.quit()
@@ -542,14 +543,14 @@ class ActCrlLotte(ActCrlSupper):
             self.logger.error(f'{traceback.print_exc()}')
             raise e
         
-    # end of [def crawling(self):] ------------------------------------------------------
+    # [def crawling(self):] ------------------------------------------------------
     
     # def uploading(self): ==============================================================
     def uploading(self):
         print("Uploading Lotte data...")
     # -----------------------------------------------------------------------------------
     
-# end of [class ActCrlLotte(ActCrlSupper):]   
+# [class ActCrlLotte(ActCrlSupper):]   
 
 
 
@@ -559,4 +560,4 @@ if __name__ == '__main__':
     actCrlLotte.crawling()
     actCrlLotte.uploading()
     
-# end of [if __name__ == '__main__':]    
+# [if __name__ == '__main__':]    
