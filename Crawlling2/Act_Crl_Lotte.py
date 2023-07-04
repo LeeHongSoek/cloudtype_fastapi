@@ -198,8 +198,7 @@ class ActCrlLotte(ActCrlSupper):
 
             def __daily_ticketingdata(cinemacode, spacialyn, cinemaname, link, succese):
                 
-                def ___get_ability_day(chm_driver, date_range): # 유효한 날짜들의 인덱스만 배열로 구성한다.
-                    
+                def ___get_ability_day(chm_driver, date_range): # 유효한 날짜들의 인덱스만 배열로 구성한다.                    
 
                     buttons = chm_driver.find_elements(By.XPATH, '//*[@id="timeTable"]/div[1]/div/ul/div[1]/div/div')  # 전체 상영일 버튼들..
 
@@ -408,13 +407,30 @@ class ActCrlLotte(ActCrlSupper):
                                         degree_no = 0
                                         screenid_old = screenid
                                     #
+                                    degree_no += 1
 
-                                    degree_no += 1                                    
-                                     
-                                    #self.logger.info(f'{playdt[-2:]}, {screennamekr}, {(screen_no * 100) + degree_no}, {self.dicMovies[moviecode][0]}[{self.dicMovies[moviecode][1]}]({self.dicMovies[moviecode][2]}), {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
+                                    query = '''SELECT moviecode 
+                                                    , movienamekr
+                                                    , moviegenrename
+                                                    , filmnamekr                                            
+                                                 FROM lotte_movie 
+                                                WHERE moviecode = ?   '''
+                                    parameters = (moviecode,)
+                                    self.sql_cursor.execute(query, parameters)                            
+                                    if result := self.sql_cursor.fetchone(): # 첫 번째 결과 행 가져오기                      
 
-                                    # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.총좌석수, 6.영화코드 )의 배열
-                                    _arrTickectRaw.append([playdt, screennamekr, starttime, endtime, bookingseatcount, totalseatcount, moviecode])
+                                        #self.logger.info(f'[{theather_nm}] 일자, 상영관, 회차, 영화, 시작시간~끝시간, 예약좌석수/총좌석수')
+                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({screen_no}), {degree_no}, {result["movienamekr"]}({moviecode})[{result["moviegenrename"]}/{result["filmnamekr"]}], {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
+
+                                        # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.총좌석수, 6.영화코드 )의 배열
+                                        _arrTickectRaw.append([playdt, screennamekr, starttime, endtime, bookingseatcount, totalseatcount, moviecode])
+
+                                        sql = '''INSERT OR REPLACE INTO lotte_ticketing (cinemacode, playdt, screenno, degreeno, screennamekr, moviecode, starttime, endtime, bookingseatcount, totalseatcount)
+                                                                 VALUES                 (?,          ?,      ?,        ?,        ?,            ?,         ?,         ?,       ?,                ?             )  '''
+                                        parameters = (cinemacode, playdt, screen_no, degree_no, screennamekr, moviecode, starttime, endtime, bookingseatcount, totalseatcount)
+                                        self.sql_cursor.execute(sql, parameters)
+                                    else:
+                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({screen_no}), {degree_no}, [영화정보매칭실패]({moviecode}), {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
 
                                 # [for PlayDate in jsonpath_expr[0].value:]
 
@@ -426,7 +442,7 @@ class ActCrlLotte(ActCrlSupper):
 
                     proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 복수 실행을 위해 캡처된 요청 초기화
 
-                    break  # ------------------------------------- 디버깅용
+                    # break  # ------------------------------------- 디버깅용
 
                 # [for i in range(nMin, (nMax+1)):  # 유효한 상영일만 순환  ]
 
@@ -451,10 +467,10 @@ class ActCrlLotte(ActCrlSupper):
                     link       = row['link']
                     succese    = row['succese']
 
-                    if cinemacode not in ['1024'
+                    if cinemacode not in [ #'1024'
                                      #, '9098'
-                                     #, '9101'
-                                     #, '9102'
+                                      '9101'
+                                     , '9102'
                                      ]:  # --------------------------------------------------------------- 디버깅용
                         continue
 
@@ -516,6 +532,7 @@ class ActCrlLotte(ActCrlSupper):
             chrome_options = webdriver.ChromeOptions()
             #chrome_options.add_argument('--headless')  # Headless 모드 설정
             #chrome_options.add_argument("--start-maximized")  # 창을 최대화로 시작
+            chrome_options.add_argument("--blink-settings=imagesEnabled=false") #  이미지가 로드되지 않으므로 페이지 로딩 속도가 향상
             chrome_options.add_argument('--excludeSwitches=enable-automation')
             chrome_options.add_argument('--disable-blink-features=AutomationControlled')
             chrome_options.add_argument('--start-minimized')  # 최소화된 상태로 창을 시작

@@ -63,6 +63,25 @@ class ActCrlSupper(metaclass=ABCMeta):
                                                                 )                                           '''
             self.sql_cursor.execute(query)
 
+        query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_ticketing' '''
+        self.sql_cursor.execute(query)
+        table_exists = self.sql_cursor.fetchone()
+
+        if not table_exists:
+            query = ''' CREATE TABLE IF NOT EXISTS lotte_ticketing ( cinemacode        TEXT
+                                                                   , playdt            TEXT
+                                                                   , screenno          TEXT
+                                                                   , degreeno          INT
+                                                                   , screennamekr      TEXT NOT NULL
+                                                                   , moviecode         TEXT NOT NULL
+                                                                   , starttime         TEXT NOT NULL
+                                                                   , endtime           TEXT NOT NULL
+                                                                   , bookingseatcount  INT NOT NULL
+                                                                   , totalseatcount    INT NOT NULL
+                                                                   , PRIMARY KEY (cinemacode, playdt, screenno, degreeno)
+                                                                   )                                          '''
+            self.sql_cursor.execute(query)
+
         self.sql_conn.commit()
             
     def __del__(self): # 소멸자
