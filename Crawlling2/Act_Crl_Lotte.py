@@ -28,7 +28,7 @@ class ActCrlLotte(ActCrlSupper):
     # __init__, __del__ =================================================================
     def __init__(self, date_range): # 생성자
 
-        super().__init__()
+        super().__init__('action_crawl_lotte.db')
 
         self.logger = get_logger('lotte')   # 파이션 로그
         self.date_range = date_range        # 크롤링 할 날 수
@@ -196,7 +196,7 @@ class ActCrlLotte(ActCrlSupper):
             self.logger.info('영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. ')
             self.logger.info('--------------------------------------------------------------------------------------------------------')
 
-            def __daily_ticketingdata(cinemacode, spacialyn, cinemaname, link, succese):
+            def __daily_ticketingdata(cinemacode, link):
                 
                 def ___get_ability_day(chm_driver, date_range): # 유효한 날짜들의 인덱스만 배열로 구성한다.                    
 
@@ -215,10 +215,6 @@ class ActCrlLotte(ActCrlSupper):
                 
                 # [def ___get_ability_day(chm_driver, date_range):]
 
-                # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.총좌석수, 6.영화코드 )의 배열
-                _arrTickectRaw = []
-
-                self.logger.info(f'{spacialyn} {cinemaname}({cinemacode}[{succese}]) : URL {link}')
 
                 chm_driver.get(link)   # 웹사이트로 이동
                 time.sleep(0.5)
@@ -261,7 +257,6 @@ class ActCrlLotte(ActCrlSupper):
 
                             jsonpath_expr = parse('playDate').find(json_obj)
                             play_date = jsonpath_expr[0].value if jsonpath_expr else None
-
                             
                             json_obj = json.loads(response['content']['text'])  # JSON 파싱
 
@@ -316,13 +311,12 @@ class ActCrlLotte(ActCrlSupper):
                                                                             VALUES             (?,         ?,           ?,          ?,     ?      )   '''
                                                 parameters = (moviecode, moviename, filmnamekr, gubun, orgcode)
                                                 self.sql_cursor.execute(query, parameters)                            
-                                        #
-                                        self.sql_conn.commit()
+                                        #                                        
 
                                         self.logger.info(f"{moviecode}, {moviename}, {filmnamekr}, {gubun}")
 
-
                                         moviecode_old = moviecode
+
                                     # [if moviecode_old != moviecode:  # 같은 영화정보가(영화코드가) 여러번 들어오는걸 거른다. ]
                                 # [for match1 in jsonpath_expr[0].value: ]
                             # [if len(parse('PlaySeqsHeader.Items').find(json_obj)) == 1: ]
@@ -337,39 +331,50 @@ class ActCrlLotte(ActCrlSupper):
                                 self.logger.info(f'상영일 리스트 ({item_count}일간)    ')
                                 self.logger.info('-------------------------------------')
 
+                                self.sql_cursor.execute(' DELETE FROM lotte_playdate WHERE  cinemacode = ?',(cinemacode,))
+
                                 for items in jsonpath_expr[0].value:
                                     self.logger.info(str(items['PlayDate']))
-                            #
+
+                                    sql = '''INSERT OR REPLACE INTO lotte_playdate (cinemacode, playdate)
+                                                             VALUES                (?,          ?       )  '''
+                                    parameters = (cinemacode, str(items['PlayDate']))
+                                    self.sql_cursor.execute(sql, parameters)
+
+                                # [for items in jsonpath_expr[0].value:]
+                            # [if len(parse('PlayDates.Items').find(json_obj)) == 1:]
 
                             jsonpath_expr = parse('PlaySeqs.Items').find(json_obj)
                             if len(jsonpath_expr) == 1:
 
-                                # dicScreen를 먼저구하기 위해 2번 돈다.
-                                dic_screen = {}
+                                self.logger.info('--------------------')
+                                self.logger.info('상영관(코드), 좌석수')
+                                self.logger.info('--------------------')
 
                                 for play_data in jsonpath_expr[0].value:
                                     screenid = str(play_data['ScreenID'])  # 상영관 코드
                                     screennamekr = play_data['ScreenNameKR']  # 상영관명
                                     totalseatcount = play_data['TotalSeatCount']  # 총좌석수
 
-                                    cinemaid = str(play_data['CinemaID'])  # 극장코드 (월드타워)
+                                    cinemaid = str(play_data['CinemaID'])  # 극장코드  (1016) (월드타워)
+                                    screendivcode = str(play_data['ScreenDivisionCode']) # 부상영관코드 (960)
                                     screendivnamekr = play_data['ScreenDivisionNameKR']  # 부상영관명 (씨네패밀리)
-                                    screendivcode = str(play_data['ScreenDivisionCode'])  # 부상영관코드 (960)
 
-                                    if cinemaid == "1016" and screendivcode == "960":  # 월드타워 점 씨네패밀리 관 인경우
+                                    if cinemaid == "1016" and screendivcode == "960":  # '월드타워' 점 '씨네패밀리' 관 인경우
                                         screenid = screenid + "*"
                                         screennamekr = screennamekr + " " + screendivnamekr
 
-                                    dic_screen[screenid] = [screennamekr, totalseatcount]
+                                    screenid_1 = screenid[:4]
+                                    screenid_2 = screenid[-2:]
+
+                                    self.logger.info(f'{screennamekr}({screenid}), {totalseatcount}석')
+                                    
+                                    sql = '''INSERT OR REPLACE INTO lotte_screen (screencode, cinemacode, screenno, screenname, totalseatcount)
+                                                             VALUES              (?,          ?,          ?,        ?,          ?             )  '''
+                                    parameters = (screenid, screenid_1, screenid_2, screennamekr, totalseatcount)
+                                    self.sql_cursor.execute(sql, parameters)
 
                                 # [for PlayDate in jsonpath_expr[0].value:]
-
-                                self.logger.info('--------------------')
-                                self.logger.info('상영관(코드), 좌석수')
-                                self.logger.info('--------------------')
-
-                                for scr_key, scr_value in dic_screen.items():
-                                    self.logger.info(f'{scr_value[0]}({scr_key}), {scr_value[1]}석')
 
 
                                 self.logger.info('-------------------------------------------------------------------------------')
@@ -409,32 +414,25 @@ class ActCrlLotte(ActCrlSupper):
                                     #
                                     degree_no += 1
 
-                                    query = '''SELECT moviecode 
-                                                    , movienamekr
-                                                    , moviegenrename
-                                                    , filmnamekr                                            
+                                    query = '''SELECT moviecode, movienamekr, moviegenrename, filmnamekr                                            
                                                  FROM lotte_movie 
                                                 WHERE moviecode = ?   '''
                                     parameters = (moviecode,)
                                     self.sql_cursor.execute(query, parameters)                            
                                     if result := self.sql_cursor.fetchone(): # 첫 번째 결과 행 가져오기                      
 
-                                        #self.logger.info(f'[{theather_nm}] 일자, 상영관, 회차, 영화, 시작시간~끝시간, 예약좌석수/총좌석수')
-                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({screen_no}), {degree_no}, {result["movienamekr"]}({moviecode})[{result["moviegenrename"]}/{result["filmnamekr"]}], {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
-
-                                        # 상영정보( 0.일자, 1.상영관명, 2.시작시간, 3.종료시간, 4.예약좌석수, 5.총좌석수, 6.영화코드 )의 배열
-                                        _arrTickectRaw.append([playdt, screennamekr, starttime, endtime, bookingseatcount, totalseatcount, moviecode])
+                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({str(screen_no).zfill(2)}), {degree_no}, ({moviecode}){result["movienamekr"]}[{result["moviegenrename"]}/{result["filmnamekr"]}], {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
 
                                         sql = '''INSERT OR REPLACE INTO lotte_ticketing (cinemacode, playdt, screenno, degreeno, screennamekr, moviecode, starttime, endtime, bookingseatcount, totalseatcount)
                                                                  VALUES                 (?,          ?,      ?,        ?,        ?,            ?,         ?,         ?,       ?,                ?             )  '''
-                                        parameters = (cinemacode, playdt, screen_no, degree_no, screennamekr, moviecode, starttime, endtime, bookingseatcount, totalseatcount)
+                                        parameters = (cinemacode, playdt, str(screen_no).zfill(2), degree_no, screennamekr, moviecode, starttime, endtime, bookingseatcount, totalseatcount)
                                         self.sql_cursor.execute(sql, parameters)
                                     else:
-                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({screen_no}), {degree_no}, [영화정보매칭실패]({moviecode}), {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
+                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({str(screen_no).zfill(2)}), {degree_no}, [영화정보매칭실패]({moviecode}), {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
+                                    # [if result := self.sql_cursor.fetchone():]
 
                                 # [for PlayDate in jsonpath_expr[0].value:]
-
-                            # [ if len(jsonpath_expr = parse('PlaySeqs.Items').find(json_obj)) == 1:]
+                            # [if len(parse('PlaySeqs.Items').find(json_obj)) == 1:]
 
                         # [if request['url'] == "https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx":]
 
@@ -446,7 +444,6 @@ class ActCrlLotte(ActCrlSupper):
 
                 # [for i in range(nMin, (nMax+1)):  # 유효한 상영일만 순환  ]
 
-                return _arrTickectRaw
             # [def __daily_ticketingdata(cinemacode, spacialyn, cinemaname, link, succese):]
 
 
@@ -467,26 +464,26 @@ class ActCrlLotte(ActCrlSupper):
                     link       = row['link']
                     succese    = row['succese']
 
-                    if cinemacode not in [ #'1024'
-                                     #, '9098'
-                                      '9101'
-                                     , '9102'
-                                     ]:  # --------------------------------------------------------------- 디버깅용
+                    if cinemacode not in [ """ '1024', '9098' """ '9101', '9102' ]:  # --------------------------------------------------------------- 디버깅용
                         continue
 
                     try:
                         doit = True
 
-                        # 상영정보( 0.일자, 1.상영관코드, 2.회차번호, 3.상영관명, 4.시작시간, 5.종료시간, 6.예약좌석수, 7.총좌석수, 8.영화코드, 9.영화명 )의 배열
-                        _arrTickectRaw = __daily_ticketingdata(cinemacode, spacialyn, cinemaname, link, succese)  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test
+                        self.logger.info(f'{spacialyn} ({cinemacode}){cinemaname}[{succese}] : URL {link}')
+
+                        __daily_ticketingdata(cinemacode, link)  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test
 
                     except Exception as e:    
+                        self.sql_conn.rollback()
+
                         # 크롤링에 예외가 발생되어 실패
                         query = ''' UPDATE lotte_cinema
                                        SET succese = ?
                                      WHERE cinemacode  = ?   '''
                         parameters = ('X', cinemacode)
                         self.sql_cursor.execute(query, parameters)
+                        self.sql_conn.commit()
 
                         self.logger.error('-----------------------------------------------------------------------')
                         self.logger.error(f'상영관({cinemaname})크롤링에 예외가 발생되어 실패')
@@ -507,6 +504,7 @@ class ActCrlLotte(ActCrlSupper):
                         parameters = ('O', cinemacode)
                         self.sql_cursor.execute(query, parameters)
 
+                        self.sql_conn.commit()
                     finally: 
                         pass  # 예외 발생 여부와 관계없이 항상 실행되는 코드
 
@@ -546,8 +544,8 @@ class ActCrlLotte(ActCrlSupper):
             proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 요청 캡처 활성화
 
             # ------------------------------
-            #_crawlLotte_1_boxoffice(chrome_driver)  # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
-            #_crawlLotte_2_cinema(chrome_driver)     # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다.             
+            _crawlLotte_1_boxoffice(chrome_driver)  # 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
+            _crawlLotte_2_cinema(chrome_driver)     # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다.             
             _crawlLotte_3_ticketing(chrome_driver)  # 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)
             # ------------------------------
 

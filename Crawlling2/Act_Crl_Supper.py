@@ -4,7 +4,6 @@ import sqlite3
 import os
 
 
-
 def zip_file(file_path, zip_path):
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
         zipf.write(file_path, os.path.basename(file_path))
@@ -17,9 +16,9 @@ def unzip_file(zip_path, extract_path):
 class ActCrlSupper(metaclass=ABCMeta):
     
     # __init__, __del__ =================================================================
-    def __init__(self): # 생성자
+    def __init__(self, db_filename): # 생성자
 
-        self.db_filename = 'action_crawl.db'
+        self.db_filename = db_filename
 
         zip_file_name = self.db_filename + ".zip"
         zip_path = os.path.join(os.getcwd(), zip_file_name)
@@ -33,6 +32,8 @@ class ActCrlSupper(metaclass=ABCMeta):
         self.sql_conn = sqlite3.connect(self.db_filename) # Connect to SQLite database
         self.sql_cursor = self.sql_conn.cursor()
 
+        
+        # lotte_movie  ------------------------------------------
         query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_movie' '''
         self.sql_cursor.execute(query)
         table_exists = self.sql_cursor.fetchone()
@@ -50,6 +51,8 @@ class ActCrlSupper(metaclass=ABCMeta):
                                                                )                                           '''
             self.sql_cursor.execute(query)
 
+        
+        # lotte_cinema  ------------------------------------------
         query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_cinema' '''
         self.sql_cursor.execute(query)
         table_exists = self.sql_cursor.fetchone()
@@ -63,6 +66,39 @@ class ActCrlSupper(metaclass=ABCMeta):
                                                                 )                                           '''
             self.sql_cursor.execute(query)
 
+        
+        # lotte_playdate  ------------------------------------------
+        query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_playdate' '''
+        self.sql_cursor.execute(query)
+        table_exists = self.sql_cursor.fetchone()
+
+        if not table_exists:
+            query = ''' CREATE TABLE IF NOT EXISTS lotte_playdate ( cinemacode  TEXT
+                                                                  , playdate    TEXT
+                                                                  , PRIMARY KEY (cinemacode, playdate)
+                                                                  )                                          '''
+            self.sql_cursor.execute(query)
+
+        
+        # lotte_screen  ------------------------------------------
+        query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_screen' '''
+        self.sql_cursor.execute(query)
+        table_exists = self.sql_cursor.fetchone()
+
+        if not table_exists:
+            query = ''' CREATE TABLE IF NOT EXISTS lotte_screen ( screencode     TEXT PRIMARY KEY
+                                                                , cinemacode     TEXT NOT NULL
+                                                                , screenno       TEXT NOT NULL
+                                                                , screenname     TEXT NOT NULL
+                                                                , totalseatcount INT NOT NULL
+                                                                  )                                          '''
+            self.sql_cursor.execute(query)
+            
+            query = ''' CREATE INDEX IF NOT EXISTS idx_cinemacode_screenname ON lotte_screen (cinemacode, screenname) '''
+            self.sql_cursor.execute(query)
+
+        
+        # lotte_ticketing  ------------------------------------------
         query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_ticketing' '''
         self.sql_cursor.execute(query)
         table_exists = self.sql_cursor.fetchone()
