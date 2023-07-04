@@ -253,11 +253,6 @@ class ActCrlLotte(ActCrlSupper):
 
                         if request['url'] == "https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx":
 
-                            json_obj = json.loads(request['postData']['text'].split('\r\n')[3])
-
-                            jsonpath_expr = parse('playDate').find(json_obj)
-                            play_date = jsonpath_expr[0].value if jsonpath_expr else None
-                            
                             json_obj = json.loads(response['content']['text'])  # JSON 파싱
 
                             jsonpath_expr = parse('PlaySeqsHeader.Items').find(json_obj)
