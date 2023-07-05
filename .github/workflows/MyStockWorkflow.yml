@@ -17,4 +17,4 @@ jobs:
       - name: Install dependencies
         run: pip install -r pipInstalls.txt
       - name: Run python script
-        run: python Snp_PriceSqlite.py
+        run: python SnP500/Snp_PriceSqlite.py
