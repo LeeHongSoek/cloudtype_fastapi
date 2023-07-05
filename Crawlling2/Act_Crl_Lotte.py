@@ -217,7 +217,7 @@ class ActCrlLotte(ActCrlSupper):
                 chm_driver.get(link)   # 웹사이트로 이동
                 chm_driver.implicitly_wait(1)  # 1초 대기
 
-                theather_nm = chm_driver.find_elements(By.XPATH, '//*[@id="contents"]/div[1]/div[1]/h3')[0].text  # 타이틀의 극장명을 읽는다.
+                theather_nm = chm_driver.find_elements(By.XPATH,  '//h3[@class="tit"]')[0].text  # 타이틀의 극장명을 읽는다.
 
                 button = chm_driver.find_elements(By.XPATH, '//*[text()="확인"]')  # 난데없는 팝업창이 나오면 '확인'을 누를다...
                 if len(button) > 0:  # 버튼이 발견되면...
@@ -432,8 +432,7 @@ class ActCrlLotte(ActCrlSupper):
                     # break  # ------------------------------------- 디버깅용
 
                 # [for i in range(nMin, (nMax+1)):  # 유효한 상영일만 순환  ]
-
-            # [def __3_daily_ticketingdata(cinemacode, spacialyn, cinemaname, link, succese):]
+            # [def __3_daily_ticketingdata(cinemacode, link):]
 
             while True:  # 루프를 계속해서 반복합니다.
 
