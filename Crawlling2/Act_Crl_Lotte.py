@@ -28,15 +28,17 @@ class ActCrlLotte(ActCrlSupper):
     # __init__, __del__ =================================================================
     def __init__(self, date_range): # 생성자
 
-        super().__init__('action_crawl_lotte.db')
-
         self.logger = get_logger('lotte')   # 파이션 로그
         self.date_range = date_range        # 크롤링 할 날 수
+
+        super().__init__(type(self).__name__)
+    # [def __init__(self, date_range): # 생성자]
 
     def __del__(self): # 소멸자
 
         clear_logger('lotte')  # 한달전 로그파일을 삭제한다.
-        super().__del__()
+        super().__del__(type(self).__name__)
+    # [def __del__(self): # 소멸자]
 
     # -----------------------------------------------------------------------------------
 
@@ -359,7 +361,7 @@ class ActCrlLotte(ActCrlSupper):
 
 
                                 self.logger.info('-------------------------------------------------------------------------------')
-                                self.logger.info(f'[{theather_nm}] 일자, 상영관, 회차, 영화, 시작시간~끝시간, 예약좌석수/총좌석수')
+                                self.logger.info(f'[{theather_nm}] 일자, 상영관, 회차, 시작시간~끝시간, 예약좌석수/총좌석수, 영화')
                                 self.logger.info('-------------------------------------------------------------------------------')
 
                                 screenid_old = None
@@ -409,14 +411,14 @@ class ActCrlLotte(ActCrlSupper):
                                     self.sql_cursor.execute(query, parameters)
                                     if result := self.sql_cursor.fetchone(): # 첫 번째 결과 행 가져오기                      
 
-                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({screencode}), {degree_no}, ({moviecode}){result["moviename"]}[{result["moviegenrename"]}/{result["filmname"]}], {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
+                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({screencode}), {degree_no}, {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}, ({moviecode}){result["moviename"]}[{result["moviegenrename"]}/{result["filmname"]}]')
 
                                         sql = '''INSERT OR REPLACE INTO lotte_ticketing (cinemacode, playdt, screencode, degreeno, moviecode, starttime, endtime, bookingseatcount)
                                                                  VALUES                 (?,          ?,      ?,        ?,        ?,         ?,         ?,       ?               )  '''
                                         parameters = (cinemacode, playdt, screencode, degree_no, moviecode, starttime, endtime, bookingseatcount)
                                         self.sql_cursor.execute(sql, parameters)
                                     else:
-                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({screencode}), {degree_no}, [영화정보매칭실패]({moviecode}), {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
+                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({screencode}), {degree_no}, {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}, [영화정보매칭실패]({moviecode})')
                                     # [if result := self.sql_cursor.fetchone():]
 
                                 # [for PlayDate in jsonpath_expr[0].value:]
@@ -427,17 +429,17 @@ class ActCrlLotte(ActCrlSupper):
                     # [for entry in proxy.har['log']['entries']:  # 캡처된 각 요청의 세부 정보 출력]
 
                     proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 복수 실행을 위해 캡처된 요청 초기화
-
                     # break  # ------------------------------------- 디버깅용
 
                 # [for i in range(nMin, (nMax+1)):  # 유효한 상영일만 순환  ]
+
             # [def __3_daily_ticketingdata(cinemacode, spacialyn, cinemaname, link, succese):]
 
             while True:  # 루프를 계속해서 반복합니다.
 
                 doit = False
 
-                # 스페셜 극장은 빠진다.  이미 크롤링에 성공한 상영관은 열외
+                # 스페셜 극장은 빠진다. 이미 크롤링에 성공한 상영관은 열외 실패하면 다시 반복~!!
                 query = ''' SELECT cinemacode, spacialyn, cinemaname, link, succese  
                               FROM lotte_cinema  
                              WHERE spacialyn='N' AND (succese = '_' OR succese = 'X')  '''  
@@ -450,13 +452,17 @@ class ActCrlLotte(ActCrlSupper):
                     link       = row['link']
                     succese    = row['succese']
 
-                    if cinemacode not in [  '1016',  '9098' """, '9102' """]:  # --------------------------------------------------------------- 디버깅용
+                    if cinemacode not in [  '1016',  '1013', """, '9102' """]:  # --------------------------------------------------------------- 디버깅용
                         continue
 
                     try:
                         doit = True
 
-                        self.logger.info(f'{spacialyn} ({cinemacode}){cinemaname}[{succese}] : URL {link}')
+                        self.logger.info('')
+                        self.logger.info('========================================================================================================')
+                        self.logger.info(f'--  [{spacialyn}{succese}] ({cinemacode}){cinemaname}   ')
+                        self.logger.info(f'--  {link}  ')
+                        self.logger.info('--------------------------------------------------------------------------------------------------------')
 
                         __3_daily_ticketingdata(cinemacode, link)  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test (0 / 0)
 

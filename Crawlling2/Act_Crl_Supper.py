@@ -20,19 +20,20 @@ class ActCrlSupper(metaclass=ABCMeta):
 
         self.db_filename = db_filename
 
-        zip_file_name = self.db_filename + ".zip"
+        zip_file_name = self.db_filename + '.zip'
         zip_path = os.path.join(os.getcwd(), zip_file_name)
         extract_path = os.getcwd()
 
         if os.path.exists(zip_path):
+            self.logger.info(f' 파일 {zip_file_name} 을 압축해제! ')
             unzip_file(zip_path, extract_path)
         else:
-            print(f"파일 '{zip_file_name}' 가 존재하지 않습니다. ")
+            self.logger.info(f"파일 '{zip_file_name}' 가 존재하지 않습니다. ")
 
-        self.sql_conn = sqlite3.connect(self.db_filename) # Connect to SQLite database
+        self.sql_conn = sqlite3.connect(self.db_filename + '.db') # Connect to SQLite database
         self.sql_cursor = self.sql_conn.cursor()
 
-        if db_filename == 'action_crawl_lotte.db':
+        if db_filename == 'ActCrlLotte':
 
             # lotte_movie  ------------------------------------------
             query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_movie' '''
@@ -143,11 +144,16 @@ class ActCrlSupper(metaclass=ABCMeta):
             """
             self.sql_conn.commit()
 
-        # [if db_filename == 'action_crawl_lotte.db':]
+        # [if db_filename == 'ActCrlLotte':]
+    # [def __init__(self, db_filename): # 생성자]    
             
-    def __del__(self): # 소멸자
-        zip_file(self.db_filename, self.db_filename+".zip")
-        
+    def __del__(self, db_filename): # 소멸자
+        if db_filename == 'ActCrlLotte':
+            self.logger.info(f' 파일 {db_filename} 을 압축 ')
+            zip_file(self.db_filename+'.db', self.db_filename+".zip")
+        # [if db_filename == 'ActCrlLotte':]
+    # [def __del__(self, db_filename): # 소멸자]    
+
     # -----------------------------------------------------------------------------------
 
     delayTime = 2  # 딜레이(초)
