@@ -33,6 +33,7 @@ class ActCrlSupper(metaclass=ABCMeta):
         self.sql_cursor = self.sql_conn.cursor()
 
         if db_filename == 'action_crawl_lotte.db':
+
             # lotte_movie  ------------------------------------------
             query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_movie' '''
             self.sql_cursor.execute(query)
@@ -40,15 +41,15 @@ class ActCrlSupper(metaclass=ABCMeta):
 
             if not table_exists:
                 query = ''' CREATE TABLE IF NOT EXISTS lotte_movie ( moviecode        TEXT PRIMARY KEY
-                                                                , moviename        TEXT NOT NULL  /* 영화명 */
-                                                                , moviegenrename   TEXT NULL      /* ex) 공포, 다큐, 드라마 */
-                                                                , filmname         TEXT NULL      /* ex) 2D 4D */
-                                                                , gubun            TEXT NULL      /* ex) 더빙 자막 */
-                                                                , bookingyn        TEXT NULL      /* 예매여부 */
-                                                                , releasedate      TEXT NULL      /* 개봉일 */
-                                                                , viewgradenameus  TEXT NULL      /* ..관람가 */
-                                                                , orgcode          TEXT NULL      /* 영화명이 같고 코드가 다를때 기준영화의 코드 */
-                                                                )                                           '''
+                                                                   , moviename        TEXT NOT NULL  /* 영화명 */
+                                                                   , moviegenrename   TEXT NULL      /* ex) 공포, 다큐, 드라마 */
+                                                                   , filmname         TEXT NULL      /* ex) 2D 4D */
+                                                                   , gubun            TEXT NULL      /* ex) 더빙 자막 */
+                                                                   , bookingyn        TEXT NULL      /* 예매여부 */
+                                                                   , releasedate      TEXT NULL      /* 개봉일 */
+                                                                   , viewgradenameus  TEXT NULL      /* ..관람가 */
+                                                                   , orgcode          TEXT NULL      /* 영화명이 같고 코드가 다를때 기준영화의 코드 */
+                                                                   )                                           '''
                 self.sql_cursor.execute(query)
 
             
@@ -105,15 +106,15 @@ class ActCrlSupper(metaclass=ABCMeta):
 
             if not table_exists:
                 query = ''' CREATE TABLE IF NOT EXISTS lotte_ticketing ( cinemacode        TEXT
-                                                                    , playdt            TEXT
-                                                                    , screenno          TEXT
-                                                                    , degreeno          INT
-                                                                    , moviecode         TEXT NOT NULL
-                                                                    , starttime         TEXT NOT NULL
-                                                                    , endtime           TEXT NOT NULL
-                                                                    , bookingseatcount  INT NOT NULL
-                                                                    , PRIMARY KEY (cinemacode, playdt, screenno, degreeno)
-                                                                    )                                          '''
+                                                                       , playdt            TEXT
+                                                                       , screenno          TEXTy    
+                                                                       , degreeno          INT
+                                                                       , moviecode         TEXT NOT NULL
+                                                                       , starttime         TEXT NOT NULL
+                                                                       , endtime           TEXT NOT NULL
+                                                                       , bookingseatcount  INT NOT NULL
+                                                                       , PRIMARY KEY (cinemacode, playdt, screenno, degreeno)
+                                                                       )                                          '''
                 self.sql_cursor.execute(query)
 
 
@@ -133,7 +134,7 @@ class ActCrlSupper(metaclass=ABCMeta):
             FROM lotte_ticketing LT         
             """
             self.sql_conn.commit()
-            
+
         # [if db_filename == 'action_crawl_lotte.db':]
             
     def __del__(self): # 소멸자
