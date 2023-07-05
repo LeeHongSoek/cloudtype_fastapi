@@ -450,7 +450,7 @@ class ActCrlLotte(ActCrlSupper):
                     link       = row['link']
                     succese    = row['succese']
 
-                    if cinemacode not in [  '1016', """ '9098', '9101' , '9102' """]:  # --------------------------------------------------------------- 디버깅용
+                    if cinemacode not in [  '1016',  '9098' """, '9102' """]:  # --------------------------------------------------------------- 디버깅용
                         continue
 
                     try:
