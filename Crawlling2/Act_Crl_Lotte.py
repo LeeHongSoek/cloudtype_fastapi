@@ -460,7 +460,7 @@ class ActCrlLotte(ActCrlSupper):
 
                         self.logger.info('')
                         self.logger.info('========================================================================================================')
-                        self.logger.info(f'--  [{spacialyn}{succese}] ({cinemacode}){cinemaname}   ')
+                        self.logger.info(f'--  [{spacialyn}][{succese}] ({cinemacode}){cinemaname}   ')
                         self.logger.info(f'--  {link}  ')
                         self.logger.info('--------------------------------------------------------------------------------------------------------')
 
