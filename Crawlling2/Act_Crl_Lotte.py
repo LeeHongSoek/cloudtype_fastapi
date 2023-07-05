@@ -336,8 +336,6 @@ class ActCrlLotte(ActCrlSupper):
                                 screenid_old = None
                                 for play_data in jsonpath_expr[0].value:
                                     screenid = str(play_data['ScreenID'])  # 상영관 코드
-                                    screenid_1 = screenid[:4]
-                                    screenid_2 = screenid[-2:]                                    
                                     screennamekr = play_data['ScreenNameKR']  # 상영관명
                                     totalseatcount = play_data['TotalSeatCount']  # 총좌석수
 
@@ -345,18 +343,13 @@ class ActCrlLotte(ActCrlSupper):
                                     screendivcode = str(play_data['ScreenDivisionCode']) # 부상영관코드 (960)
                                     screendivnamekr = play_data['ScreenDivisionNameKR']  # 부상영관명 (씨네패밀리)
 
-                                    if cinemaid == "1016" and screendivcode == "960":  # '월드타워' 점 '씨네패밀리' 관 인경우
-                                        screenid = screenid + "*"
-                                        screenid_2 = screenid[-3:]                                    
-                                        screennamekr = screennamekr + " " + screendivnamekr
-
                                     if screenid_old != screenid:
 
                                         self.logger.info(f'{screennamekr}({screenid}), {totalseatcount}석')
                                         
-                                        sql = '''INSERT OR REPLACE INTO lotte_screen (screencode, cinemacode, screenno, screenname, totalseatcount)
-                                                                 VALUES              (?,          ?,          ?,        ?,          ?             )  '''
-                                        parameters = (screenid, screenid_1, screenid_2, screennamekr, totalseatcount)
+                                        sql = '''INSERT OR REPLACE INTO lotte_screen (screencode, cinemacode, screenname, screendivname, totalseatcount)
+                                                                 VALUES              (?,          ?,          ?,          ?,             ?             )  '''
+                                        parameters = (screenid, cinemacode, screennamekr, screendivnamekr, totalseatcount)
                                         self.sql_cursor.execute(sql, parameters)
 
                                         screenid_old = screenid
@@ -385,12 +378,11 @@ class ActCrlLotte(ActCrlSupper):
                                     endtime = play_data['EndTime']  # 상영시간(끝)
 
                                     cinemaid = str(play_data['CinemaID'])  # 극장코드 (월드타워)
-                                    screendivnamekr = play_data['ScreenDivisionNameKR']  # 부상영관명 (씨네패밀리)
                                     screendivcode = str(play_data['ScreenDivisionCode'])  # 부상영관코드 (960)
+                                    screendivnamekr = play_data['ScreenDivisionNameKR']  # 부상영관명 (씨네패밀리)
 
-                                    if cinemaid == "1016" and screendivcode == "960":  # 월드타워 점 씨네패밀리 관 인경우
+                                    if screendivnamekr != "일반":  # '월드타워' 점 '씨네패밀리' 관 같이 특별관인경우    
                                         screenid = screenid + "*"
-                                        screennamekr = screennamekr + " " + screendivnamekr
                                     #
 
                                     if screenid_old != screenid:
@@ -399,7 +391,7 @@ class ActCrlLotte(ActCrlSupper):
                                     #
                                     degree_no += 1
 
-                                    query = ''' SELECT screenno, totalseatcount 
+                                    query = ''' SELECT screencode, totalseatcount 
                                                   FROM lotte_screen
                                                  WHERE cinemacode = ?
                                                    AND screenname = ?            '''
@@ -407,7 +399,7 @@ class ActCrlLotte(ActCrlSupper):
                                     self.sql_cursor.execute(query, parameters)
                                     self.sql_cursor.row_factory = sqlite3.Row
                                     if result := self.sql_cursor.fetchone(): # 첫 번째 결과 행 가져오기                      
-                                        screenno       = result['screenno']
+                                        screencode     = result['screencode']
                                         totalseatcount = result['totalseatcount']
                                         
                                     query = ''' SELECT moviecode, moviename, moviegenrename, filmname                                            
@@ -417,14 +409,14 @@ class ActCrlLotte(ActCrlSupper):
                                     self.sql_cursor.execute(query, parameters)
                                     if result := self.sql_cursor.fetchone(): # 첫 번째 결과 행 가져오기                      
 
-                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({screenno}), {degree_no}, ({moviecode}){result["moviename"]}[{result["moviegenrename"]}/{result["filmname"]}], {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
+                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({screencode}), {degree_no}, ({moviecode}){result["moviename"]}[{result["moviegenrename"]}/{result["filmname"]}], {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
 
-                                        sql = '''INSERT OR REPLACE INTO lotte_ticketing (cinemacode, playdt, screenno, degreeno, moviecode, starttime, endtime, bookingseatcount)
+                                        sql = '''INSERT OR REPLACE INTO lotte_ticketing (cinemacode, playdt, screencode, degreeno, moviecode, starttime, endtime, bookingseatcount)
                                                                  VALUES                 (?,          ?,      ?,        ?,        ?,         ?,         ?,       ?               )  '''
-                                        parameters = (cinemacode, playdt, screenno, degree_no, moviecode, starttime, endtime, bookingseatcount)
+                                        parameters = (cinemacode, playdt, screencode, degree_no, moviecode, starttime, endtime, bookingseatcount)
                                         self.sql_cursor.execute(sql, parameters)
                                     else:
-                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({screenno}), {degree_no}, [영화정보매칭실패]({moviecode}), {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
+                                        self.logger.info(f'{playdt[-2:]}, {screennamekr}({screencode}), {degree_no}, [영화정보매칭실패]({moviecode}), {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}')
                                     # [if result := self.sql_cursor.fetchone():]
 
                                 # [for PlayDate in jsonpath_expr[0].value:]
@@ -458,7 +450,7 @@ class ActCrlLotte(ActCrlSupper):
                     link       = row['link']
                     succese    = row['succese']
 
-                    if cinemacode not in [  '1013', """ '9098', '9101' , '9102' """]:  # --------------------------------------------------------------- 디버깅용
+                    if cinemacode not in [  '1016', """ '9098', '9101' , '9102' """]:  # --------------------------------------------------------------- 디버깅용
                         continue
 
                     try:

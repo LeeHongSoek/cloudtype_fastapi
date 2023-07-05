@@ -89,8 +89,8 @@ class ActCrlSupper(metaclass=ABCMeta):
             if not table_exists:
                 query = ''' CREATE TABLE IF NOT EXISTS lotte_screen ( screencode     TEXT PRIMARY KEY
                                                                     , cinemacode     TEXT NOT NULL
-                                                                    , screenno       TEXT NOT NULL
                                                                     , screenname     TEXT NOT NULL
+                                                                    , screendivname  TEXT NOT NULL
                                                                     , totalseatcount INT NOT NULL
                                                                     )                                          '''
                 self.sql_cursor.execute(query)
@@ -107,31 +107,39 @@ class ActCrlSupper(metaclass=ABCMeta):
             if not table_exists:
                 query = ''' CREATE TABLE IF NOT EXISTS lotte_ticketing ( cinemacode        TEXT
                                                                        , playdt            TEXT
-                                                                       , screenno          TEXTy    
+                                                                       , screencode        TEXT    
                                                                        , degreeno          INT
                                                                        , moviecode         TEXT NOT NULL
                                                                        , starttime         TEXT NOT NULL
                                                                        , endtime           TEXT NOT NULL
                                                                        , bookingseatcount  INT NOT NULL
-                                                                       , PRIMARY KEY (cinemacode, playdt, screenno, degreeno)
-                                                                       )                                          '''
+                                                                       , PRIMARY KEY (cinemacode, playdt, screencode, degreeno)
+                                                                       )                                                       '''
                 self.sql_cursor.execute(query)
 
 
             """
-            SELECT cinemacode
-                , (SELECT cinemaname FROM lotte_cinema WHERE cinemacode = LT.cinemacode)  cinemaname 
-                , playdt
-                , screenno
-                , (SELECT screenname FROM lotte_screen WHERE cinemacode = LT.cinemacode AND screenno = LT.screenno)  cinemaname 
-                , degreeno
-                , moviecode     
-                , (SELECT moviename FROM lotte_movie WHERE moviecode = LT.moviecode )  moviename
-                , starttime
-                , endtime
-                , bookingseatcount
-                , (SELECT totalseatcount FROM lotte_screen WHERE cinemacode = LT.cinemacode AND screenno = LT.screenno)  totalseatcount 
+           SELECT LT.cinemacode
+                , LC.cinemaname
+                , LT.playdt
+                , LT.screencode
+                , LS.screenname
+                , LS.screendivname
+                , LT.degreeno
+                , LT.moviecode     
+                , LM.moviename
+                , LT.starttime
+                , LT.endtime
+                , LT.bookingseatcount
+                , LS.totalseatcount                
             FROM lotte_ticketing LT         
+       left join lotte_cinema LC
+              on LC.cinemacode = LT.cinemacode              
+       left join lotte_screen LS
+              on LS.cinemacode = LT.cinemacode
+             AND LS.screencode = LT.screencode
+       left join lotte_movie LM
+              on LM.moviecode = LT.moviecode
             """
             self.sql_conn.commit()
 
