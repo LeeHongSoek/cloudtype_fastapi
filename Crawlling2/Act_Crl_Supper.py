@@ -32,93 +32,109 @@ class ActCrlSupper(metaclass=ABCMeta):
         self.sql_conn = sqlite3.connect(self.db_filename) # Connect to SQLite database
         self.sql_cursor = self.sql_conn.cursor()
 
-        
-        # lotte_movie  ------------------------------------------
-        query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_movie' '''
-        self.sql_cursor.execute(query)
-        table_exists = self.sql_cursor.fetchone()
-
-        if not table_exists:
-            query = ''' CREATE TABLE IF NOT EXISTS lotte_movie ( moviecode        TEXT PRIMARY KEY
-                                                               , movienamekr      TEXT NOT NULL  /* 영화명 */
-                                                               , moviegenrename   TEXT NULL      /* ex) 공포, 다큐, 드라마 */
-                                                               , filmnamekr       TEXT NULL      /* ex) 2D 4D */
-                                                               , gubun            TEXT NULL      /* ex) 더빙 자막 */
-                                                               , bookingyn        TEXT NULL      /* 예매여부 */
-                                                               , releasedate      TEXT NULL      /* 개봉일 */
-                                                               , viewgradenameus  TEXT NULL      /* ..관람가 */
-                                                               , orgcode          TEXT NULL      /* 영화명이 같고 코드가 다를때 기준영화의 코드 */
-                                                               )                                           '''
+        if db_filename == 'action_crawl_lotte.db':
+            # lotte_movie  ------------------------------------------
+            query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_movie' '''
             self.sql_cursor.execute(query)
+            table_exists = self.sql_cursor.fetchone()
 
-        
-        # lotte_cinema  ------------------------------------------
-        query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_cinema' '''
-        self.sql_cursor.execute(query)
-        table_exists = self.sql_cursor.fetchone()
-
-        if not table_exists:
-            query = ''' CREATE TABLE IF NOT EXISTS lotte_cinema ( cinemacode  TEXT PRIMARY KEY
-                                                                , spacialyn   TEXT NOT NULL /* 스페셜관여부 */
-                                                                , cinemaname  TEXT NOT NULL /* 극장명 */
-                                                                , link        TEXT NOT NULL /* url(임시) */
-                                                                , succese     TEXT NOT NULL /* 크롤링성공여부(임시) */
+            if not table_exists:
+                query = ''' CREATE TABLE IF NOT EXISTS lotte_movie ( moviecode        TEXT PRIMARY KEY
+                                                                , moviename        TEXT NOT NULL  /* 영화명 */
+                                                                , moviegenrename   TEXT NULL      /* ex) 공포, 다큐, 드라마 */
+                                                                , filmname         TEXT NULL      /* ex) 2D 4D */
+                                                                , gubun            TEXT NULL      /* ex) 더빙 자막 */
+                                                                , bookingyn        TEXT NULL      /* 예매여부 */
+                                                                , releasedate      TEXT NULL      /* 개봉일 */
+                                                                , viewgradenameus  TEXT NULL      /* ..관람가 */
+                                                                , orgcode          TEXT NULL      /* 영화명이 같고 코드가 다를때 기준영화의 코드 */
                                                                 )                                           '''
-            self.sql_cursor.execute(query)
+                self.sql_cursor.execute(query)
 
-        
-        # lotte_playdate  ------------------------------------------
-        query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_playdate' '''
-        self.sql_cursor.execute(query)
-        table_exists = self.sql_cursor.fetchone()
-
-        if not table_exists:
-            query = ''' CREATE TABLE IF NOT EXISTS lotte_playdate ( cinemacode  TEXT
-                                                                  , playdate    TEXT
-                                                                  , PRIMARY KEY (cinemacode, playdate)
-                                                                  )                                          '''
-            self.sql_cursor.execute(query)
-
-        
-        # lotte_screen  ------------------------------------------
-        query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_screen' '''
-        self.sql_cursor.execute(query)
-        table_exists = self.sql_cursor.fetchone()
-
-        if not table_exists:
-            query = ''' CREATE TABLE IF NOT EXISTS lotte_screen ( screencode     TEXT PRIMARY KEY
-                                                                , cinemacode     TEXT NOT NULL
-                                                                , screenno       TEXT NOT NULL
-                                                                , screenname     TEXT NOT NULL
-                                                                , totalseatcount INT NOT NULL
-                                                                  )                                          '''
-            self.sql_cursor.execute(query)
             
-            query = ''' CREATE INDEX IF NOT EXISTS idx_cinemacode_screenname ON lotte_screen (cinemacode, screenname) '''
+            # lotte_cinema  ------------------------------------------
+            query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_cinema' '''
             self.sql_cursor.execute(query)
+            table_exists = self.sql_cursor.fetchone()
 
-        
-        # lotte_ticketing  ------------------------------------------
-        query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_ticketing' '''
-        self.sql_cursor.execute(query)
-        table_exists = self.sql_cursor.fetchone()
+            if not table_exists:
+                query = ''' CREATE TABLE IF NOT EXISTS lotte_cinema ( cinemacode  TEXT PRIMARY KEY
+                                                                    , spacialyn   TEXT NOT NULL /* 스페셜관여부 */
+                                                                    , cinemaname  TEXT NOT NULL /* 극장명 */
+                                                                    , link        TEXT NOT NULL /* url(임시) */
+                                                                    , succese     TEXT NOT NULL /* 크롤링성공여부(임시) */
+                                                                    )                                           '''
+                self.sql_cursor.execute(query)
 
-        if not table_exists:
-            query = ''' CREATE TABLE IF NOT EXISTS lotte_ticketing ( cinemacode        TEXT
-                                                                   , playdt            TEXT
-                                                                   , screenno          TEXT
-                                                                   , degreeno          INT
-                                                                   , screennamekr      TEXT NOT NULL
-                                                                   , moviecode         TEXT NOT NULL
-                                                                   , starttime         TEXT NOT NULL
-                                                                   , endtime           TEXT NOT NULL
-                                                                   , bookingseatcount  INT NOT NULL
-                                                                   , totalseatcount    INT NOT NULL
-                                                                   , PRIMARY KEY (cinemacode, playdt, screenno, degreeno)
-                                                                   )                                          '''
+            
+            # lotte_playdate  ------------------------------------------
+            query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_playdate' '''
             self.sql_cursor.execute(query)
+            table_exists = self.sql_cursor.fetchone()
 
-        self.sql_conn.commit()
+            if not table_exists:
+                query = ''' CREATE TABLE IF NOT EXISTS lotte_playdate ( cinemacode  TEXT
+                                                                    , playdate    TEXT
+                                                                    , PRIMARY KEY (cinemacode, playdate)
+                                                                    )                                          '''
+                self.sql_cursor.execute(query)
+
+            
+            # lotte_screen  ------------------------------------------
+            query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_screen' '''
+            self.sql_cursor.execute(query)
+            table_exists = self.sql_cursor.fetchone()
+
+            if not table_exists:
+                query = ''' CREATE TABLE IF NOT EXISTS lotte_screen ( screencode     TEXT PRIMARY KEY
+                                                                    , cinemacode     TEXT NOT NULL
+                                                                    , screenno       TEXT NOT NULL
+                                                                    , screenname     TEXT NOT NULL
+                                                                    , totalseatcount INT NOT NULL
+                                                                    )                                          '''
+                self.sql_cursor.execute(query)
+                
+                query = ''' CREATE INDEX IF NOT EXISTS idx_cinemacode_screenname ON lotte_screen (cinemacode, screenname) '''
+                self.sql_cursor.execute(query)
+
+            
+            # lotte_ticketing  ------------------------------------------
+            query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_ticketing' '''
+            self.sql_cursor.execute(query)
+            table_exists = self.sql_cursor.fetchone()
+
+            if not table_exists:
+                query = ''' CREATE TABLE IF NOT EXISTS lotte_ticketing ( cinemacode        TEXT
+                                                                    , playdt            TEXT
+                                                                    , screenno          TEXT
+                                                                    , degreeno          INT
+                                                                    , moviecode         TEXT NOT NULL
+                                                                    , starttime         TEXT NOT NULL
+                                                                    , endtime           TEXT NOT NULL
+                                                                    , bookingseatcount  INT NOT NULL
+                                                                    , PRIMARY KEY (cinemacode, playdt, screenno, degreeno)
+                                                                    )                                          '''
+                self.sql_cursor.execute(query)
+
+
+            """
+            SELECT cinemacode
+                , (SELECT cinemaname FROM lotte_cinema WHERE cinemacode = LT.cinemacode)  cinemaname 
+                , playdt
+                , screenno
+                , (SELECT screenname FROM lotte_screen WHERE cinemacode = LT.cinemacode AND screenno = LT.screenno)  cinemaname 
+                , degreeno
+                , moviecode     
+                , (SELECT moviename FROM lotte_movie WHERE moviecode = LT.moviecode )  moviename
+                , starttime
+                , endtime
+                , bookingseatcount
+                , (SELECT totalseatcount FROM lotte_screen WHERE cinemacode = LT.cinemacode AND screenno = LT.screenno)  totalseatcount 
+            FROM lotte_ticketing LT         
+            """
+            self.sql_conn.commit()
+            
+        # [if db_filename == 'action_crawl_lotte.db':]
             
     def __del__(self): # 소멸자
         zip_file(self.db_filename, self.db_filename+".zip")
