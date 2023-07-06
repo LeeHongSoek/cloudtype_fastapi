@@ -22,9 +22,9 @@ if (query := root.find(f"query[@id='{query_id}']")) is not None:
     sql = query.text.strip()
 
     # INSERT 쿼리에 실제 값 대입
-    user_id = 2
-    name = 'lee'
-    age = 30
+    user_id = 30
+    name = 'park'
+    age = '2s0'
 
     cursor.execute(sql, (user_id, name, age))
 

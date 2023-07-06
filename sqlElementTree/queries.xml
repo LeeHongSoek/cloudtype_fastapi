@@ -4,7 +4,7 @@
       CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY,
         name TEXT,
-        age INTEGER
+        age INTEGER CHECK (typeof(age) = 'integer')
       )
     ]]>
   </query>
