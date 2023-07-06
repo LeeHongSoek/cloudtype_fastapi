@@ -1,6 +1,8 @@
 from Crawlling2.Act_Crl_Supper import ActCrlSupper
 from Act_Tol_Logger import get_logger, clear_logger
 
+import sqlite3
+
 class ActCrlCgv(ActCrlSupper):
 
     # __init__, __del__ =================================================================

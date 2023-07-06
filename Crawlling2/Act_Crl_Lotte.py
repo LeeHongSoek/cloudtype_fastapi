@@ -4,8 +4,8 @@
 from Act_Crl_Supper import ActCrlSupper
 from Act_Tol_Logger import get_logger, clear_logger
 
-import sqlite3
 import traceback
+import sqlite3
 import platform
 import os
 import time
@@ -28,7 +28,7 @@ class ActCrlLotte(ActCrlSupper):
     # __init__, __del__ =================================================================
     def __init__(self, date_range): # 생성자
 
-        self.logger = get_logger('lotte')   # 파이션 로그
+        self.logger = get_logger('Lotte')   # 파이션 로그
         self.date_range = date_range        # 크롤링 할 날 수
 
         super().__init__(type(self).__name__)
@@ -36,7 +36,7 @@ class ActCrlLotte(ActCrlSupper):
 
     def __del__(self): # 소멸자
 
-        clear_logger('lotte')  # 한달전 로그파일을 삭제한다.
+        clear_logger('Lotte')  # 한달전 로그파일을 삭제한다.
         super().__del__(type(self).__name__)
     # [def __del__(self): # 소멸자]
 
@@ -107,7 +107,6 @@ class ActCrlLotte(ActCrlSupper):
                 proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 복수 실행을 위해 캡처된 요청 초기화
 
             # [for url in arrUrl: # 상영영화와 상영예정영화 ]
-
         # [def _crawlLotte_1_boxoffice(chm_driver):]
 
         # -----------------------------------------------------------------------------------
@@ -185,7 +184,6 @@ class ActCrlLotte(ActCrlSupper):
                 self.sql_conn.commit()
             
             # [if tag1 := soup.select_one("#nav > ul > li:nth-child(3) > div > ul"):  # 메인 메뉴의 '영화관' 하위 메뉴 탐색]    
-
         # [def _crawlLotte_2_cinema(chm_driver):]
 
         # -----------------------------------------------------------------------------------
@@ -506,9 +504,7 @@ class ActCrlLotte(ActCrlSupper):
                 if doit == False:  # 완전히 모든 상영관이 크롤링에 성공 했을시 빠저나간다.
                     break
             # [while True:  # 루프를 계속해서 반복합니다.]
-            
         # [def _crawlLotte_3_ticketing(chm_driver):]
-        
 
         try:
             if platform.system() == 'Windows':

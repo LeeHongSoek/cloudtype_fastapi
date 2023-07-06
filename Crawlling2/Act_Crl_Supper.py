@@ -33,6 +33,30 @@ class ActCrlSupper(metaclass=ABCMeta):
         self.sql_conn = sqlite3.connect(self.db_filename + '.db') # Connect to SQLite database
         self.sql_cursor = self.sql_conn.cursor()
 
+        if db_filename == 'ActCrlKobis':
+
+            # ??  ------------------------------------------
+            """
+            
+            Boxoffice
+            curDate + ';' + str(no)] = [rank, movieCd, movieNm
+
+            query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='??' '''
+            self.sql_cursor.execute(query)
+            table_exists = self.sql_cursor.fetchone()
+
+            if not table_exists:
+                query = ''' CREATE TABLE IF NOT EXISTS ?? ( moviecode        TEXT PRIMARY KEY
+                                                                   , moviename        TEXT NOT NULL  /* 영화명 */
+                                                                   , moviegenrename   TEXT NULL      /* ex) 공포, 다큐, 드라마 */
+                                                               
+                                                                   
+                                                                   , viewgradenameus  TEXT NULL      /* ..관람가 */
+                                                                   , orgcode          TEXT NULL      /* 영화명이 같고 코드가 다를때 기준영화의 코드 */
+                                                                   )                                           '''
+                self.sql_cursor.execute(query)
+"""
+
         if db_filename == 'ActCrlLotte':
 
             # lotte_movie  ------------------------------------------
@@ -143,15 +167,14 @@ class ActCrlSupper(metaclass=ABCMeta):
               on LM.moviecode = LT.moviecode
             """
             self.sql_conn.commit()
-
         # [if db_filename == 'ActCrlLotte':]
+
     # [def __init__(self, db_filename): # 생성자]    
             
     def __del__(self, db_filename): # 소멸자
-        if db_filename == 'ActCrlLotte':
-            self.logger.info(f' 파일 {db_filename} 을 압축 ')
-            zip_file(self.db_filename+'.db', self.db_filename+".zip")
-        # [if db_filename == 'ActCrlLotte':]
+
+        self.logger.info(f' 파일 {db_filename} 을 압축 ')
+        zip_file(self.db_filename+'.db', self.db_filename+".zip")
     # [def __del__(self, db_filename): # 소멸자]    
 
     # -----------------------------------------------------------------------------------
