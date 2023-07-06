@@ -9,6 +9,12 @@ root = tree.getroot()
 conn = sqlite3.connect('sqlElementTree\\users.db')
 cursor = conn.cursor()
 
+# 쿼리 실행
+query_id = 'create_table'
+if (query := root.find(f"query[@id='{query_id}']")) is not None:
+    sql = query.text.strip()
+    cursor.execute(sql)
+
 
 # 쿼리 실행
 query_id = 'insert_user'  # 실행할 쿼리의 id 지정
@@ -22,9 +28,7 @@ if (query := root.find(f"query[@id='{query_id}']")) is not None:
     age = 30
 
     cursor.execute(sql, (user_id, name, age))
-    
-# query_id = 'create_table'
-#    cursor.execute(sql)
+
 
 # 변경 내용 저장 및 연결 종료
 conn.commit()
