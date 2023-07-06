@@ -549,13 +549,12 @@ class ActCrlLotte(ActCrlSupper):
             self.logger.error(f'오류 내용! {e}')
             self.logger.error(f'{traceback.print_exc()}')
             raise e
-        
-    # [def crawling(self):] ------------------------------------------------------
+    # [def crawling(self):] -------------------------------------------------------------
     
     # def uploading(self): ==============================================================
     def uploading(self):
         print("Uploading Lotte data...")
-    # -----------------------------------------------------------------------------------
+    # [def uploading(self):] ------------------------------------------------------------
     
 # [class ActCrlLotte(ActCrlSupper):]   
 
