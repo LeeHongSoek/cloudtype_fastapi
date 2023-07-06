@@ -667,7 +667,6 @@ class ActCrlKobis(ActCrlSupper):
             # for key in self.dicTheather.keys():  # 극장리스트 만큼 순환
         # [def _5_crawlKobis_JobE():]
 
-
         try:
             #_1_crawlKobis_Boxoffice()  # 박스오피스/일별 박스오피스(http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do) 에서 박스오피스정보를 가지고 온다.
             _2_crawlKobis_JobA()       # 영화정보검색/영화상영관정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterInfoList.do) 에서 영화상영관정보를 가지고 온다.
