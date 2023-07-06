@@ -29,7 +29,6 @@ if (query := root.find(f"query[@id='{query_id}']")) is not None:
 
     cursor.execute(sql, (user_id, name, age))
 
-
 # 변경 내용 저장 및 연결 종료
 conn.commit()
 conn.close()
