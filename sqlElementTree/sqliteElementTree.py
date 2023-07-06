@@ -15,7 +15,6 @@ if (query := root.find(f"query[@id='{query_id}']")) is not None:
     sql = query.text.strip()
     cursor.execute(sql)
 
-
 # 쿼리 실행
 query_id = 'insert_user'  # 실행할 쿼리의 id 지정
 
