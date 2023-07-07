@@ -10,6 +10,7 @@ import sqlite3
 import time
 import json
 import html
+import datetime
 
 from urllib.request import urlopen
 from bs4 import BeautifulSoup  # pip install beautifulsoup4
@@ -142,7 +143,7 @@ class ActCrlMega(ActCrlSupper):
                     # print(regionCd+' ['+regionNm+']')
 
                     region_count += 1
-                    self.logger.info('{} : {}, {}'.format(region_count, region_cd, region_nm))
+                    self.logger.info(f'{region_count} : {region_cd}, {region_nm}')
 
                     self.dicRegions[region_cd] = region_nm  # 지역코드 저장
                 #
@@ -166,7 +167,7 @@ class ActCrlMega(ActCrlSupper):
                         self.dicCinemas[cinemacode] = [region_cd, cinemaname, '']
 
                         cinema_count += 1
-                        self.logger.info('+- {} : {}, {}'.format(cinema_count, cinemacode, cinemaname))                        
+                        self.logger.info(f'+- {cinema_count} : {cinemacode}, {cinemaname}')
                     #
                 #
             #
@@ -298,7 +299,7 @@ class ActCrlMega(ActCrlSupper):
                                 self.dicMovies[moviecode] = ['', '', moviename]  # 영화데이터 정보
                                 self.dicMoviesNm[moviename] = moviecode  # 영화이름을 코드체크
 
-                        self.logger.info('{} : /{}/ {}, {}, {}, {}, {}, {}, {}, {}, {}, {}'.format(no_rooms, play_de, cinema_cd, moviecode, moviename, moviegubun, moviegbn, cnt_room, cinemaroom, str(rest_seat_cnt) + '/' + str(theab_seat_cnt), start_time, end_time))
+                        self.logger.info(f'{no_rooms} : /{play_de}/ {cinema_cd}, {moviecode}, {moviename}, {moviegubun}, {moviegbn}, {cnt_room}, {cinemaroom}, {str(rest_seat_cnt)} / {str(theab_seat_cnt)}, {start_time}, {end_time}')
 
                         dic_sch_rooms[no_rooms] = [moviecode, moviename, moviegubun, moviegbn, cnt_room, cinemaroom, rest_seat_cnt, theab_seat_cnt, start_time, end_time]  # 일단 다 펴와서..
                     #

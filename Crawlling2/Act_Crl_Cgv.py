@@ -8,6 +8,7 @@ import sys
 import traceback
 import datetime
 import sqlite3
+import json
 import time
 
 import urllib3  # pip install urllib3
@@ -27,7 +28,9 @@ class ActCrlCgv(ActCrlSupper):
     def __init__(self, date_range): # 생성자
 
         self.logger = get_logger('Cgv')   # 파이션 로그
-        self.date_range = date_range        # 크롤링 할 날 수
+        self.date_range = date_range      # 크롤링 할 날 수
+
+        self.http = urllib3.PoolManager()
 
         super().__init__(type(self).__name__)
     # [def __init__(self, date_range): # 생성자]
@@ -77,9 +80,7 @@ class ActCrlCgv(ActCrlSupper):
             self.logger.info('렝킹, [코드], 영화명(개봉일자), 점유율, 개봉여부, 등급')
             self.logger.info('------------------------------------------------------')
 
-            tags1 = soup.select("div.sect-movie-chart > ol > li")  # 영화 리스트 순환단위
-            for tag1 in tags1:
-                # print( tag1 )
+            for tag1 in soup.select("div.sect-movie-chart > ol > li"):  # 영화 리스트 순환단위  # print( tag1 )                
 
                 moviecode = ''  # 영화코드
                 grade = ''  # 관람등급
@@ -89,8 +90,7 @@ class ActCrlCgv(ActCrlSupper):
                 releasedate = ''  # 개봉일
                 open_type = ''  # 개봉종류
 
-                tags2 = tag1.select("div.box-image > a")  # 영화코드
-                for tag2 in tags2:
+                for tag2 in tag1.select("div.box-image > a"):  # 영화코드
                     # movecode = tag2.text.strip()
                     href = tag2['href']
                     hrefs = href.split('?')
@@ -103,40 +103,33 @@ class ActCrlCgv(ActCrlSupper):
                     #
                 #
 
-                tags2 = tag1.select("span.ico-grade")  # 관람등급
-                for tag2 in tags2:
+                for tag2 in tag1.select("span.ico-grade"):  # 관람등급
                     grade = tag2.text.strip()
                     # print(grade)
 
-                tags2 = tag1.select("strong.rank")  # 순위
-                for tag2 in tags2:
+                for tag2 in tag1.select("strong.rank"):  # 순위
                     rank = tag2.text.strip()
                     # print(rank)
 
-                tags2 = tag1.select("strong.title")  # 영화명
-                for tag2 in tags2:
+                for tag2 in tag1.select("strong.title"):  # 영화명
                     moviename = tag2.text.strip()
                     # print(title)
 
-                tags2 = tag1.select("strong.percent > span")  # 예매율
-                for tag2 in tags2:
+                for tag2 in tag1.select("strong.percent > span"):  # 예매율
                     percent = tag2.text.strip()
                     # print(percent)
 
-                tags2 = tag1.select("span.txt-info")  # 개봉일
-                for tag2 in tags2:
-                    tags3 = tag2.select("span")
-                    for tag3 in tags3:
+                for tag2 in tag1.select("span.txt-info"):  # 개봉일
+                    for tag3 in tag2.select("span"):
                         open_type = tag3.text.strip()
                         tag3.extract()  # 자식태그를 제거한다.
                     # print(open_type)
 
                     releasedate = tag2.text.strip().replace('.', '')
                     # print(opened)
-                #
 
-                
                     self.logger.info('{0} : [{1}] {2}({3}/{4}/{5}), {6}, {7}, {8}'.format(rank, moviecode, moviename, releasedate[:4], releasedate[4:6], releasedate[6:], percent, open_type, grade))
+                #                    
 
                 self.dicMovies[moviecode] = [moviename, releasedate]  # 영화데이터 정보
         # [def _1_crawl_cgv_moviechart():]
@@ -156,33 +149,23 @@ class ActCrlCgv(ActCrlSupper):
             self.logger.info('-------------------------------------')
 
             url = 'http://www.cgv.co.kr/movies/pre-movies.aspx'
-            # print(url)
-
-            r = self.http.request( 'POST', url )
-
-            data = r.data.decode('utf-8')
-            # print(data)
-
-            mov_count = 0
+            data = self.http.request( 'POST', url ).data.decode('utf-8')
             soup = BeautifulSoup(data, 'html.parser')
 
-            tags1 = soup.select("div.sect-movie-chart > ol")
-            for tag1 in tags1:
-                # print( tag1 )
+            mov_count = 0
 
-                tags2 = tag1.select("li")
-                for tag2 in tags2:
-                    # print( tag2 )
+            for tag1 in soup.select("div.sect-movie-chart > ol"):  # print( tag1 )                
+
+                for tag2 in tag1.select("li"):  # print( tag2 )                    
 
                     moviecode = ''
                     moviename = ''
                     releasedate = ''
 
-                    tags3 = tag2.select("div.box-contents > a")
-                    if len(tags3) == 0:
+                    if len(tag2.select("div.box-contents > a")) == 0:
                         break
 
-                    for tag3 in tags3:
+                    for tag3 in tag2.select("div.box-contents > a"):
                         href = tag3['href']
                         hrefs = href.split('=')
 
@@ -190,8 +173,7 @@ class ActCrlCgv(ActCrlSupper):
                         moviename = tag3.text.strip()
                         # print( '{},{}'.format(moviecode, moviename) )
 
-                        tags3 = tag2.select("span.txt-info")
-                        for tag3 in tags3:
+                        for tag3 in tag2.select("span.txt-info"):
                             # for lin in tag3.text.splitlines():
                             #     print( ' +{}+ '.format(lin.strip()) )
 
@@ -205,7 +187,7 @@ class ActCrlCgv(ActCrlSupper):
 
                         
                             mov_count += 1
-                            self.logger.info('{} : {}, {}({})'.format(mov_count, moviecode, moviename, releasedate))
+                            self.logger.info(f'{mov_count} : {moviecode}, {moviename}({releasedate})')
 
                         self.dicMovies[moviecode] = [moviename, releasedate]  # 영화데이터 정보
                     #
@@ -248,34 +230,33 @@ class ActCrlCgv(ActCrlSupper):
                 #
 
                 url = 'http://www.cgv.co.kr/movies/finder.aspx'
-                # print(url)
-
-                r = self.http.request('POST', url, fields={'s': 'true', 'kt': '0', 'searchtxt': '', 'genre': '', 'indi': 'false', 'national': '', 'grade': '', 'sdate': str(year_from), 'edate': '2020', 'page': str(i)})
-                # r =self.http.request( 'GET', url )
-
-                data = r.data.decode('utf-8')
-                # print(data)
-
+                fields={ 's': 'true'
+                       , 'kt': '0'
+                       , 'searchtxt': ''
+                       , 'genre': ''
+                       , 'indi': 'false'
+                       , 'national': ''
+                       , 'grade': ''
+                       , 'sdate': str(year_from)
+                       , 'edate': '2020'
+                       , 'page': str(i)
+                       }
+                data = self.http.request('POST', url, fields).data.decode('utf-8')
                 soup = BeautifulSoup(data, 'html.parser')
 
                 if i == 0:  # 첫페이지 (검색전)
-                    tags1 = soup.select("div.sect-movie-chart > ol")
-                    for tag1 in tags1:
-                        # print( tag1 )
+                    for tag1 in soup.select("div.sect-movie-chart > ol"):  # print( tag1 )                        
 
-                        tags2 = tag1.select("li")
-                        for tag2 in tags2:
-                            # print( tag2 )
+                        for tag2 in tag1.select("li"):  # print( tag2 )                            
 
                             moviecode = ''
                             moviename = ''
                             releasedate = ''
 
-                            tags3 = tag2.select("div.box-contents > a")
-                            if len(tags3) == 0:
+                            if len(tag2.select("div.box-contents > a")) == 0:
                                 break
 
-                            for tag3 in tags3:
+                            for tag3 in tag2.select("div.box-contents > a"):
                                 href = tag3['href']
                                 hrefs = href.split('=')
 
@@ -283,8 +264,7 @@ class ActCrlCgv(ActCrlSupper):
                                 moviename = tag3.text.strip()
                                 # print( '{},{}'.format(moviecode, moviename) )
 
-                                tags3 = tag2.select("span.txt-info")
-                                for tag3 in tags3:
+                                for tag3 in tag2.select("span.txt-info"):
                                     # for lin in tag3.text.splitlines():
                                     #     print( ' +{}+ '.format(lin.strip()) )
 
@@ -298,7 +278,7 @@ class ActCrlCgv(ActCrlSupper):
 
                                 
                                     mov_count += 1
-                                    self.logger.info('{} : {}, {}({}/{}/{})'.format(mov_count, moviecode, moviename, releasedate[:4], releasedate[4:6], releasedate[6:]))
+                                    self.logger.info(f'{mov_count} : {moviecode}, {moviename}({releasedate[:4]}/{releasedate[4:6]}/{releasedate[6:]})')
 
                                 self.dicMovies[moviecode] = [moviename, releasedate]  # 영화데이터 정보
                             #
@@ -309,24 +289,19 @@ class ActCrlCgv(ActCrlSupper):
                 if i > 0:  # 검색후 n 페이지
                     # 아래의 선택조건에 해당하는 영화가 총 0건 검색되었습니다. 를 체크
                     find_num = 0
-                    tags1 = soup.select("h3.sub > span > strong > i")
-                    for tag1 in tags1:
+                    for tag1 in soup.select("h3.sub > span > strong > i"):
                         find_num = tag1.text.strip()
                         # print( find_num )
 
                     if find_num == '0':  # 아래의 선택조건에 해당하는 영화가 총 0건 검색되었습니다.
                         break
 
-                    tags1 = soup.select("div.sect-search-chart > ol")
-                    if len(tags1) == 0:
+                    if len(soup.select("div.sect-search-chart > ol")) == 0:
                         break
 
-                    for tag1 in tags1:
-                        # print( tag1 )
+                    for tag1 in soup.select("div.sect-search-chart > ol"):  # print( tag1 )                        
 
-                        tags2 = tag1.select("li")
-                        for tag2 in tags2:
-                            # print( tag2 )
+                        for tag2 in tag1.select("li"):  # print( tag2 )                            
 
                             moviecode = ''
                             moviename = ''
@@ -337,8 +312,7 @@ class ActCrlCgv(ActCrlSupper):
                             # print('style = ' + style)
                             if style == 'None':
 
-                                tags3 = tag2.select("div.box-contents > a")
-                                for tag3 in tags3:
+                                for tag3 in tag2.select("div.box-contents > a"):
                                     href = tag3['href']
                                     hrefs = href.split('=')
 
@@ -346,8 +320,7 @@ class ActCrlCgv(ActCrlSupper):
                                     moviename = tag3.text.strip()
                                     # print( '{} {}'.format(moviecode, moviename) )
 
-                                tags3 = tag2.select("span.txt-info")
-                                for tag3 in tags3:
+                                for tag3 in tag2.select("span.txt-info"):
                                     # for lin in tag3.text.splitlines():
                                     #     print( ' +{}+ '.format(lin.strip()) )
                                     releasedate = tag3.text.splitlines()[2].strip()
@@ -360,7 +333,7 @@ class ActCrlCgv(ActCrlSupper):
 
                                 
                                     mov_count += 1
-                                    self.logger.info('{} : {}, {}({})'.format(mov_count, moviecode, moviename, releasedate))
+                                    self.logger.info(f'{mov_count} : {moviecode}, {moviename}({releasedate})')
 
                                 self.dicMovies[moviecode] = [moviename, releasedate]  # 영화데이터 정보
                             #
@@ -384,10 +357,7 @@ class ActCrlCgv(ActCrlSupper):
             theater_count = 0
 
             url = 'http://www.cgv.co.kr/reserve/show-times/'
-            r = self.http.request('GET', url)
-
-            data = r.data.decode('utf-8')
-            # print(data)
+            data = self.http.request('GET', url).data.decode('utf-8')
             
             self.logger.info('-------------------------------------')
             self.logger.info('no : [코드] 지역명, 극장명')
@@ -428,18 +398,15 @@ class ActCrlCgv(ActCrlSupper):
                             # print(theater)
                             regioncode = theater['RegionCode']  # 극장지역코드
                             theatercode = theater['TheaterCode']  # 극장코드
-                            theatername = theater['TheaterName']  # 극장면
-
+                            theatername = theater['TheaterName']  # 극장명
                             
                             theater_count += 1
-                            self.logger.info('{} : [{}] {}, {}'.format(theater_count, theatercode, self.dicRegions[regioncode], theatername))
+                            self.logger.info(f'{theater_count} : [{theatercode}] {self.dicRegions[regioncode]}, {theatername}')
 
                             self.dicTheaters[theatercode] = [regioncode, self.dicRegions[regioncode], theatername]  # 극장코드 정보 추가 (지역코드+지역명+극장명)
                         #
                     #
                 #
-            #
-
             
                 region_count = 0
 
@@ -448,8 +415,8 @@ class ActCrlCgv(ActCrlSupper):
                 self.logger.info('-------------------------------------')
 
                 for region in self.dicRegions:
-                    region_count += 1
 
+                    region_count += 1
                     self.logger.info('{} : [{}] {}'.format(region_count, region, self.dicRegions[region]))
                 #
             #
@@ -517,7 +484,6 @@ class ActCrlCgv(ActCrlSupper):
                 #if today != '20200224':
                 #    continue  # 디버깅용
 
-                # --#
                 # if  today!='{:04d}{:02d}{:02d}'.format( date1.year, date1.month, date1.day ):  # 일단 오늘 자료만 가지고 온다.
                 #    continue  # 디버깅용
 
@@ -525,12 +491,10 @@ class ActCrlCgv(ActCrlSupper):
 
                 for theaterkey in self.dicTheaters.keys():  # 극장을 하나씩 순회한다.
 
-                    # --#
                     #if theaterkey != '0056' and theaterkey != '0001':  # 일단 특정극장(서울, CGV강남)
                     #    continue  # 디버깅용
-
                     
-                    self.logger.info(' {}/{}/{} 일 :  {}, {} ({})'.format(today[:4], today[4:6], today[6:], self.dicTheaters[theaterkey][1], self.dicTheaters[theaterkey][2], theaterkey))
+                    self.logger.info(f' {today[:4]}/{today[4:6]}/{today[6:]} 일 :  {self.dicTheaters[theaterkey][1]}, {self.dicTheaters[theaterkey][2]} ({theaterkey})')
 
                     url = 'http://www.cgv.co.kr/reserve/show-times/?areacode=' + self.dicTheaters[theaterkey][0] + '&theatercode=' + theaterkey + '&date=' + today + ''
                     driver.get(url)
@@ -541,8 +505,7 @@ class ActCrlCgv(ActCrlSupper):
 
                         dicTicketMovies = {}  #
 
-                        tags1 = element.find_elements(By.TAG_NAME, "ul > li > div.col-times")
-                        for tag1 in tags1:
+                        for tag1 in element.find_elements(By.TAG_NAME, "ul > li > div.col-times"):
                             moviecode = ''
                             moviename = ''
                             movieplaying = ''
@@ -550,8 +513,7 @@ class ActCrlCgv(ActCrlSupper):
                             movieruntime = ''
                             moviereleasedate = ''
 
-                            tags2 = tag1.find_elements(By.TAG_NAME, "div.info-movie > a")
-                            for tag2 in tags2:
+                            for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > a"):
                                 href = tag2.get_attribute('href')
                                 hrefs = href.split('=')
 
@@ -560,18 +522,15 @@ class ActCrlCgv(ActCrlSupper):
                                 tag2.find_elements(By.TAG_NAME, "strong")
                                 moviename = tag2.text.strip()
 
-                            tags2 = tag1.find_elements(By.TAG_NAME, "div.info-movie > span.ico-grade")
                             moviegrade = ''
-                            for tag2 in tags2:
+                            for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > span.ico-grade"):
                                 moviegrade = tag2.text.strip()
 
-                            tags2 = tag1.find_elements(By.TAG_NAME, "div.info-movie > span.round > em")
-                            for tag2 in tags2:
+                            for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > span.round > em"):
                                 movieplaying = tag2.text.strip()
 
-                            tags2 = tag1.find_elements(By.TAG_NAME, "div.info-movie > i")
                             j = 0
-                            for tag2 in tags2:
+                            for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > i"):
                                 j += 1
                                 if j == 1: moviegenre = tag2.text.strip().replace('\xa0', ' ').replace("\r\n", "")
                                 if j == 2: movieruntime = tag2.text.strip().replace('\xa0', ' ').replace("\r\n", "")
@@ -583,13 +542,13 @@ class ActCrlCgv(ActCrlSupper):
                             dicTicketRooms = {}  #
 
                             j = 0
-                            tags2 = tag1.find_elements(By.TAG_NAME, "div.type-hall")
-                            for tag2 in tags2:
+                            for tag2 in tag1.find_elements(By.TAG_NAME, "div.type-hall"):
+
                                 j = j + 1
-                                tags3 = tag2.find_elements(By.TAG_NAME, "div.info-hall > ul > li")
 
                                 k = 0
-                                for tag3 in tags3:
+                                for tag3 in tag2.find_elements(By.TAG_NAME, "div.info-hall > ul > li"):
+
                                     k += 1
                                     if k == 1:
                                         filmtype = tag3.text.strip().replace("\r\n", "")
@@ -604,26 +563,21 @@ class ActCrlCgv(ActCrlSupper):
                                 dicTicketTimes = {}  #
 
                                 k = 0
-                                tags3 = tag2.find_elements(By.TAG_NAME, "div.info-timetable > ul > li")
-                                for tag3 in tags3:
+                                for tag3 in tag2.find_elements(By.TAG_NAME, "div.info-timetable > ul > li"):
+
                                     k += 1
-                                    tags4 = tag3.find_elements(By.TAG_NAME, "a")
 
                                     playtime = ''
                                     playinfo = ''
                                     playetc = ''
 
-                                    if len(tags4) > 0:  # print( '일반' )
+                                    if len(tag3.find_elements(By.TAG_NAME, "a")) > 0:  # print( '일반' )
 
-                                        tags4 = tag3.find_elements(By.TAG_NAME, "a > em")
-                                        for tag4 in tags4:
-                                            playtime = tag4.text
-                                            # print( tag4.text )
+                                        for tag4 in tag3.find_elements(By.TAG_NAME, "a > em"):
+                                            playtime = tag4.text  # print( tag4.text )                                            
 
-                                        tags4 = tag3.find_elements(By.TAG_NAME, "a > span")
-                                        for tag4 in tags4:
-                                            playinfo = tag4.text
-                                            # print( tag4.text )
+                                        for tag4 in tag3.find_elements(By.TAG_NAME, "a > span"):
+                                            playinfo = tag4.text  # print( tag4.text )                                            
 
                                             ''' 
                                             #반드시 저녁에 확인 할것,,,
@@ -637,21 +591,16 @@ class ActCrlCgv(ActCrlSupper):
                                                     playetc = '심야'
                                                     # print( "심야" )
                                             '''
-                                            #
                                         #
                                     #
 
                                     else:  # print( '마감' )
 
-                                        tags4 = tag3.find_elements(By.TAG_NAME, "em")
-                                        for tag4 in tags4:
-                                            playtime = tag4.text
-                                            # print( tag4.text )
+                                        for tag4 in tag3.find_elements(By.TAG_NAME, "em"):
+                                            playtime = tag4.text  # print( tag4.text )                                            
 
-                                        tags4 = tag3.find_elements(By.TAG_NAME, "span")
-                                        for tag4 in tags4:
-                                            playinfo = tag4.text
-                                            # print( tag4.text )
+                                        for tag4 in tag3.find_elements(By.TAG_NAME, "span"):
+                                            playinfo = tag4.text  # print( tag4.text )                                            
                                     #
                                     dicTicketTimes[k] = [playtime, playinfo, playetc]
                                 #  self.logger.info(dicTicketTimes)
@@ -659,21 +608,18 @@ class ActCrlCgv(ActCrlSupper):
                             #
 
                             dicTicketMovies[moviecode] = [moviename, moviegrade, movieplaying, moviegenre, movieruntime, moviereleasedate, dicTicketRooms]
-                        # 
                         #     print( dicTicketMovies )
 
                         dicTicketingData[theaterkey] = dicTicketMovies
-
-                        #
                         #    self.logger.info(dicTicketingData)
 
                     except TimeoutException:
                         print("해당 페이지에 cMain 을 ID 로 가진 태그가 존재하지 않거나, 해당 페이지가 10초 안에 열리지 않았습니다.")
-
                 # for theaterkey in self.dicTheaters.keys(): # 극장을 하나씩 순회한다.
-                self.dicTicketingDays[today] = dicTicketingData
 
+                self.dicTicketingDays[today] = dicTicketingData
             # for today in days: # 1 ~ 13 일간 자료 가져오기
+
             driver.quit()
         # [def _5_crawl_cgv_showtimes():]
 
