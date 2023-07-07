@@ -1,3 +1,6 @@
+"""
+
+"""
 from abc import *
 import zipfile
 import sqlite3
@@ -15,7 +18,8 @@ def unzip_file(zip_path, extract_path):
 
 class ActCrlSupper(metaclass=ABCMeta):
     
-    # __init__, __del__ =================================================================
+    # __init__, __del__ =======================================================================================================================================
+
     def __init__(self, db_filename): # 생성자
 
         self.db_filename = db_filename
@@ -33,6 +37,10 @@ class ActCrlSupper(metaclass=ABCMeta):
         self.sql_conn = sqlite3.connect(self.db_filename + '.db') # Connect to SQLite database
         self.sql_cursor = self.sql_conn.cursor()
 
+        if db_filename == 'ActCrlCgv':
+            pass
+        # [if db_filename == 'ActCrlCgv':]
+        
         if db_filename == 'ActCrlKobis':
 
             # ??  ------------------------------------------
@@ -56,6 +64,7 @@ class ActCrlSupper(metaclass=ABCMeta):
                                                                    )                                           '''
                 self.sql_cursor.execute(query)
 """
+        # [db_filename == 'ActCrlKobis':]
 
         if db_filename == 'ActCrlLotte':
 
@@ -169,6 +178,9 @@ class ActCrlSupper(metaclass=ABCMeta):
             self.sql_conn.commit()
         # [if db_filename == 'ActCrlLotte':]
 
+        if db_filename == 'ActCrlMega':
+            pass
+        # [if db_filename == 'ActCrlMega':]    
     # [def __init__(self, db_filename): # 생성자]    
             
     def __del__(self, db_filename): # 소멸자
@@ -177,7 +189,8 @@ class ActCrlSupper(metaclass=ABCMeta):
         zip_file(self.db_filename+'.db', self.db_filename+".zip")
     # [def __del__(self, db_filename): # 소멸자]    
 
-    # -----------------------------------------------------------------------------------
+
+    # def crawling(self):, def uploading(self): ===============================================================================================================
 
     delayTime = 2  # 딜레이(초)
 
@@ -188,5 +201,4 @@ class ActCrlSupper(metaclass=ABCMeta):
     @abstractmethod
     def uploading(self):
         pass
-
-#  end of [class ActCrlSupper(metaclass=ABCMeta):]
+# [class ActCrlSupper(metaclass=ABCMeta):]

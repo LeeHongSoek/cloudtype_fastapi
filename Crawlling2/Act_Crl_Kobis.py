@@ -1,12 +1,12 @@
 """
     KOBIS
 
-http://www.kobis.or.kr/
-
+    http://www.kobis.or.kr/
 """
 from Act_Crl_Supper import ActCrlSupper
 from Act_Tol_Logger import get_logger, clear_logger
 
+import sys
 import traceback
 import sqlite3
 import json
@@ -19,7 +19,8 @@ from json.decoder import JSONDecodeError
 
 class ActCrlKobis(ActCrlSupper):
 
-    # __init__, __del__ =================================================================
+    # __init__, __del__ =======================================================================================================================================
+
     def __init__(self, date_range): # 생성자
 
         self.logger = get_logger('Kobis')   # 파이션 로그
@@ -39,18 +40,20 @@ class ActCrlKobis(ActCrlSupper):
         super().__del__(type(self).__name__)
     # [def __del__(self): # 소멸자]
 
-    # -----------------------------------------------------------------------------------
 
-    # def crawling(self): ===============================================================
+    # def crawling(self): =====================================================================================================================================
+
     def crawling(self):
 
-        # -----------------------------------------------------------------------------------
+        # =====================================================================================================================================================
         # 박스오피스/일별 박스오피스(http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do) 에서 박스오피스정보를 가지고 온다.
         #
         def _1_crawlKobis_Boxoffice():
             
             self.logger.info('')
+            self.logger.info('===============================================================================================================================')
             self.logger.info('### 박스오피스/일별 박스오피스(http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do) ###')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             today = datetime.date.today()  # 오늘자 날짜객체
             dateSt = today + datetime.timedelta(days=-6)  # -6 일
@@ -166,13 +169,15 @@ class ActCrlKobis(ActCrlSupper):
                 # [for tag5 in tag.select("table > tbody > tr"):  # 랭킹 한 줄]                    
         # [def _1_crawlKobis_Boxoffice():]
 
-        # -----------------------------------------------------------------------------------
+        # =====================================================================================================================================================
         # 영화정보검색/영화상영관정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterInfoList.do) 에서 영화상영관정보를 가지고 온다. (dicTheaters)
         #
         def _2_crawlKobis_JobA():
             
             self.logger.info('')
+            self.logger.info('===============================================================================================================================')
             self.logger.info('### 영화정보검색/영화상영관정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterInfoList.do) ###')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             mov_count = 0
 
@@ -281,13 +286,15 @@ class ActCrlKobis(ActCrlSupper):
             #
         # [def _2_crawlKobis_JobA():]
 
-        # -----------------------------------------------------------------------------------
+        # =====================================================================================================================================================
         # 영화정보/영화상영관/상영스케줄  (http://www.kobis.or.kr/kobis/business/mast/thea/findSchedule.do) 에서 상영스케줄을 가지고 온다.
         #
         def _3_crawlKobis_JobB():
             
             self.logger.info('')
+            self.logger.info('===============================================================================================================================')
             self.logger.info('### 영화정보/영화상영관/상영스케줄 (http://www.kobis.or.kr/kobis/business/mast/thea/findSchedule.do) ###')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
 
             def __3_crawlKobis_JobB(dicSchedule, theatherCd, theatherNm, today):
@@ -404,13 +411,15 @@ class ActCrlKobis(ActCrlSupper):
 
         # [def _3_crawlKobis_JobB():]
 
-        # -----------------------------------------------------------------------------------
+        # =====================================================================================================================================================
         # 영화정보검색/영화상영관상세정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterCodeLayer.do?theaCd=[theaterCd]) 에서 개별상영관정보를 가지고 온다.
         #
         def _4_crawlKobis_JobC():
 
             self.logger.info('')
+            self.logger.info('===============================================================================================================================')
             self.logger.info('### 영화정보검색/영화상영관상세정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterCodeLayer.do?theaCd=[theaterCd]) ###')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             for key in self.dicTheather.keys():  # 극장리스트 만큼 순환
 
@@ -504,12 +513,14 @@ class ActCrlKobis(ActCrlSupper):
             # print(self.dicTheather)
         # [def _4_crawlKobis_JobC():]
 
-        # -----------------------------------------------------------------------------------
+        # =====================================================================================================================================================
         # 영화정보검색/영화상영관/상영내역(http://www.kobis.or.kr/kobis/business/mast/thea/findShowHistory.do) 에서 상영내역을 가지고 온다.
         #
         def _5_crawlKobis_JobE():
             self.logger.info('')
+            self.logger.info('===============================================================================================================================')
             self.logger.info('### 영화정보검색/영화상영관/상영내역(http://www.kobis.or.kr/kobis/business/mast/thea/findShowHistory.do) ###')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             dateSt = datetime.date.today()  # 오늘자 날짜객체
             dateEd = dateSt + datetime.timedelta(days=self.date_range)  # +self.date_range 일
@@ -668,26 +679,40 @@ class ActCrlKobis(ActCrlSupper):
         # [def _5_crawlKobis_JobE():]
 
         try:
-            #_1_crawlKobis_Boxoffice()  # 박스오피스/일별 박스오피스(http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do) 에서 박스오피스정보를 가지고 온다.
+
+            _1_crawlKobis_Boxoffice()  # 박스오피스/일별 박스오피스(http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do) 에서 박스오피스정보를 가지고 온다.
             _2_crawlKobis_JobA()       # 영화정보검색/영화상영관정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterInfoList.do) 에서 영화상영관정보를 가지고 온다.
             _3_crawlKobis_JobB()       # 영화정보/영화상영관/상영스케줄  (http://www.kobis.or.kr/kobis/business/mast/thea/findSchedule.do) 에서 상영스케줄을 가지고 온다.
             _4_crawlKobis_JobC()       # 영화정보검색/영화상영관상세정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterCodeLayer.do?theaCd=[theaterCd]) 에서 개별상영관정보를 가지고 온다.
             _5_crawlKobis_JobE()       # 영화정보검색/영화상영관/상영내역(http://www.kobis.or.kr/kobis/business/mast/thea/findShowHistory.do) 에서 상영내역을 가지고 온다.
         except Exception as e:
-            self.logger.error('KOBIS 크롤링 중 오류발생!')
+
+            self.logger.error('Kobis 크롤링 중 오류발생!')
             self.logger.error(f'오류 내용! {e}')
             self.logger.error(f'{traceback.print_exc()}')
             raise e
-    # [def crawling(self):] -------------------------------------------------------------
+    # [def crawling(self):]
 
-    # def uploading(self): ==============================================================
+    # def uploading(self): ====================================================================================================================================
+
     def uploading(self):
         print("Uploading Kobis data...")
-    # [def uploading(self):] ------------------------------------------------------------
+    # [def uploading(self):]
+# [class ActCrlKobis(ActCrlSupper):]
 
 if __name__ == '__main__':
 
-    actCrlKobis = ActCrlKobis(date_range=12)  # Kobis
+    maxDateRage = 12  # 최대 일수
+
+    if len(sys.argv) == 2:
+        try:
+            dateRange = min(max(int(sys.argv[1]), 0), maxDateRage)
+        except ValueError:
+            dateRange = maxDateRage
+    else:
+        dateRange = maxDateRage
+
+    actCrlKobis = ActCrlKobis(date_range = dateRange)  # Kobis
     actCrlKobis.crawling()
     actCrlKobis.uploading()
     

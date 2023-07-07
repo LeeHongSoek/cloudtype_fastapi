@@ -4,6 +4,7 @@
 from Act_Crl_Supper import ActCrlSupper
 from Act_Tol_Logger import get_logger, clear_logger
 
+import sys
 import traceback
 import sqlite3
 import platform
@@ -25,7 +26,8 @@ from urllib.parse import parse_qs, urlparse
 
 class ActCrlLotte(ActCrlSupper):
 
-    # __init__, __del__ =================================================================
+    # __init__, __del__ =======================================================================================================================================
+
     def __init__(self, date_range): # 생성자
 
         self.logger = get_logger('Lotte')   # 파이션 로그
@@ -40,25 +42,27 @@ class ActCrlLotte(ActCrlSupper):
         super().__del__(type(self).__name__)
     # [def __del__(self): # 소멸자]
 
-    # -----------------------------------------------------------------------------------
 
-    # def crawling(self): ===============================================================
+    # def crawling(self): =====================================================================================================================================
+
     def crawling(self):
-        # -----------------------------------------------------------------------------------
+        
+        # =====================================================================================================================================================
         #  영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
         #
         def _1_crawlLotte_boxoffice(chm_driver):
 
-            self.logger.info('========================================================================================================')
+            self.logger.info('')
+            self.logger.info('===============================================================================================================================')
             self.logger.info('영화 / 현재상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1),                               ')
             self.logger.info('영화 / 상영예정작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5) 에서 영화데이터를 가지고 온다. ')
-            self.logger.info('--------------------------------------------------------------------------------------------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             self.sql_cursor.execute(' DELETE FROM lotte_movie ')
 
-            self.logger.info('-------------------------------------------------------------------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
             self.logger.info('코드, 영화명, 장르, 예매, 개봉일, 관람등급                                     ')
-            self.logger.info('-------------------------------------------------------------------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             arrUrl = ["https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1", "https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5"]  # 상영영화와 상영예정영화
             for url in arrUrl:
@@ -109,14 +113,15 @@ class ActCrlLotte(ActCrlSupper):
             # [for url in arrUrl: # 상영영화와 상영예정영화 ]
         # [def _crawlLotte_1_boxoffice(chm_driver):]
 
-        # -----------------------------------------------------------------------------------
+        # =====================================================================================================================================================
         #  영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. 
         #
         def _2_crawlLotte_cinema(chm_driver):
 
-            self.logger.info('=========================================================================================')
+            self.logger.info('')
+            self.logger.info('===============================================================================================================================')
             self.logger.info('영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ')
-            self.logger.info('-----------------------------------------------------------------------------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             def __2_parse_links(tag1, arrUrl):
 
@@ -159,9 +164,9 @@ class ActCrlLotte(ActCrlSupper):
 
                 self.sql_cursor.execute(' DELETE FROM lotte_cinema ')
 
-                self.logger.info('--------------------------------------')
+                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                 self.logger.info('코드, 스페셜관, 극장명, 링크, 성공여부')
-                self.logger.info('--------------------------------------')
+                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                 for parsed_link in parsed_links:  # print(parsed_link)                    
                     
@@ -186,14 +191,15 @@ class ActCrlLotte(ActCrlSupper):
             # [if tag1 := soup.select_one("#nav > ul > li:nth-child(3) > div > ul"):  # 메인 메뉴의 '영화관' 하위 메뉴 탐색]    
         # [def _crawlLotte_2_cinema(chm_driver):]
 
-        # -----------------------------------------------------------------------------------
+        # =====================================================================================================================================================
         # 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다.
         #
         def _3_crawlLotte_ticketing(chm_driver):
 
-            self.logger.info('========================================================================================================')
+            self.logger.info('')
+            self.logger.info('===============================================================================================================================')
             self.logger.info('영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. ')
-            self.logger.info('--------------------------------------------------------------------------------------------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             def __3_daily_ticketingdata(cinemacode, link):
                 
@@ -244,9 +250,9 @@ class ActCrlLotte(ActCrlSupper):
                             jsonpath_expr = parse('PlaySeqsHeader.Items').find(json_obj)
                             if len(jsonpath_expr) == 1:
 
-                                self.logger.info('----------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                                 self.logger.info(' 영화코드,    영화명,    더빙/자막')
-                                self.logger.info('----------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                                 moviecode_old = ''
                                 for match1 in jsonpath_expr[0].value:
@@ -309,9 +315,9 @@ class ActCrlLotte(ActCrlSupper):
                             jsonpath_expr = parse('PlayDates.Items').find(json_obj)
                             if len(jsonpath_expr) == 1:
 
-                                self.logger.info('-------------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                                 self.logger.info(f'상영일 리스트 ({item_count}일간)    ')
-                                self.logger.info('-------------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                                 self.sql_cursor.execute(' DELETE FROM lotte_playdate WHERE  cinemacode = ?',(cinemacode,))
 
@@ -329,9 +335,9 @@ class ActCrlLotte(ActCrlSupper):
                             jsonpath_expr = parse('PlaySeqs.Items').find(json_obj)
                             if len(jsonpath_expr) == 1:
 
-                                self.logger.info('--------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                                 self.logger.info('상영관(코드), 좌석수')
-                                self.logger.info('--------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                                 screenid_old = None
                                 for play_data in jsonpath_expr[0].value:
@@ -358,9 +364,9 @@ class ActCrlLotte(ActCrlSupper):
                                 # [for PlayDate in jsonpath_expr[0].value:]
 
 
-                                self.logger.info('-------------------------------------------------------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                                 self.logger.info(f'[{theather_nm}] 일자, 상영관, 회차, 시작시간~끝시간, 예약좌석수/총좌석수, 영화')
-                                self.logger.info('-------------------------------------------------------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                                 screenid_old = None
                                 degree_no = 0
@@ -456,10 +462,11 @@ class ActCrlLotte(ActCrlSupper):
                         doit = True
 
                         self.logger.info('')
-                        self.logger.info('========================================================================================================')
+                        self.logger.info('')
+                        self.logger.info('===============================================================================================================================')
                         self.logger.info(f'--  [{spacialyn}][{succese}] ({cinemacode}){cinemaname}   ')
                         self.logger.info(f'--  {link}  ')
-                        self.logger.info('--------------------------------------------------------------------------------------------------------')
+                        self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                         __3_daily_ticketingdata(cinemacode, link)  #  일자별로 순회 하면서 크롤링한다.  #  예외발생 test (0 / 0)
 
@@ -507,6 +514,7 @@ class ActCrlLotte(ActCrlSupper):
         # [def _crawlLotte_3_ticketing(chm_driver):]
 
         try:
+
             if platform.system() == 'Windows':
                 server_path = 'C://Crawlling2//browsermob-proxy-2.1.4//bin//browsermob-proxy.bat'
             else:
@@ -539,26 +547,34 @@ class ActCrlLotte(ActCrlSupper):
 
             chrome_driver.quit()
             server.stop()
-
         except Exception as e:
-            self.logger.error('LOTTE 크롤링 중 오류발생!')
+
+            self.logger.error('Lotte 크롤링 중 오류발생!')
             self.logger.error(f'오류 내용! {e}')
             self.logger.error(f'{traceback.print_exc()}')
             raise e
-    # [def crawling(self):] -------------------------------------------------------------
+    # [def crawling(self):]
     
-    # def uploading(self): ==============================================================
+    # def uploading(self): ====================================================================================================================================
+    
     def uploading(self):
         print("Uploading Lotte data...")
-    # [def uploading(self):] ------------------------------------------------------------
-    
+    # [def uploading(self):]
 # [class ActCrlLotte(ActCrlSupper):]   
-
-
 
 if __name__ == '__main__':
 
-    actCrlLotte = ActCrlLotte(date_range=12)  # Lotte
+    maxDateRage = 12  # 최대 일수
+
+    if len(sys.argv) == 2:
+        try:
+            dateRange = min(max(int(sys.argv[1]), 0), maxDateRage)
+        except ValueError:
+            dateRange = maxDateRage
+    else:
+        dateRange = maxDateRage
+
+    actCrlLotte = ActCrlLotte(date_range = dateRange)  # Lotte
     actCrlLotte.crawling()
     actCrlLotte.uploading()
     
