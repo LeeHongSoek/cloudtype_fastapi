@@ -18,11 +18,14 @@ def unzip_file(zip_path, extract_path):
 
 class ActCrlSupper(metaclass=ABCMeta):
     
+    sqlmap_dir = 'action_sqlmap'
+
     # __init__, __del__ =======================================================================================================================================
 
     def __init__(self, db_filename): # 생성자
 
-        self.db_filename = 'sqlite_map/'+db_filename
+
+        self.db_filename = f'{self.sqlmap_dir}/'+db_filename
 
         zip_file_name = self.db_filename + '.zip'
         zip_path = os.path.join(os.getcwd(), zip_file_name)
@@ -186,7 +189,7 @@ class ActCrlSupper(metaclass=ABCMeta):
     def __del__(self, db_filename): # 소멸자
 
         self.logger.info(f' 파일 {db_filename} 을 압축 ')
-        zip_file(self.db_filename+'.db', self.db_filename+".zip")
+        zip_file(f'{self.sqlmap_dir}/{self.db_filename}.db', f'{self.db_filename}.zip')
     # [def __del__(self, db_filename): # 소멸자]    
 
 
