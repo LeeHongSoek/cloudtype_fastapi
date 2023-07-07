@@ -192,7 +192,7 @@ class ActCrlSupper(metaclass=ABCMeta):
 
     # def crawling(self):, def uploading(self): ===============================================================================================================
 
-    delayTime = 2  # 딜레이(초)
+    delayTime = 1  # 딜레이(초)
 
     @abstractmethod
     def crawling(self):
