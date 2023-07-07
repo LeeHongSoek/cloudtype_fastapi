@@ -1,19 +1,21 @@
-[INFO  2023-07-07T15:53:00,063 net.lightbody.bmp.proxy.Main] (main) Starting BrowserMob Proxy version 2.1.4 
-[INFO  2023-07-07T15:53:00,146 org.eclipse.jetty.util.log] (main) jetty-7.x.y-SNAPSHOT 
-[INFO  2023-07-07T15:53:00,618 org.eclipse.jetty.util.log] (main) started o.e.j.s.ServletContextHandler{/,null} 
-[INFO  2023-07-07T15:53:00,862 org.eclipse.jetty.util.log] (main) Started SelectChannelConnector@0.0.0.0:8080 
-[INFO  2023-07-07T15:53:04,033 org.littleshoot.proxy.impl.DefaultHttpProxyServer] (qtp1894788146-20) Starting proxy at address: 0.0.0.0/0.0.0.0:8081 
-[INFO  2023-07-07T15:53:04,110 org.littleshoot.proxy.impl.DefaultHttpProxyServer] (qtp1894788146-20) Proxy listening with TCP transport 
-[INFO  2023-07-07T15:53:04,763 org.littleshoot.proxy.impl.DefaultHttpProxyServer] (qtp1894788146-20) Proxy started at address: /0:0:0:0:0:0:0:0:8081 
-[WARN  2023-07-07T15:53:15,982 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-5) Cannot decode unsupported content encoding type br 
-[WARN  2023-07-07T15:53:15,983 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-5) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 
-[WARN  2023-07-07T15:53:16,032 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-3) Cannot decode unsupported content encoding type br 
-[WARN  2023-07-07T15:53:16,033 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-3) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 
-[WARN  2023-07-07T15:53:16,049 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-4) Cannot decode unsupported content encoding type br 
-[WARN  2023-07-07T15:53:16,050 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-4) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 
-[WARN  2023-07-07T15:53:17,156 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-4) Cannot decode unsupported content encoding type br 
-[WARN  2023-07-07T15:53:17,156 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-4) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 
-[WARN  2023-07-07T15:53:17,185 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-5) Cannot decode unsupported content encoding type br 
-[WARN  2023-07-07T15:53:17,185 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-5) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 
-[WARN  2023-07-07T15:53:17,245 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-3) Cannot decode unsupported content encoding type br 
-[WARN  2023-07-07T15:53:17,247 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-3) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 
+[INFO  2023-07-08T00:03:32,104 net.lightbody.bmp.proxy.Main] (main) Starting BrowserMob Proxy version 2.1.4 
+[INFO  2023-07-08T00:03:32,157 org.eclipse.jetty.util.log] (main) jetty-7.x.y-SNAPSHOT 
+[INFO  2023-07-08T00:03:32,371 org.eclipse.jetty.util.log] (main) started o.e.j.s.ServletContextHandler{/,null} 
+[INFO  2023-07-08T00:03:32,506 org.eclipse.jetty.util.log] (main) Started SelectChannelConnector@0.0.0.0:8080 
+[INFO  2023-07-08T00:03:33,867 org.littleshoot.proxy.impl.DefaultHttpProxyServer] (qtp530696881-17) Starting proxy at address: 0.0.0.0/0.0.0.0:8081 
+[INFO  2023-07-08T00:03:33,904 org.littleshoot.proxy.impl.DefaultHttpProxyServer] (qtp530696881-17) Proxy listening with TCP transport 
+[INFO  2023-07-08T00:03:34,259 org.littleshoot.proxy.impl.DefaultHttpProxyServer] (qtp530696881-17) Proxy started at address: /0:0:0:0:0:0:0:0:8081 
+[WARN  2023-07-08T00:03:40,997 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-4) Cannot decode unsupported content encoding type br 
+[WARN  2023-07-08T00:03:40,998 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-4) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 
+[WARN  2023-07-08T00:03:41,027 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-2) Cannot decode unsupported content encoding type br 
+[WARN  2023-07-08T00:03:41,028 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-2) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 
+[WARN  2023-07-08T00:03:41,080 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-3) Cannot decode unsupported content encoding type br 
+[WARN  2023-07-08T00:03:41,081 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-3) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 
+[WARN  2023-07-08T00:03:41,376 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-3) Cannot decode unsupported content encoding type br 
+[WARN  2023-07-08T00:03:41,376 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-3) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 
+[WARN  2023-07-08T00:03:41,397 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-4) Cannot decode unsupported content encoding type br 
+[WARN  2023-07-08T00:03:41,397 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-4) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 
+[WARN  2023-07-08T00:03:41,404 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-2) Cannot decode unsupported content encoding type br 
+[WARN  2023-07-08T00:03:41,404 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-2) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 
+[WARN  2023-07-08T00:03:41,570 net.lightbody.bmp.filters.ServerResponseCaptureFilter] (LittleProxy-0-ProxyToServerWorker-2) Cannot decode unsupported content encoding type br 
+[WARN  2023-07-08T00:03:41,570 net.lightbody.bmp.filters.HarCaptureFilter] (LittleProxy-0-ProxyToServerWorker-2) Unable to decompress content with encoding: br. Contents will be encoded as base64 binary data. 

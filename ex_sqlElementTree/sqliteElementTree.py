@@ -16,7 +16,6 @@ if (query := root.find(f"query[@id='{query_id}']")) is not None:
     cursor.execute(sql)
 
 
-dicUsers = {}
 # 쿼리 실행
 query_id = 'insert_user'  # 실행할 쿼리의 id 지정
 
@@ -24,6 +23,7 @@ if (query := root.find(f"query[@id='{query_id}']")) is not None:
     sql = query.text.strip()
 
     # INSERT 쿼리에 실제 값 대입
+    dicUsers = {}
     dicUsers[1] = {'name':'park','age':50}
     dicUsers[2] = {'name':'lee','age':30}
     dicUsers[3] = {'name':'kim','age':21}

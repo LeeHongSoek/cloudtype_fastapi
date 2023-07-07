@@ -1,0 +1,24 @@
+<queries>
+
+    <query id="SELECT_sqlite_master_table_lotte_movie">
+        <![CDATA[
+                 SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_movie' 
+        ]]>
+    </query>
+
+    <query id="CREATE_TABLE_IF_NOT_EXISTS_lotte_movie">
+        <![CDATA[
+                 CREATE TABLE IF NOT EXISTS lotte_movie ( moviecode        TEXT PRIMARY KEY
+                                                        , moviename        TEXT NOT NULL  /* 영화명 */
+                                                        , moviegenrename   TEXT NULL      /* ex) 공포, 다큐, 드라마 */
+                                                        , filmname         TEXT NULL      /* ex) 2D 4D */
+                                                        , gubun            TEXT NULL      /* ex) 더빙 자막 */
+                                                        , bookingyn        TEXT NULL      /* 예매여부 */
+                                                        , releasedate      TEXT NULL      /* 개봉일 */
+                                                        , viewgradenameus  TEXT NULL      /* ..관람가 */
+                                                        , orgcode          TEXT NULL      /* 영화명이 같고 코드가 다를때 기준영화의 코드 */
+                                                        )                                       
+        ]]>
+    </query>
+
+</queries>

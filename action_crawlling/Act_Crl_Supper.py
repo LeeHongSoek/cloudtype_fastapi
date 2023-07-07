@@ -4,6 +4,7 @@
 from abc import *
 import zipfile
 import sqlite3
+import xml.etree.ElementTree as ET
 import os
 
 
@@ -24,10 +25,13 @@ class ActCrlSupper(metaclass=ABCMeta):
 
     def __init__(self, db_filename): # 생성자
 
+        db_fullfilename = f'{self.sqlmap_dir}/'+db_filename
 
-        self.db_filename = f'{self.sqlmap_dir}/'+db_filename
+        # XML 파일 읽기
+        tree = ET.parse(f'{db_fullfilename}.xml')
+        root = tree.getroot()
 
-        zip_file_name = self.db_filename + '.zip'
+        zip_file_name = f'{db_fullfilename}.zip'
         zip_path = os.path.join(os.getcwd(), zip_file_name)
         extract_path = os.getcwd()
 
@@ -37,7 +41,7 @@ class ActCrlSupper(metaclass=ABCMeta):
         else:
             self.logger.info(f"파일 '{zip_file_name}' 가 존재하지 않습니다. ")
 
-        self.sql_conn = sqlite3.connect(self.db_filename + '.db') # Connect to SQLite database
+        self.sql_conn = sqlite3.connect(db_filename + '.db') # Connect to SQLite database
         self.sql_cursor = self.sql_conn.cursor()
 
         if db_filename == 'ActCrlCgv':
@@ -72,22 +76,11 @@ class ActCrlSupper(metaclass=ABCMeta):
         if db_filename == 'ActCrlLotte':
 
             # lotte_movie  ------------------------------------------
-            query = ''' SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_movie' '''
-            self.sql_cursor.execute(query)
+            self.sql_cursor.execute(root.find(f"query[@id='{'SELECT_sqlite_master_table_lotte_movie'}']").text.strip())
             table_exists = self.sql_cursor.fetchone()
 
             if not table_exists:
-                query = ''' CREATE TABLE IF NOT EXISTS lotte_movie ( moviecode        TEXT PRIMARY KEY
-                                                                   , moviename        TEXT NOT NULL  /* 영화명 */
-                                                                   , moviegenrename   TEXT NULL      /* ex) 공포, 다큐, 드라마 */
-                                                                   , filmname         TEXT NULL      /* ex) 2D 4D */
-                                                                   , gubun            TEXT NULL      /* ex) 더빙 자막 */
-                                                                   , bookingyn        TEXT NULL      /* 예매여부 */
-                                                                   , releasedate      TEXT NULL      /* 개봉일 */
-                                                                   , viewgradenameus  TEXT NULL      /* ..관람가 */
-                                                                   , orgcode          TEXT NULL      /* 영화명이 같고 코드가 다를때 기준영화의 코드 */
-                                                                   )                                           '''
-                self.sql_cursor.execute(query)
+                self.sql_cursor.execute(root.find(f"query[@id='{'CREATE_TABLE_IF_NOT_EXISTS_lotte_movie'}']").text.strip())
 
             
             # lotte_cinema  ------------------------------------------
@@ -188,8 +181,10 @@ class ActCrlSupper(metaclass=ABCMeta):
             
     def __del__(self, db_filename): # 소멸자
 
-        self.logger.info(f' 파일 {db_filename} 을 압축 ')
-        zip_file(f'{self.sqlmap_dir}/{self.db_filename}.db', f'{self.db_filename}.zip')
+        db_fullfilename = f'{self.sqlmap_dir}/'+db_filename
+
+        self.logger.info(f' 파일 {db_fullfilename} 을 압축 ')
+        zip_file(f'{db_fullfilename}.db', f'{db_fullfilename}.zip')
     # [def __del__(self, db_filename): # 소멸자]    
 
 
