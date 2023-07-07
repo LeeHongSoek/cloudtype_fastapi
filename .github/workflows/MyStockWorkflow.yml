@@ -1,4 +1,4 @@
-name: "Python MY S&P5000 Stock for sqlite Price Crowling Workflow"
+name: "Python Run Snp_PriceSqlite.py"
 on:
   schedule:
     - cron: '0 * * * *'
