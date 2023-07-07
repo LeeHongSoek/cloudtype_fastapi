@@ -22,7 +22,7 @@ class ActCrlSupper(metaclass=ABCMeta):
 
     def __init__(self, db_filename): # 생성자
 
-        self.db_filename = db_filename
+        self.db_filename = 'sqlite_map/'+db_filename
 
         zip_file_name = self.db_filename + '.zip'
         zip_path = os.path.join(os.getcwd(), zip_file_name)
