@@ -513,6 +513,7 @@ class ActCrlLotte(ActCrlSupper):
             # [while True:  # 루프를 계속해서 반복합니다.]
         # [def _crawlLotte_3_ticketing(chm_driver):]
 
+
         try:
 
             if platform.system() == 'Windows':
@@ -558,6 +559,7 @@ class ActCrlLotte(ActCrlSupper):
     # def uploading(self): ====================================================================================================================================
     
     def uploading(self):
+
         print("Uploading Lotte data...")
     # [def uploading(self):]
 # [class ActCrlLotte(ActCrlSupper):]   

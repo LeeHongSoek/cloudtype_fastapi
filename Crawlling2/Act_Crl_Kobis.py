@@ -9,6 +9,7 @@ from Act_Tol_Logger import get_logger, clear_logger
 import sys
 import traceback
 import sqlite3
+import time
 import json
 
 import html
@@ -55,22 +56,19 @@ class ActCrlKobis(ActCrlSupper):
             self.logger.info('### 박스오피스/일별 박스오피스(http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do) ###')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
-            today = datetime.date.today()  # 오늘자 날짜객체
-            dateSt = today + datetime.timedelta(days=-6)  # -6 일
-            dateEd = today + datetime.timedelta(days=-1)  # -1 일
-
-            strDeteSt = format('{:04d}-{:02d}-{:02d}'.format(dateSt.year, dateSt.month, dateSt.day))
-            strDateEd = format('{:04d}-{:02d}-{:02d}'.format(dateEd.year, dateEd.month, dateEd.day))
+            strDateSt = (datetime.date.today() - datetime.timedelta(days=6)).strftime('%Y-%m-%d')  # -6 일
+            strDateEd = (datetime.date.today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')  # -1 일
 
             url = 'http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do'
             url += '?loadEnd=0'
             url += '&searchType=search'
-            url += '&sSearchFrom=' + strDeteSt
+            url += '&sSearchFrom=' + strDateSt
             url += '&sSearchTo=' + strDateEd
             url += '&sMultiMovieYn='
             url += '&sRepNationCd='
             url += '&sWideAreaCd='   # print(url)
             data = self.http.request('GET', url).data.decode('utf-8') # print(data)
+            time.sleep(self.delayTime)
 
             soup = BeautifulSoup(data, 'html.parser')
 
@@ -102,8 +100,7 @@ class ActCrlKobis(ActCrlSupper):
                             if i == 0:  # 랭킹
                                 rank = tag_tds.text.strip()
                             if i == 1:  # 영화명
-                                tags7 = tag_tds.select("span > a")  #
-                                for tag7 in tags7:
+                                for tag7 in tag_tds.select("span > a"):  #
                                     movieCd = tag_tds.select_one('span > a').get('onclick').split('\'')[3]
                                     movieNm = (html.unescape(tag7.text.strip())).replace('-', '-').replace('–', '-')  # 특수문자 때문
                             if i == 2:  # 개봉일
@@ -182,25 +179,23 @@ class ActCrlKobis(ActCrlSupper):
             mov_count = 0
 
             url = 'http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterInfoList.do'
-            fields = {"pageIndex": "1",
-                    "sPermYn": "Y",
-                    "sJoinYn": "Y",
-                    "sSaleStat": "018201",
-                    "theaCd": "",
-                    "sTheaNm": "",
-                    "sTheaCd": "",
-                    "sWideareaCd": "",
-                    "sBasareaCd": "",
-                    "sSenderCd": ""
+            fields = { "pageIndex": "1"
+                     , "sPermYn": "Y"
+                     , "sJoinYn": "Y"
+                     , "sSaleStat": "018201"
+                     , "theaCd": ""
+                     , "sTheaNm": ""
+                     , "sTheaCd": ""
+                     , "sWideareaCd": ""
+                     , "sBasareaCd": ""
+                     , "sSenderCd": ""
                     }
             data = self.http.request('POST', url, fields).data.decode('utf-8')
-            # time.sleep(self.delayTime)
+            time.sleep(self.delayTime)
 
             soup = BeautifulSoup(data, 'html.parser')
-            tag = soup.find('em', class_='fwb')
-            # print(tag.text)
 
-            totalRecode = int(tag.text.replace("총 ", "").replace("건", ""))
+            totalRecode = int((soup.find('em', class_='fwb')).text.replace("총 ", "").replace("건", ""))
             totalPage, remainder = divmod(totalRecode, 10)  # 숫자를 10으로 나눈 몫과 나머지를 계산합니다.
 
             if remainder > 0:
@@ -212,29 +207,26 @@ class ActCrlKobis(ActCrlSupper):
                 if page not in range(1, 2):  # 디버깅용 1개 페이지에 해당하는 극장만...
                     continue
 
-                fields = {"pageIndex": page,
-                          "sPermYn": "Y",
-                          "sJoinYn": "Y",
-                          "sSaleStat": "018201",
-                          "theaCd": "",
-                          "sTheaNm": "",
-                          "sTheaCd": "",
-                          "sWideareaCd": "",
-                          "sBasareaCd": "",
-                          "sSenderCd": ""
+                fields = { "pageIndex": page
+                         , "sPermYn": "Y"
+                         , "sJoinYn": "Y"
+                         , "sSaleStat": "018201"
+                         , "theaCd": ""
+                         , "sTheaNm": ""
+                         , "sTheaCd": ""
+                         , "sWideareaCd": ""
+                         , "sBasareaCd": ""
+                         , "sSenderCd": ""
                          }
-                data = self.http.request('POST', url, fields).data.decode('utf-8')
-                # time.sleep(self.delayTime)
-                # print(data)
-                # self.logger.info(data)
+                data = self.http.request('POST', url, fields).data.decode('utf-8') # print(data)
+                time.sleep(self.delayTime)
 
                 soup = BeautifulSoup(data, 'html.parser')
 
-                tags1 = soup.select("table.tbl_comm > tbody > tr")  # 극장리스트테이블에서 극장정보를 가지고 온다.
-                if len(tags1) == 0:  # 없으면 마지막이므로 탈출!!
+                if len(soup.select("table.tbl_comm > tbody > tr")) == 0:  # 없으면 마지막이므로 탈출!!
                     continue
 
-                for tag1 in tags1:
+                for tag1 in soup.select("table.tbl_comm > tbody > tr"):  # 극장리스트테이블에서 극장정보를 가지고 온다.
 
                     no += 1  # 일련번호
                     i = 0
@@ -299,10 +291,10 @@ class ActCrlKobis(ActCrlSupper):
 
             def __3_crawlKobis_JobB(dicSchedule, theatherCd, theatherNm, today):
 
-                # time.sleep(self.delayTime)
                 url = 'http://www.kobis.or.kr/kobis/business/mast/thea/findSchedule.do'
                 fields = {"showDt": today, "theaCd": theatherCd}
                 data = self.http.request('POST', url, fields).data.decode('utf-8') # print(data)
+                time.sleep(self.delayTime)
 
                 json_obj = json.loads(data)  # json 로딩 성공하면.....
 
@@ -408,7 +400,6 @@ class ActCrlKobis(ActCrlSupper):
 
                 if cntTry == 0:  # 단 한번도 시도되지 않았다면 완전 수행됨으로 빠져나간다.
                     isDone = True
-
         # [def _3_crawlKobis_JobB():]
 
         # =====================================================================================================================================================
@@ -429,25 +420,25 @@ class ActCrlKobis(ActCrlSupper):
                 theatherNm = (self.dicTheather[key])[0]
 
                 url = 'http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterCodeLayer.do?theaCd=' + theatherCd
-                data = self.http.request('GET', url).data.decode('utf-8')
-                # print(data)
+                data = self.http.request('GET', url).data.decode('utf-8') # print(data)
+                time.sleep(self.delayTime)
 
                 soup = BeautifulSoup(data, 'html.parser')
 
-                tags1 = soup.select("div.title_pop02 > strong.tit")  #
-                for tag1 in tags1:
+                for tag1 in soup.select("div.title_pop02 > strong.tit"):  #
                     # print(tag1.text.strip())
                     theaterNm = tag1.text.strip()
 
-                tags1 = soup.select("div#pop_content02 > table.tbl_99 > tbody > tr")  #
-                for tag1 in tags1:
+                for tag1 in soup.select("div#pop_content02 > table.tbl_99 > tbody > tr"):  #
+
                     for tag2 in tag1.children:
+
                         if tag2 != '\n':
-                            tagNm = tag2.name  # th 아니면 td
-                            # print(tag2.name)
+
+                            tagNm = tag2.name  # th 아니면 td   # print(tag2.name)
+
                             for tag3 in tag2:
-                                tagVal = tag3.strip()
-                                # print(tag3.strip())
+                                tagVal = tag3.strip() # print(tag3.strip())
 
                             if tagNm == 'th':
                                 itemNm = tagVal  # 항목명이 저장
@@ -475,23 +466,19 @@ class ActCrlKobis(ActCrlSupper):
                 lstScreenNm = []
                 lstSeatNum = []
 
-                tags1 = soup.select("div#pop_content02 > table.tbl3 > thead > tr")  #
-                for tag1 in tags1:
-                    tags2 = tag1.select("th.tac")
-                    for tag2 in tags2:
-                        # print(tag2)
+                for tag1 in soup.select("div#pop_content02 > table.tbl3 > thead > tr"): #
+
+                    for tag2 in tag1.select("th.tac"):  # print(tag2)
+
                         lstScreenCd.append(tag2.text.strip())  # 상영관 코드
                 #
 
-                tags1 = soup.select("div#pop_content02 > table.tbl3 > tbody > tr")  #
-                for tag1 in tags1:
-                    tags2 = tag1.select("th.tac")
-                    for tag2 in tags2:
-                        # print(tag2)
+                for tag1 in soup.select("div#pop_content02 > table.tbl3 > tbody > tr"):  #
+
+                    for tag2 in tag1.select("th.tac"):    # print(tag2)
                         lstScreenNm.append(tag2.text.strip())  # 스크린명
-                    tags2 = tag1.select("td.tac")
-                    for tag2 in tags2:
-                        # print(tag2)
+                  
+                    for tag2 in tag1.select("td.tac"): # print(tag2)
                         lstSeatNum.append(tag2.text.strip())  # 좌석수
                 #
                 
@@ -522,11 +509,8 @@ class ActCrlKobis(ActCrlSupper):
             self.logger.info('### 영화정보검색/영화상영관/상영내역(http://www.kobis.or.kr/kobis/business/mast/thea/findShowHistory.do) ###')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
-            dateSt = datetime.date.today()  # 오늘자 날짜객체
-            dateEd = dateSt + datetime.timedelta(days=self.date_range)  # +self.date_range 일
-
-            strDateSt = format('{:04d}-{:02d}-{:02d}'.format(dateSt.year, dateSt.month, dateSt.day))  #
-            strDateEd = format('{:04d}-{:02d}-{:02d}'.format(dateEd.year, dateEd.month, dateEd.day))  #
+            strDateSt = datetime.date.today().strftime('%Y-%m-%d'), 
+            strDateEd = (datetime.date.today() + datetime.timedelta(days=self.date_range)).strftime('%Y-%m-%d')
 
             for key in self.dicTheather.keys():  # 극장리스트 만큼 순환
 
@@ -542,21 +526,18 @@ class ActCrlKobis(ActCrlSupper):
                     continue
 
                 url = 'http://www.kobis.or.kr/kobis/business/mast/thea/findShowHistorySc.do'
-                fields = { # "CSRFToken": "ZRJQ_SVbJiXj_PDDbYGl_QPRaRF9G9mepDvLVaXGiRQ",
-                         "theaCd": "",
-                         "theaArea": "Y",
-                         "showStartDt": strDateSt,
-                         "showEndDt": strDateEd,
-                         "sWideareaCd": "",
-                         "sBasareaCd": "",
-                         "sTheaCd": theatherCd,
-                         "choice": "1",
-                         "sTheaNm": ""
-                         # "sTheaNm": theatherNm
+                fields = { "theaCd": ""
+                         , "theaArea": "Y"
+                         , "showStartDt": strDateSt
+                         , "showEndDt": strDateEd
+                         , "sWideareaCd": ""
+                         , "sBasareaCd": ""
+                         , "sTheaCd": theatherCd
+                         , "choice": "1"
+                         , "sTheaNm": ""
                          }
-                data = self.http.request('POST', url, fields).data.decode('utf-8')
-                # print(fields)
-                # print(data)
+                data = self.http.request('POST', url, fields).data.decode('utf-8')  # print(fields)  # print(data)
+                time.sleep(self.delayTime)
 
                 soup = BeautifulSoup(data, 'html.parser')
 
@@ -564,8 +545,7 @@ class ActCrlKobis(ActCrlSupper):
                 lstShowroom = []
                 lstSeatnum = []
 
-                tags1 = soup.select("table.tbl3.info2 > thead > tr")  # 상영관
-                for tag1 in tags1:
+                for tag1 in soup.select("table.tbl3.info2 > thead > tr"):  # 상영관
                     tags2 = tag1.select("th")  #
                     for tag2 in tags2:
                         # print(tag2.text.strip())
@@ -574,8 +554,7 @@ class ActCrlKobis(ActCrlSupper):
                             # print(tmpStr)
                             lstShowroom.append(tmpStr)
 
-                tags1 = soup.select("table.tbl3.info2 > tbody > tr")  # 좌석수
-                for tag1 in tags1:
+                for tag1 in soup.select("table.tbl3.info2 > tbody > tr"):  # 좌석수
                     for tag2 in tag1.findChildren(recursive=False):
                         # print(tag2)
                         tmpStr = tag2.text.strip()
@@ -597,22 +576,20 @@ class ActCrlKobis(ActCrlSupper):
 
                 # 상영내역
                 lstInningNm = []
-                tags1 = soup.select("table.tbl3.info3 > thead > tr")  # 상영일자, 상영관, 1회,  2회, 3회, ......
-                for tag1 in tags1:
-                    tags2 = tag1.select("th")  #
-                    for tag2 in tags2:
-                        # print(tag2.text.strip())
+                for tag1 in soup.select("table.tbl3.info3 > thead > tr"):  # 상영일자, 상영관, 1회,  2회, 3회, ......
+
+                    for tag2 in tag1.select("th"):  # print(tag2.text.strip())
+
                         tmpStr = tag2.text.strip()
-                        if not (tmpStr.find('상영관') == 0 or tmpStr.find('상영일자') == 0):
-                            # print(tmpStr.replace("회", ""))
+                        if not (tmpStr.find('상영관') == 0 or tmpStr.find('상영일자') == 0): # print(tmpStr.replace("회", ""))
                             lstInningNm.append(tmpStr.replace("회", ""))
 
                 j = 0
                 rowspan = 1
                 dicInning = {}  # 회차 정보
-                # 상영내역 일자별 상영관별
-                tags1 = soup.select("table.tbl3.info3 > tbody > tr")  #
-                for tag1 in tags1:
+                
+                for tag1 in soup.select("table.tbl3.info3 > tbody > tr"):  # 상영내역 일자별 상영관별
+
                     playTm = ''
                     movieNm = ''
                     unitprice = ''
@@ -622,7 +599,9 @@ class ActCrlKobis(ActCrlSupper):
 
                     tags2 = tag1.select("td")  #
                     if (len(lstInningNm) + 1 == len(tags2)) or (len(tags2) == len(lstInningNm) + 2):  # 현대예술관시네마
+
                         for tag2 in tags2:
+
                             # if i == 0 and len(tags2) == len(lstInningNm)+2:  # 첫컬럼이 '상영일자' 가 있는 태그
                             if i == 0 and tag2.has_attr("rowspan"):  # 첫컬럼이 rowspan의 속성을 가지고 있는 태그
                                 minusVal = 2  # 3 번째부터 0
@@ -634,8 +613,7 @@ class ActCrlKobis(ActCrlSupper):
                                 continue
 
                             if i == (minusVal-1):  # '상영관'
-                                showroom = tag2.text.strip()
-                                # print(tag2.text.strip())
+                                showroom = tag2.text.strip() # print(tag2.text.strip())
                             else:
                                 listDate = list(tag2.stripped_strings)  # 내용이 붉은 색이여도 바로 잡아준다!!
                                 if len(listDate) == 2:  # <br>로 분리되어 있는 경우
@@ -678,6 +656,7 @@ class ActCrlKobis(ActCrlSupper):
             # for key in self.dicTheather.keys():  # 극장리스트 만큼 순환
         # [def _5_crawlKobis_JobE():]
 
+
         try:
 
             _1_crawlKobis_Boxoffice()  # 박스오피스/일별 박스오피스(http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do) 에서 박스오피스정보를 가지고 온다.
@@ -696,6 +675,7 @@ class ActCrlKobis(ActCrlSupper):
     # def uploading(self): ====================================================================================================================================
 
     def uploading(self):
+        
         print("Uploading Kobis data...")
     # [def uploading(self):]
 # [class ActCrlKobis(ActCrlSupper):]

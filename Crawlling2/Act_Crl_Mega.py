@@ -50,7 +50,7 @@ class ActCrlMega(ActCrlSupper):
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             self.logger.info('-------------------------------------')
-            self.logger.info('no, 코드, 개봉일자, 구분, 영화명')
+            self.logger.info('영화코드 : 개봉일자, 구분, 영화명    ')
             self.logger.info('-------------------------------------')
 
             url = 'https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do'
@@ -74,10 +74,7 @@ class ActCrlMega(ActCrlSupper):
                      }
             data2 = self.http.request('POST', url, fields).data.decode('utf-8')
             time.sleep(self.delayTime)
-            # self.logger.info(data)
             
-            mov_count = 0
-
             for val in json.loads(data2)["movieList"]:
 
                 moviecode = val['movieNo']
@@ -87,10 +84,9 @@ class ActCrlMega(ActCrlSupper):
                 moviename = moviename.replace("'", "")
 
                 self.dicMovies[moviecode] = [releasedate, moviegbn, moviename]  # 영화데이터 정보
-                self.dicMoviesNm[moviename] = moviecode  # 영화이름을 코드체크
+                self.dicMoviesNm[moviename] = moviecode                         # 영화이름을 코드체크
 
-                mov_count += 1
-                self.logger.info('{} : {}, {}, {}, {}'.format(mov_count, moviecode, releasedate, moviegbn, moviename))
+                self.logger.info(f'{moviecode} : {releasedate}, {moviegbn}, {moviename}')
             #
         # [1_crawl_mega_movie():]
 
@@ -105,36 +101,29 @@ class ActCrlMega(ActCrlSupper):
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             self.logger.info('-------------------------------------')
-            self.logger.info('no, 코드, 지역명')
-            self.logger.info('+- no, 코드, 극장명')
+            self.logger.info('코드 : 지역명                        ')
+            self.logger.info('+-   코드 : 극장명                     ')
             self.logger.info('-------------------------------------')
 
-            url = urlopen("https://www.megabox.co.kr/theater/list")
-            data = url.read().decode('utf-8') 
+            data = urlopen("https://www.megabox.co.kr/theater/list").read().decode('utf-8') 
             soup = BeautifulSoup(data, 'html.parser') # print(data)
 
-            region_count = 0
-            cinema_count = 0
-            
             for tag1 in soup.select("div#contents > div > div.theater-box > div.theater-place > ul > li "):  # > button.sel-city # print(tag1)
 
                 region_cd = ''
                 for tag2 in tag1.select("button"):
-                    region_nm = str(tag2.text.strip())  # 지역이름
-                    region_cd = self.regions[region_nm]  # 지역코드를 지역이름으로 찾는다.
-                    # print(regionCd+' ['+regionNm+']')
 
-                    region_count += 1
-                    self.logger.info(f'{region_count} : {region_cd}, {region_nm}')
+                    region_nm = str(tag2.text.strip())  # 지역이름
+                    region_cd = self.regions[region_nm]  # 지역코드를 지역이름으로 찾는다. # print(regionCd+' ['+regionNm+']')
+
+                    self.logger.info(f'{region_cd} : {region_nm}')
 
                     self.dicRegions[region_cd] = region_nm  # 지역코드 저장
                 #
 
-                for tag2 in tag1.select("div.theater-list"):
-                    # print(tag2)
+                for tag2 in tag1.select("div.theater-list"): # print(tag2)
 
-                    for tag3 in tag2.select("li > a"):
-                        # print(tag3)
+                    for tag3 in tag2.select("li > a"): # print(tag3)
 
                         cinemaname = tag3.text.strip()  # 극장명
                         href = tag3['href']
@@ -142,15 +131,14 @@ class ActCrlMega(ActCrlSupper):
                         cinemacode = ''
 
                         if len(midxs) == 2:
-                            cinemacode = midxs[1]
+                            cinemacode = midxs[1]                        
+
+                        self.logger.info(f'+-   {cinemacode} : {cinemaname}')
 
                         self.dicCinemas[cinemacode] = [region_cd, cinemaname, '']
-
-                        cinema_count += 1
-                        self.logger.info(f'+- {cinema_count} : {cinemacode}, {cinemaname}')
                     #
                 #
-            #
+            # [for tag1 in soup.select("div#contents > div > div.theater-box > div.theater-place > ul > li "):]
         # [def _2_crawl_mega_cinema():]
 
         # =====================================================================================================================================================
@@ -260,11 +248,12 @@ class ActCrlMega(ActCrlSupper):
                         theab_seat_cnt = schl['theabSeatCnt']
 
                         if not self.dicMovies.get(moviecode):
+
                             old_moviecode = moviecode
 
                             if self.dicMoviesNm.get(moviename):
-                                moviecode = self.dicMoviesNm[moviename]
 
+                                moviecode = self.dicMoviesNm[moviename]
                                 self.logger.info(f'{old_moviecode} -> {moviecode}, {moviename}')
                             else:
                                 self.dicMovies[moviecode] = ['', '', moviename]  # 영화데이터 정보
@@ -273,12 +262,14 @@ class ActCrlMega(ActCrlSupper):
                         self.logger.info(f'{no_rooms} : /{play_de}/ {cinema_cd}, {moviecode}, {moviename}, {moviegubun}, {moviegbn}, {cnt_room}, {cinemaroom}, {str(rest_seat_cnt)} / {str(theab_seat_cnt)}, {start_time}, {end_time}')
 
                         dic_sch_rooms[no_rooms] = [moviecode, moviename, moviegubun, moviegbn, cnt_room, cinemaroom, rest_seat_cnt, theab_seat_cnt, start_time, end_time]  # 일단 다 펴와서..
-                    #
+                    # [for schl in json_obj['megaMap']['movieFormList']: ]
 
                     # 영화별로 추려내고
                     old_moviecode = ''
                     for k, v in dic_sch_rooms.items():
+
                         if old_moviecode != str(v[0]):
+
                             if len(str(v[0])) == 6:  # 코드가 6자리이면 8자리로 확장한다.
                                 moviecode8 = str(v[0]) + '00'
                             else:
@@ -288,6 +279,7 @@ class ActCrlMega(ActCrlSupper):
 
                     # 영화별 아래 관 추가
                     for km, vm in dic_sch_movies.items():
+
                         dic_movies_room = {}
                         for k, v in dic_sch_rooms.items():
 
@@ -318,15 +310,13 @@ class ActCrlMega(ActCrlSupper):
 
                                 if moviecode8_km == moviecode8 and str(kr) == str(v[5]):  # 같은 영화,관 [moviecode[0], moviename, moviegubun, moviegbn, cnt_room[4], cinemaroom[5], rest_seat_cnt[6], theab_seat_cnt, start_time[8], end_time[9]]
                                     dic_sch_movies_room_time[str(v[8])] = [v[6], v[9]]
+
                             dic_movies_room[kr].append(dic_sch_movies_room_time)
-                        dic_sch_movies[km].append(dic_movies_room)
-                    # print(dic_sch_movies)
+                        dic_sch_movies[km].append(dic_movies_room) # print(dic_sch_movies)
                     dic_playdate[cinema_cd] = dic_sch_movies
-
                 #
-                self.dicTicketingData[play_de] = dic_playdate
 
-            # print(self.dicTicketingData)
+                self.dicTicketingData[play_de] = dic_playdate # print(self.dicTicketingData)
         # [def _3_crawl_mega_schedule():]
 
 
@@ -346,6 +336,7 @@ class ActCrlMega(ActCrlSupper):
     # def uploading(self): ====================================================================================================================================
     
     def uploading(self):
+        
         print("Uploading Mega data...")
     # [def uploading(self):]
 # [class ActCrlMega(ActCrlSupper):]
