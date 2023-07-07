@@ -52,13 +52,13 @@ class ActCrlMega(ActCrlSupper):
             mov_count = 0
 
             url = 'https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do'
-            fields = {"currentPage": "1",
-                    "recordCountPerPage": "1",
-                    "pageType": "ticketing",
-                    "ibxMovieNmSearch": "",
-                    "onairYn": "N",
-                    "specialType": ""
-                    }
+            fields = { "currentPage": "1"
+                     , "recordCountPerPage": "1"
+                     , "pageType": "ticketing"
+                     , "ibxMovieNmSearch": ""
+                     , "onairYn": "N"
+                     , "specialType": ""
+                     }
             r = self.http.request('POST', url, fields)
             time.sleep(self.delayTime)
 
@@ -70,13 +70,13 @@ class ActCrlMega(ActCrlSupper):
             tot_cnt = json_obj["totCnt"]
 
             url = 'https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do'
-            fields = {"currentPage": "1",
-                    "recordCountPerPage": tot_cnt,
-                    "pageType": "ticketing",
-                    "ibxMovieNmSearch": "",
-                    "onairYn": "N",
-                    "specialType": ""
-                    }
+            fields = { "currentPage": "1"
+                     , "recordCountPerPage": tot_cnt
+                     , "pageType": "ticketing"
+                     , "ibxMovieNmSearch": ""
+                     , "onairYn": "N"
+                     , "specialType": ""
+                     }
             r = self.http.request('POST', url, fields)
             time.sleep(self.delayTime)
 
@@ -245,14 +245,14 @@ class ActCrlMega(ActCrlSupper):
                     dic_sch_movies = {}
 
                     url = 'https://www.megabox.co.kr/on/oh/ohc/Brch/schedulePage.do'
-                    fields = {"masterType": "brch",
-                            "detailType": "area",
-                            "brchNo": cinema_cd,
-                            "firstAt": "N",
-                            "brchNo1": cinema_cd,
-                            "crtDe": play_de,
-                            "playDe": play_de
-                            }
+                    fields = { "masterType": "brch"
+                             , "detailType": "area"
+                             , "brchNo": cinema_cd
+                             , "firstAt": "N"
+                             , "brchNo1": cinema_cd
+                             , "crtDe": play_de
+                             , "playDe": play_de
+                             }
 
                     r = self.http.request('POST', url, fields)
                     time.sleep(self.delayTime)
