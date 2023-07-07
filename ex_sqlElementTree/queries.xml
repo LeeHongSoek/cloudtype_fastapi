@@ -11,7 +11,7 @@
 
   <query id="insert_user">
     <![CDATA[
-      INSERT INTO users (id, name, age)
+      INSERT OR REPLACE INTO users (id, name, age)
       VALUES (?,?,?)
     ]]>
   </query>
