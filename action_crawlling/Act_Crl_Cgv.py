@@ -23,7 +23,7 @@ from selenium.webdriver.support.select import Select
 
 class ActCrlCgv(ActCrlSupper):
 
-    # __init__, __del__ =======================================================================================================================================
+    
                         
     def __init__(self, date_range): # 생성자
 

@@ -1,7 +1,7 @@
 """
 
 """
-from Crawlling2.Act_Crl_Supper import ActCrlSupper
+from Act_Crl_Supper import ActCrlSupper
 from Act_Tol_Logger import get_logger, clear_logger
 
 import sys
@@ -17,8 +17,6 @@ from bs4 import BeautifulSoup  # pip install beautifulsoup4
 import urllib3  # pip install urllib3
 
 class ActCrlMega(ActCrlSupper):
-
-    # __init__, __del__ =======================================================================================================================================
 
     def __init__(self, date_range): # 생성자
 

@@ -26,8 +26,6 @@ from urllib.parse import parse_qs, urlparse
 
 class ActCrlLotte(ActCrlSupper):
 
-    # __init__, __del__ =======================================================================================================================================
-
     def __init__(self, date_range): # 생성자
 
         self.logger = get_logger('Lotte')   # 파이션 로그
@@ -58,11 +56,12 @@ class ActCrlLotte(ActCrlSupper):
             self.logger.info('영화 / 상영예정작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5) 에서 영화데이터를 가지고 온다. ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
-            self.sql_cursor.execute(' DELETE FROM lotte_movie ')
-
+            
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
             self.logger.info('코드, 영화명, 장르, 예매, 개봉일, 관람등급                                     ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+
+            self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'DELETE_lotte_movie'}']").text.strip())            
 
             arrUrl = ["https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1", "https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5"]  # 상영영화와 상영예정영화
             for url in arrUrl:
@@ -95,17 +94,13 @@ class ActCrlLotte(ActCrlSupper):
 
                             self.logger.info(f'{representationmoviecode},{movienamekr},{moviegenrename},{bookingyn},{releasedate},{viewgradenameus}')
 
-                            query = ''' INSERT OR REPLACE INTO lotte_movie (moviecode, moviename, moviegenrename, bookingyn, releasedate, viewgradenameus)
-                                                        VALUES             (?,         ?,         ?,              ?,         ?,           ?              )   '''
+                            query = self.sqlmap.find(f"query[@id='{'INSERT_lotte_movie'}']").text.strip()                            
                             parameters = (representationmoviecode, movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus)
                             self.sql_cursor.execute(query, parameters)
-
                         # [for match in parse('Movies.Items[*]').find(json_obj):]
 
                         self.sql_conn.commit()
-
                     # [if request['url'] == "https://www.lottecinema.co.kr/LCWS/Movie/MovieData.aspx": ]
-
                 # [for entry in proxy.har['log']['entries']:  # 각 캡처된 요청의 세부 정보 출력 ]
 
                 proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 복수 실행을 위해 캡처된 요청 초기화
@@ -162,7 +157,7 @@ class ActCrlLotte(ActCrlSupper):
                 arrUrl = ['https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema','https://www.lottecinema.co.kr/NLCHS/Cinema/Detail']
                 parsed_links = __2_parse_links(tag1, arrUrl)  # <a> 태그 분해
 
-                self.sql_cursor.execute(' DELETE FROM lotte_cinema ')
+                self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'DELETE_lotte_cinema'}']").text.strip())            
 
                 self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                 self.logger.info('코드, 스페셜관, 극장명, 링크, 성공여부')
@@ -180,8 +175,7 @@ class ActCrlLotte(ActCrlSupper):
 
                     self.logger.info(f"{cinemacode}, {spacialyn}, {parsed_link['text']}, {parsed_link['link']}, '_'")
 
-                    query = ''' INSERT OR REPLACE INTO lotte_cinema (cinemacode, spacialyn, cinemaname, link, succese )
-                                                VALUES              (?,          ?,         ?,          ?,    '_'     )   '''
+                    query = self.sqlmap.find(f"query[@id='{'INSERT_INTO_lotte_cinema'}']").text.strip()                            
                     parameters = (cinemacode, spacialyn, parsed_link['text'], parsed_link['link'])
                     self.sql_cursor.execute(query, parameters)
                 # [for parsed_link in parsed_links:]
