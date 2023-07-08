@@ -38,13 +38,13 @@ class ActCrlMega(ActCrlSupper):
     def crawling(self):
 
         # =====================================================================================================================================================
-        # 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다.
+        # 1. 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다.
         #
         def _1_crawl_mega_movie():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info('### 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다. ###')
+            self.logger.info(' 1. ### 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다. ###')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             self.logger.info('-------------------------------------')
@@ -89,13 +89,13 @@ class ActCrlMega(ActCrlSupper):
         # [1_crawl_mega_movie():]
 
         # =====================================================================================================================================================
-        # 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다.
+        # 2. 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다.
         #
         def _2_crawl_mega_cinema():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info('### 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다. ###')
+            self.logger.info(' 2. ### 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다. ###')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             self.logger.info('-------------------------------------')
@@ -140,56 +140,25 @@ class ActCrlMega(ActCrlSupper):
         # [def _2_crawl_mega_cinema():]
 
         # =====================================================================================================================================================
-        # 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다.
+        # 3. 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다.
         #
         def _3_crawl_mega_schedule():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info('### 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다. ###')
+            self.logger.info(' 3. ### 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다. ###')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
+        
             days = []
 
             date1 = datetime.date.today()  # 오늘자 날짜객체
-            date2 = date1 + datetime.timedelta(days=1)  # +1 일
-            date3 = date2 + datetime.timedelta(days=1)  # +2 일
-            date4 = date3 + datetime.timedelta(days=1)  # +3 일
-            date5 = date4 + datetime.timedelta(days=1)  # +4 일
-            date6 = date5 + datetime.timedelta(days=1)  # +5 일
-            date7 = date6 + datetime.timedelta(days=1)  # +6 일
-            date8 = date7 + datetime.timedelta(days=1)  # +7 일
-            date9 = date8 + datetime.timedelta(days=1)  # +8 일
-            date10 = date9 + datetime.timedelta(days=1)  # +9 일
-            date11 = date10 + datetime.timedelta(days=1)  # +10 일
-            date12 = date11 + datetime.timedelta(days=1)  # +11 일
-            date13 = date12 + datetime.timedelta(days=1)  # +12 일
+            days.append(date1.strftime('%Y%m%d'))  # 오늘의 날짜
 
-            days.append('{:04d}{:02d}{:02d}'.format(date1.year, date1.month, date1.day))  # 오늘의 날짜
-            if self.dateRage >= 1:
-                days.append('{:04d}{:02d}{:02d}'.format(date2.year, date2.month, date2.day))  # 오늘+1의 날짜
-            if self.dateRage >= 2:
-                days.append('{:04d}{:02d}{:02d}'.format(date3.year, date3.month, date3.day))  # 오늘+2의 날짜
-            if self.dateRage >= 3:
-                days.append('{:04d}{:02d}{:02d}'.format(date4.year, date4.month, date4.day))  # 오늘+3의 날짜
-            if self.dateRage >= 4:
-                days.append('{:04d}{:02d}{:02d}'.format(date5.year, date3.month, date5.day))  # 오늘+4의 날짜
-            if self.dateRage >= 5:
-                days.append('{:04d}{:02d}{:02d}'.format(date6.year, date6.month, date6.day))  # 오늘+5의 날짜
-            if self.dateRage >= 6:
-                days.append('{:04d}{:02d}{:02d}'.format(date7.year, date7.month, date7.day))  # 오늘+6의 날짜
-            if self.dateRage >= 7:
-                days.append('{:04d}{:02d}{:02d}'.format(date8.year, date8.month, date8.day))  # 오늘+7의 날짜
-            if self.dateRage >= 8:
-                days.append('{:04d}{:02d}{:02d}'.format(date9.year, date9.month, date9.day))  # 오늘+8의 날짜
-            if self.dateRage >= 9:
-                days.append('{:04d}{:02d}{:02d}'.format(date10.year, date10.month, date10.day))  # 오늘+9의 날짜
-            if self.dateRage >= 10:
-                days.append('{:04d}{:02d}{:02d}'.format(date11.year, date11.month, date11.day))  # 오늘+10의 날짜
-            if self.dateRage >= 11:
-                days.append('{:04d}{:02d}{:02d}'.format(date12.year, date12.month, date12.day))  # 오늘+11의 날짜
-            if self.dateRage >= 12:
-                days.append('{:04d}{:02d}{:02d}'.format(date13.year, date13.month, date13.day))  # 오늘+12의 날짜
+            for i in range(1, self.dateRage + 1):
+                future_date = date1 + datetime.timedelta(days=i)
+                days.append(future_date.strftime('%Y%m%d'))
+
 
             no_rooms = 0
 
@@ -320,9 +289,9 @@ class ActCrlMega(ActCrlSupper):
 
         try:
             
-            _1_crawl_mega_movie()    # 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다.
-            _2_crawl_mega_cinema()   # 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다.
-            _3_crawl_mega_schedule() # 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다.        
+            _1_crawl_mega_movie()    # 1. 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다.
+            _2_crawl_mega_cinema()   # 2. 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다.
+            _3_crawl_mega_schedule() # 3. 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다.        
         except Exception as e:    
 
             self.logger.error('Mega 크롤링 중 오류발생!')
