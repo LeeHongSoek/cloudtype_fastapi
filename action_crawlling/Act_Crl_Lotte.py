@@ -37,7 +37,7 @@ class ActCrlLotte(ActCrlSupper):
     def __del__(self): # 소멸자
 
         clear_logger('Lotte')  # 한달전 로그파일을 삭제한다.
-        super().__del__(type(self).__name__)
+        super().__del__()
     # [def __del__(self): # 소멸자]
 
 
@@ -46,14 +46,14 @@ class ActCrlLotte(ActCrlSupper):
     def crawling(self):
         
         # =====================================================================================================================================================
-        #  영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
+        #  1. 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
         #
         def _1_crawlLotte_boxoffice(chm_driver):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info('영화 / 현재상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1),                               ')
-            self.logger.info('영화 / 상영예정작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5) 에서 영화데이터를 가지고 온다. ')
+            self.logger.info(' 1. 영화 / 현재상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1),                               ')
+            self.logger.info('    영화 / 상영예정작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5) 에서 영화데이터를 가지고 온다. ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             
@@ -61,7 +61,7 @@ class ActCrlLotte(ActCrlSupper):
             self.logger.info('코드, 영화명, 장르, 예매, 개봉일, 관람등급                                     ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
-            self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'DELETE_lotte_movie'}']").text.strip())            
+            self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{'DELETE_lotte_movie'}']").text.strip())            
 
             arrUrl = ["https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1", "https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5"]  # 상영영화와 상영예정영화
             for url in arrUrl:
@@ -94,7 +94,7 @@ class ActCrlLotte(ActCrlSupper):
 
                             self.logger.info(f'{representationmoviecode},{movienamekr},{moviegenrename},{bookingyn},{releasedate},{viewgradenameus}')
 
-                            query = self.sqlmap.find(f"query[@id='{'INSERT_lotte_movie'}']").text.strip()                            
+                            query = self.sqlxmp.find(f"query[@id='{'INSERT_lotte_movie'}']").text.strip()                            
                             parameters = (representationmoviecode, movienamekr, moviegenrename, bookingyn, releasedate, viewgradenameus)
                             self.sql_cursor.execute(query, parameters)
                         # [for match in parse('Movies.Items[*]').find(json_obj):]
@@ -109,13 +109,13 @@ class ActCrlLotte(ActCrlSupper):
         # [def _crawlLotte_1_boxoffice(chm_driver):]
 
         # =====================================================================================================================================================
-        #  영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. 
+        #  2. 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. 
         #
         def _2_crawlLotte_cinema(chm_driver):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info('영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ')
+            self.logger.info(' 2. 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             def __2_parse_links(tag1, arrUrl):
@@ -157,7 +157,7 @@ class ActCrlLotte(ActCrlSupper):
                 arrUrl = ['https://www.lottecinema.co.kr/NLCHS/Cinema/SpecialCinema','https://www.lottecinema.co.kr/NLCHS/Cinema/Detail']
                 parsed_links = __2_parse_links(tag1, arrUrl)  # <a> 태그 분해
 
-                self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'DELETE_lotte_cinema'}']").text.strip())            
+                self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{'DELETE_lotte_cinema'}']").text.strip())            
 
                 self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                 self.logger.info('코드, 스페셜관, 극장명, 링크, 성공여부')
@@ -175,7 +175,7 @@ class ActCrlLotte(ActCrlSupper):
 
                     self.logger.info(f"{cinemacode}, {spacialyn}, {parsed_link['text']}, {parsed_link['link']}, '_'")
 
-                    query = self.sqlmap.find(f"query[@id='{'INSERT_INTO_lotte_cinema'}']").text.strip()                            
+                    query = self.sqlxmp.find(f"query[@id='{'INSERT_INTO_lotte_cinema'}']").text.strip()                            
                     parameters = (cinemacode, spacialyn, parsed_link['text'], parsed_link['link'])
                     self.sql_cursor.execute(query, parameters)
                 # [for parsed_link in parsed_links:]
@@ -186,13 +186,13 @@ class ActCrlLotte(ActCrlSupper):
         # [def _crawlLotte_2_cinema(chm_driver):]
 
         # =====================================================================================================================================================
-        # 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다.
+        # 3. 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다.
         #
         def _3_crawlLotte_ticketing(chm_driver):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info('영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. ')
+            self.logger.info(' 3. 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             def __3_daily_ticketingdata(cinemacode, link):
@@ -535,9 +535,9 @@ class ActCrlLotte(ActCrlSupper):
             proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 요청 캡처 활성화
 
             # ------------------------------
-            _1_crawlLotte_boxoffice(chrome_driver)  # 영화/현재상영작 (https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
-            _2_crawlLotte_cinema(chrome_driver)     # 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다.             
-            _3_crawlLotte_ticketing(chrome_driver)  # 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다.
+            _1_crawlLotte_boxoffice(chrome_driver)  # 1. 영화/현재상영작 (https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
+            _2_crawlLotte_cinema(chrome_driver)     # 2. 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다.             
+            _3_crawlLotte_ticketing(chrome_driver)  # 3. 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다.
             # ------------------------------
 
             chrome_driver.quit()

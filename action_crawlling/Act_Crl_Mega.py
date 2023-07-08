@@ -29,7 +29,7 @@ class ActCrlMega(ActCrlSupper):
     def __del__(self): # 소멸자
 
         clear_logger('Mega')  # 한달전 로그파일을 삭제한다.
-        super().__del__(type(self).__name__)
+        super().__del__()
     # [def __del__(self): # 소멸자]
 
 

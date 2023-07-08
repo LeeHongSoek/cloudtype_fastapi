@@ -1,6 +1,6 @@
 <queries>
 
-    <query id="SELECT_sqlite_master_table_lotte_movie">
+    <query id="SELECT_sqlite_master_lotte_movie">
         <![CDATA[
                  SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_movie' 
         ]]>
@@ -21,7 +21,7 @@
         ]]>
     </query>
 
-    <query id="SELECT_sqlite_master_table_lotte_cinema">
+    <query id="SELECT_sqlite_master_lotte_cinema">
         <![CDATA[
                   SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_cinema'
         ]]>
@@ -38,7 +38,7 @@
         ]]>
     </query>
 
-    <query id="SELECT_sqlite_master_table_lotte_playdate">
+    <query id="SELECT_sqlite_master_lotte_playdate">
         <![CDATA[
                   SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_playdate' 
         ]]>
@@ -47,13 +47,13 @@
     <query id="CREATE_TABLE_lotte_playdate">
         <![CDATA[
                   CREATE TABLE IF NOT EXISTS lotte_playdate ( cinemacode  TEXT
-                                                                    , playdate    TEXT
-                                                                    , PRIMARY KEY (cinemacode, playdate)
-                                                                    )                              
+                                                            , playdate    TEXT
+                                                            , PRIMARY KEY (cinemacode, playdate)
+                                                            )                              
         ]]>
     </query>
 
-    <query id="SELECT_sqlite_master_table_lotte_screen">
+    <query id="SELECT_sqlite_master_lotte_screen">
         <![CDATA[
                   SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_screen' 
         ]]>
@@ -70,7 +70,7 @@
         ]]>
     </query>
 
-    <query id="SELECT_sqlite_master_table_lotte_ticketing">
+    <query id="SELECT_sqlite_master_lotte_ticketing">
         <![CDATA[
                   SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_ticketing' 
         ]]>
@@ -116,7 +116,6 @@
                           on LM.moviecode = LT.moviecode        
         ]]>
     </query>
-
 
     <!-- ====================================================================== -->
 
@@ -173,17 +172,17 @@
         query = self.root.find(f"query[@id='{'XXXX'}']").text.strip()                            
         parameters = (ZZZZZ1, ZZZZ2)
         self.sql_cursor.execute(query, parameters)
+
+    <query id="">
+        <![CDATA[
+
+        ]]>
+    </query>
+
+    <query id="">
+        <![CDATA[
+
+        ]]>
+    </query>
     -->
-
-    <query id="">
-        <![CDATA[
-
-        ]]>
-    </query>
-
-    <query id="">
-        <![CDATA[
-
-        ]]>
-    </query>
 </queries>

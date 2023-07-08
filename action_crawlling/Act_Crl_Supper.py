@@ -26,8 +26,6 @@ class ActCrlSupper(metaclass=ABCMeta):
 
         self.db_fullfilename = f'{self.sqlmap_dir}/'+db_filename
 
-        self.sqlmap = ET.parse(f'{self.db_fullfilename}.xml').getroot() # sqlmap XML 파일 읽기
-
         zip_file_name = f'{self.db_fullfilename}.zip'
         zip_path = os.path.join(os.getcwd(), zip_file_name)
         extract_path = os.getcwd()
@@ -38,49 +36,28 @@ class ActCrlSupper(metaclass=ABCMeta):
         else:
             self.logger.info(f"파일 '{zip_file_name}' 가 존재하지 않습니다. ")
 
-        self.sql_conn = sqlite3.connect(db_filename + '.db') # Connect to SQLite database
+        self.sql_conn = sqlite3.connect(self.db_fullfilename + '.db') # Connect to SQLite database
         self.sql_cursor = self.sql_conn.cursor()
-
-        if db_filename == 'ActCrlCgv':
-            pass
-        # [if db_filename == 'ActCrlCgv':]
-        
-        if db_filename == 'ActCrlKobis':
-
-           pass
-        # [db_filename == 'ActCrlKobis':]
-
-        if db_filename == 'ActCrlLotte':
-
-            self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'SELECT_sqlite_master_table_lotte_movie'}']").text.strip())
-            if not self.sql_cursor.fetchone():
-                self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'CREATE_TABLE_lotte_movie'}']").text.strip())
             
-            self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'SELECT_sqlite_master_table_lotte_cinema'}']").text.strip())
-            if not self.sql_cursor.fetchone():
-                self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'CREATE_TABLE_lotte_cinema'}']").text.strip())
-            
-            self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'SELECT_sqlite_master_table_lotte_playdate'}']").text.strip())
-            if not self.sql_cursor.fetchone():
-                self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'CREATE_TABLE_lotte_playdate'}']").text.strip())
+        self.sqlxmp = ET.parse(f'{self.db_fullfilename}.xml').getroot() # sqlmap XML 파일 읽기
 
-            self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'SELECT_sqlite_master_table_lotte_screen'}']").text.strip())
-            if not self.sql_cursor.fetchone():
-                self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'CREATE_TABLE_lotte_screen'}']").text.strip())
- 
-            self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'SELECT_sqlite_master_table_lotte_ticketing'}']").text.strip())
-            if not self.sql_cursor.fetchone():
-                self.sql_cursor.execute(self.sqlmap.find(f"query[@id='{'CREATE_TABLE_lotte_ticketing'}']").text.strip())
+        # id가 "SELECT_sqlite_master_"로 시작하는 모든 태그를 수집합니다.
+        selected_tags = self.sqlxmp.findall(".//query")
+        matching_tags = [tag for tag in selected_tags if tag.attrib['id'].startswith('SELECT_sqlite_master_')]
 
-            self.sql_conn.commit()
-        # [if db_filename == 'ActCrlLotte':]
+        for tag in matching_tags:
 
-        if db_filename == 'ActCrlMega':
-            pass
-        # [if db_filename == 'ActCrlMega':]    
+            tableNm = tag.attrib['id'][len('SELECT_sqlite_master_'):]
+
+            self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{tag.attrib['id']}']").text.strip()) # table 존재유무 검사
+            if not self.sql_cursor.fetchone():
+                self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{f'CREATE_TABLE_{tableNm}'}']").text.strip()) # table 생성
+        # [for tag in selected_tags:]
+
+        self.sql_conn.commit()
     # [def __init__(self, db_filename): # 생성자]    
             
-    def __del__(self, db_filename): # 소멸자
+    def __del__(self): # 소멸자
 
         self.logger.info(f' 파일 {self.db_fullfilename} 을 압축 ')
         zip_file(f'{self.db_fullfilename}.db', f'{self.db_fullfilename}.zip')
