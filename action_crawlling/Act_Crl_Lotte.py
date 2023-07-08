@@ -257,29 +257,20 @@ class ActCrlLotte(ActCrlSupper):
                                         filmnamekr = match1['FilmNameKR']  # 필름종류  ex) 2D
                                         gubun = match1['TranslationDivisionNameKR']  # 더빙/자막
 
-                                        query = '''SELECT count(*) cnt FROM lotte_movie WHERE moviecode = ? '''
+                                        query = self.root.find(f"query[@id='{'SELECT_count_lotte_movie_moviecode'}']").text.strip()                            
                                         parameters = (moviecode,)
                                         self.sql_cursor.execute(query, parameters)
                                         result = self.sql_cursor.fetchone() # 첫 번째 결과 행 가져오기
 
                                         if result['cnt'] > 0:
-                                            query = ''' UPDATE lotte_movie
-                                                           SET filmname = ?
-                                                             , gubun    = ?
-                                                         WHERE moviecode  = ?   '''
+                                            query = self.root.find(f"query[@id='{'UPDATE_lotte_movie_filmname_gubun'}']").text.strip()                            
                                             parameters = (filmnamekr, gubun, moviecode)
                                             self.sql_cursor.execute(query, parameters)
                                         else:
                                             orgcode = ''
                                             
                                             # 영화명이 같지만 영화코드가 다르다면 원래 코드하나로 통일한다.
-                                            query = '''SELECT moviecode 
-                                                         FROM lotte_movie 
-                                                        WHERE moviecode <> ? 
-                                                          AND moviename = ?
-                                                          AND bookingyn IS NOT NULL
-                                                          AND releasedate IS NOT NULL
-                                                          AND viewgradenameus IS NOT NULL   '''
+                                            query = self.root.find(f"query[@id='{'SELECT_moviecode_lotte_movie_moviecode_moviename'}']").text.strip()                            
                                             parameters = (moviecode, moviename)
                                             self.sql_cursor.execute(query, parameters)
                                             self.sql_cursor.row_factory = sqlite3.Row
@@ -288,8 +279,7 @@ class ActCrlLotte(ActCrlSupper):
                                             for row in results:
                                                 orgcode = row['moviecode']
 
-                                                query = ''' INSERT OR REPLACE INTO lotte_movie (moviecode, moviename, filmname, gubun, orgcode)
-                                                                            VALUES             (?,         ?,         ?,        ?,     ?      )   '''
+                                                query = self.root.find(f"query[@id='{'INSERT_lotte_movie'}']").text.strip()                               
                                                 parameters = (moviecode, moviename, filmnamekr, gubun, orgcode)
                                                 self.sql_cursor.execute(query, parameters)
                                         # [if result['cnt'] > 0: else:]
@@ -313,13 +303,12 @@ class ActCrlLotte(ActCrlSupper):
                                 self.logger.info(f'상영일 리스트 ({item_count}일간)    ')
                                 self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
-                                self.sql_cursor.execute(' DELETE FROM lotte_playdate WHERE  cinemacode = ?',(cinemacode,))
+                                self.sql_cursor.execute(self.root.find(f"query[@id='{'DELETE_lotte_playdate_cinemacode'}']").text.strip(),(cinemacode,))
 
                                 for items in jsonpath_expr[0].value:
                                     self.logger.info(str(items['PlayDate']))
 
-                                    sql = '''INSERT OR REPLACE INTO lotte_playdate (cinemacode, playdate)
-                                                             VALUES                (?,          ?       )  '''
+                                    query = self.root.find(f"query[@id='{'INSERT_lotte_playdate'}']").text.strip()
                                     parameters = (cinemacode, str(items['PlayDate']))
                                     self.sql_cursor.execute(sql, parameters)
 
@@ -347,8 +336,7 @@ class ActCrlLotte(ActCrlSupper):
 
                                         self.logger.info(f'{screennamekr}({screenid}), {totalseatcount}석')
                                         
-                                        sql = '''INSERT OR REPLACE INTO lotte_screen (screencode, cinemacode, screenname, screendivname, totalseatcount)
-                                                                 VALUES              (?,          ?,          ?,          ?,             ?             )  '''
+                                        query = self.root.find(f"query[@id='{'INSERT_lotte_screen'}']").text.strip()
                                         parameters = (screenid, cinemacode, screennamekr, screendivnamekr, totalseatcount)
                                         self.sql_cursor.execute(sql, parameters)
 
@@ -391,10 +379,7 @@ class ActCrlLotte(ActCrlSupper):
                                     #
                                     degree_no += 1
 
-                                    query = ''' SELECT screencode, totalseatcount 
-                                                  FROM lotte_screen
-                                                 WHERE cinemacode = ?
-                                                   AND screenname = ?            '''
+                                    query = self.root.find(f"query[@id='{'SELECT_screencode_totalseatcount_lotte_screen_cinemacode_screenname'}']").text.strip()
                                     parameters = (cinemacode, screennamekr)
                                     self.sql_cursor.execute(query, parameters)
                                     self.sql_cursor.row_factory = sqlite3.Row
@@ -402,17 +387,14 @@ class ActCrlLotte(ActCrlSupper):
                                         screencode     = result['screencode']
                                         totalseatcount = result['totalseatcount']
                                         
-                                    query = ''' SELECT moviecode, moviename, moviegenrename, filmname                                            
-                                                  FROM lotte_movie 
-                                                 WHERE moviecode = ?   '''
+                                    query = self.root.find(f"query[@id='{'SELECT_moviecode_moviename_moviegenrename_filmname_lotte_movie_moviecode'}']").text.strip()
                                     parameters = (moviecode,)
                                     self.sql_cursor.execute(query, parameters)
                                     if result := self.sql_cursor.fetchone(): # 첫 번째 결과 행 가져오기                      
 
                                         self.logger.info(f'{playdt[-2:]}, {screennamekr}({screencode}), {degree_no}, {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}, ({moviecode}){result["moviename"]}[{result["moviegenrename"]}/{result["filmname"]}]')
 
-                                        sql = '''INSERT OR REPLACE INTO lotte_ticketing (cinemacode, playdt, screencode, degreeno, moviecode, starttime, endtime, bookingseatcount)
-                                                                 VALUES                 (?,          ?,      ?,        ?,        ?,         ?,         ?,       ?               )  '''
+                                        self.sql_cursor.execute(self.root.find(f"query[@id='{'INSERT_lotte_ticketing'}']").text.strip())
                                         parameters = (cinemacode, playdt, screencode, degree_no, moviecode, starttime, endtime, bookingseatcount)
                                         self.sql_cursor.execute(sql, parameters)
                                     else:
@@ -437,10 +419,7 @@ class ActCrlLotte(ActCrlSupper):
                 doit = False
 
                 # 스페셜 극장은 빠진다. 이미 크롤링에 성공한 상영관은 열외 실패하면 다시 반복~!!
-                query = ''' SELECT cinemacode, spacialyn, cinemaname, link, succese  
-                              FROM lotte_cinema  
-                             WHERE spacialyn='N' AND (succese = '_' OR succese = 'X')  '''  
-                self.sql_cursor.execute(query)
+                self.sql_cursor.execute(self.root.find(f"query[@id='{'SELECT_cinemacode_spacialyn_cinemaname_link_succese_lotte_cinema_spacialyn'}']").text.strip())
                 self.sql_cursor.row_factory = sqlite3.Row
                 for row in self.sql_cursor.fetchall(): # 결과 가져오기
                     cinemacode = row['cinemacode']
@@ -468,9 +447,7 @@ class ActCrlLotte(ActCrlSupper):
                         self.sql_conn.rollback()
 
                         # 크롤링에 예외가 발생되어 실패
-                        query = ''' UPDATE lotte_cinema
-                                       SET succese = ?
-                                     WHERE cinemacode  = ?   '''
+                        query = self.root.find(f"query[@id='{'UPDATE_lotte_cinema_succese_cinemacode'}']").text.strip()
                         parameters = ('X', cinemacode)
                         self.sql_cursor.execute(query, parameters)
                         self.sql_conn.commit()
@@ -490,9 +467,7 @@ class ActCrlLotte(ActCrlSupper):
 
                     else:
                         # 정상적으로 크롤링된 상영관
-                        query = ''' UPDATE lotte_cinema
-                                       SET succese = ?
-                                     WHERE cinemacode  = ?   '''
+                        query = self.root.find(f"query[@id='{'UPDATE_lotte_cinema_succese_cinemacode'}']").text.strip()
                         parameters = ('O', cinemacode)
                         self.sql_cursor.execute(query, parameters)
                         self.sql_conn.commit()

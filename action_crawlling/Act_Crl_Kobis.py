@@ -589,10 +589,10 @@ class ActCrlKobis(ActCrlSupper):
                 dicShowroom = {}
                 i = 0
                 for showroom in lstShowroom:
-                    dicShowRoom[showroom] = lstSeatnum[i]
 
+                    dicShowRoom[showroom] = lstSeatnum[i]
                     i += 1
-                #
+                # [for showroom in lstShowroom:]
 
                 # 상영내역
                 lstInningNm = []
