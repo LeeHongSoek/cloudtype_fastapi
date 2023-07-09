@@ -307,10 +307,10 @@ class ActCrlKobis(ActCrlSupper):
                 schedule_list = r.json()["schedule"]
                 if len(schedule_list) > 0:  # 해당날에 해당극장에 상영하는 영화
 
-                    self.logger.info('-----------------------------------------------------------------------------------------------------------------------')
+                    self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                     self.logger.info(f'일자 : /{itday[-2:]} 극장 : ({theatherCd}) {theatherNm}    ')
                     self.logger.info('일자, 상영관코드, 관, 상영시작시간, (영화코드)영화명  ')
-                    self.logger.info('-----------------------------------------------------------------------------------------------------------------------')
+                    self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                     for val in schedule_list:
 
@@ -337,8 +337,7 @@ class ActCrlKobis(ActCrlSupper):
             loopCnt = 0
             dicLoop = {}
 
-            query = self.sqlxmp.find(f"query[@id='{'SELECT_kobis_theater'}']").text.strip()
-            self.sql_cursor.execute(query)
+            self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{'SELECT_kobis_theater'}']").text.strip())
             self.sql_cursor.row_factory = sqlite3.Row
             for row in self.sql_cursor.fetchall():  # 극장리스트 만큼 순환
 
@@ -386,11 +385,11 @@ class ActCrlKobis(ActCrlSupper):
 
                             dicLoop[i][3] = False  # 실패!!
 
-                            self.logger.info('---------------------------------------------------------------------------------------------------------------')
+                            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                             self.logger.error(f'{_itday}:상영관({_theatherNm})크롤링에 예외가 발생되어 실패')
                             self.logger.error(f'오류 내용! {e}')
                             self.logger.error(f'{traceback.print_exc()}')
-                            self.logger.info('---------------------------------------------------------------------------------------------------------------')
+                            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                     # [if not _isDone:]        
 
                     _theatherCd_Old = _theatherCd
@@ -413,8 +412,7 @@ class ActCrlKobis(ActCrlSupper):
             self.logger.info(' 4. ### 영화정보검색/영화상영관상세정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterCodeLayer.do?theaCd=[theaterCd]) ###')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
-            query = self.sqlxmp.find(f"query[@id='{'SELECT_kobis_theater'}']").text.strip()
-            self.sql_cursor.execute(query)
+            self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{'SELECT_kobis_theater'}']").text.strip())
             self.sql_cursor.row_factory = sqlite3.Row
             for row in self.sql_cursor.fetchall():  # 극장리스트 만큼 순환
 
@@ -521,8 +519,7 @@ class ActCrlKobis(ActCrlSupper):
             strDateSt = (datetime.date.today() - datetime.timedelta(days=self.date_range)).strftime('%Y-%m-%d')
             strDateEd = datetime.date.today().strftime('%Y-%m-%d')
 
-            query = self.sqlxmp.find(f"query[@id='{'SELECT_kobis_theater'}']").text.strip()
-            self.sql_cursor.execute(query)
+            self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{'SELECT_kobis_theater'}']").text.strip())
             self.sql_cursor.row_factory = sqlite3.Row
             for row in self.sql_cursor.fetchall():  # 극장리스트 만큼 순환
 
@@ -531,7 +528,7 @@ class ActCrlKobis(ActCrlSupper):
                 theatherCd = row['theaterCd']
                 theatherNm = row['theaterNm']
 
-                self.logger.info('---------------------------------------------------------------------------------------------------------------------------')
+                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                 self.logger.info(f'({theatherCd}) {theatherNm}                 ')
                 self.logger.info('일자, 상영관, 회차, 시작시간, 금액, 영화명   ')
                 
@@ -577,7 +574,7 @@ class ActCrlKobis(ActCrlSupper):
 
                     self.logger.info('{0}, {1}'.format('상영관', lstShowroom))
                     self.logger.info('{0}, {1}'.format('좌석수', lstSeatnum))
-                    self.logger.info('---------------------------------------------------------------------------------------------------------------------------')
+                    self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                 dicPlayDt = {}
                 dicShowroom = {}

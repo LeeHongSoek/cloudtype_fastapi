@@ -6,7 +6,6 @@ import sys
 import traceback
 import sqlite3
 import time
-import json
 import html
 import datetime
 
@@ -64,9 +63,9 @@ class ActCrlMega(ActCrlSupper):
             r = requests.post(url, data=fields)
             time.sleep(self.delayTime)
 
-            self.logger.info('-------------------------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
             self.logger.info('영화코드 : 개봉일자, 구분, 영화명    ')
-            self.logger.info('-------------------------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             for movieList in r.json()["movieList"]:
 
@@ -101,10 +100,10 @@ class ActCrlMega(ActCrlSupper):
 
             soup = BeautifulSoup(r.text, 'html.parser') # print(data)
 
-            self.logger.info('-------------------------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
             self.logger.info('코드 : 지역명                        ')
-            self.logger.info('+-   코드 : 극장명                     ')
-            self.logger.info('-------------------------------------')
+            self.logger.info('+-   코드 : 극장명                   ')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             for tagLI in soup.select("div#contents > div > div.theater-box > div.theater-place > ul > li "):  # > button.sel-city # print(tag1)
 
@@ -186,8 +185,7 @@ class ActCrlMega(ActCrlSupper):
 
                 dic_playdate = {}  # 상영일자
 
-                query = self.sqlxmp.find(f"query[@id='{'SELECT_cinemacode_regioncode_cinemaname_mega_cinema'}']").text.strip()                
-                self.sql_cursor.execute(query)
+                self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{'SELECT_cinemacode_regioncode_cinemaname_mega_cinema'}']").text.strip())
                 self.sql_cursor.row_factory = sqlite3.Row
                 for row in self.sql_cursor.fetchall():  # 극장리스트 만큼 순환
 

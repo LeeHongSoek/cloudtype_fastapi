@@ -58,16 +58,16 @@ class CrawlLotte(Crawl):
         #
         def _crawl_lotte_boxoffice(chm_driver):
 
-            self.logger.info('=======================================================================================================================')
-            self.logger.info('영화 / 현재상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1),                                              ')
-            self.logger.info('영화 / 상영예정작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5) 에서 영화데이터를 가지고 온다. (dicMovieData) ')
-            self.logger.info('-----------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('===============================================================================================================================')
+            self.logger.info('영화 / 현재상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1),                                                      ')
+            self.logger.info('영화 / 상영예정작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5) 에서 영화데이터를 가지고 온다. (dicMovieData)         ')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             movie_count = 1
 
-            self.logger.info('-------------------------------------------------------------------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
             self.logger.info('no, 코드, 영화명, 장르, 예매, 개봉일, 관람등급')
-            self.logger.info('-------------------------------------------------------------------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             arrUrl = ["https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1", "https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=5"]
             for url in arrUrl:
@@ -118,9 +118,9 @@ class CrawlLotte(Crawl):
         #
         def _crawl_lotte_cinema(chm_driver):
 
-            self.logger.info('=========================================================================================')
-            self.logger.info('영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)')
-            self.logger.info('-----------------------------------------------------------------------------------------')
+            self.logger.info('===============================================================================================================================')
+            self.logger.info('영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. (dicCinemas)     ')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             def __parse_links(tag_lst):
 
@@ -170,9 +170,9 @@ class CrawlLotte(Crawl):
                         self.dicCinemas[parsed_link['query_params']['cinemaID']] = ['N', sortsequence, parsed_link['text'], parsed_link['link'], '_']
 
 
-                self.logger.info('-------------------------------------')
+                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                 self.logger.info(' 코드, 스페셜관, 정렬일련번호, 극장명')
-                self.logger.info('-------------------------------------')
+                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                 for key, value in self.dicCinemas.items():
                     self.logger.info(f'{key} : {value[0]},{value[1]},{value[2]},{value[3]}')
@@ -184,9 +184,9 @@ class CrawlLotte(Crawl):
         #
         def _crawl_lotte_ticketing(chm_driver):
 
-            self.logger.info('==========================================================================================================================')
-            self.logger.info('영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)')
-            self.logger.info('--------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('=================================================================================================================++++==========')
+            self.logger.info('영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다. (dicTicketingData)     ')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             def __daily_ticketingdata():                
 
@@ -273,9 +273,9 @@ class CrawlLotte(Crawl):
                             jsonpath_expr = parse('PlaySeqsHeader.Items').find(json_obj)
                             if len(jsonpath_expr) == 1:
 
-                                self.logger.info('-------------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                                 self.logger.info('no: 영화코드, 영화명,       더빙/자막')
-                                self.logger.info('-------------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                                 moviecode_old = ''
                                 for match1 in jsonpath_expr[0].value:
@@ -312,9 +312,9 @@ class CrawlLotte(Crawl):
                             jsonpath_expr = parse('PlayDates.Items').find(json_obj)
                             if len(jsonpath_expr) == 1:
 
-                                self.logger.info('-------------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                                 self.logger.info(f'상영일 ({item_count})')
-                                self.logger.info('-------------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                                 for items in jsonpath_expr[0].value:
                                     self.logger.info(str(items['PlayDate']))
@@ -343,17 +343,17 @@ class CrawlLotte(Crawl):
 
                                 # end of [for PlayDate in jsonpath_expr[0].value:]
 
-                                self.logger.info('----------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                                 self.logger.info('관(코드), 좌석수')
-                                self.logger.info('----------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                                 for scr_key, scr_value in dic_screen.items():
                                     self.logger.info(f'{scr_value[0]}({scr_key}), {scr_value[1]}석')
 
 
-                                self.logger.info('-------------------------------------------------------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                                 self.logger.info(f'[{theather_nm}] 일자, 상영관, 회차, 영화, 시작시간~끝시간, 예약좌석수/총좌석수')
-                                self.logger.info('-------------------------------------------------------------------------------')
+                                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                                 screenid_old = None
                                 screen_no = 0

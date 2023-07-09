@@ -301,7 +301,7 @@ class ActCrlLotte(ActCrlSupper):
 
                                     query = self.root.find(f"query[@id='{'INSERT_lotte_playdate'}']").text.strip()
                                     parameters = (cinemacode, str(items['PlayDate']))
-                                    self.sql_cursor.execute(sql, parameters)
+                                    self.sql_cursor.execute(query, parameters)
 
                                 # [for items in jsonpath_expr[0].value:]
                             # [if len(parse('PlayDates.Items').find(json_obj)) == 1:]
@@ -329,7 +329,7 @@ class ActCrlLotte(ActCrlSupper):
                                         
                                         query = self.root.find(f"query[@id='{'INSERT_lotte_screen'}']").text.strip()
                                         parameters = (screenid, cinemacode, screennamekr, screendivnamekr, totalseatcount)
-                                        self.sql_cursor.execute(sql, parameters)
+                                        self.sql_cursor.execute(query, parameters)
 
                                         screenid_old = screenid
                                     # [if screenid_old != screenid:]
@@ -385,9 +385,9 @@ class ActCrlLotte(ActCrlSupper):
 
                                         self.logger.info(f'{playdt[-2:]}, {screennamekr}({screencode}), {degree_no}, {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}, ({moviecode}){result["moviename"]}[{result["moviegenrename"]}/{result["filmname"]}]')
 
-                                        self.sql_cursor.execute(self.root.find(f"query[@id='{'INSERT_lotte_ticketing'}']").text.strip())
+                                        query = self.root.find(f"query[@id='{'INSERT_lotte_ticketing'}']").text.strip()
                                         parameters = (cinemacode, playdt, screencode, degree_no, moviecode, starttime, endtime, bookingseatcount)
-                                        self.sql_cursor.execute(sql, parameters)
+                                        self.sql_cursor.execute(query, parameters)
                                     else:
                                         self.logger.info(f'{playdt[-2:]}, {screennamekr}({screencode}), {degree_no}, {starttime} ~ {endtime}, {bookingseatcount} / {totalseatcount}, [영화정보매칭실패]({moviecode})')
                                     # [if result := self.sql_cursor.fetchone():]

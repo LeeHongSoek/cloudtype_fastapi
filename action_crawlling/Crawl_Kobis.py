@@ -444,10 +444,10 @@ class CrawlKobis(Crawl):
                     cntTry = cntTry + 1
 
                     if self.isPrnConsole:  # ################
-                        self.logger.info('-------------------------------------')
+                        self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                         self.logger.info('극장 : (' + _theatherCd + ') ' + _theatherNm)
                         self.logger.info('일자,극장코드,관,no,상영시간,영화코드,영화명')
-                        self.logger.info('-------------------------------------')
+                        self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
                     try:
                         self.crawl_kobis_theaters_JobB_sub(dicSchedule, _theatherCd, _today)
@@ -811,9 +811,9 @@ class CrawlKobis(Crawl):
     def uplodding(self, baseTime):
         try:
             self.logger.info('')
-            self.logger.info('=====================')
+            self.logger.info('===============================================================================================================================')
             self.logger.info('json 파일로 저장')
-            self.logger.info('---------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             gubunNm = "movies"
             with open("jsons/kobis_" + gubunNm + ".json", "w", encoding="utf-8") as fp:
@@ -845,9 +845,9 @@ class CrawlKobis(Crawl):
                 json.dump({gubunNm: self.dicBoxoffice}, fp, ensure_ascii=False)
             # cntPage =0
             """
-            self.logger.info('---------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
             self.logger.info('kobis.zip 파일로 압축')
-            self.logger.info('---------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
             zip_file = zipfile.ZipFile("jsons/kobis.zip", "w")
             for file in os.listdir("."):
                 if file.endswith('jsons/kobis.json'):
@@ -856,9 +856,9 @@ class CrawlKobis(Crawl):
             """
 
             self.logger.info('')
-            self.logger.info('=====================')
+            self.logger.info('===============================================================================================================================')
             self.logger.info('json 파일들 업로드')
-            self.logger.info('---------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             dt = datetime.datetime.today()  # 오늘자 날짜객체
             self.logger.info("### KOBIS 서버 전송 시작 ({:04d}-{:02d}-{:02d} {:02d}:{:02d}:{:02d}) ###".format(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second))
