@@ -184,8 +184,7 @@ class ActCrlMega(ActCrlSupper):
         
             no_rooms = 0
 
-            # 1 ~ 13 일간 자료 가져오기
-            for playdt in __3_get_date_range(dateRange):
+            for playdt in __3_get_date_range(dateRange): # 1 ~ 13 일간 자료 가져오기
 
                 #if playdt != '20210128':
                 #    continue
@@ -217,15 +216,12 @@ class ActCrlMega(ActCrlSupper):
                     time.sleep(self.delayTime)
 
                     moviecode = ''
-                    cnt_room = 1
+                    cnt_room = 0
 
                     for schl in r.json()['megaMap']['movieFormList']:  # print(schl)
 
                         no_rooms += 1
                         cnt_room += 1
-                        # if moviecode == schl['movieNo']:
-                        # else:
-                        #    cnt_room = 1
 
                         moviecode = schl['movieNo']
                         moviegbn = schl['admisClassCdNm']
@@ -249,55 +245,83 @@ class ActCrlMega(ActCrlSupper):
 
                     # 영화별로 추려내고
                     old_moviecode = ''
-                    for k, v in dic_sch_rooms.items():
-                        if old_moviecode != str(v[0]):
-                            if len(str(v[0])) == 6:  # 코드가 6자리이면 8자리로 확장한다.
-                                moviecode8 = str(v[0]) + '00'
-                            else:
-                                moviecode8 = str(v[0])
-                            dic_sch_movies[moviecode8] = [v[1], v[2], v[3]]  # dic_sch_movies[moviecode] = [moviename, moviegubun, moviegbn] 만 이동..
-                            old_moviecode = str(v[0])
+                    for k, val_sh_rm in dic_sch_rooms.items():
 
-                    # 영화별 아래 관 추가
-                    for km, vm in dic_sch_movies.items():
+                        if old_moviecode != str(val_sh_rm[0]):
+
+                            if len(str(val_sh_rm[0])) == 6:  # 코드가 6자리이면 8자리로 확장한다.
+                                moviecode8 = str(val_sh_rm[0]) + '00'
+                            else:
+                                moviecode8 = str(val_sh_rm[0])
+
+                            dic_sch_movies[moviecode8] = [val_sh_rm[1], val_sh_rm[2], val_sh_rm[3]]  # dic_sch_movies[moviecode] = [moviename, moviegubun, moviegbn] 만 이동..
+                            old_moviecode = str(val_sh_rm[0])
+                    # [for k, val_sh_rm in dic_sch_rooms.items():]        
+
+                    # 영화별(8자리) 아래 관 추가
+                    for ky_sh_mv, v in dic_sch_movies.items():
+
                         dic_movies_room = {}
-                        for k, v in dic_sch_rooms.items():
+                        for k, val_sh_rm in dic_sch_rooms.items():
 
-                            if len(str(km)) == 6:  # 코드가 6자리이면 8자리로 확장한다.
-                                moviecode8_km = str(km) + '00'
+                            if len(str(ky_sh_mv)) == 6:  # 코드가 6자리이면 8자리로 확장한다.
+                                moviecode8_km = str(ky_sh_mv) + '00'
                             else:
-                                moviecode8_km = str(km)
-                            if len(str(v[0])) == 6:  # 코드가 6자리이면 8자리로 확장한다.
-                                moviecode8 = str(v[0]) + '00'
+                                moviecode8_km = str(ky_sh_mv)
+
+                            if len(str(val_sh_rm[0])) == 6:  # 코드가 6자리이면 8자리로 확장한다.
+                                moviecode8 = str(val_sh_rm[0]) + '00'
                             else:
-                                moviecode8 = str(v[0])
+                                moviecode8 = str(val_sh_rm[0])
 
-                            if moviecode8_km == moviecode8:  # 같은 영화 [moviecode[0], moviename, moviegubun, moviegbn[3], cnt_room[4], cinemaroom[5], rest_seat_cnt, theab_seat_cnt[7], start_time, end_time]
-                                dic_movies_room[str(v[5])] = [v[3], v[4], v[7]]
+                            if moviecode8_km == moviecode8:  # 같은 영화
+                                dic_movies_room[str(val_sh_rm[5])] = [val_sh_rm[3], val_sh_rm[4], val_sh_rm[7]] # [cinemaroom] = [moviegbn, cnt_room, theab_seat_cnt]
+                        # [for k, val_sh_rm in dic_sch_rooms.items():]
 
-                        for kr, vr in dic_movies_room.items():
+                        for key_mv_rm, v in dic_movies_room.items():
+
                             dic_sch_movies_room_time = {}
-                            for k, v in dic_sch_rooms.items():
+                            for k, val_sh_rm in dic_sch_rooms.items():
 
-                                if len(str(km)) == 6:  # 코드가 6자리이면 8자리로 확장한다.
-                                    moviecode8_km = str(km) + '00'
+                                if len(str(ky_sh_mv)) == 6:  # 코드가 6자리이면 8자리로 확장한다.
+                                    moviecode8_km = str(ky_sh_mv) + '00'
                                 else:
-                                    moviecode8_km = str(km)
-                                if len(str(v[0])) == 6:  # 코드가 6자리이면 8자리로 확장한다.
-                                    moviecode8 = str(v[0]) + '00'
+                                    moviecode8_km = str(ky_sh_mv)
+                                if len(str(val_sh_rm[0])) == 6:  # 코드가 6자리이면 8자리로 확장한다.
+                                    moviecode8 = str(val_sh_rm[0]) + '00'
                                 else:
-                                    moviecode8 = str(v[0])
+                                    moviecode8 = str(val_sh_rm[0])
 
-                                if moviecode8_km == moviecode8 and str(kr) == str(v[5]):  # 같은 영화,관 [moviecode[0], moviename, moviegubun, moviegbn, cnt_room[4], cinemaroom[5], rest_seat_cnt[6], theab_seat_cnt, start_time[8], end_time[9]]
-                                    dic_sch_movies_room_time[str(v[8])] = [v[6], v[9]]
-                            dic_movies_room[kr].append(dic_sch_movies_room_time)
-                        dic_sch_movies[km].append(dic_movies_room)
+                                if moviecode8_km == moviecode8 and str(key_mv_rm) == str(val_sh_rm[5]):  # 같은 영화,관 
+                                    dic_sch_movies_room_time[str(val_sh_rm[8])] = [val_sh_rm[6], val_sh_rm[9]]  # [start_time] = [rest_seat_cnt], [end_time]
+                            # [for k, val_sh_rm in dic_sch_rooms.items():]
 
-                    #print(dic_sch_movies)
+                            dic_movies_room[key_mv_rm].append(dic_sch_movies_room_time)
+                        # [for key_mv_rm in dic_movies_room.items():]
+
+                        dic_sch_movies[ky_sh_mv].append(dic_movies_room)
+                    # [for ky_sh_mv in dic_sch_movies.items():] 
+
                     dic_playdate[cinema_cd] = dic_sch_movies
-                #
+                # [for row in self.sql_cursor.fetchall():  # 극장리스트 만큼 순환]
+
+                for cinema_cd, v1 in dic_playdate.items():
+                    for moviecode8, v2 in v1.items(): # dic_sch_movies.items()
+                        for cinemaroom, v3 in v2[3].items(): # dic_movies_room.items()
+                            for start_time, v4 in v3[3].items(): # dic_sch_movies_room_time.items()
+                                rest_seat_cnt = v4[0]
+                                end_time      = v4[1]
+
+                                query = self.sqlxmp.find(f"query[@id='{'INSERT_mega_play'}']").text.strip()
+                                parameters = (playdt, cinema_cd, moviecode8, cinemaroom, start_time, rest_seat_cnt, end_time)
+                                self.sql_cursor.execute(query, parameters)
+
+            # [for playdt in __3_get_date_range(dateRange): # 1 ~ 13 일간 자료 가져오기]
+
+            
 
             self.sql_conn.commit()
+
         # [def _3_crawl_mega_schedule():]
 
 

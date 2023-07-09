@@ -58,6 +58,25 @@
         ]]>
     </query>
 
+    <query id="SELECT_sqlite_master_mega_play">
+        <![CDATA[
+                 SELECT name FROM sqlite_master WHERE type='table' AND name='mega_play' 
+        ]]>
+    </query>
+
+    <query id="CREATE_TABLE_mega_play">
+        <![CDATA[
+                 CREATE TABLE IF NOT EXISTS mega_play ( playdt        TEXT NULL   /* 상영일  */
+                                                      , cinema_cd     TEXT NULL   /* 극장코드   */
+                                                      , moviecode8    TEXT NULL   /* 영화코드   */
+                                                      , cinemaroom    TEXT NULL   /* 상영관명    */
+                                                      , start_time    TEXT NULL   /* 시작시간   */
+                                                      , rest_seat_cnt TEXT NULL   /* 좌석수   */
+                                                      , end_time      TEXT NULL   /* 종료시간   */
+                                                      )                                       
+        ]]>
+    </query>
+
     <!-- ====================================================================== -->
 
     <query id="INSERT_mega_movie">
@@ -125,7 +144,30 @@
                        , regioncode
                        , cinemaname
                     FROM mega_cinema
+
+
+                /* where cinemacode = '1372'  강남 */
         ]]>
     </query>
 
+    <query id="INSERT_mega_play">
+        <![CDATA[
+                  INSERT OR REPLACE INTO mega_play ( playdt
+                                                   , cinema_cd
+                                                   , moviecode8
+                                                   , cinemaroom
+                                                   , start_time
+                                                   , rest_seat_cnt
+                                                   , end_time
+                                                   )
+                                            VALUES ( ?              
+                                                   , ?              
+                                                   , ? 
+                                                   , ?              
+                                                   , ? 
+                                                   , ?              
+                                                   , ? 
+                                                   )
+        ]]>
+    </query>
 </queries>
