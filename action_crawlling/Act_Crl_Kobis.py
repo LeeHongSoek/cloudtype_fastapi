@@ -291,18 +291,28 @@ class ActCrlKobis(ActCrlSupper):
             self.logger.info(' 3. ### 영화정보/영화상영관/상영스케줄 (http://www.kobis.or.kr/kobis/business/mast/thea/findSchedule.do) ###')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
+            def __3_get_date_range(date_range):
+                days = []
+
+                date1 = datetime.date.today()  # 오늘자 날짜객체
+                days.append(f'{date1.year:04d}{date1.month:02d}{date1.day:02d}')  # 오늘의 날짜
+
+                for i in range(1, date_range + 1):
+                    date = date1 + datetime.timedelta(days=i)  # 오늘 + i 일
+                    days.append(f'{date.year:04d}{date.month:02d}{date.day:02d}')
+
+                return days
+
             def __3_crawlKobis_JobB(theatherCd, theatherNm, itday):
 
                 url = 'https://www.kobis.or.kr/kobis/business/mast/thea/findSchedule.do'
                 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
                 fields = {"showDt": itday, "theaCd": theatherCd}
                 r = requests.post(url, headers=headers, data=fields)
-                time.sleep(self.delayTime / 2)
-
-                json_obj = r.json()  # json 로딩 성공하면.....
+                time.sleep(self.delayTime)
 
                 arrSchedule = []
-                schedule_list = json_obj["schedule"]
+                schedule_list = r.json()["schedule"]
                 if len(schedule_list) > 0:  # 해당날에 해당극장에 상영하는 영화
 
                     self.logger.info('-----------------------------------------------------------------------------------------------------------------------')
@@ -343,21 +353,13 @@ class ActCrlKobis(ActCrlSupper):
                 theatherCd = row['theaterCd']
                 theatherNm = row['theaterNm']
 
-                days = []
-
-                date1 = datetime.date.today()  # 오늘자 날짜객체
-                days.append(f'{date1.year:04d}{date1.month:02d}{date1.day:02d}')  # 오늘의 날짜
-
-                for i in range(1, self.date_range + 1):
-                    date = date1 + datetime.timedelta(days=i)  # 오늘 + i 일
-                    days.append(f'{date.year:04d}{date.month:02d}{date.day:02d}')
-
                 # 1 ~ 7 일간 자료 가져오기
-                for today in days:
-                    dicLoop[loopCnt] = [theatherCd, theatherNm, today,  False]
+                for itday in __3_get_date_range(dateRange):
+
+                    dicLoop[loopCnt] = [theatherCd, theatherNm, itday,  False]
                     loopCnt += 1
                     #self.crawl_kobis_theaters_JobB_sub(dicSchedule, schNo, theatherCd, today)
-                #
+                # [for itday in __3_get_date_range(dateRange):]
             # [for row in self.sql_cursor.fetchall():  # 극장리스트 만큼 순환]
 
             isDone = False  # 종료여부를 확인!
@@ -557,7 +559,7 @@ class ActCrlKobis(ActCrlSupper):
                          , "sTheaNm": ""
                          }
                 r = requests.post(url, data=fields)
-                time.sleep(self.delayTime / 2)
+                time.sleep(self.delayTime)
 
                 soup = BeautifulSoup(r.text, 'html.parser')
 

@@ -4,6 +4,7 @@
 from Act_Crl_Supper import ActCrlSupper
 from Act_Tol_Logger import get_logger, clear_logger
 
+import requests
 import sys
 import traceback
 import sqlite3
@@ -12,7 +13,6 @@ import json
 import html
 import datetime
 
-from urllib.request import urlopen
 from bs4 import BeautifulSoup  # pip install beautifulsoup4
 import urllib3  # pip install urllib3
 
@@ -22,7 +22,7 @@ class ActCrlMega(ActCrlSupper):
 
         self.logger = get_logger('Mega')   # 파이션 로그
         self.date_range = date_range        # 크롤링 할 날 수
-
+        
         super().__init__(type(self).__name__)
     # [def __init__(self, date_range): # 생성자]
 
@@ -44,12 +44,8 @@ class ActCrlMega(ActCrlSupper):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info(' 1. ### 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다. ###')
+            self.logger.info(' 1. ### 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다. ###                  ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
-
-            self.logger.info('-------------------------------------')
-            self.logger.info('영화코드 : 개봉일자, 구분, 영화명    ')
-            self.logger.info('-------------------------------------')
 
             url = 'https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do'
             fields = { "currentPage": "1"
@@ -59,33 +55,40 @@ class ActCrlMega(ActCrlSupper):
                      , "onairYn": "N"
                      , "specialType": ""
                      }
-            data1 = self.http.request('POST', url, fields).data.decode('utf-8') # self.logger.info(data)
+            r = requests.post(url, data=fields)
             time.sleep(self.delayTime)
 
-            url = 'https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do'
+            # 페이지당 레코드수를 조정해서 한번에 읽어오도록 한다.
             fields = { "currentPage": "1"
-                     , "recordCountPerPage": json.loads(data1)["totCnt"]
+                     , "recordCountPerPage": r.json()["totCnt"]
                      , "pageType": "ticketing"
                      , "ibxMovieNmSearch": ""
                      , "onairYn": "N"
                      , "specialType": ""
                      }
-            data2 = self.http.request('POST', url, fields).data.decode('utf-8')
+            r = requests.post(url, data=fields)
             time.sleep(self.delayTime)
-            
-            for val in json.loads(data2)["movieList"]:
 
-                moviecode = val['movieNo']
-                releasedate = val['rfilmDeReal']
-                moviegbn = val['admisClassNm']
-                moviename = html.unescape(val['movieNm'])
+            self.logger.info('-------------------------------------')
+            self.logger.info('영화코드 : 개봉일자, 구분, 영화명    ')
+            self.logger.info('-------------------------------------')
+
+            for movieList in r.json()["movieList"]:
+
+                moviecode = movieList['movieNo']
+                releasedate = movieList['rfilmDeReal']
+                moviegbn = movieList['admisClassNm']
+                moviename = html.unescape(movieList['movieNm'])
                 moviename = moviename.replace("'", "")
 
-                self.dicMovies[moviecode] = [releasedate, moviegbn, moviename]  # 영화데이터 정보
-                self.dicMoviesNm[moviename] = moviecode                         # 영화이름을 코드체크
-
                 self.logger.info(f'{moviecode} : {releasedate}, {moviegbn}, {moviename}')
-            #
+
+                query = self.sqlxmp.find(f"query[@id='{'INSERT_mega_movie'}']").text.strip()
+                parameters = (moviecode, releasedate, moviegbn, moviename)
+                self.sql_cursor.execute(query, parameters)
+            # [for val in r.json()["movieList"]:]
+
+            self.sql_conn.commit()
         # [1_crawl_mega_movie():]
 
         # =====================================================================================================================================================
@@ -95,48 +98,65 @@ class ActCrlMega(ActCrlSupper):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info(' 2. ### 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다. ###')
+            self.logger.info(' 2. ### 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다. ###                                     ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            
+            r = requests.get('https://www.megabox.co.kr/theater/list')
+            time.sleep(self.delayTime)
+
+            soup = BeautifulSoup(r.text, 'html.parser') # print(data)
 
             self.logger.info('-------------------------------------')
             self.logger.info('코드 : 지역명                        ')
             self.logger.info('+-   코드 : 극장명                     ')
             self.logger.info('-------------------------------------')
 
-            data = urlopen("https://www.megabox.co.kr/theater/list").read().decode('utf-8') 
-            soup = BeautifulSoup(data, 'html.parser') # print(data)
-
-            for tag1 in soup.select("div#contents > div > div.theater-box > div.theater-place > ul > li "):  # > button.sel-city # print(tag1)
+            for tagLI in soup.select("div#contents > div > div.theater-box > div.theater-place > ul > li "):  # > button.sel-city # print(tag1)
 
                 region_cd = ''
-                for tag2 in tag1.select("button"):
+                for tagBUTTON in tagLI.select("button"):
 
-                    region_nm = str(tag2.text.strip())  # 지역이름
-                    region_cd = self.regions[region_nm]  # 지역코드를 지역이름으로 찾는다. # print(regionCd+' ['+regionNm+']')
+                    region_nm = str(tagBUTTON.text.strip())  # 지역이름
+
+                    # 지역이름으로 지역코드를 찾는다.  지역코드 정보가 별도로 없다.  
+                    query = self.sqlxmp.find(f"query[@id='{'SELECT_regioncode_mega_region_regionname'}']").text.strip()                            
+                    self.sql_cursor.execute(query, (region_nm,))
+                    self.sql_cursor.row_factory = sqlite3.Row
+                    result = self.sql_cursor.fetchone() # 첫 번째 결과 행 가져오기
+                    if result is not None:
+                        region_cd = result['regioncode']
+                    else:
+                        region_cd = ''
 
                     self.logger.info(f'{region_cd} : {region_nm}')
 
-                    self.dicRegions[region_cd] = region_nm  # 지역코드 저장
-                #
+                    query = self.sqlxmp.find(f"query[@id='{'INSERT_mega_region'}']").text.strip()
+                    parameters = (region_cd, region_nm)
+                    self.sql_cursor.execute(query, parameters)
+                # [for tagBUTTON in tagLI.select("button"):]
 
-                for tag2 in tag1.select("div.theater-list"): # print(tag2)
+                for tagDIV in tagLI.select("div.theater-list"): # print(tag2)
 
-                    for tag3 in tag2.select("li > a"): # print(tag3)
+                    for tagA in tagDIV.select("li > a"): # print(tag3)
 
-                        cinemaname = tag3.text.strip()  # 극장명
-                        href = tag3['href']
+                        cinemaname = tagA.text.strip()  # 극장명
+                        href = tagA['href']
                         midxs = href.split('=')
                         cinemacode = ''
 
                         if len(midxs) == 2:
-                            cinemacode = midxs[1]                        
+                            cinemacode = midxs[1]  # 극장코드         
 
                         self.logger.info(f'+-   {cinemacode} : {cinemaname}')
 
-                        self.dicCinemas[cinemacode] = [region_cd, cinemaname, '']
-                    #
-                #
-            # [for tag1 in soup.select("div#contents > div > div.theater-box > div.theater-place > ul > li "):]
+                        query = self.sqlxmp.find(f"query[@id='{'INSERT_mega_cinema'}']").text.strip()
+                        parameters = (cinemacode, region_cd, cinemaname)
+                        self.sql_cursor.execute(query, parameters)
+                    # [for tagA in tagDIV.select("li > a"):]
+                # [for tagDIV in tagLI.select("div.theater-list"):]
+            # [for tagLI in soup.select("div#contents > div > div.theater-box > div.theater-place > ul > li "):]
+
+            self.sql_conn.commit()
         # [def _2_crawl_mega_cinema():]
 
         # =====================================================================================================================================================
@@ -146,32 +166,38 @@ class ActCrlMega(ActCrlSupper):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info(' 3. ### 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다. ###')
+            self.logger.info(' 3. ### 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다. ###         ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
+            def __3_get_date_range(dateRage):
+                days = []
+
+                date1 = datetime.date.today()  # 오늘자 날짜객체
+                days.append(date1.strftime('%Y%m%d'))  # 오늘의 날짜
+
+                for i in range(1, dateRage + 1):
+                    future_date = date1 + datetime.timedelta(days=i)
+                    days.append(future_date.strftime('%Y%m%d'))
+
+                return days
+            #  [def __3_get_date_range(dateRage):] 
         
-            days = []
-
-            date1 = datetime.date.today()  # 오늘자 날짜객체
-            days.append(date1.strftime('%Y%m%d'))  # 오늘의 날짜
-
-            for i in range(1, self.dateRage + 1):
-                future_date = date1 + datetime.timedelta(days=i)
-                days.append(future_date.strftime('%Y%m%d'))
-
-
             no_rooms = 0
 
             # 1 ~ 13 일간 자료 가져오기
-            for play_de in days:
+            for playdt in __3_get_date_range(dateRange):
 
-                #if play_de != '20210128':
+                #if playdt != '20210128':
                 #    continue
-                # if play_de != '20200602' and play_de != '20200603' and play_de != '20200604' and play_de != '20200605' and play_de != '20200606' and play_de != '20200607' and play_de != '20200608' and play_de != '20200609':
-                #    continue
+
                 dic_playdate = {}  # 상영일자
 
-                for cinema_cd in self.dicCinemas:  # 극장리스트 만큼 순환
+                query = self.sqlxmp.find(f"query[@id='{'SELECT_cinemacode_regioncode_cinemaname_mega_cinema'}']").text.strip()                
+                self.sql_cursor.execute(query)
+                self.sql_cursor.row_factory = sqlite3.Row
+                for row in self.sql_cursor.fetchall():  # 극장리스트 만큼 순환
+
+                    cinema_cd = row['cinemacode']
 
                     #if cinema_cd != '6906':
                     #    continue
@@ -184,18 +210,16 @@ class ActCrlMega(ActCrlSupper):
                              , "brchNo": cinema_cd
                              , "firstAt": "N"
                              , "brchNo1": cinema_cd
-                             , "crtDe": play_de
-                             , "playDe": play_de
+                             , "crtDe": playdt
+                             , "playDe": playdt
                              }
-                    data = self.http.request('POST', url, fields).data.decode('utf-8')
+                    r = requests.post(url, data=fields)
                     time.sleep(self.delayTime)
-
-                    json_obj = json.loads(data) # print(json_obj['megaMap']['movieFormList'])
 
                     moviecode = ''
                     cnt_room = 1
 
-                    for schl in json_obj['megaMap']['movieFormList']:  # print(schl)
+                    for schl in r.json()['megaMap']['movieFormList']:  # print(schl)
 
                         no_rooms += 1
                         cnt_room += 1
@@ -214,29 +238,19 @@ class ActCrlMega(ActCrlSupper):
                         rest_seat_cnt = schl['restSeatCnt']
                         theab_seat_cnt = schl['theabSeatCnt']
 
-                        if not self.dicMovies.get(moviecode):
-
-                            old_moviecode = moviecode
-
-                            if self.dicMoviesNm.get(moviename):
-
-                                moviecode = self.dicMoviesNm[moviename]
-                                self.logger.info(f'{old_moviecode} -> {moviecode}, {moviename}')
-                            else:
-                                self.dicMovies[moviecode] = ['', '', moviename]  # 영화데이터 정보
-                                self.dicMoviesNm[moviename] = moviecode  # 영화이름을 코드체크
-
-                        self.logger.info(f'{no_rooms} : /{play_de}/ {cinema_cd}, {moviecode}, {moviename}, {moviegubun}, {moviegbn}, {cnt_room}, {cinemaroom}, {str(rest_seat_cnt)} / {str(theab_seat_cnt)}, {start_time}, {end_time}')
+                        self.logger.info(f'{no_rooms} : /{playdt}/ {cinema_cd}, {moviecode}, {moviename}, {moviegubun}, {moviegbn}, {cnt_room}, {cinemaroom}, {str(rest_seat_cnt)} / {str(theab_seat_cnt)}, {start_time}, {end_time}')
 
                         dic_sch_rooms[no_rooms] = [moviecode, moviename, moviegubun, moviegbn, cnt_room, cinemaroom, rest_seat_cnt, theab_seat_cnt, start_time, end_time]  # 일단 다 펴와서..
+
+                        query = self.sqlxmp.find(f"query[@id='{'INSERT_mega_movie_releasedate'}']").text.strip()
+                        parameters = (moviecode, moviegbn, moviename)
+                        self.sql_cursor.execute(query, parameters)
                     # [for schl in json_obj['megaMap']['movieFormList']: ]
 
                     # 영화별로 추려내고
                     old_moviecode = ''
                     for k, v in dic_sch_rooms.items():
-
                         if old_moviecode != str(v[0]):
-
                             if len(str(v[0])) == 6:  # 코드가 6자리이면 8자리로 확장한다.
                                 moviecode8 = str(v[0]) + '00'
                             else:
@@ -246,7 +260,6 @@ class ActCrlMega(ActCrlSupper):
 
                     # 영화별 아래 관 추가
                     for km, vm in dic_sch_movies.items():
-
                         dic_movies_room = {}
                         for k, v in dic_sch_rooms.items():
 
@@ -277,13 +290,14 @@ class ActCrlMega(ActCrlSupper):
 
                                 if moviecode8_km == moviecode8 and str(kr) == str(v[5]):  # 같은 영화,관 [moviecode[0], moviename, moviegubun, moviegbn, cnt_room[4], cinemaroom[5], rest_seat_cnt[6], theab_seat_cnt, start_time[8], end_time[9]]
                                     dic_sch_movies_room_time[str(v[8])] = [v[6], v[9]]
-
                             dic_movies_room[kr].append(dic_sch_movies_room_time)
-                        dic_sch_movies[km].append(dic_movies_room) # print(dic_sch_movies)
+                        dic_sch_movies[km].append(dic_movies_room)
+
+                    #print(dic_sch_movies)
                     dic_playdate[cinema_cd] = dic_sch_movies
                 #
 
-                self.dicTicketingData[play_de] = dic_playdate # print(self.dicTicketingData)
+            self.sql_conn.commit()
         # [def _3_crawl_mega_schedule():]
 
 

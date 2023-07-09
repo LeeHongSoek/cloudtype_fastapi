@@ -1,9 +1,10 @@
 """
 
 """
-from Crawlling2.Act_Crl_Supper import ActCrlSupper
+from Act_Crl_Supper import ActCrlSupper
 from Act_Tol_Logger import get_logger, clear_logger
 
+import requests
 import sys
 import traceback
 import datetime
@@ -23,8 +24,6 @@ from selenium.webdriver.support.select import Select
 
 class ActCrlCgv(ActCrlSupper):
 
-    
-                        
     def __init__(self, date_range): # 생성자
 
         self.logger = get_logger('Cgv')   # 파이션 로그
@@ -47,13 +46,13 @@ class ActCrlCgv(ActCrlSupper):
     def crawling(self):
 
         # =====================================================================================================================================================
-        # 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
+        # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
         #
         def _1_crawl_cgv_moviechart():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info('### 영화/무비차트(http://www.cgv.co.kr/movies/) ###  ')
+            self.logger.info(' 1. ### 영화/무비차트(http://www.cgv.co.kr/movies/) ###  ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             options = webdriver.ChromeOptions()
@@ -74,7 +73,6 @@ class ActCrlCgv(ActCrlSupper):
             driver.quit()
 
             soup = BeautifulSoup(html, "html.parser")
-
             
             self.logger.info('------------------------------------------------------')
             self.logger.info('렝킹, [코드], 영화명(개봉일자), 점유율, 개봉여부, 등급')
@@ -129,19 +127,18 @@ class ActCrlCgv(ActCrlSupper):
                     # print(opened)
 
                     self.logger.info('{0} : [{1}] {2}({3}/{4}/{5}), {6}, {7}, {8}'.format(rank, moviecode, moviename, releasedate[:4], releasedate[4:6], releasedate[6:], percent, open_type, grade))
-                #                    
 
                 self.dicMovies[moviecode] = [moviename, releasedate]  # 영화데이터 정보
         # [def _1_crawl_cgv_moviechart():]
 
         # =====================================================================================================================================================
-        # 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
+        # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
         #
         def _2_crawl_cgv_moviescheduled():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info('### 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) ###  ')
+            self.logger.info(' 2. ### 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) ###  ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             self.logger.info('-------------------------------------')
@@ -166,6 +163,7 @@ class ActCrlCgv(ActCrlSupper):
                         break
 
                     for tag3 in tag2.select("div.box-contents > a"):
+
                         href = tag3['href']
                         hrefs = href.split('=')
 
@@ -196,13 +194,13 @@ class ActCrlCgv(ActCrlSupper):
         # [def _2_crawl_cgv_moviescheduled():]
         
         # =====================================================================================================================================================
-        # 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다.
+        # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다.
         #
         def _3_crawl_cgv_moviefinder():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info('### 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) ###  ')
+            self.logger.info(' 3. ### 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) ###  ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             mov_count = 0
@@ -241,10 +239,12 @@ class ActCrlCgv(ActCrlSupper):
                        , 'edate': '2020'
                        , 'page': str(i)
                        }
-                data = self.http.request('POST', url, fields).data.decode('utf-8')
-                soup = BeautifulSoup(data, 'html.parser')
+                r = requests.post(url, data=fields)
+
+                soup = BeautifulSoup(r.text, 'html.parser')
 
                 if i == 0:  # 첫페이지 (검색전)
+
                     for tag1 in soup.select("div.sect-movie-chart > ol"):  # print( tag1 )                        
 
                         for tag2 in tag1.select("li"):  # print( tag2 )                            
@@ -257,6 +257,7 @@ class ActCrlCgv(ActCrlSupper):
                                 break
 
                             for tag3 in tag2.select("div.box-contents > a"):
+
                                 href = tag3['href']
                                 hrefs = href.split('=')
 
@@ -287,6 +288,7 @@ class ActCrlCgv(ActCrlSupper):
                 # if i == 0:  # 첫페이지 (검색전)
 
                 if i > 0:  # 검색후 n 페이지
+
                     # 아래의 선택조건에 해당하는 영화가 총 0건 검색되었습니다. 를 체크
                     find_num = 0
                     for tag1 in soup.select("h3.sub > span > strong > i"):
@@ -345,26 +347,23 @@ class ActCrlCgv(ActCrlSupper):
         # [def _3_crawl_cgv_moviefinder():]
 
         # =====================================================================================================================================================
-        # 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
+        # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
         #
         def _4_crawl_cgv_theaters():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info('## 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) ###  ')
+            self.logger.info(' 4. ## 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) ###  ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
-
-            theater_count = 0
-
-            url = 'http://www.cgv.co.kr/reserve/show-times/'
-            data = self.http.request('GET', url).data.decode('utf-8')
             
             self.logger.info('-------------------------------------')
             self.logger.info('no : [코드] 지역명, 극장명')
             self.logger.info('-------------------------------------')
 
-            data_lines = data.splitlines()
+            r = requests.post('http://www.cgv.co.kr/reserve/show-times/')
+            data_lines = r.text.splitlines()
 
+            theater_count = 0
             for data_line in data_lines:
 
                 jsondata = 'theaterJsonData = '  # 지역별 극장전체 정보를 가지고 있는 json 변수
@@ -423,64 +422,35 @@ class ActCrlCgv(ActCrlSupper):
         # [def _4_crawl_cgv_theaters():]
 
         # =====================================================================================================================================================
-        # 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
+        # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
         #
         def _5_crawl_cgv_showtimes():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
-            self.logger.info('## 예매/상영시간표의 프레임 (http://www.cgv.co.kr/reserve/show-times/iframeTheater.aspx?areacode=&theatercode=&date=) ###  ')
+            self.logger.info(' 5. ## 예매/상영시간표의 프레임 (http://www.cgv.co.kr/reserve/show-times/iframeTheater.aspx?areacode=&theatercode=&date=) ###  ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+
+            def __5_get_date_range(date_range):
+                days = []
+
+                date1 = datetime.date.today()  # 오늘자 날짜객체
+                days.append('{:04d}{:02d}{:02d}'.format(date1.year, date1.month, date1.day))  # 오늘의 날짜
+
+                for i in range(1, date_range + 1):
+                    date = date1 + datetime.timedelta(days=i)  # 오늘부터 i일 후의 날짜
+                    days.append('{:04d}{:02d}{:02d}'.format(date.year, date.month, date.day))  # 오늘부터 i일 후의 날짜를 추가
+
+                return days
+            # [def __5_get_date_range(date_range):]
 
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
             chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
             driver = webdriver.Chrome(options=chrome_options)
 
-            days = []
-
-            date1 = datetime.date.today()  # 오늘자 날짜객체
-            date2 = date1 + datetime.timedelta(days=1)  # +1 일
-            date3 = date2 + datetime.timedelta(days=1)  # +2 일
-            date4 = date3 + datetime.timedelta(days=1)  # +3 일
-            date5 = date4 + datetime.timedelta(days=1)  # +4 일
-            date6 = date5 + datetime.timedelta(days=1)  # +5 일
-            date7 = date6 + datetime.timedelta(days=1)  # +6 일
-            date8 = date7 + datetime.timedelta(days=1)  # +7 일
-            date9 = date8 + datetime.timedelta(days=1)  # +8 일
-            date10 = date9 + datetime.timedelta(days=1)  # +9 일
-            date11 = date10 + datetime.timedelta(days=1)  # +10 일
-            date12 = date11 + datetime.timedelta(days=1)  # +11 일
-            date13 = date12 + datetime.timedelta(days=1)  # +12 일
-
-            days.append('{:04d}{:02d}{:02d}'.format(date1.year, date1.month, date1.day))  # 오늘의 날짜
-            if self.dateRage >= 1:
-                days.append('{:04d}{:02d}{:02d}'.format(date2.year, date2.month, date2.day))  # 오늘+1의 날짜
-            if self.dateRage >= 2:
-                days.append('{:04d}{:02d}{:02d}'.format(date3.year, date3.month, date3.day))  # 오늘+2의 날짜
-            if self.dateRage >= 3:
-                days.append('{:04d}{:02d}{:02d}'.format(date4.year, date4.month, date4.day))  # 오늘+3의 날짜
-            if self.dateRage >= 4:
-                days.append('{:04d}{:02d}{:02d}'.format(date5.year, date3.month, date5.day))  # 오늘+4의 날짜
-            if self.dateRage >= 5:
-                days.append('{:04d}{:02d}{:02d}'.format(date6.year, date6.month, date6.day))  # 오늘+5의 날짜
-            if self.dateRage >= 6:
-                days.append('{:04d}{:02d}{:02d}'.format(date7.year, date7.month, date7.day))  # 오늘+6의 날짜
-            if self.dateRage >= 7:
-                days.append('{:04d}{:02d}{:02d}'.format(date8.year, date8.month, date8.day))  # 오늘+7의 날짜
-            if self.dateRage >= 8:
-                days.append('{:04d}{:02d}{:02d}'.format(date9.year, date9.month, date9.day))  # 오늘+8의 날짜
-            if self.dateRage >= 9:
-                days.append('{:04d}{:02d}{:02d}'.format(date10.year, date10.month, date10.day))  # 오늘+9의 날짜
-            if self.dateRage >= 10:
-                days.append('{:04d}{:02d}{:02d}'.format(date11.year, date11.month, date11.day))  # 오늘+10의 날짜
-            if self.dateRage >= 11:
-                days.append('{:04d}{:02d}{:02d}'.format(date12.year, date2.month, date2.day))  # 오늘+11의 날짜
-            if self.dateRage >= 12:
-                days.append('{:04d}{:02d}{:02d}'.format(date13.year, date3.month, date3.day))  # 오늘+12의 날짜
-
             # 1 ~ 13 일간 자료 가져오기
-            for today in days:
+            for today in __5_get_date_range(dateRange):
                 #if today != '20200224':
                 #    continue  # 디버깅용
 
@@ -626,11 +596,11 @@ class ActCrlCgv(ActCrlSupper):
  
         try:
 
-            _1_crawl_cgv_moviechart()     # 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
-            _2_crawl_cgv_moviescheduled() # 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
-            _3_crawl_cgv_moviefinder()    # 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
-            _4_crawl_cgv_theaters()       # 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
-            _5_crawl_cgv_showtimes()      # 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
+            _1_crawl_cgv_moviechart()     # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
+            _2_crawl_cgv_moviescheduled() # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
+            _3_crawl_cgv_moviefinder()    # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
+            _4_crawl_cgv_theaters()       # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
+            _5_crawl_cgv_showtimes()      # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
         except Exception as e:
 
             self.logger.error('Cgv 크롤링 중 오류발생!')

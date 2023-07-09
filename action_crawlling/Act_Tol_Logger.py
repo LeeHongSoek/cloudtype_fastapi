@@ -12,16 +12,18 @@ import time
 
 
 class CustomFormatter(logging.Formatter):
+
     def formatTime(self, record, datefmt=None):
+
         ct = self.converter(record.created)
         if datefmt:
             s = time.strftime(datefmt, ct)
         else:
             t = time.strftime("%H:%M", ct)
             s = "%s" % t
-        return s
-    
-# end of [class CustomFormatter(logging.Formatter):]
+        return s    
+    # [def formatTime(self, record, datefmt=None):]
+# [class CustomFormatter(logging.Formatter):]
 
 
 log_dir = 'action_log'
@@ -30,7 +32,6 @@ def clear_logger(gubun=''):  # 한달전 로그파일을 삭제한다.
 
     date1 = datetime.date.today()  # 오늘자 날짜객체
     date2 = date1 - datetime.timedelta(days=30)  # 한달전
-
     # print(f'{date2.year:04d}-{date2.month:02d}-*')  
 
     path = f'{log_dir}/act_crawl_{gubun}.log.{date2.year:04d}-{date2.month:02d}-*'
@@ -42,8 +43,8 @@ def clear_logger(gubun=''):  # 한달전 로그파일을 삭제한다.
             for line in f:
                 print(line)
         """
-    #
-# end of [def clean_logger(gubun=''): ]
+    # [for filename in glob.glob(path):]
+# [def clean_logger(gubun=''): ]
 
 def get_logger(gubun=''):  # 로거 인스턴스를 구한다.
 
@@ -82,7 +83,4 @@ def get_logger(gubun=''):  # 로거 인스턴스를 구한다.
     """
 
     return logger
-
-# end of [def get_logger(gubun=''):  ]
-
-
+# [def get_logger(gubun=''):  ]

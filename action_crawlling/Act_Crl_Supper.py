@@ -20,7 +20,7 @@ def unzip_file(zip_path, extract_path):
 class ActCrlSupper(metaclass=ABCMeta):
     
     sqlmap_dir = 'action_sqlmap'
-    delayTime = 1  # 딜레이(초)
+    delayTime = 0.5  # 딜레이(초)
 
     def __init__(self, db_filename): # 생성자
 
@@ -51,7 +51,11 @@ class ActCrlSupper(metaclass=ABCMeta):
 
             self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{tag.attrib['id']}']").text.strip()) # table 존재유무 검사
             if not self.sql_cursor.fetchone():
-                self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{f'CREATE_TABLE_{tableNm}'}']").text.strip()) # table 생성
+                query = self.sqlxmp.find(f"query[@id='{f'CREATE_TABLE_{tableNm}'}']").text.strip() # table 생성
+                queries = query.split(";")  # 세미콜론으로 쿼리들을 분리
+                for q in queries:
+                    if q.strip():  # 빈 쿼리는 실행하지 않음
+                        self.sql_cursor.execute(q.strip())
         # [for tag in selected_tags:]
 
         self.sql_conn.commit()
