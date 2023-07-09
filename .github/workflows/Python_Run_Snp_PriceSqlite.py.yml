@@ -8,13 +8,17 @@ jobs:
     name: "Python job"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+    
+      - name: 1. Checkout repository
         uses: actions/checkout@v2
-      - name: Setup python
+        
+      - name: 2. Setup python
         uses: actions/setup-python@v2.2.2
         with:
           python-version: '3.10.6'
-      - name: Install dependencies
+          
+      - name: 3. Install dependencies
         run: pip install -r pipInstalls.txt
-      - name: Run python script
+        
+      - name: 4. Run python script
         run: python SnP500/Snp_PriceSqlite.py
