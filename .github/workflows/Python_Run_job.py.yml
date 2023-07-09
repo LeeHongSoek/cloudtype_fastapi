@@ -1,4 +1,4 @@
-name: "Python Run job.py"
+name: "Python Run - job.py"
 on:
   schedule:
     - cron: '0 * * * *'
