@@ -492,23 +492,35 @@ class ActCrlCgv(ActCrlSupper):
             chrome_driver = webdriver.Chrome(options=chrome_options)            
 
             # 1 ~ 13 일간 자료 가져오기
-            for today in __5_get_date_range(dateRange):
+            for itday in __5_get_date_range(dateRange):
                 #if today != '20200224':
                 #    continue  # 디버깅용
 
                 # if  today!='{:04d}{:02d}{:02d}'.format( date1.year, date1.month, date1.day ):  # 일단 오늘 자료만 가지고 온다.
                 #    continue  # 디버깅용
 
+                self.logger.info('---------------------------------------------------------------------------------------------------------------------------')
+                self.logger.info(' 상영일 :  지역, 극장')
+                self.logger.info('---------------------------------------------------------------------------------------------------------------------------')
+
                 dicTicketingData = {}  # 티켓팅 정보
 
-                for theaterkey in self.dicTheaters.keys():  # 극장을 하나씩 순회한다.
+                query = self.sqlxmp.find(f"query[@id='{'SELECT_cgv_theater'}']").text.strip()                
+                self.sql_cursor.execute(query)
+                self.sql_cursor.row_factory = sqlite3.Row                
+                for row in self.sql_cursor.fetchall():  # 극장을 하나씩 순회한다.
+
+                    theatercode = row['theatercode']
+                    regioncode = row['regioncode']
+                    regionname = row['regionname']
+                    theatername = row['theatername']
 
                     #if theaterkey != '0056' and theaterkey != '0001':  # 일단 특정극장(서울, CGV강남)
                     #    continue  # 디버깅용
                     
-                    self.logger.info(f' {today[:4]}/{today[4:6]}/{today[6:]} 일 :  {self.dicTheaters[theaterkey][1]}, {self.dicTheaters[theaterkey][2]} ({theaterkey})')
+                    self.logger.info(f' {itday[:4]}/{itday[4:6]}/{itday[6:]} 일 :  {regionname}, ({theatercode}){theatername} ')
 
-                    url = 'http://www.cgv.co.kr/reserve/show-times/?areacode=' + self.dicTheaters[theaterkey][0] + '&theatercode=' + theaterkey + '&date=' + today + ''
+                    url = 'http://www.cgv.co.kr/reserve/show-times/?areacode=' + regioncode + '&theatercode=' + theatercode + '&date=' + itday + ''
                     chrome_driver.get(url)
                     chrome_driver.switch_to.frame('ifrm_movie_time_table')
 
@@ -526,6 +538,7 @@ class ActCrlCgv(ActCrlSupper):
                             moviereleasedate = ''
 
                             for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > a"):
+
                                 href = tag2.get_attribute('href')
                                 hrefs = href.split('=')
 
@@ -533,6 +546,7 @@ class ActCrlCgv(ActCrlSupper):
 
                                 tag2.find_elements(By.TAG_NAME, "strong")
                                 moviename = tag2.text.strip()
+                            # [for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > a"):]
 
                             moviegrade = ''
                             for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > span.ico-grade"):
@@ -543,6 +557,7 @@ class ActCrlCgv(ActCrlSupper):
 
                             j = 0
                             for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > i"):
+
                                 j += 1
                                 if j == 1: moviegenre = tag2.text.strip().replace('\xa0', ' ').replace("\r\n", "")
                                 if j == 2: movieruntime = tag2.text.strip().replace('\xa0', ' ').replace("\r\n", "")
@@ -550,6 +565,7 @@ class ActCrlCgv(ActCrlSupper):
                                     moviereleasedate = tag2.text.strip().replace('\xa0', ' ').replace("\r\n", "")
                                     moviereleasedate = moviereleasedate[0:4] + moviereleasedate[5:7] + moviereleasedate[8:10]
                                     # print( str( j ) + ' ] ' + tag2.text.strip().replace( '\xa0', ' ' ).replace( "\r\n", "" ) )
+                            # [for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > i"):]
 
                             dicTicketRooms = {}  #
 
@@ -570,7 +586,7 @@ class ActCrlCgv(ActCrlSupper):
                                         totalseat = tag3.text.strip().replace("\r\n", "").split()
                                         totalseat = totalseat[1]
                                         # print( str(j) + ' / ' + tag3.text.strip().replace("\r\n", "") )
-                                #
+                                # [for tag3 in tag2.find_elements(By.TAG_NAME, "div.info-hall > ul > li"):]
 
                                 dicTicketTimes = {}  #
 
@@ -603,9 +619,7 @@ class ActCrlCgv(ActCrlSupper):
                                                     playetc = '심야'
                                                     # print( "심야" )
                                             '''
-                                        #
-                                    #
-
+                                        # [for tag4 in tag3.find_elements(By.TAG_NAME, "a > span"):]
                                     else:  # print( '마감' )
 
                                         for tag4 in tag3.find_elements(By.TAG_NAME, "em"):
@@ -613,16 +627,18 @@ class ActCrlCgv(ActCrlSupper):
 
                                         for tag4 in tag3.find_elements(By.TAG_NAME, "span"):
                                             playinfo = tag4.text  # print( tag4.text )                                            
-                                    #
+                                    # [if len(tag3.find_elements(By.TAG_NAME, "a")) > 0:]
+
                                     dicTicketTimes[k] = [playtime, playinfo, playetc]
                                 #  self.logger.info(dicTicketTimes)
+
                                 dicTicketRooms[j] = [filmtype, roomfloor, totalseat, dicTicketTimes]
-                            #
+                            # [for tag2 in tag1.find_elements(By.TAG_NAME, "div.type-hall"):]
 
                             dicTicketMovies[moviecode] = [moviename, moviegrade, movieplaying, moviegenre, movieruntime, moviereleasedate, dicTicketRooms]
                         #     print( dicTicketMovies )
 
-                        dicTicketingData[theaterkey] = dicTicketMovies
+                        dicTicketingData[theatercode] = dicTicketMovies
                         #    self.logger.info(dicTicketingData)
 
                     except TimeoutException as e:    
@@ -639,9 +655,15 @@ class ActCrlCgv(ActCrlSupper):
 
                         chm_driver = webdriver.Chrome(options=chrome_options)
                     # [try]    
-                # for theaterkey in self.dicTheaters.keys(): # 극장을 하나씩 순회한다.
+                # [for row in self.sql_cursor.fetchall():  # 극장을 하나씩 순회한다.]
 
-                self.dicTicketingDays[today] = dicTicketingData
+                for theatercode, v1 in dicTicketingData.items():
+                    for moviecode, v2 in v1.items(): # dicTicketMovies.items() # moviename, moviegrade, movieplaying, moviegenre, movieruntime, moviereleasedate, dicTicketRooms
+                        for j, v3 in v2[6].items(): # dicTicketRooms.items() # filmtype, roomfloor, totalseat, dicTicketTimes
+                            for k, v4 in v3[4].items(): # dicTicketTimes.items() # playtime, playinfo, playetc
+
+
+                self.dicTicketingDays[itday] = dicTicketingData
             # for today in days: # 1 ~ 13 일간 자료 가져오기
 
             chrome_driver.quit()
@@ -655,8 +677,8 @@ class ActCrlCgv(ActCrlSupper):
             #_1_crawl_cgv_moviechart()     # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
             #_2_crawl_cgv_moviescheduled() # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
             #_3_crawl_cgv_moviefinder()    # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
-            _4_crawl_cgv_theaters()       # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
-            #_5_crawl_cgv_showtimes()      # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
+            #_4_crawl_cgv_theaters()       # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
+            _5_crawl_cgv_showtimes()      # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
         except Exception as e:
 
             self.logger.error('Cgv 크롤링 중 오류발생!')

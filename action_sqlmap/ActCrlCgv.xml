@@ -89,4 +89,11 @@
         ]]>
     </query>
 
+    <query id="SELECT_cgv_theater">
+        <![CDATA[
+                  SELECT theatercode, regioncode, regionname, theatername
+                    FROM cgv_theater
+        ]]>
+    </query>
+
 </queries>
