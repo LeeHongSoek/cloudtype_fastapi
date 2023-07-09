@@ -115,6 +115,8 @@
         <![CDATA[
                   SELECT theatercode, regioncode, regionname, theatername
                     FROM cgv_theater
+
+                where theatercode = '0056' /* CGV강남 */
         ]]>
     </query>
 

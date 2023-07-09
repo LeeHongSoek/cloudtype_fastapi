@@ -420,7 +420,7 @@ class ActCrlCgv(ActCrlSupper):
                             self.logger.info(f'{theater_count} : [{theatercode}] {dicRegions[regioncode]}, {theatername}')
 
                             query = self.sqlxmp.find(f"query[@id='{'INSERT_cgv_theater'}']").text.strip()
-                            parameters = ( theater_count, theatercode, dicRegions[regioncode], theatername )
+                            parameters = ( theatercode, regioncode, dicRegions[regioncode], theatername )
                             self.sql_cursor.execute(query, parameters)
                         # [for theater in json_theater['AreaTheaterDetailList']:]
                     # [for json_theater in json_obj:]
@@ -605,7 +605,7 @@ class ActCrlCgv(ActCrlSupper):
                             # [for tag2 in tag1.find_elements(By.TAG_NAME, "div.type-hall"):]
 
                             dicTicketMovies[moviecode] = [moviename, moviegrade, movieplaying, moviegenre, movieruntime, moviereleasedate, dicTicketRooms]
-                        #     print( dicTicketMovies )
+                        # [for tag1 in element.find_elements(By.TAG_NAME, "ul > li > div.col-times"):]
 
                         dicTicketingData[theatercode] = dicTicketMovies
                         #    self.logger.info(dicTicketingData)
@@ -623,11 +623,7 @@ class ActCrlCgv(ActCrlSupper):
                         chm_driver.quit()
 
                         chm_driver = webdriver.Chrome(options=chrome_options)
-                    finally:  # 예외 발생 여부와 관계없이 항상 실행되는 코드
-                        chm_driver.quit()
-                    # [try]    
-
-                    
+                    # [try]
                 # [for row in self.sql_cursor.fetchall():  # 극장을 하나씩 순회한다.]
 
                 for theatercode, v1 in dicTicketingData.items():
@@ -640,8 +636,7 @@ class ActCrlCgv(ActCrlSupper):
                 # [for theatercode, v1 in dicTicketingData.items():]
             # [for itday in __5_get_date_range(dateRange): # 1 ~ 13 일간 자료 가져오기]
 
-            
-
+            chm_driver.quit()
             self.sql_conn.commit()
         # [def _5_crawl_cgv_showtimes():]
 
@@ -661,9 +656,9 @@ class ActCrlCgv(ActCrlSupper):
             chrome_options.add_argument('--ignore-ssl-errors')
             chrome_driver = webdriver.Chrome(options=chrome_options)            
 
-            _1_crawl_cgv_moviechart(chrome_driver)  # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
-            _2_crawl_cgv_moviescheduled()           # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
-            _3_crawl_cgv_moviefinder()              # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
+            #_1_crawl_cgv_moviechart(chrome_driver)  # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
+            #_2_crawl_cgv_moviescheduled()           # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
+            #_3_crawl_cgv_moviefinder()              # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
             _4_crawl_cgv_theaters()                 # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
             _5_crawl_cgv_showtimes(chrome_driver)   # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
         except Exception as e:
