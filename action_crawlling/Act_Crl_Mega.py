@@ -1,6 +1,3 @@
-"""
-
-"""
 from Act__Supper import ActCrlSupper
 from Act__Logger import get_logger, clear_logger
 
@@ -14,7 +11,7 @@ import html
 import datetime
 
 from bs4 import BeautifulSoup  # pip install beautifulsoup4
-import urllib3  # pip install urllib3
+
 
 class ActCrlMega(ActCrlSupper):
 
@@ -32,8 +29,6 @@ class ActCrlMega(ActCrlSupper):
         super().__del__()
     # [def __del__(self): # 소멸자]
 
-
-    # def crawling(self): =====================================================================================================================================
 
     def crawling(self):
 
@@ -338,8 +333,6 @@ class ActCrlMega(ActCrlSupper):
             raise e
     # [def crawling(self):]
 
-    # def uploading(self): ====================================================================================================================================
-    
     def uploading(self):
         
         print("Uploading Mega data...")

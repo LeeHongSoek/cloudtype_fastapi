@@ -1,8 +1,3 @@
-"""
-    KOBIS
-
-    http://www.kobis.or.kr/
-"""
 from Act__Supper import ActCrlSupper
 from Act__Logger import get_logger, clear_logger
 
@@ -10,14 +5,13 @@ import requests
 import sys
 import traceback
 import sqlite3
-import xml.etree.ElementTree as ET
 import time
-import json
-
 import html
 import datetime
+
 from bs4 import BeautifulSoup  # pip install beautifulsoup4
 from json.decoder import JSONDecodeError
+
 
 class ActCrlKobis(ActCrlSupper):
 
@@ -36,8 +30,6 @@ class ActCrlKobis(ActCrlSupper):
         super().__del__()
     # [def __del__(self): # 소멸자]
 
-
-    # def crawling(self): =====================================================================================================================================
 
     def crawling(self):
 
@@ -694,8 +686,6 @@ class ActCrlKobis(ActCrlSupper):
             self.logger.error(f'{traceback.print_exc()}')
             raise e
     # [def crawling(self):]
-
-    # def uploading(self): ====================================================================================================================================
 
     def uploading(self):
         

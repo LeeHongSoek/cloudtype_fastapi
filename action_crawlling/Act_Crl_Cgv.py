@@ -1,6 +1,3 @@
-"""
-
-"""
 from Act__Supper import ActCrlSupper
 from Act__Logger import get_logger, clear_logger
 
@@ -11,15 +8,14 @@ import datetime
 import sqlite3
 import json
 import time
-
 import urllib3  # pip install urllib3
+
 from bs4 import BeautifulSoup  # pip install beautifulsoup4
 from selenium import webdriver  # pip install selenium
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.select import Select
 
 
 class ActCrlCgv(ActCrlSupper):
@@ -40,8 +36,6 @@ class ActCrlCgv(ActCrlSupper):
         super().__del__()
     # [def __del__(self): # 소멸자]
 
-
-    # def crawling(self): =====================================================================================================================================
 
     def crawling(self):
 
@@ -669,8 +663,6 @@ class ActCrlCgv(ActCrlSupper):
             raise e
     # [def crawling(self):]
 
-    # def uploading(self): ====================================================================================================================================
-    
     def uploading(self):
         
         print("Uploading Cgv data...")
@@ -691,6 +683,5 @@ if __name__ == '__main__':
 
     actCrlCgv = ActCrlCgv(date_range = dateRange)  # Cgv
     actCrlCgv.crawling()
-    actCrlCgv.uploading()
-    
+    actCrlCgv.uploading()    
 # [if __name__ == '__main__':]    

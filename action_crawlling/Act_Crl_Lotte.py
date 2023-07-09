@@ -1,6 +1,3 @@
-"""
-
-"""
 from Act__Supper import ActCrlSupper
 from Act__Logger import get_logger, clear_logger
 
@@ -8,21 +5,17 @@ import sys
 import traceback
 import sqlite3
 import platform
-import os
 import time
 import json
-from jsonpath_rw import parse  # pip install jsonpath-rw  https://pypi.python.org/pypi/jsonpath-rw
-
-from browsermobproxy import Server  # pip install browsermob-proxy
 
 from selenium import webdriver # pip install selenium
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
 
+from jsonpath_rw import parse  # pip install jsonpath-rw  https://pypi.python.org/pypi/jsonpath-rw
+from browsermobproxy import Server  # pip install browsermob-proxy
 from bs4 import BeautifulSoup  # pip install beautifulsoup4
 from urllib.parse import parse_qs, urlparse
+
 
 class ActCrlLotte(ActCrlSupper):
 
@@ -40,8 +33,6 @@ class ActCrlLotte(ActCrlSupper):
         super().__del__()
     # [def __del__(self): # 소멸자]
 
-
-    # def crawling(self): =====================================================================================================================================
 
     def crawling(self):
         
@@ -522,8 +513,6 @@ class ActCrlLotte(ActCrlSupper):
             self.logger.error(f'{traceback.print_exc()}')
             raise e
     # [def crawling(self):]
-    
-    # def uploading(self): ====================================================================================================================================
     
     def uploading(self):
 
