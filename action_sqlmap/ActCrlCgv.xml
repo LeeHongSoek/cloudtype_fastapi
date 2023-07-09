@@ -56,15 +56,15 @@
 
     <query id="CREATE_TABLE_cgv_ticket">
         <![CDATA[
-                 CREATE TABLE IF NOT EXISTS cgv_ticket ( playdt        TEXT NULL   /* 상영일   */
-                                                       , theatercode   TEXT NULL   /* 극장코드 */
-                                                       , moviecode     TEXT NULL   /* 영화코드 */
-                                                       , filmtype      TEXT NULL   /* 필름형태 */  
-                                                       , roomfloor     TEXT NULL   /* 상영관   */  
-                                                       , totalseat     TEXT NULL   /* 좌석수   */  
-                                                       , playtime      TEXT NULL   /* 상영시간 */  
-                                                       , playinfo      TEXT NULL   /* 상영정보 */  
-                                                       , playetc       TEXT NULL   /* 조조심야 */  
+                 CREATE TABLE IF NOT EXISTS cgv_ticket ( playdt        TEXT NULL   /* 상영일      */
+                                                       , theatercode   TEXT NULL   /* 극장코드    */
+                                                       , moviecode     TEXT NULL   /* 영화코드    */
+                                                       , filmtype      TEXT NULL   /* 필름형태    */  
+                                                       , roomfloor     TEXT NULL   /* 상영관&위치 */  
+                                                       , totalseat     TEXT NULL   /* 좌석수      */  
+                                                       , playtime      TEXT NULL   /* 상영시간    */  
+                                                       , playinfo      TEXT NULL   /* 상영정보    */  
+                                                       , playetc       TEXT NULL   /* 조조심야    */  
                                                        )
         ]]>
     </query>
@@ -116,7 +116,7 @@
                   SELECT theatercode, regioncode, regionname, theatername
                     FROM cgv_theater
 
-                where theatercode = '0056' /* CGV강남 */
+              /*   where theatercode = '0056' CGV강남 */
         ]]>
     </query>
 

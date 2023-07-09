@@ -495,7 +495,7 @@ class ActCrlCgv(ActCrlSupper):
 
                         dicTicketMovies = {}  #
 
-                        for tag1 in element.find_elements(By.TAG_NAME, "ul > li > div.col-times"):
+                        for tag1 in element.find_elements(By.CSS_SELECTOR, "ul > li > div.col-times"):
                             moviecode = ''
                             moviename = ''
                             movieplaying = ''
@@ -503,26 +503,26 @@ class ActCrlCgv(ActCrlSupper):
                             movieruntime = ''
                             moviereleasedate = ''
 
-                            for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > a"):
+                            for tag2 in tag1.find_elements(By.CSS_SELECTOR, "div.info-movie > a"):
 
                                 href = tag2.get_attribute('href')
                                 hrefs = href.split('=')
 
                                 moviecode = hrefs[1]
 
-                                tag2.find_elements(By.TAG_NAME, "strong")
+                                tag2.find_elements(By.CSS_SELECTOR, "strong")
                                 moviename = tag2.text.strip()
-                            # [for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > a"):]
+                            # [for tag2 in tag1.find_elements(By.CSS_SELECTOR, "div.info-movie > a"):]
 
                             moviegrade = ''
-                            for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > span.ico-grade"):
+                            for tag2 in tag1.find_elements(By.CSS_SELECTOR, "div.info-movie > span.ico-grade"):
                                 moviegrade = tag2.text.strip()
 
-                            for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > span.round > em"):
+                            for tag2 in tag1.find_elements(By.CSS_SELECTOR, "div.info-movie > span.round > em"):
                                 movieplaying = tag2.text.strip()
 
                             j = 0
-                            for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > i"):
+                            for tag2 in tag1.find_elements(By.CSS_SELECTOR, "div.info-movie > i"):
 
                                 j += 1
                                 if j == 1: moviegenre = tag2.text.strip().replace('\xa0', ' ').replace("\r\n", "")
@@ -531,17 +531,17 @@ class ActCrlCgv(ActCrlSupper):
                                     moviereleasedate = tag2.text.strip().replace('\xa0', ' ').replace("\r\n", "")
                                     moviereleasedate = moviereleasedate[0:4] + moviereleasedate[5:7] + moviereleasedate[8:10]
                                     # print( str( j ) + ' ] ' + tag2.text.strip().replace( '\xa0', ' ' ).replace( "\r\n", "" ) )
-                            # [for tag2 in tag1.find_elements(By.TAG_NAME, "div.info-movie > i"):]
+                            # [for tag2 in tag1.find_elements(By.CSS_SELECTOR, "div.info-movie > i"):]
 
                             dicTicketRooms = {}  #
 
                             j = 0
-                            for tag2 in tag1.find_elements(By.TAG_NAME, "div.type-hall"):
+                            for tag2 in tag1.find_elements(By.CSS_SELECTOR, "div.type-hall"):
 
                                 j = j + 1
 
                                 k = 0
-                                for tag3 in tag2.find_elements(By.TAG_NAME, "div.info-hall > ul > li"):
+                                for tag3 in tag2.find_elements(By.CSS_SELECTOR, "div.info-hall > ul > li"):
 
                                     k += 1
                                     if k == 1:
@@ -552,12 +552,12 @@ class ActCrlCgv(ActCrlSupper):
                                         totalseat = tag3.text.strip().replace("\r\n", "").split()
                                         totalseat = totalseat[1]
                                         # print( str(j) + ' / ' + tag3.text.strip().replace("\r\n", "") )
-                                # [for tag3 in tag2.find_elements(By.TAG_NAME, "div.info-hall > ul > li"):]
+                                # [for tag3 in tag2.find_elements(By.CSS_SELECTOR, "div.info-hall > ul > li"):]
 
                                 dicTicketTimes = {}  #
 
                                 k = 0
-                                for tag3 in tag2.find_elements(By.TAG_NAME, "div.info-timetable > ul > li"):
+                                for tag3 in tag2.find_elements(By.CSS_SELECTOR, "div.info-timetable > ul > li"):
 
                                     k += 1
 
@@ -565,40 +565,37 @@ class ActCrlCgv(ActCrlSupper):
                                     playinfo = ''
                                     playetc = ''
 
-                                    if len(tag3.find_elements(By.TAG_NAME, "a")) > 0:  # print( '일반' )
+                                    if len(tag3.find_elements(By.CSS_SELECTOR, "a")) > 0:  # print( '일반' )
 
-                                        for tag4 in tag3.find_elements(By.TAG_NAME, "a > em"):
+                                        for tag4 in tag3.find_elements(By.CSS_SELECTOR, "a > em"):
                                             playtime = tag4.text  # print( tag4.text )                                            
 
-                                        for tag4 in tag3.find_elements(By.TAG_NAME, "a > span"):
+                                        for tag4 in tag3.find_elements(By.CSS_SELECTOR, "a > span"):
                                             playinfo = tag4.text  # print( tag4.text )                                            
 
                                             #반드시 저녁에 확인 할것,,,
                                             early = tag4.get_property("early")
+                                            playetc = '조조' if early is not None else playetc
                                             midnight = tag4.get_attribute('midnight')
-                                            for v in tag4.attrs.values():
-                                                if v[0] == 'early':
-                                                    playetc = '조조' # print( "조조" )
-                                                if v[0] == 'midnight':
-                                                    playetc = '심야' # print( "심야" )
-                                        # [for tag4 in tag3.find_elements(By.TAG_NAME, "a > span"):]
+                                            playetc = '심야' if midnight is not None else playetc
+                                        # [for tag4 in tag3.find_elements(By.CSS_SELECTOR, "a > span"):]
                                     else:  # print( '마감' )
 
-                                        for tag4 in tag3.find_elements(By.TAG_NAME, "em"):
+                                        for tag4 in tag3.find_elements(By.CSS_SELECTOR, "em"):
                                             playtime = tag4.text  # print( tag4.text )                                            
 
-                                        for tag4 in tag3.find_elements(By.TAG_NAME, "span"):
+                                        for tag4 in tag3.find_elements(By.CSS_SELECTOR, "span"):
                                             playinfo = tag4.text  # print( tag4.text )                                            
-                                    # [if len(tag3.find_elements(By.TAG_NAME, "a")) > 0:]
+                                    # [if len(tag3.find_elements(By.CSS_SELECTOR, "a")) > 0:]
 
                                     dicTicketTimes[k] = [playtime, playinfo, playetc]
                                 #  self.logger.info(dicTicketTimes)
 
                                 dicTicketRooms[j] = [filmtype, roomfloor, totalseat, dicTicketTimes]
-                            # [for tag2 in tag1.find_elements(By.TAG_NAME, "div.type-hall"):]
+                            # [for tag2 in tag1.find_elements(By.CSS_SELECTOR, "div.type-hall"):]
 
                             dicTicketMovies[moviecode] = [moviename, moviegrade, movieplaying, moviegenre, movieruntime, moviereleasedate, dicTicketRooms]
-                        # [for tag1 in element.find_elements(By.TAG_NAME, "ul > li > div.col-times"):]
+                        # [for tag1 in element.find_elements(By.CSS_SELECTOR, "ul > li > div.col-times"):]
 
                         dicTicketingData[theatercode] = dicTicketMovies
                         #    self.logger.info(dicTicketingData)
@@ -622,7 +619,7 @@ class ActCrlCgv(ActCrlSupper):
                 for theatercode, v1 in dicTicketingData.items():
                     for moviecode, v2 in v1.items(): # dicTicketMovies.items() # moviename, moviegrade, movieplaying, moviegenre, movieruntime, moviereleasedate, dicTicketRooms
                         for j, v3 in v2[6].items(): # dicTicketRooms.items() # filmtype, roomfloor, totalseat, dicTicketTimes
-                            for k, v4 in v3[4].items(): # dicTicketTimes.items() # playtime, playinfo, playetc
+                            for k, v4 in v3[3].items(): # dicTicketTimes.items() # playtime, playinfo, playetc
                                 query = self.sqlxmp.find(f"query[@id='{'INSERT_cgv_ticket'}']").text.strip()
                                 parameters = ( itday, theatercode, moviecode, filmtype, roomfloor, totalseat, playtime, playinfo, playetc )
                                 self.sql_cursor.execute(query, parameters)
@@ -649,9 +646,9 @@ class ActCrlCgv(ActCrlSupper):
             chrome_options.add_argument('--ignore-ssl-errors')
             chrome_driver = webdriver.Chrome(options=chrome_options)            
 
-            #_1_crawl_cgv_moviechart(chrome_driver)  # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
-            #_2_crawl_cgv_moviescheduled()           # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
-            #_3_crawl_cgv_moviefinder()              # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
+            _1_crawl_cgv_moviechart(chrome_driver)  # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
+            _2_crawl_cgv_moviescheduled()           # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
+            _3_crawl_cgv_moviefinder()              # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
             _4_crawl_cgv_theaters()                 # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
             _5_crawl_cgv_showtimes(chrome_driver)   # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
         except Exception as e:
