@@ -48,34 +48,21 @@ class ActCrlCgv(ActCrlSupper):
         # =====================================================================================================================================================
         # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
         #
-        def _1_crawl_cgv_moviechart():
+        def _1_crawl_cgv_moviechart(chm_driver):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
             self.logger.info(' 1. ### 영화/무비차트(http://www.cgv.co.kr/movies/) ###  ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
-            chrome_options = webdriver.ChromeOptions()
-            #chrome_options.add_argument('--headless')  # Headless 모드 설정
-            #chrome_options.add_argument("--start-maximized")  # 창을 최대화로 시작
-            chrome_options.add_argument("--blink-settings=imagesEnabled=false") #  이미지가 로드되지 않으므로 페이지 로딩 속도가 향상
-            chrome_options.add_argument('--excludeSwitches=enable-automation')
-            chrome_options.add_argument('--disable-blink-features=AutomationControlled')
-            chrome_options.add_argument('--start-minimized')  # 최소화된 상태로 창을 시작
-            chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
-            chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
-            chrome_options.add_argument('--ignore-certificate-errors')
-            chrome_options.add_argument('--ignore-ssl-errors')
-            chrome_driver = webdriver.Chrome(options=chrome_options)
+            chm_driver.get('http://www.cgv.co.kr/movies/')
+            chm_driver.implicitly_wait(3)
 
-            chrome_driver.get('http://www.cgv.co.kr/movies/')
-            chrome_driver.implicitly_wait(3)
+            chm_driver.find_element(By.XPATH, '//*[@class="btn-more-fontbold"]').click()  # '더보기' 클릭
+            chm_driver.implicitly_wait(3)  # 초 단위 지연...
 
-            chrome_driver.find_element(By.XPATH, '//*[@class="btn-more-fontbold"]').click()  # '더보기' 클릭
-            chrome_driver.implicitly_wait(3)  # 초 단위 지연...
-
-            html = chrome_driver.page_source  # 패이지 소스를 읽어온다.....
-            chrome_driver.quit()
+            html = chm_driver.page_source  # 패이지 소스를 읽어온다.....
+            chm_driver.quit()
 
             soup = BeautifulSoup(html, "html.parser")
             
@@ -458,7 +445,7 @@ class ActCrlCgv(ActCrlSupper):
         # =====================================================================================================================================================
         # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
         #
-        def _5_crawl_cgv_showtimes():
+        def _5_crawl_cgv_showtimes(chm_driver):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -476,23 +463,9 @@ class ActCrlCgv(ActCrlSupper):
                     days.append('{:04d}{:02d}{:02d}'.format(date.year, date.month, date.day))  # 오늘부터 i일 후의 날짜를 추가
 
                 return days
-            # [def __5_get_date_range(date_range):]
+            # [def __5_get_date_range(date_range):]            
 
-            chrome_options = webdriver.ChromeOptions()
-            #chrome_options.add_argument('--headless')  # Headless 모드 설정
-            #chrome_options.add_argument("--start-maximized")  # 창을 최대화로 시작
-            chrome_options.add_argument("--blink-settings=imagesEnabled=false") #  이미지가 로드되지 않으므로 페이지 로딩 속도가 향상
-            chrome_options.add_argument('--excludeSwitches=enable-automation')
-            chrome_options.add_argument('--disable-blink-features=AutomationControlled')
-            chrome_options.add_argument('--start-minimized')  # 최소화된 상태로 창을 시작
-            chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
-            chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
-            chrome_options.add_argument('--ignore-certificate-errors')
-            chrome_options.add_argument('--ignore-ssl-errors')
-            chrome_driver = webdriver.Chrome(options=chrome_options)            
-
-            # 1 ~ 13 일간 자료 가져오기
-            for itday in __5_get_date_range(dateRange):
+            for itday in __5_get_date_range(dateRange): # 1 ~ 13 일간 자료 가져오기
                 #if today != '20200224':
                 #    continue  # 디버깅용
 
@@ -607,18 +580,14 @@ class ActCrlCgv(ActCrlSupper):
                                         for tag4 in tag3.find_elements(By.TAG_NAME, "a > span"):
                                             playinfo = tag4.text  # print( tag4.text )                                            
 
-                                            ''' 
                                             #반드시 저녁에 확인 할것,,,
                                             early = tag4.get_property("early")
                                             midnight = tag4.get_attribute('midnight')
                                             for v in tag4.attrs.values():
                                                 if v[0] == 'early':
-                                                    playetc = '조조'
-                                                    # print( "조조" )
+                                                    playetc = '조조' # print( "조조" )
                                                 if v[0] == 'midnight':
-                                                    playetc = '심야'
-                                                    # print( "심야" )
-                                            '''
+                                                    playetc = '심야' # print( "심야" )
                                         # [for tag4 in tag3.find_elements(By.TAG_NAME, "a > span"):]
                                     else:  # print( '마감' )
 
@@ -654,19 +623,24 @@ class ActCrlCgv(ActCrlSupper):
                         chm_driver.quit()
 
                         chm_driver = webdriver.Chrome(options=chrome_options)
+                    finally:  # 예외 발생 여부와 관계없이 항상 실행되는 코드
+                        chm_driver.quit()
                     # [try]    
+
+                    
                 # [for row in self.sql_cursor.fetchall():  # 극장을 하나씩 순회한다.]
 
                 for theatercode, v1 in dicTicketingData.items():
                     for moviecode, v2 in v1.items(): # dicTicketMovies.items() # moviename, moviegrade, movieplaying, moviegenre, movieruntime, moviereleasedate, dicTicketRooms
                         for j, v3 in v2[6].items(): # dicTicketRooms.items() # filmtype, roomfloor, totalseat, dicTicketTimes
                             for k, v4 in v3[4].items(): # dicTicketTimes.items() # playtime, playinfo, playetc
+                                query = self.sqlxmp.find(f"query[@id='{'INSERT_cgv_ticket'}']").text.strip()
+                                parameters = ( itday, theatercode, moviecode, filmtype, roomfloor, totalseat, playtime, playinfo, playetc )
+                                self.sql_cursor.execute(query, parameters)
+                # [for theatercode, v1 in dicTicketingData.items():]
+            # [for itday in __5_get_date_range(dateRange): # 1 ~ 13 일간 자료 가져오기]
 
-
-                self.dicTicketingDays[itday] = dicTicketingData
-            # for today in days: # 1 ~ 13 일간 자료 가져오기
-
-            chrome_driver.quit()
+            
 
             self.sql_conn.commit()
         # [def _5_crawl_cgv_showtimes():]
@@ -674,11 +648,24 @@ class ActCrlCgv(ActCrlSupper):
  
         try:
 
-            #_1_crawl_cgv_moviechart()     # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
-            #_2_crawl_cgv_moviescheduled() # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
-            #_3_crawl_cgv_moviefinder()    # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
-            #_4_crawl_cgv_theaters()       # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
-            _5_crawl_cgv_showtimes()      # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
+            chrome_options = webdriver.ChromeOptions()
+            #chrome_options.add_argument('--headless')  # Headless 모드 설정
+            #chrome_options.add_argument("--start-maximized")  # 창을 최대화로 시작
+            chrome_options.add_argument("--blink-settings=imagesEnabled=false") #  이미지가 로드되지 않으므로 페이지 로딩 속도가 향상
+            chrome_options.add_argument('--excludeSwitches=enable-automation')
+            chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+            chrome_options.add_argument('--start-minimized')  # 최소화된 상태로 창을 시작
+            chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
+            chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
+            chrome_options.add_argument('--ignore-certificate-errors')
+            chrome_options.add_argument('--ignore-ssl-errors')
+            chrome_driver = webdriver.Chrome(options=chrome_options)            
+
+            _1_crawl_cgv_moviechart(chrome_driver)  # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
+            _2_crawl_cgv_moviescheduled()           # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
+            _3_crawl_cgv_moviefinder()              # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
+            _4_crawl_cgv_theaters()                 # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
+            _5_crawl_cgv_showtimes(chrome_driver)   # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
         except Exception as e:
 
             self.logger.error('Cgv 크롤링 중 오류발생!')

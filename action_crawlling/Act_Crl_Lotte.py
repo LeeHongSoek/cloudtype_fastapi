@@ -509,11 +509,9 @@ class ActCrlLotte(ActCrlSupper):
 
             proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 요청 캡처 활성화
 
-            # ------------------------------
             _1_crawlLotte_boxoffice(chrome_driver)  # 1. 영화/현재상영작 (https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
             _2_crawlLotte_cinema(chrome_driver)     # 2. 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다.             
             _3_crawlLotte_ticketing(chrome_driver)  # 3. 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다.
-            # ------------------------------
 
             chrome_driver.quit()
             server.stop()
