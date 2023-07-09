@@ -1,3 +1,4 @@
 selenium
 pytz
 pandas
+requests
