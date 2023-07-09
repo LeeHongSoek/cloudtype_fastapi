@@ -55,28 +55,33 @@ class ActCrlCgv(ActCrlSupper):
             self.logger.info(' 1. ### 영화/무비차트(http://www.cgv.co.kr/movies/) ###  ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
-            options = webdriver.ChromeOptions()
-            options.add_argument('--whitelisted-ips')        
+            chrome_options = webdriver.ChromeOptions()
+            #chrome_options.add_argument('--headless')  # Headless 모드 설정
+            #chrome_options.add_argument("--start-maximized")  # 창을 최대화로 시작
+            chrome_options.add_argument("--blink-settings=imagesEnabled=false") #  이미지가 로드되지 않으므로 페이지 로딩 속도가 향상
+            chrome_options.add_argument('--excludeSwitches=enable-automation')
+            chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+            chrome_options.add_argument('--start-minimized')  # 최소화된 상태로 창을 시작
+            chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
+            chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
+            chrome_options.add_argument('--ignore-certificate-errors')
+            chrome_options.add_argument('--ignore-ssl-errors')
+            chrome_driver = webdriver.Chrome(options=chrome_options)
 
-            driver = webdriver.Chrome(executable_path='C:\\Crawlling2\\chromedriver.exe', options=options)  # 다운받은 파일을 압축푼 후 실행파일을 해당경로에 푼다.....
-            driver.implicitly_wait(3)
+            chrome_driver.get('http://www.cgv.co.kr/movies/')
+            chrome_driver.implicitly_wait(3)
 
-            driver.get('http://www.cgv.co.kr/movies/')
-            driver.implicitly_wait(3)
+            chrome_driver.find_element(By.XPATH, '//*[@class="btn-more-fontbold"]').click()  # '더보기' 클릭
+            chrome_driver.implicitly_wait(3)  # 초 단위 지연...
 
-            driver.find_element(By.XPATH, '//*[@class="btn-more-fontbold"]').click()  # '더보기' 클릭
-            driver.implicitly_wait(3)
-
-            time.sleep(self.delayTime)  # 초 단위 지연...
-
-            html = driver.page_source  # 패이지 소스를 읽어온다.....
-            driver.quit()
+            html = chrome_driver.page_source  # 패이지 소스를 읽어온다.....
+            chrome_driver.quit()
 
             soup = BeautifulSoup(html, "html.parser")
             
-            self.logger.info('------------------------------------------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
             self.logger.info('렝킹, [코드], 영화명(개봉일자), 점유율, 개봉여부, 등급')
-            self.logger.info('------------------------------------------------------')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             for tag1 in soup.select("div.sect-movie-chart > ol > li"):  # 영화 리스트 순환단위  # print( tag1 )                
 
@@ -126,9 +131,14 @@ class ActCrlCgv(ActCrlSupper):
                     releasedate = tag2.text.strip().replace('.', '')
                     # print(opened)
 
-                    self.logger.info('{0} : [{1}] {2}({3}/{4}/{5}), {6}, {7}, {8}'.format(rank, moviecode, moviename, releasedate[:4], releasedate[4:6], releasedate[6:], percent, open_type, grade))
+                    self.logger.info(f'{rank} : [{moviecode}] {moviename}({releasedate[:4]}/{releasedate[4:6]}/{releasedate[6:]}), {percent}, {open_type}, {grade}')
 
-                self.dicMovies[moviecode] = [moviename, releasedate]  # 영화데이터 정보
+                    query = self.sqlxmp.find(f"query[@id='{'INSERT_cgv_movie'}']").text.strip()
+                    parameters = ( moviecode, moviename, releasedate)
+                    self.sql_cursor.execute(query, parameters)
+            # [for tag1 in soup.select("div.sect-movie-chart > ol > li"):  # 영화 리스트 순환단위]
+
+            self.sql_conn.commit()
         # [def _1_crawl_cgv_moviechart():]
 
         # =====================================================================================================================================================
@@ -141,56 +151,60 @@ class ActCrlCgv(ActCrlSupper):
             self.logger.info(' 2. ### 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) ###  ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
-            self.logger.info('-------------------------------------')
-            self.logger.info('no, 코드, 영화명(개봉일자)')
-            self.logger.info('-------------------------------------')
-
             url = 'http://www.cgv.co.kr/movies/pre-movies.aspx'
-            data = self.http.request( 'POST', url ).data.decode('utf-8')
-            soup = BeautifulSoup(data, 'html.parser')
+            r = requests.post(url)
+            time.sleep(self.delayTime)
+
+            soup = BeautifulSoup(r.text, 'html.parser') # print(data)
+
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('no, 코드, 영화명(개봉일자)   ')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
             mov_count = 0
+            for tagOL in soup.select("div.sect-movie-chart > ol"):  # print( tag1 )                
 
-            for tag1 in soup.select("div.sect-movie-chart > ol"):  # print( tag1 )                
-
-                for tag2 in tag1.select("li"):  # print( tag2 )                    
+                for tagLI in tagOL.select("li"):  # print( tag2 )                    
 
                     moviecode = ''
                     moviename = ''
                     releasedate = ''
 
-                    if len(tag2.select("div.box-contents > a")) == 0:
+                    if len(tagLI.select("div.box-contents > a")) == 0:
                         break
 
-                    for tag3 in tag2.select("div.box-contents > a"):
+                    for tagA in tagLI.select("div.box-contents > a"):
 
-                        href = tag3['href']
+                        href = tagA['href']
                         hrefs = href.split('=')
 
                         moviecode = hrefs[1]
-                        moviename = tag3.text.strip()
+                        moviename = tagA.text.strip()
                         # print( '{},{}'.format(moviecode, moviename) )
 
-                        for tag3 in tag2.select("span.txt-info"):
+                        for tagA in tagLI.select("span.txt-info"):
                             # for lin in tag3.text.splitlines():
                             #     print( ' +{}+ '.format(lin.strip()) )
 
-                            releasedate = tag3.text.splitlines()[2].strip()
+                            releasedate = tagA.text.splitlines()[2].strip()
                             if releasedate != '개봉예정':
                                 releasedate = releasedate[0:4] + releasedate[5:7] + releasedate[8:10]
                             else:
                                 releasedate = ''
-
                                 # print( ' +{}+ '.format( releasedate ) )
-
                         
                             mov_count += 1
                             self.logger.info(f'{mov_count} : {moviecode}, {moviename}({releasedate})')
 
-                        self.dicMovies[moviecode] = [moviename, releasedate]  # 영화데이터 정보
-                    #
-                #
-            #
+                            query = self.sqlxmp.find(f"query[@id='{'INSERT_cgv_movie'}']").text.strip()
+                            parameters = ( moviecode, moviename, releasedate)
+                            self.sql_cursor.execute(query, parameters)
+                        # [for tagA in tagLI.select("span.txt-info"):]
+                    # [for tagA in tagLI.select("div.box-contents > a"):]
+                # [for tagLI in tagOL.select("li"):]
+            # [for tagOL in soup.select("div.sect-movie-chart > ol"):]
+
+            self.sql_conn.commit()
         # [def _2_crawl_cgv_moviescheduled():]
         
         # =====================================================================================================================================================
@@ -203,8 +217,6 @@ class ActCrlCgv(ActCrlSupper):
             self.logger.info(' 3. ### 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) ###  ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
-            mov_count = 0
-
             date1 = datetime.date.today()  # 오늘자 날짜객체
             date2 = date1 + datetime.timedelta(days=-365)  # 1년전
 
@@ -216,6 +228,7 @@ class ActCrlCgv(ActCrlSupper):
             self.logger.info('-------------------------------------')
 
             # 1 ~ 페이지 에서 부터 영화정보 (코드+이름+개봉일) 를 가지고 온다...
+            mov_count = 0
             i = 0
             while True:
                 # if i != 1:       # 일단 하나만 가지고 온다.
@@ -240,6 +253,7 @@ class ActCrlCgv(ActCrlSupper):
                        , 'page': str(i)
                        }
                 r = requests.post(url, data=fields)
+                time.sleep(self.delayTime)
 
                 soup = BeautifulSoup(r.text, 'html.parser')
 
@@ -281,7 +295,9 @@ class ActCrlCgv(ActCrlSupper):
                                     mov_count += 1
                                     self.logger.info(f'{mov_count} : {moviecode}, {moviename}({releasedate[:4]}/{releasedate[4:6]}/{releasedate[6:]})')
 
-                                self.dicMovies[moviecode] = [moviename, releasedate]  # 영화데이터 정보
+                                query = self.sqlxmp.find(f"query[@id='{'INSERT_cgv_movie'}']").text.strip()
+                                parameters = ( moviecode, moviename, releasedate)
+                                self.sql_cursor.execute(query, parameters)
                             #
                         #
                     #
@@ -337,13 +353,17 @@ class ActCrlCgv(ActCrlSupper):
                                     mov_count += 1
                                     self.logger.info(f'{mov_count} : {moviecode}, {moviename}({releasedate})')
 
-                                self.dicMovies[moviecode] = [moviename, releasedate]  # 영화데이터 정보
+                                query = self.sqlxmp.find(f"query[@id='{'INSERT_cgv_movie'}']").text.strip()
+                                parameters = ( moviecode, moviename, releasedate)
+                                self.sql_cursor.execute(query, parameters)
                             #
                         #
                     #
                 #
                 i += 1
             #
+
+            self.sql_conn.commit()
         # [def _3_crawl_cgv_moviefinder():]
 
         # =====================================================================================================================================================
@@ -356,13 +376,16 @@ class ActCrlCgv(ActCrlSupper):
             self.logger.info(' 4. ## 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) ###  ')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
             
-            self.logger.info('-------------------------------------')
-            self.logger.info('no : [코드] 지역명, 극장명')
-            self.logger.info('-------------------------------------')
+            r = requests.post('http://www.cgv.co.kr/reserve/show-times/')            
+            time.sleep(self.delayTime)
 
-            r = requests.post('http://www.cgv.co.kr/reserve/show-times/')
             data_lines = r.text.splitlines()
 
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('no : [코드] 지역명, 극장명')
+            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+
+            dicRegions = {}
             theater_count = 0
             for data_line in data_lines:
 
@@ -390,35 +413,46 @@ class ActCrlCgv(ActCrlSupper):
                         # 복합지역인 경우는 개별 분리한다.
                         i = 0
                         for regioncode in regioncodes:
-                            self.dicRegions[regioncode] = regionnames[i];  # 지역코드 정보 추가 (지역코드+지역명)
+                            
+                            dicRegions[regioncode] = regionnames[i];  # 지역코드 정보 추가 (지역코드+지역명)
+
+                            query = self.sqlxmp.find(f"query[@id='{'INSERT_cgv_region'}']").text.strip()
+                            parameters = ( regioncode, regionnames[i] )
+                            self.sql_cursor.execute(query, parameters)
                             i += 1
+                        # [for regioncode in regioncodes:]    
 
                         for theater in json_theater['AreaTheaterDetailList']:
+
                             # print(theater)
                             regioncode = theater['RegionCode']  # 극장지역코드
                             theatercode = theater['TheaterCode']  # 극장코드
                             theatername = theater['TheaterName']  # 극장명
                             
                             theater_count += 1
-                            self.logger.info(f'{theater_count} : [{theatercode}] {self.dicRegions[regioncode]}, {theatername}')
+                            self.logger.info(f'{theater_count} : [{theatercode}] {dicRegions[regioncode]}, {theatername}')
 
-                            self.dicTheaters[theatercode] = [regioncode, self.dicRegions[regioncode], theatername]  # 극장코드 정보 추가 (지역코드+지역명+극장명)
-                        #
-                    #
+                            query = self.sqlxmp.find(f"query[@id='{'INSERT_cgv_theater'}']").text.strip()
+                            parameters = ( theater_count, theatercode, dicRegions[regioncode], theatername )
+                            self.sql_cursor.execute(query, parameters)
+                        # [for theater in json_theater['AreaTheaterDetailList']:]
+                    # [for json_theater in json_obj:]
                 #
             
                 region_count = 0
 
-                self.logger.info('-------------------------------------')
+                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
                 self.logger.info('no, [코드] 지역명')
-                self.logger.info('-------------------------------------')
+                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
-                for region in self.dicRegions:
+                for region in dicRegions:
 
                     region_count += 1
-                    self.logger.info('{} : [{}] {}'.format(region_count, region, self.dicRegions[region]))
+                    self.logger.info(f'{region_count} : [{region}] {dicRegions[region]}')
                 #
-            #
+            # [if find_jsondata != -1:  # 발견하면...]
+
+            self.sql_conn.commit()
         # [def _4_crawl_cgv_theaters():]
 
         # =====================================================================================================================================================
@@ -445,9 +479,17 @@ class ActCrlCgv(ActCrlSupper):
             # [def __5_get_date_range(date_range):]
 
             chrome_options = webdriver.ChromeOptions()
+            #chrome_options.add_argument('--headless')  # Headless 모드 설정
+            #chrome_options.add_argument("--start-maximized")  # 창을 최대화로 시작
+            chrome_options.add_argument("--blink-settings=imagesEnabled=false") #  이미지가 로드되지 않으므로 페이지 로딩 속도가 향상
+            chrome_options.add_argument('--excludeSwitches=enable-automation')
+            chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+            chrome_options.add_argument('--start-minimized')  # 최소화된 상태로 창을 시작
             chrome_options.add_argument('--ignore-certificate-errors')  # 인증서 오류 무시
             chrome_options.add_argument('--ignore-ssl-errors')  # SSL 오류 무시
-            driver = webdriver.Chrome(options=chrome_options)
+            chrome_options.add_argument('--ignore-certificate-errors')
+            chrome_options.add_argument('--ignore-ssl-errors')
+            chrome_driver = webdriver.Chrome(options=chrome_options)            
 
             # 1 ~ 13 일간 자료 가져오기
             for today in __5_get_date_range(dateRange):
@@ -467,11 +509,11 @@ class ActCrlCgv(ActCrlSupper):
                     self.logger.info(f' {today[:4]}/{today[4:6]}/{today[6:]} 일 :  {self.dicTheaters[theaterkey][1]}, {self.dicTheaters[theaterkey][2]} ({theaterkey})')
 
                     url = 'http://www.cgv.co.kr/reserve/show-times/?areacode=' + self.dicTheaters[theaterkey][0] + '&theatercode=' + theaterkey + '&date=' + today + ''
-                    driver.get(url)
-                    driver.switch_to.frame('ifrm_movie_time_table')
+                    chrome_driver.get(url)
+                    chrome_driver.switch_to.frame('ifrm_movie_time_table')
 
                     try:
-                        element = WebDriverWait(driver, timeout=1).until(EC.presence_of_element_located((By.XPATH, "//div[@class='sect-showtimes']")))
+                        element = WebDriverWait(chrome_driver, timeout=1).until(EC.presence_of_element_located((By.XPATH, "//div[@class='sect-showtimes']")))
 
                         dicTicketMovies = {}  #
 
@@ -583,24 +625,38 @@ class ActCrlCgv(ActCrlSupper):
                         dicTicketingData[theaterkey] = dicTicketMovies
                         #    self.logger.info(dicTicketingData)
 
-                    except TimeoutException:
-                        print("해당 페이지에 cMain 을 ID 로 가진 태그가 존재하지 않거나, 해당 페이지가 10초 안에 열리지 않았습니다.")
+                    except TimeoutException as e:    
+                        self.sql_conn.rollback()
+
+                        self.logger.error('-----------------------------------------------------------------------')
+                        self.logger.error('해당 페이지에 cMain 을 ID 로 가진 태그가 존재하지 않거나, 해당 페이지가 10초 안에 열리지 않았습니다.')
+                        self.logger.error(f'오류 내용! {e}')
+                        self.logger.error(f'{traceback.print_exc()}')
+                        self.logger.error('-----------------------------------------------------------------------')
+
+                        # 드라이버 재 실행 !!
+                        chm_driver.quit()
+
+                        chm_driver = webdriver.Chrome(options=chrome_options)
+                    # [try]    
                 # for theaterkey in self.dicTheaters.keys(): # 극장을 하나씩 순회한다.
 
                 self.dicTicketingDays[today] = dicTicketingData
             # for today in days: # 1 ~ 13 일간 자료 가져오기
 
-            driver.quit()
+            chrome_driver.quit()
+
+            self.sql_conn.commit()
         # [def _5_crawl_cgv_showtimes():]
 
  
         try:
 
-            _1_crawl_cgv_moviechart()     # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
-            _2_crawl_cgv_moviescheduled() # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
-            _3_crawl_cgv_moviefinder()    # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
+            #_1_crawl_cgv_moviechart()     # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
+            #_2_crawl_cgv_moviescheduled() # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
+            #_3_crawl_cgv_moviefinder()    # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
             _4_crawl_cgv_theaters()       # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
-            _5_crawl_cgv_showtimes()      # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
+            #_5_crawl_cgv_showtimes()      # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
         except Exception as e:
 
             self.logger.error('Cgv 크롤링 중 오류발생!')

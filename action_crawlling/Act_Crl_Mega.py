@@ -89,7 +89,7 @@ class ActCrlMega(ActCrlSupper):
             # [for val in r.json()["movieList"]:]
 
             self.sql_conn.commit()
-        # [1_crawl_mega_movie():]
+        # [def _1_crawl_mega_movie():]
 
         # =====================================================================================================================================================
         # 2. 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다.

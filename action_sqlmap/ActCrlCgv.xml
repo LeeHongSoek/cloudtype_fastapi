@@ -1,8 +1,91 @@
 <queries>
 
-    <query id="SELECT_sqlite_master_table_kobis_zz">
+    <query id="SELECT_sqlite_master_cgv_movie">
         <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='kobis_zzzz' 
+                 SELECT name FROM sqlite_master WHERE type='table' AND name='cgv_movie' 
+        ]]>
+    </query>
+
+    <query id="CREATE_TABLE_cgv_movie">
+        <![CDATA[
+                 CREATE TABLE IF NOT EXISTS cgv_movie ( moviecode     TEXT NULL   /* 영화코드   */
+                                                      , moviename     TEXT NULL   /* 영화명     */
+                                                      , releasedate   TEXT NULL   /* 개봉일     */
+                                                      , PRIMARY KEY (moviecode)
+                                                      )
+        ]]>
+    </query>
+
+    <query id="SELECT_sqlite_master_cgv_region">
+        <![CDATA[
+                 SELECT name FROM sqlite_master WHERE type='table' AND name='cgv_region' 
+        ]]>
+    </query>
+
+    <query id="CREATE_TABLE_cgv_region">
+        <![CDATA[
+                 CREATE TABLE IF NOT EXISTS cgv_region ( regioncode   TEXT NULL   /* 지역코드   */
+                                                       , regionname   TEXT NULL   /* 지역명     */
+                                                       , PRIMARY KEY (regioncode)
+                                                       )
+        ]]>
+    </query>
+
+    <query id="SELECT_sqlite_master_cgv_theater">
+        <![CDATA[
+                 SELECT name FROM sqlite_master WHERE type='table' AND name='cgv_theater' 
+        ]]>
+    </query>
+
+    <query id="CREATE_TABLE_cgv_theater">
+        <![CDATA[
+                 CREATE TABLE IF NOT EXISTS cgv_theater ( theatercode   TEXT NULL   /* 극장코드   */
+                                                        , regioncode    TEXT NULL   /* 지역코드   */
+                                                        , regionname    TEXT NULL   /* 지역명     */
+                                                        , theatername   TEXT NULL   /* 극장명     */
+                                                        , PRIMARY KEY (theatercode)
+                                                        )
+        ]]>
+    </query>
+
+    <!-- ====================================================================== -->
+
+    <query id="INSERT_cgv_movie">
+        <![CDATA[
+                  INSERT OR REPLACE INTO cgv_movie ( moviecode
+                                                    , moviename
+                                                    , releasedate
+                                                    )
+                                             VALUES ( ?              
+                                                    , ?              
+                                                    , ? 
+                                                    )
+        ]]>
+    </query>
+
+    <query id="INSERT_cgv_region">
+        <![CDATA[
+                  INSERT OR REPLACE INTO cgv_region ( regioncode
+                                                    , regionname
+                                                    )
+                                             VALUES ( ?              
+                                                    , ? 
+                                                    )
+        ]]>
+    </query>
+
+    <query id="INSERT_cgv_theater">
+        <![CDATA[
+                  INSERT OR REPLACE INTO cgv_theater ( theatercode
+                                                     , regioncode
+                                                     , regionname
+                                                     , theatername
+                                                     )
+                                              VALUES ( ?              
+                                                     , ? 
+                                                     , ? 
+                                                     , ? 
+                                                     )
         ]]>
     </query>
 

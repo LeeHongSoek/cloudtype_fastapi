@@ -93,6 +93,7 @@
                                                     )
         ]]>
     </query>
+    
     <query id="INSERT_mega_movie_releasedate">
         <![CDATA[
                   INSERT OR REPLACE INTO mega_movie ( moviecode
