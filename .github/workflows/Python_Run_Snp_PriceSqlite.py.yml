@@ -22,3 +22,10 @@ jobs:
         
       - name: 4. Run python script
         run: python SnP500/Snp_PriceSqlite.py
+
+
+      - name: 5. Upload file as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: job-result
+          path: SnP500/lhs_stock.db
