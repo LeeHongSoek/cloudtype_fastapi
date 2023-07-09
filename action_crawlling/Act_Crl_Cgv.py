@@ -621,7 +621,7 @@ class ActCrlCgv(ActCrlSupper):
                         for j, v3 in v2[6].items(): # dicTicketRooms.items() # filmtype, roomfloor, totalseat, dicTicketTimes
                             for k, v4 in v3[3].items(): # dicTicketTimes.items() # playtime, playinfo, playetc
                                 query = self.sqlxmp.find(f"query[@id='{'INSERT_cgv_ticket'}']").text.strip()
-                                parameters = ( itday, theatercode, moviecode, filmtype, roomfloor, totalseat, playtime, playinfo, playetc )
+                                parameters = ( itday, theatercode, moviecode, v3[0], v3[1], v3[2], v4[0], v4[1], v4[2] )
                                 self.sql_cursor.execute(query, parameters)
                 # [for theatercode, v1 in dicTicketingData.items():]
             # [for itday in __5_get_date_range(dateRange): # 1 ~ 13 일간 자료 가져오기]
@@ -646,9 +646,9 @@ class ActCrlCgv(ActCrlSupper):
             chrome_options.add_argument('--ignore-ssl-errors')
             chrome_driver = webdriver.Chrome(options=chrome_options)            
 
-            _1_crawl_cgv_moviechart(chrome_driver)  # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
-            _2_crawl_cgv_moviescheduled()           # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
-            _3_crawl_cgv_moviefinder()              # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
+            #_1_crawl_cgv_moviechart(chrome_driver)  # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
+            #_2_crawl_cgv_moviescheduled()           # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
+            #_3_crawl_cgv_moviefinder()              # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
             _4_crawl_cgv_theaters()                 # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
             _5_crawl_cgv_showtimes(chrome_driver)   # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
         except Exception as e:
