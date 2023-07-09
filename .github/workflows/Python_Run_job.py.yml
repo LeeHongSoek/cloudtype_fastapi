@@ -8,22 +8,17 @@ jobs:
     name: "Python job"
     runs-on: ubuntu-latest
     steps:
-      
-      - name: 1. Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v2
-      
-      - name: 2. Setup python
+      - name: Setup python
         uses: actions/setup-python@v2.2.2
         with:
           python-version: '3.10.6'
-      
-      - name: 3. Install dependencies
+      - name: Install dependencies
         run: pip install -r pipInstalls.txt
-      
-      - name: 4. Run python script
+      - name: Run python script
         run: python job.py
-      
-      - name: 5. Upload file as artifact
+      - name: Upload file as artifact
         uses: actions/upload-artifact@v2
         with:
           name: job-result
