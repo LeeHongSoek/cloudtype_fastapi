@@ -55,10 +55,10 @@ for row in results:
 conn.commit() # Commit the changes for each symbol    
 
 # 이동평균값이 없으면 삭제
-query = ''' DELETE FROM stock_prices
-                  WHERE avg_short IS NULL OR avg_long IS NULL   '''
-cursor.execute(query)
-conn.commit() # Commit the changes for each symbol
+# query = ''' DELETE FROM stock_prices
+#                   WHERE avg_short IS NULL OR avg_long IS NULL   '''
+# cursor.execute(query)
+# conn.commit() # Commit the changes for each symbol
 
 # Close the cursor and the connection
 cursor.close()
