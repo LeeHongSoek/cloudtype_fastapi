@@ -450,11 +450,11 @@ class ActCrlCgv(ActCrlSupper):
                 days = []
 
                 date1 = datetime.date.today()  # 오늘자 날짜객체
-                days.append('{:04d}{:02d}{:02d}'.format(date1.year, date1.month, date1.day))  # 오늘의 날짜
+                days.append(f'{date1.year:04d}{date1.month:02d}{date1.day:02d}')  # 오늘의 날짜
 
                 for i in range(1, date_range + 1):
                     date = date1 + datetime.timedelta(days=i)  # 오늘부터 i일 후의 날짜
-                    days.append('{:04d}{:02d}{:02d}'.format(date.year, date.month, date.day))  # 오늘부터 i일 후의 날짜를 추가
+                    days.append(f'{date.year:04d}{date.month:02d}{date.day:02d}')  # 오늘부터 i일 후의 날짜를 추가
 
                 return days
             # [def __5_get_date_range(date_range):]            
