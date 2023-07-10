@@ -3,190 +3,188 @@
     <tables> kobis_boxoffice ; kobis_theater ; kobis_schedule ; kobis_screen ; kobis_history </tables>
 
     <query id="CREATE_TABLE_kobis_boxoffice"><![CDATA[
-                 CREATE TABLE IF NOT EXISTS kobis_boxoffice ( curDate      TEXT NULL   /* 랭킹 날짜                   */
-                                                            , rank         TEXT NULL   /* 랭킹                        */
-                                                            , movieCd      TEXT NULL   /* 영화코드                    */
-                                                            , movieNm      TEXT NULL   /* 영화명                      */
-                                                            , openDt       TEXT NULL   /* 개봉일                      */
-                                                            , salesAmk     TEXT NULL   /* 매출액                      */
-                                                            , share        TEXT NULL   /* 점유율                      */
-                                                            , salesAmkGap  TEXT NULL   /* 매출액증감 (전일대비)       */
-                                                            , salesAmkAgo  TEXT NULL   /* 매출액증감 (전일대비)       */
-                                                            , salesAmkAcc  TEXT NULL   /* 누적매출액                  */
-                                                            , score        TEXT NULL   /* 관객수                      */
-                                                            , scoreGap     TEXT NULL   /* 관객수증감 (전일대비)       */
-                                                            , scoreAgo     TEXT NULL   /* 관객수증감 (전일대비)       */
-                                                            , scoreAcc     TEXT NULL   /* 누적관객수                  */
-                                                            , screen       TEXT NULL   /* 스크린수                    */
-                                                            , playing      TEXT NULL   /* 상영쵯수                    */
-                                                            , PRIMARY KEY (curDate, rank)
-                                                            )                                       
+               CREATE TABLE IF NOT EXISTS kobis_boxoffice ( curDate      TEXT NULL   /* 랭킹 날짜                   */
+                                                          , rank         TEXT NULL   /* 랭킹                        */
+                                                          , movieCd      TEXT NULL   /* 영화코드                    */
+                                                          , movieNm      TEXT NULL   /* 영화명                      */
+                                                          , openDt       TEXT NULL   /* 개봉일                      */
+                                                          , salesAmk     TEXT NULL   /* 매출액                      */
+                                                          , share        TEXT NULL   /* 점유율                      */
+                                                          , salesAmkGap  TEXT NULL   /* 매출액증감 (전일대비)       */
+                                                          , salesAmkAgo  TEXT NULL   /* 매출액증감 (전일대비)       */
+                                                          , salesAmkAcc  TEXT NULL   /* 누적매출액                  */
+                                                          , score        TEXT NULL   /* 관객수                      */
+                                                          , scoreGap     TEXT NULL   /* 관객수증감 (전일대비)       */
+                                                          , scoreAgo     TEXT NULL   /* 관객수증감 (전일대비)       */
+                                                          , scoreAcc     TEXT NULL   /* 누적관객수                  */
+                                                          , screen       TEXT NULL   /* 스크린수                    */
+                                                          , playing      TEXT NULL   /* 상영쵯수                    */
+                                                          , PRIMARY KEY (curDate, rank)
+                                                          )                                       
     ]]></query>
 
     <query id="CREATE_TABLE_kobis_theater"><![CDATA[
-                 CREATE TABLE IF NOT EXISTS kobis_theater ( theaterCd      TEXT NULL   /*  극장 코드      */
-                                                          , theaterNm      TEXT NULL   /*  극장 이름      */
-                                                          , locName1       TEXT NULL   /*  광역단체       */
-                                                          , locName2       TEXT NULL   /*  기초단체       */
-                                                          , scrreenNum     TEXT NULL   /*  스크린수       */
-                                                          , seetNum        TEXT NULL   /*  좌석수         */
-                                                          , permanentYn    TEXT NULL   /*  상설여부       */
-                                                          , joinYn         TEXT NULL   /*  가입여부       */
-                                                          , businessOper   TEXT NULL   /*  전송사업자명   */
-                                                          , openDt         TEXT NULL   /*  개관일         */
-                                                          , SalleingYn     TEXT NULL   /*  영업상태       */
-                                                          , PRIMARY KEY (theaterCd)
-                                                          )                                       
+               CREATE TABLE IF NOT EXISTS kobis_theater ( theaterCd      TEXT NULL   /*  극장 코드      */
+                                                        , theaterNm      TEXT NULL   /*  극장 이름      */
+                                                        , locName1       TEXT NULL   /*  광역단체       */
+                                                        , locName2       TEXT NULL   /*  기초단체       */
+                                                        , scrreenNum     TEXT NULL   /*  스크린수       */
+                                                        , seetNum        TEXT NULL   /*  좌석수         */
+                                                        , permanentYn    TEXT NULL   /*  상설여부       */
+                                                        , joinYn         TEXT NULL   /*  가입여부       */
+                                                        , businessOper   TEXT NULL   /*  전송사업자명   */
+                                                        , openDt         TEXT NULL   /*  개관일         */
+                                                        , SalleingYn     TEXT NULL   /*  영업상태       */
+                                                        , PRIMARY KEY (theaterCd)
+                                                        )                                       
     ]]></query>
 
     <query id="CREATE_TABLE_kobis_schedule"><![CDATA[
-                 CREATE TABLE IF NOT EXISTS kobis_schedule ( theaterCd      TEXT NULL   /*  극장 코드      */                 
-                                                           , itday          TEXT NULL   /*  상영일         */
-                                                           , scrnNm         TEXT NULL   /*  상영관 이름    */
-                                                           , showTm         TEXT NULL   /*  상일시작시간   */
-                                                           , movieCd        TEXT NULL   /*  영화코드       */
-                                                           , PRIMARY KEY (theaterCd, itday, scrnNm, showTm, movieCd)
-                                                           )                                       
-    ]]></query>
-
-    <query id="CREATE_TABLE_kobis_screen"><![CDATA[
-                 CREATE TABLE IF NOT EXISTS kobis_screen ( theaterCd   TEXT NULL   /*  극장 코드    */                 
-                                                         , screenCd    TEXT NULL   /*  상영관 코드  */
-                                                         , screenNm    TEXT NULL   /*  상영관 이름  */
-                                                         , seatNum     TEXT NULL   /*  좌석수       */
-                                                         , PRIMARY KEY (theaterCd, screenCd)
+               CREATE TABLE IF NOT EXISTS kobis_schedule ( theaterCd      TEXT NULL   /*  극장 코드      */                 
+                                                         , itday          TEXT NULL   /*  상영일         */
+                                                         , scrnNm         TEXT NULL   /*  상영관 이름    */
+                                                         , showTm         TEXT NULL   /*  상일시작시간   */
+                                                         , movieCd        TEXT NULL   /*  영화코드       */
+                                                         , PRIMARY KEY (theaterCd, itday, scrnNm, showTm, movieCd)
                                                          )                                       
     ]]></query>
 
+    <query id="CREATE_TABLE_kobis_screen"><![CDATA[
+               CREATE TABLE IF NOT EXISTS kobis_screen ( theaterCd   TEXT NULL   /*  극장 코드    */                 
+                                                       , screenCd    TEXT NULL   /*  상영관 코드  */
+                                                       , screenNm    TEXT NULL   /*  상영관 이름  */
+                                                       , seatNum     TEXT NULL   /*  좌석수       */
+                                                       , PRIMARY KEY (theaterCd, screenCd)
+                                                       )                                       
+    ]]></query>
+
     <query id="CREATE_TABLE_kobis_history"><![CDATA[
-                 CREATE TABLE IF NOT EXISTS kobis_history ( theaterCd   TEXT NULL   /*  극장 코드   */                 
-                                                          , playDt      TEXT NULL   /*  상영일      */
-                                                          , screenNm    TEXT NULL   /*  상영관 이름 */
-                                                          , inning      TEXT NULL   /*  회차        */
-                                                          , playTM      TEXT NULL   /*  시작시간    */
-                                                          , price       TEXT NULL   /*  가격        */
-                                                          , movieNm     TEXT NULL   /*  영화명      */
-                                                          )                                       
+               CREATE TABLE IF NOT EXISTS kobis_history ( theaterCd   TEXT NULL   /*  극장 코드   */                 
+                                                        , playDt      TEXT NULL   /*  상영일      */
+                                                        , screenNm    TEXT NULL   /*  상영관 이름 */
+                                                        , inning      TEXT NULL   /*  회차        */
+                                                        , playTM      TEXT NULL   /*  시작시간    */
+                                                        , price       TEXT NULL   /*  가격        */
+                                                        , movieNm     TEXT NULL   /*  영화명      */
+                                                        )                                       
     ]]></query>
 
     <!-- ====================================================================== -->
 
     <query id="INSERT_kobis_boxoffice"><![CDATA[
-                  INSERT OR REPLACE INTO kobis_boxoffice ( curDate     
-                                                         , rank        
-                                                         , movieCd     
-                                                         , movieNm     
-                                                         , openDt      
-                                                         , salesAmk    
-                                                         , share       
-                                                         , salesAmkGap 
-                                                         , salesAmkAgo 
-                                                         , salesAmkAcc 
-                                                         , score       
-                                                         , scoreGap    
-                                                         , scoreAgo    
-                                                         , scoreAcc    
-                                                         , screen      
-                                                         , playing     
-                                                         )
-                                                  VALUES ( ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         , ? 
-                                                         )
-    ]]></query>
-
-    <query id="INSERT_kobis_theater"><![CDATA[
-                  INSERT OR REPLACE INTO kobis_theater ( theaterCd     
-                                                       , theaterNm     
-                                                       , locName1      
-                                                       , locName2      
-                                                       , scrreenNum    
-                                                       , seetNum       
-                                                       , permanentYn   
-                                                       , joinYn        
-                                                       , businessOper  
-                                                       , openDt        
-                                                       , SalleingYn    
-                                                       )
-                                                VALUES ( ? 
-                                                       , ? 
-                                                       , ? 
-                                                       , ? 
-                                                       , ? 
-                                                       , ? 
-                                                       , ? 
-                                                       , ? 
-                                                       , ? 
-                                                       , ? 
-                                                       , ? 
-                                                       )
-    ]]></query>
-
-    <query id="SELECT_kobis_theater"><![CDATA[
-                  SELECT theaterCd, theaterNm FROM kobis_theater
-
-
-                   /* where theaterCd = '001123'  */
-    ]]></query>
-
-    <query id="INSERT_kobis_schedule"><![CDATA[
-                  INSERT OR REPLACE INTO kobis_schedule ( theaterCd 
-                                                        , itday     
-                                                        , scrnNm    
-                                                        , showTm    
-                                                        , movieCd   
-                                                        )
-                                                 VALUES ( ? 
-                                                        , ? 
-                                                        , ? 
-                                                        , ? 
-                                                        , ? 
-                                                        )
-    ]]></query>
-
-    <query id="INSERT_kobis_screen"><![CDATA[
-                  INSERT OR REPLACE INTO kobis_screen ( theaterCd 
-                                                      , screenCd
-                                                      , screenNm
-                                                      , seatNum
+               INSERT OR REPLACE INTO kobis_boxoffice ( curDate     
+                                                      , rank        
+                                                      , movieCd     
+                                                      , movieNm     
+                                                      , openDt      
+                                                      , salesAmk    
+                                                      , share       
+                                                      , salesAmkGap 
+                                                      , salesAmkAgo 
+                                                      , salesAmkAcc 
+                                                      , score       
+                                                      , scoreGap    
+                                                      , scoreAgo    
+                                                      , scoreAcc    
+                                                      , screen      
+                                                      , playing     
                                                       )
                                                VALUES ( ? 
                                                       , ? 
                                                       , ? 
                                                       , ? 
+                                                      , ? 
+                                                      , ? 
+                                                      , ? 
+                                                      , ? 
+                                                      , ? 
+                                                      , ? 
+                                                      , ? 
+                                                      , ? 
+                                                      , ? 
+                                                      , ? 
+                                                      , ? 
+                                                      , ? 
                                                       )
     ]]></query>
 
+    <query id="INSERT_kobis_theater"><![CDATA[
+               INSERT OR REPLACE INTO kobis_theater ( theaterCd     
+                                                    , theaterNm     
+                                                    , locName1      
+                                                    , locName2      
+                                                    , scrreenNum    
+                                                    , seetNum       
+                                                    , permanentYn   
+                                                    , joinYn        
+                                                    , businessOper  
+                                                    , openDt        
+                                                    , SalleingYn    
+                                                    )
+                                             VALUES ( ? 
+                                                    , ? 
+                                                    , ? 
+                                                    , ? 
+                                                    , ? 
+                                                    , ? 
+                                                    , ? 
+                                                    , ? 
+                                                    , ? 
+                                                    , ? 
+                                                    , ? 
+                                                    )
+    ]]></query>
+
+    <query id="SELECT_kobis_theater"><![CDATA[
+               SELECT theaterCd, theaterNm FROM kobis_theater
+              /* where theaterCd = '001123'  */
+    ]]></query>
+
+    <query id="INSERT_kobis_schedule"><![CDATA[
+               INSERT OR REPLACE INTO kobis_schedule ( theaterCd 
+                                                     , itday     
+                                                     , scrnNm    
+                                                     , showTm    
+                                                     , movieCd   
+                                                     )
+                                              VALUES ( ? 
+                                                     , ? 
+                                                     , ? 
+                                                     , ? 
+                                                     , ? 
+                                                     )
+    ]]></query>
+
+    <query id="INSERT_kobis_screen"><![CDATA[
+               INSERT OR REPLACE INTO kobis_screen ( theaterCd 
+                                                   , screenCd
+                                                   , screenNm
+                                                   , seatNum
+                                                   )
+                                            VALUES ( ? 
+                                                   , ? 
+                                                   , ? 
+                                                   , ? 
+                                                   )
+    ]]></query>
+
     <query id="INSERT_kobis_history"><![CDATA[
-                  INSERT OR REPLACE INTO kobis_history ( theaterCd
-                                                       , playDt
-                                                       , screenNm
-                                                       , inning
-                                                       , playTM
-                                                       , price
-                                                       , movieNm
-                                                       )
-                                                VALUES ( ?              
-                                                       , ?              
-                                                       , ?              
-                                                       , ?              
-                                                       , ?              
-                                                       , ?              
-                                                       , ? 
-                                                       )
+               INSERT OR REPLACE INTO kobis_history ( theaterCd
+                                                    , playDt
+                                                    , screenNm
+                                                    , inning
+                                                    , playTM
+                                                    , price
+                                                    , movieNm
+                                                    )
+                                             VALUES ( ?              
+                                                    , ?              
+                                                    , ?              
+                                                    , ?              
+                                                    , ?              
+                                                    , ?              
+                                                    , ? 
+                                                    )
     ]]></query>
 
 </queries>
