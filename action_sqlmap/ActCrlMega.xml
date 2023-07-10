@@ -139,7 +139,7 @@
         ]]>
     </query>
 
-    <query id="SELECT_cinemacode_regioncode_cinemaname_mega_cinema">
+    <query id="SELECT_mega_cinema">
         <![CDATA[
                   SELECT cinemacode
                        , regioncode

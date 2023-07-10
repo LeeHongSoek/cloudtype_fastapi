@@ -185,7 +185,7 @@ class ActCrlMega(ActCrlSupper):
 
                 dic_playdate = {}  # 상영일자
 
-                self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{'SELECT_cinemacode_regioncode_cinemaname_mega_cinema'}']").text.strip())
+                self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{'SELECT_mega_cinema'}']").text.strip())
                 self.sql_cursor.row_factory = sqlite3.Row
                 for row in self.sql_cursor.fetchall():  # 극장리스트 만큼 순환
 

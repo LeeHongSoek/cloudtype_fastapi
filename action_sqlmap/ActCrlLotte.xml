@@ -241,7 +241,7 @@
     <query id="INSERT_lotte_ticketing">
         <![CDATA[
                   INSERT OR REPLACE INTO lotte_ticketing (cinemacode, playdt, screencode, degreeno, moviecode, starttime, endtime, bookingseatcount)
-                                  VALUES                 (?,          ?,      ?,        ?,        ?,         ?,         ?,       ?               )
+                                  VALUES                 (?,          ?,      ?,          ?,        ?,         ?,         ?,       ?               )
         ]]>
     </query>
 
@@ -261,20 +261,4 @@
         ]]>
     </query>
 
-
-
-    <!--
-        self.sql_cursor.execute(self.root.find(f"query[@id='{'xxx'}']").text.strip())
-
-        query = self.root.find(f"query[@id='{'XXXX'}']").text.strip()
-        parameters = (ZZZZZ1, ZZZZ2)
-        self.sql_cursor.execute(query, parameters)
-
-
-    <query id="">
-        <![CDATA[
-                  
-        ]]>
-    </query>
-    -->
 </queries>

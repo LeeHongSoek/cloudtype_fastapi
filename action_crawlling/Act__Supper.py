@@ -53,9 +53,9 @@ class ActCrlSupper(metaclass=ABCMeta):
             if not self.sql_cursor.fetchone():
                 query = self.sqlxmp.find(f"query[@id='{f'CREATE_TABLE_{tableNm}'}']").text.strip() # table 생성
                 queries = query.split(";")  # 세미콜론으로 쿼리들을 분리
-                for q in queries:
-                    if q.strip():  # 빈 쿼리는 실행하지 않음
-                        self.sql_cursor.execute(q.strip())
+                for qry in queries:
+                    if qry.strip():  # 빈 쿼리는 실행하지 않음
+                        self.sql_cursor.execute(qry.strip())
         # [for tag in selected_tags:]
 
         self.sql_conn.commit()

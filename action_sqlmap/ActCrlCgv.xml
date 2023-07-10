@@ -69,7 +69,6 @@
         ]]>
     </query>
 
-
     <!-- ====================================================================== -->
 
     <query id="INSERT_cgv_movie">
@@ -119,7 +118,6 @@
                  /*  where theatercode = '0056' CGV강남 */
         ]]>
     </query>
-
 
     <query id="INSERT_cgv_ticket">
         <![CDATA[
