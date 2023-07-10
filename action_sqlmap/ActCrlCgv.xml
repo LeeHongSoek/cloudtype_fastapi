@@ -1,61 +1,32 @@
 <queries>
 
-    <query id="SELECT_sqlite_master_cgv_movie">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='cgv_movie' 
-        ]]>
-    </query>
+    <tables> cgv_movie ; cgv_region ; cgv_theater ; cgv_ticket </tables>
 
-    <query id="CREATE_TABLE_cgv_movie">
-        <![CDATA[
+    <query id="CREATE_TABLE_cgv_movie"><![CDATA[
                  CREATE TABLE IF NOT EXISTS cgv_movie ( moviecode     TEXT NULL   /* 영화코드   */
                                                       , moviename     TEXT NULL   /* 영화명     */
                                                       , releasedate   TEXT NULL   /* 개봉일     */
                                                       , PRIMARY KEY (moviecode)
                                                       )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_cgv_region">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='cgv_region' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_cgv_region">
-        <![CDATA[
+    <query id="CREATE_TABLE_cgv_region"><![CDATA[
                  CREATE TABLE IF NOT EXISTS cgv_region ( regioncode   TEXT NULL   /* 지역코드   */
                                                        , regionname   TEXT NULL   /* 지역명     */
                                                        , PRIMARY KEY (regioncode)
                                                        )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_cgv_theater">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='cgv_theater' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_cgv_theater">
-        <![CDATA[
+    <query id="CREATE_TABLE_cgv_theater"><![CDATA[
                  CREATE TABLE IF NOT EXISTS cgv_theater ( theatercode   TEXT NULL   /* 극장코드   */
                                                         , regioncode    TEXT NULL   /* 지역코드   */
                                                         , regionname    TEXT NULL   /* 지역명     */
                                                         , theatername   TEXT NULL   /* 극장명     */
                                                         , PRIMARY KEY (theatercode)
                                                         )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_cgv_ticket">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='cgv_ticket' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_cgv_ticket">
-        <![CDATA[
+    <query id="CREATE_TABLE_cgv_ticket"><![CDATA[
                  CREATE TABLE IF NOT EXISTS cgv_ticket ( playdt        TEXT NULL   /* 상영일      */
                                                        , theatercode   TEXT NULL   /* 극장코드    */
                                                        , moviecode     TEXT NULL   /* 영화코드    */
@@ -66,13 +37,11 @@
                                                        , playinfo      TEXT NULL   /* 상영정보    */  
                                                        , playetc       TEXT NULL   /* 조조심야    */  
                                                        )
-        ]]>
-    </query>
+    ]]></query>
 
     <!-- ====================================================================== -->
 
-    <query id="INSERT_cgv_movie">
-        <![CDATA[
+    <query id="INSERT_cgv_movie"><![CDATA[
                   INSERT OR REPLACE INTO cgv_movie ( moviecode
                                                     , moviename
                                                     , releasedate
@@ -81,22 +50,18 @@
                                                     , ?              
                                                     , ? 
                                                     )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_cgv_region">
-        <![CDATA[
+    <query id="INSERT_cgv_region"><![CDATA[
                   INSERT OR REPLACE INTO cgv_region ( regioncode
                                                     , regionname
                                                     )
                                              VALUES ( ?              
                                                     , ? 
                                                     )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_cgv_theater">
-        <![CDATA[
+    <query id="INSERT_cgv_theater"><![CDATA[
                   INSERT OR REPLACE INTO cgv_theater ( theatercode
                                                      , regioncode
                                                      , regionname
@@ -107,20 +72,16 @@
                                                      , ? 
                                                      , ? 
                                                      )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_cgv_theater">
-        <![CDATA[
+    <query id="SELECT_cgv_theater"><![CDATA[
                   SELECT theatercode, regioncode, regionname, theatername
                     FROM cgv_theater
 
                  /*  where theatercode = '0056' CGV강남 */
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_cgv_ticket">
-        <![CDATA[
+    <query id="INSERT_cgv_ticket"><![CDATA[
                   INSERT OR REPLACE INTO cgv_ticket ( playdt
                                                     , theatercode
                                                     , moviecode
@@ -141,7 +102,6 @@
                                                     , ? 
                                                     , ? 
                                                     )
-        ]]>
-    </query>
+    ]]></query>
 
 </queries>

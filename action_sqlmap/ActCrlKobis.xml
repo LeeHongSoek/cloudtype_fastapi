@@ -1,13 +1,8 @@
 <queries>
 
-    <query id="SELECT_sqlite_master_kobis_boxoffice">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='kobis_boxoffice' 
-        ]]>
-    </query>
+    <tables> kobis_boxoffice ; kobis_theater ; kobis_schedule ; kobis_screen ; kobis_history </tables>
 
-    <query id="CREATE_TABLE_kobis_boxoffice">
-        <![CDATA[
+    <query id="CREATE_TABLE_kobis_boxoffice"><![CDATA[
                  CREATE TABLE IF NOT EXISTS kobis_boxoffice ( curDate      TEXT NULL   /* 랭킹 날짜                   */
                                                             , rank         TEXT NULL   /* 랭킹                        */
                                                             , movieCd      TEXT NULL   /* 영화코드                    */
@@ -26,17 +21,9 @@
                                                             , playing      TEXT NULL   /* 상영쵯수                    */
                                                             , PRIMARY KEY (curDate, rank)
                                                             )                                       
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_kobis_theater">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='kobis_theater' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_kobis_theater">
-        <![CDATA[
+    <query id="CREATE_TABLE_kobis_theater"><![CDATA[
                  CREATE TABLE IF NOT EXISTS kobis_theater ( theaterCd      TEXT NULL   /*  극장 코드      */
                                                           , theaterNm      TEXT NULL   /*  극장 이름      */
                                                           , locName1       TEXT NULL   /*  광역단체       */
@@ -50,17 +37,9 @@
                                                           , SalleingYn     TEXT NULL   /*  영업상태       */
                                                           , PRIMARY KEY (theaterCd)
                                                           )                                       
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_kobis_schedule">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='kobis_schedule' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_kobis_schedule">
-        <![CDATA[
+    <query id="CREATE_TABLE_kobis_schedule"><![CDATA[
                  CREATE TABLE IF NOT EXISTS kobis_schedule ( theaterCd      TEXT NULL   /*  극장 코드      */                 
                                                            , itday          TEXT NULL   /*  상영일         */
                                                            , scrnNm         TEXT NULL   /*  상영관 이름    */
@@ -68,34 +47,18 @@
                                                            , movieCd        TEXT NULL   /*  영화코드       */
                                                            , PRIMARY KEY (theaterCd, itday, scrnNm, showTm, movieCd)
                                                            )                                       
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_kobis_screen">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='kobis_screen' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_kobis_screen">
-        <![CDATA[
+    <query id="CREATE_TABLE_kobis_screen"><![CDATA[
                  CREATE TABLE IF NOT EXISTS kobis_screen ( theaterCd   TEXT NULL   /*  극장 코드    */                 
                                                          , screenCd    TEXT NULL   /*  상영관 코드  */
                                                          , screenNm    TEXT NULL   /*  상영관 이름  */
                                                          , seatNum     TEXT NULL   /*  좌석수       */
                                                          , PRIMARY KEY (theaterCd, screenCd)
                                                          )                                       
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_kobis_history">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='kobis_history' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_kobis_history">
-        <![CDATA[
+    <query id="CREATE_TABLE_kobis_history"><![CDATA[
                  CREATE TABLE IF NOT EXISTS kobis_history ( theaterCd   TEXT NULL   /*  극장 코드   */                 
                                                           , playDt      TEXT NULL   /*  상영일      */
                                                           , screenNm    TEXT NULL   /*  상영관 이름 */
@@ -104,13 +67,11 @@
                                                           , price       TEXT NULL   /*  가격        */
                                                           , movieNm     TEXT NULL   /*  영화명      */
                                                           )                                       
-        ]]>
-    </query>
+    ]]></query>
 
     <!-- ====================================================================== -->
 
-    <query id="INSERT_kobis_boxoffice">
-        <![CDATA[
+    <query id="INSERT_kobis_boxoffice"><![CDATA[
                   INSERT OR REPLACE INTO kobis_boxoffice ( curDate     
                                                          , rank        
                                                          , movieCd     
@@ -145,11 +106,9 @@
                                                          , ? 
                                                          , ? 
                                                          )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_kobis_theater">
-        <![CDATA[
+    <query id="INSERT_kobis_theater"><![CDATA[
                   INSERT OR REPLACE INTO kobis_theater ( theaterCd     
                                                        , theaterNm     
                                                        , locName1      
@@ -174,20 +133,16 @@
                                                        , ? 
                                                        , ? 
                                                        )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_kobis_theater">
-        <![CDATA[
+    <query id="SELECT_kobis_theater"><![CDATA[
                   SELECT theaterCd, theaterNm FROM kobis_theater
 
 
                    /* where theaterCd = '001123'  */
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_kobis_schedule">
-        <![CDATA[
+    <query id="INSERT_kobis_schedule"><![CDATA[
                   INSERT OR REPLACE INTO kobis_schedule ( theaterCd 
                                                         , itday     
                                                         , scrnNm    
@@ -200,11 +155,9 @@
                                                         , ? 
                                                         , ? 
                                                         )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_kobis_screen">
-        <![CDATA[
+    <query id="INSERT_kobis_screen"><![CDATA[
                   INSERT OR REPLACE INTO kobis_screen ( theaterCd 
                                                       , screenCd
                                                       , screenNm
@@ -215,11 +168,9 @@
                                                       , ? 
                                                       , ? 
                                                       )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_kobis_history">
-        <![CDATA[
+    <query id="INSERT_kobis_history"><![CDATA[
                   INSERT OR REPLACE INTO kobis_history ( theaterCd
                                                        , playDt
                                                        , screenNm
@@ -236,7 +187,6 @@
                                                        , ?              
                                                        , ? 
                                                        )
-        ]]>
-    </query>
+    ]]></query>
 
 </queries>

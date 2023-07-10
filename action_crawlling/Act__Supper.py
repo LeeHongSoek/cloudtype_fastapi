@@ -41,22 +41,21 @@ class ActCrlSupper(metaclass=ABCMeta):
             
         self.sqlxmp = ET.parse(f'{self.db_fullfilename}.xml').getroot() # sqlmap XML 파일 읽기
 
-        # id가 "SELECT_sqlite_master_"로 시작하는 모든 태그를 수집합니다.
-        selected_tags = self.sqlxmp.findall(".//query")
-        matching_tags = [tag for tag in selected_tags if tag.attrib['id'].startswith('SELECT_sqlite_master_')]
+        table_names = self.sqlxmp.find("tables").text.strip().split(';')
 
-        for tag in matching_tags:
+        for table_name in table_names:
 
-            tableNm = tag.attrib['id'][len('SELECT_sqlite_master_'):]
+            self.sql_cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name.strip()}'") # 테이블 존재검사
+            if self.sql_cursor.fetchone():
 
-            self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{tag.attrib['id']}']").text.strip()) # table 존재유무 검사
-            if not self.sql_cursor.fetchone():
-                query = self.sqlxmp.find(f"query[@id='{f'CREATE_TABLE_{tableNm}'}']").text.strip() # table 생성
-                queries = query.split(";")  # 세미콜론으로 쿼리들을 분리
-                for qry in queries:
-                    if qry.strip():  # 빈 쿼리는 실행하지 않음
-                        self.sql_cursor.execute(qry.strip())
-        # [for tag in selected_tags:]
+                self.sql_cursor.execute(f"TRUNCATE TABLE {table_name.strip()}") # 있으면 싹비우고
+            else:
+
+                query = self.sqlxmp.find(f"query[@id='CREATE_TABLE_{table_name}']").text.strip() # 없으면 생성!!
+                for qry in query.split(";"):
+                    self.sql_cursor.execute(qry.strip()) if qry.strip() else None
+
+        # [for table_name in table_names:]
 
         self.sql_conn.commit()
     # [def __init__(self, db_filename): # 생성자]    

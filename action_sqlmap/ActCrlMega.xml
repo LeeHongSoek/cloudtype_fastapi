@@ -1,30 +1,17 @@
 <queries>
 
-    <query id="SELECT_sqlite_master_mega_movie">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='mega_movie' 
-        ]]>
-    </query>
+    <tables> mega_movie ; mega_region ; mega_cinema ; mega_play </tables>
 
-    <query id="CREATE_TABLE_mega_movie">
-        <![CDATA[
+    <query id="CREATE_TABLE_mega_movie"><![CDATA[
                  CREATE TABLE IF NOT EXISTS mega_movie ( moviecode    TEXT NULL   /* 영화코드   */
                                                        , releasedate  TEXT NULL   /* 개봉일     */
                                                        , moviegbn     TEXT NULL   /* 구분       */
                                                        , moviename    TEXT NULL   /* 영화명     */
                                                        , PRIMARY KEY (moviecode)
                                                        )                                       
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_mega_region">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='mega_region' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_mega_region">
-        <![CDATA[
+    <query id="CREATE_TABLE_mega_region"><![CDATA[
                  CREATE TABLE IF NOT EXISTS mega_region ( regioncode    TEXT NULL   /* 지역코드   */
                                                         , regionname    TEXT NULL   /* 지역명     */
                                                         , PRIMARY KEY (regioncode)
@@ -39,33 +26,17 @@
                                                       , ( '65',       '광주/전라'      )
                                                       , ( '70',       '강원'           )
                                                       , ( '80',       '제주'           )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_mega_cinema">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='mega_cinema' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_mega_cinema">
-        <![CDATA[
+    <query id="CREATE_TABLE_mega_cinema"><![CDATA[
                  CREATE TABLE IF NOT EXISTS mega_cinema ( cinemacode    TEXT NULL   /* 극장코드   */
                                                         , regioncode    TEXT NULL   /* 지역코드   */
                                                         , cinemaname    TEXT NULL   /* 극장명     */
                                                         , PRIMARY KEY (cinemacode)
                                                         )                                       
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_mega_play">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='mega_play' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_mega_play">
-        <![CDATA[
+    <query id="CREATE_TABLE_mega_play"><![CDATA[
                  CREATE TABLE IF NOT EXISTS mega_play ( playdt        TEXT NULL   /* 상영일  */
                                                       , cinema_cd     TEXT NULL   /* 극장코드   */
                                                       , moviecode8    TEXT NULL   /* 영화코드   */
@@ -74,13 +45,11 @@
                                                       , rest_seat_cnt TEXT NULL   /* 좌석수   */
                                                       , end_time      TEXT NULL   /* 종료시간   */
                                                       )                                       
-        ]]>
-    </query>
+    ]]></query>
 
     <!-- ====================================================================== -->
 
-    <query id="INSERT_mega_movie">
-        <![CDATA[
+    <query id="INSERT_mega_movie"><![CDATA[
                   INSERT OR REPLACE INTO mega_movie ( moviecode
                                                     , releasedate
                                                     , moviegbn
@@ -91,11 +60,9 @@
                                                     , ?              
                                                     , ? 
                                                     )
-        ]]>
-    </query>
+    ]]></query>
     
-    <query id="INSERT_mega_movie_releasedate">
-        <![CDATA[
+    <query id="INSERT_mega_movie_releasedate"><![CDATA[
                   INSERT OR REPLACE INTO mega_movie ( moviecode
                                                     , moviegbn
                                                     , moviename
@@ -104,30 +71,24 @@
                                                     , ?              
                                                     , ? 
                                                     )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_mega_region">
-        <![CDATA[
+    <query id="INSERT_mega_region"><![CDATA[
                   INSERT OR REPLACE INTO mega_region ( regioncode
                                                      , regionname
                                                      )
                                               VALUES ( ?              
                                                      , ? 
                                                      )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_regioncode_mega_region_regionname">
-        <![CDATA[
+    <query id="SELECT_regioncode_mega_region_regionname"><![CDATA[
                   SELECT regioncode 
                     FROM mega_region
                    WHERE regionname = ?
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_mega_cinema">
-        <![CDATA[
+    <query id="INSERT_mega_cinema"><![CDATA[
                   INSERT OR REPLACE INTO mega_cinema ( cinemacode
                                                      , regioncode
                                                      , cinemaname
@@ -136,11 +97,9 @@
                                                      , ?              
                                                      , ? 
                                                      )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_mega_cinema">
-        <![CDATA[
+    <query id="SELECT_mega_cinema"><![CDATA[
                   SELECT cinemacode
                        , regioncode
                        , cinemaname
@@ -148,11 +107,9 @@
 
 
                 /* where cinemacode = '1372'  강남 */
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_mega_play">
-        <![CDATA[
+    <query id="INSERT_mega_play"><![CDATA[
                   INSERT OR REPLACE INTO mega_play ( playdt
                                                    , cinema_cd
                                                    , moviecode8
@@ -169,6 +126,5 @@
                                                    , ?              
                                                    , ? 
                                                    )
-        ]]>
-    </query>
+    ]]></query>
 </queries>

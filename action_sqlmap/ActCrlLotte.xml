@@ -1,13 +1,8 @@
 <queries>
 
-    <query id="SELECT_sqlite_master_lotte_movie">
-        <![CDATA[
-                 SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_movie' 
-        ]]>
-    </query>
+    <tables> lotte_movie ; lotte_cinema ; lotte_playdate ; lotte_screen ; lotte_ticketing </tables>
 
-    <query id="CREATE_TABLE_lotte_movie">
-        <![CDATA[
+    <query id="CREATE_TABLE_lotte_movie"><![CDATA[
                  CREATE TABLE IF NOT EXISTS lotte_movie ( moviecode        TEXT PRIMARY KEY
                                                         , moviename        TEXT NOT NULL  /* 영화명 */
                                                         , moviegenrename   TEXT NULL      /* ex) 공포, 다큐, 드라마 */
@@ -18,66 +13,34 @@
                                                         , viewgradenameus  TEXT NULL      /* ..관람가 */
                                                         , orgcode          TEXT NULL      /* 영화명이 같고 코드가 다를때 기준영화의 코드 */
                                                         )                                       
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_lotte_cinema">
-        <![CDATA[
-                  SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_cinema'
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_lotte_cinema">
-        <![CDATA[
+    <query id="CREATE_TABLE_lotte_cinema"><![CDATA[
                   CREATE TABLE IF NOT EXISTS lotte_cinema ( cinemacode  TEXT PRIMARY KEY
                                                           , spacialyn   TEXT NOT NULL /* 스페셜관여부 */
                                                           , cinemaname  TEXT NOT NULL /* 극장명 */
                                                           , link        TEXT NOT NULL /* url(임시) */
                                                           , succese     TEXT NOT NULL /* 크롤링성공여부(임시) */
                                                           )             
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_lotte_playdate">
-        <![CDATA[
-                  SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_playdate' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_lotte_playdate">
-        <![CDATA[
+    <query id="CREATE_TABLE_lotte_playdate"><![CDATA[
                   CREATE TABLE IF NOT EXISTS lotte_playdate ( cinemacode  TEXT
                                                             , playdate    TEXT
                                                             , PRIMARY KEY (cinemacode, playdate)
                                                             )                              
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_lotte_screen">
-        <![CDATA[
-                  SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_screen' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_lotte_screen">
-        <![CDATA[
+    <query id="CREATE_TABLE_lotte_screen"><![CDATA[
                   CREATE TABLE IF NOT EXISTS lotte_screen ( screencode     TEXT PRIMARY KEY
                                                           , cinemacode     TEXT NOT NULL
                                                           , screenname     TEXT NOT NULL
                                                           , screendivname  TEXT NOT NULL
                                                           , totalseatcount INT NOT NULL
                                                           )                  
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_sqlite_master_lotte_ticketing">
-        <![CDATA[
-                  SELECT name FROM sqlite_master WHERE type='table' AND name='lotte_ticketing' 
-        ]]>
-    </query>
-
-    <query id="CREATE_TABLE_lotte_ticketing">
-        <![CDATA[
+    <query id="CREATE_TABLE_lotte_ticketing"><![CDATA[
                   CREATE TABLE IF NOT EXISTS lotte_ticketing ( cinemacode        TEXT
                                                              , playdt            TEXT
                                                              , screencode        TEXT    
@@ -88,11 +51,10 @@
                                                              , bookingseatcount  INT NOT NULL
                                                              , PRIMARY KEY (cinemacode, playdt, screencode, degreeno)
                                                              )                                           
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_all_joining">
-        <![CDATA[
+
+    <query id="SELECT_all_joining"><![CDATA[
                        SELECT LT.cinemacode
                             , LC.cinemaname
                             , LT.playdt
@@ -114,19 +76,15 @@
                          AND LS.screencode = LT.screencode
                    left join lotte_movie LM
                           on LM.moviecode = LT.moviecode        
-        ]]>
-    </query>
+    ]]></query>
 
     <!-- ====================================================================== -->
 
-    <query id="DELETE_lotte_movie">
-        <![CDATA[
+    <query id="DELETE_lotte_movie"><![CDATA[
                  DELETE FROM lotte_movie 
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_lotte_movie">
-        <![CDATA[
+    <query id="INSERT_lotte_movie"><![CDATA[
                   INSERT OR REPLACE INTO lotte_movie ( moviecode
                                                      , moviename
                                                      , moviegenrename
@@ -141,17 +99,13 @@
                                                      , ?
                                                      , ?              
                                                      )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="DELETE_lotte_cinema">
-        <![CDATA[
+    <query id="DELETE_lotte_cinema"><![CDATA[
                   DELETE FROM lotte_cinema 
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_INTO_lotte_cinema">
-        <![CDATA[
+    <query id="INSERT_INTO_lotte_cinema"><![CDATA[
                   INSERT OR REPLACE INTO lotte_cinema ( cinemacode
                                                       , spacialyn
                                                       , cinemaname
@@ -164,26 +118,20 @@
                                                       , ?
                                                       , '_'     
                                                       )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_count_lotte_movie_moviecode">
-        <![CDATA[
+    <query id="SELECT_count_lotte_movie_moviecode"><![CDATA[
                   SELECT count(*) cnt FROM lotte_movie WHERE moviecode = ? 
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="UPDATE_lotte_movie_filmname_gubun">
-        <![CDATA[
+    <query id="UPDATE_lotte_movie_filmname_gubun"><![CDATA[
                   UPDATE lotte_movie
                      SET filmname = ?
                        , gubun    = ?
                    WHERE moviecode  = ?
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_moviecode_lotte_movie_moviecode_moviename">
-        <![CDATA[
+    <query id="SELECT_moviecode_lotte_movie_moviecode_moviename"><![CDATA[
                   SELECT moviecode 
                     FROM lotte_movie 
                    WHERE moviecode <> ? 
@@ -191,74 +139,55 @@
                      AND bookingyn IS NOT NULL
                      AND releasedate IS NOT NULL
                      AND viewgradenameus IS NOT NULL
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_lotte_movie">
-        <![CDATA[
+    <query id="INSERT_lotte_movie"><![CDATA[
                   INSERT OR REPLACE INTO lotte_movie (moviecode, moviename, filmname, gubun, orgcode)
                              VALUES             (?,         ?,         ?,        ?,     ?      )   
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="DELETE_lotte_playdate_cinemacode">
-        <![CDATA[
+    <query id="DELETE_lotte_playdate_cinemacode"><![CDATA[
                   DELETE FROM lotte_playdate WHERE cinemacode = ?
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_lotte_playdate">
-        <![CDATA[
+    <query id="INSERT_lotte_playdate"><![CDATA[
                   INSERT OR REPLACE INTO lotte_playdate (cinemacode, playdate)
                                   VALUES                (?,          ?       )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_lotte_screen">
-        <![CDATA[
+    <query id="INSERT_lotte_screen"><![CDATA[
                   INSERT OR REPLACE INTO lotte_screen (screencode, cinemacode, screenname, screendivname, totalseatcount)
                                   VALUES              (?,          ?,          ?,          ?,             ?             ) 
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_screencode_totalseatcount_lotte_screen_cinemacode_screenname">
-        <![CDATA[
+    <query id="SELECT_screencode_totalseatcount_lotte_screen_cinemacode_screenname"><![CDATA[
                   SELECT screencode, totalseatcount 
                     FROM lotte_screen
                    WHERE cinemacode = ?
                      AND screenname = ?
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_moviecode_moviename_moviegenrename_filmname_lotte_movie_moviecode">
-        <![CDATA[
+    <query id="SELECT_moviecode_moviename_moviegenrename_filmname_lotte_movie_moviecode"><![CDATA[
                   SELECT moviecode, moviename, moviegenrename, filmname                                            
                     FROM lotte_movie 
                    WHERE moviecode = ? 
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="INSERT_lotte_ticketing">
-        <![CDATA[
+    <query id="INSERT_lotte_ticketing"><![CDATA[
                   INSERT OR REPLACE INTO lotte_ticketing (cinemacode, playdt, screencode, degreeno, moviecode, starttime, endtime, bookingseatcount)
                                   VALUES                 (?,          ?,      ?,          ?,        ?,         ?,         ?,       ?               )
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="SELECT_cinemacode_spacialyn_cinemaname_link_succese_lotte_cinema_spacialyn">
-        <![CDATA[
+    <query id="SELECT_cinemacode_spacialyn_cinemaname_link_succese_lotte_cinema_spacialyn"><![CDATA[
                   SELECT cinemacode, spacialyn, cinemaname, link, succese  
                     FROM lotte_cinema  
                    WHERE spacialyn='N' AND (succese = '_' OR succese = 'X')
-        ]]>
-    </query>
+    ]]></query>
 
-    <query id="UPDATE_lotte_cinema_succese_cinemacode">
-        <![CDATA[
+    <query id="UPDATE_lotte_cinema_succese_cinemacode"><![CDATA[
                   UPDATE lotte_cinema
                      SET succese = ?
                    WHERE cinemacode  = ? 
-        ]]>
-    </query>
+    ]]></query>
 
 </queries>
