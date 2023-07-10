@@ -333,6 +333,7 @@ class ActCrlMega(ActCrlSupper):
 
     def uploading(self):
         
+        super().uploading()
         print("Uploading Mega data...")
     # [def uploading(self):]
 # [class ActCrlMega(ActCrlSupper):]

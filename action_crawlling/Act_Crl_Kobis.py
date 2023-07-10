@@ -686,6 +686,7 @@ class ActCrlKobis(ActCrlSupper):
 
     def uploading(self):
         
+        super().uploading()
         print("Uploading Kobis data...")
     # [def uploading(self):]
 # [class ActCrlKobis(ActCrlSupper):]

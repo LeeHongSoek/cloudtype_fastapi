@@ -515,7 +515,8 @@ class ActCrlLotte(ActCrlSupper):
     # [def crawling(self):]
     
     def uploading(self):
-
+        
+        super().uploading()
         print("Uploading Lotte data...")
     # [def uploading(self):]
 # [class ActCrlLotte(ActCrlSupper):]   

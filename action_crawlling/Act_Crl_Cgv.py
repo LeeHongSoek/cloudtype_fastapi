@@ -661,6 +661,7 @@ class ActCrlCgv(ActCrlSupper):
 
     def uploading(self):
         
+        super().uploading()
         print("Uploading Cgv data...")
     # [def uploading(self):]s
 # [class ActCrlCgv(ActCrlSupper):]
