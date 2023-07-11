@@ -1,4 +1,4 @@
-name: "Python Run - job.py"
+name: "Python Run - wf_action/wf_testJob.py"
 on:
   schedule:
     - cron: '0 * * * *'
