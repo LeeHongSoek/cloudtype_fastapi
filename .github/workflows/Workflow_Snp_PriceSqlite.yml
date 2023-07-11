@@ -1,4 +1,4 @@
-name: "Python Run - Snp_PriceSqlite.py"
+name: "Workflow_Snp_PriceSqlite"
 on:
   schedule:
     - cron: '0 * * * *'
