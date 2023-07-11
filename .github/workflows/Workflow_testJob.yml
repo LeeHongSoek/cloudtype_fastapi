@@ -1,4 +1,4 @@
-name: "Python Run - wf_action/wf_testJob.py"
+name: "Workflow_testJob"
 on:
   schedule:
     - cron: '0 * * * *'
@@ -26,5 +26,5 @@ jobs:
       - name: 5. Upload file as artifact
         uses: actions/upload-artifact@v2
         with:
-          name: job-result
-          path: testJob.txt
+          name: wf_testJob-result
+          path: wf_testJob.txt
