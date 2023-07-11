@@ -26,7 +26,7 @@ class CustomFormatter(logging.Formatter):
 # [class CustomFormatter(logging.Formatter):]
 
 
-log_dir = 'action_log'
+log_dir = 'crawl_log'
 
 def clear_logger(gubun=''):  # 한달전 로그파일을 삭제한다.
 

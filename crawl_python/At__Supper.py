@@ -19,7 +19,7 @@ def unzip_file(zip_path, extract_path):
 
 class ActCrlSupper(metaclass=ABCMeta):
     
-    sqlmap_dir = 'action_sqlmap'
+    sqlmap_dir = 'crawl_sqlmap'
     delayTime = 0.5  # 딜레이(초)
 
     def __init__(self, db_filename): # 생성자
