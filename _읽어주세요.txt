@@ -1,0 +1,16 @@
+############
+# leehs : 1092046984:AAFY_n9SOuXy-IoaN9YgpEMGKYvmzMI9aa8
+# mtns7_01 : 1091699454:AAHnJlT7__keXGzj5t-J61MxO24Kqf0-n3k
+# mtns7_02 : 922349009:AAEhF288eGiTjVCaXkqrk16zw-iuINJ7Fbc
+
+C:\Crawlling2 에서 CrawllingBatch.py.bat를 실행하세요
+
+
+python.exe -m pip install --upgrade pip
+
+pip install urllib3
+pip install beautifulsoup4
+pip install selenium
+pip install jsonpath-rw
+pip install PyMySQL
+pip install python-telegram-bot
