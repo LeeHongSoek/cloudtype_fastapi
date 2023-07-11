@@ -21,10 +21,10 @@ jobs:
         run: pip install -r pipInstalls.txt
       
       - name: 4. Run python script
-        run: python wf_action/wf_testJob.py
+        run: python wf_Jobs/testJob.py
       
       - name: 5. Upload file as artifact
         uses: actions/upload-artifact@v2
         with:
           name: job-result
-          path: wf_testJob.txt
+          path: testJob.txt
