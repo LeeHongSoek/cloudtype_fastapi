@@ -21,7 +21,7 @@ jobs:
         run: pip install -r pipInstalls.txt
       
       - name: 4. Run python script
-        run: python action_ex/job.py
+        run: python ex_action/job.py
       
       - name: 5. Upload file as artifact
         uses: actions/upload-artifact@v2
