@@ -6,6 +6,7 @@ import zipfile
 import sqlite3
 import xml.etree.ElementTree as ET
 import os
+import requests  # pip install requests
 
 
 def zip_file(file_path, zip_path):
@@ -71,4 +72,10 @@ class ActCrlSupper(metaclass=ABCMeta):
         self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
         zip_file(f'{self.db_fullfilename}.db', f'{self.db_fullfilename}.zip') # 전송효휼을 위해~!!
+
+        baseUrl = "http://www.mtns7.co.kr/totalscore/upload_zip_file.php"
+        r = requests.post(baseUrl, files={'upload': open(f'{self.db_fullfilename}.zip', "rb")})
+        self.logger.info(r.text) 
+    # [def uploading(self):]
+
 # [class ActCrlSupper(metaclass=ABCMeta):]
