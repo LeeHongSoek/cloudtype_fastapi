@@ -9,7 +9,22 @@ import sqlite3
 import xml.etree.ElementTree as ET
 import os
 import requests  # pip install requests
+import tarfile
 
+
+def upload_file(hostname, port, username, password, local_file, remote_path):
+    ssh_client = paramiko.SSHClient()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh_client.connect(hostname, port=port, username=username, password=password)
+    sftp = ssh_client.open_sftp()
+    sftp.put(local_file, remote_path)
+    sftp.close()
+    ssh_client.close()
+
+
+def create_tar_file(source, target):
+    with tarfile.open(target, "w:gz") as tar:
+        tar.add(source, arcname="")  # source를 tar 파일에 추가합니다
 
 def zip_file(file_path, zip_path):
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
@@ -77,11 +92,15 @@ class CcSupper(metaclass=ABCMeta):
         self.logger.info(f' ♨. 파일 {self.db_fullfilename} 을 압축                                                                                      ')
         self.logger.info('────────────────────────────────────────────────────────────────')
 
-        zip_file(f'{self.db_fullfilename}.db', f'{self.db_fullfilename}.zip') # 전송효휼을 위해~!!
-
         baseUrl = "http://www.mtns7.co.kr/totalscore/upload_zip_file.php"
-        r = requests.post(baseUrl, files={'upload': open(f'{self.db_fullfilename}.zip', "rb")})
+        r = requests.post(baseUrl, files={'upload': open(f'{self.db_fullfilename}.db', "rb")})
         self.logger.info(r.text) 
+
+"""
+        zip_file(f'{self.db_fullfilename}.db', f'{self.db_fullfilename}.zip') # 전송효휼을 위해~!!
+        create_tar_file(f'{self.db_fullfilename}.db', f'{self.db_fullfilename}.tar') # 전송효휼을 위해~!!
+        
+"""
     # [def uploading(self):]
 
 # [class ActCrlSupper(metaclass=ABCMeta):]

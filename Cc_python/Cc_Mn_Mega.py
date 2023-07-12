@@ -321,7 +321,7 @@ class CcMega(CcSupper):
             
             _1_mega_movie()    # 1. 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다.
             _2_mega_cinema()   # 2. 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다.
-            _3_mega_schedule() # 3. 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다.        
+            #_3_mega_schedule() # 3. 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다.        
         except Exception as e:    
 
             self.logger.error('Mega 크롤링 중 오류발생!')
@@ -350,7 +350,7 @@ if __name__ == '__main__':
         dateRange = maxDateRage
 
     crlMega = CcMega(date_range = dateRange)  # Mega
-    crlMega.crawling()
+    #crlMega.crawling()
     crlMega.uploading()
     
 # [if __name__ == '__main__':]    
