@@ -16,15 +16,17 @@ class CcMega(CcSupper):
 
     def __init__(self, date_range): # 생성자
 
-        self.logger = CcLogger.get_logger('Mega')   # 파이션 로그
-        self.date_range = date_range        # 크롤링 할 날 수
+        self.ccLogger = CcLogger() 
+        self.logger = self.ccLogger.get_logger('Mega')   # 파이션 로그
+
+        self.date_range = date_range      # 크롤링 할 날 수
         
         super().__init__(type(self).__name__)
     # [def __init__(self, date_range): # 생성자]
 
     def __del__(self): # 소멸자
 
-        CcLogger.clear_logger('Mega')  # 한달전 로그파일을 삭제한다.
+        self.ccLogger.clear_logger('Mega')  # 한달전 로그파일을 삭제한다.
         super().__del__()
     # [def __del__(self): # 소멸자]
 

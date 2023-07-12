@@ -49,7 +49,7 @@ class CcSupper(metaclass=ABCMeta):
             self.sql_cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name.strip()}'") # 테이블 존재검사
             if self.sql_cursor.fetchone():
 
-                self.sql_cursor.execute(f"TRUNCATE TABLE {table_name.strip()}") # 있으면 싹비우고
+                self.sql_cursor.execute(f"DELETE FROM {table_name.strip()}") # 있으면 싹비우고
             else:
 
                 query = self.sqlxmp.find(f"query[@id='CREATE_TABLE_{table_name.strip()}']").text.strip() # 없으면 생성!!
