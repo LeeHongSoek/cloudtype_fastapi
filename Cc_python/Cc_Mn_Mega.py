@@ -103,8 +103,8 @@ class CcMega(CcSupper):
             soup = BeautifulSoup(r.text, 'html.parser') # print(data)
 
             self.logger.info('────────────────────────────────────────────────────────────────')
-            self.logger.info('┌코드 : 지역명                        ')
-            self.logger.info('├   코드 : 극장명                    ')
+            self.logger.info('┌코드 : 지역명                      ')
+            self.logger.info('├ 코드 : 극장명                    ')
             self.logger.info('────────────────────────────────────────────────────────────────')
 
             for tagLI in soup.select("div#contents > div > div.theater-box > div.theater-place > ul > li "):  # > button.sel-city # print(tag1)
@@ -143,7 +143,7 @@ class CcMega(CcSupper):
                         if len(midxs) == 2:
                             cinemacode = midxs[1]  # 극장코드         
 
-                        self.logger.info(f'├   {cinemacode} : {cinemaname}')
+                        self.logger.info(f'├ {cinemacode} : {cinemaname}')
 
                         query = self.sqlxmp.find(f"query[@id='{'INSERT_mega_cinema'}']").text.strip()
                         parameters = (cinemacode, region_cd, cinemaname)
