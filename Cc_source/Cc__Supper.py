@@ -52,7 +52,7 @@ class CcSupper(metaclass=ABCMeta):
                 self.sql_cursor.execute(f"TRUNCATE TABLE {table_name.strip()}") # 있으면 싹비우고
             else:
 
-                query = self.sqlxmp.find(f"query[@id='CREATE_TABLE_{table_name}']").text.strip() # 없으면 생성!!
+                query = self.sqlxmp.find(f"query[@id='CREATE_TABLE_{table_name.strip()}']").text.strip() # 없으면 생성!!
                 for qry in query.split(";"):
                     self.sql_cursor.execute(qry.strip()) if qry.strip() else None
         # [for table_name in table_names:]

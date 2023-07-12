@@ -48,7 +48,7 @@ class ConfigFile:
         config.add_section('Dir')
         config.set('Dir', 'sqlmap_dir', self.sqlmap_dir)
         config.set('Dir', 'db_dir',     self.db_dir)
-        config.set('Dir', 'log_dir',    self.log_dir)
+        config.set('Dir', 'logfile',    self.log_dir)
 
         with open(self.__file, 'w') as configfile:
             config.write(configfile)
