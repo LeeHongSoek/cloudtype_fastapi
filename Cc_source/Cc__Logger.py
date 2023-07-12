@@ -38,7 +38,7 @@ class CcLogger():
         date2 = date1 - datetime.timedelta(days=30)  # 한달전
         # print(f'{date2.year:04d}-{date2.month:02d}-*')  
 
-        path = f'{self.config_file.log_dir}act_crawl_{gubun}.log.{date2.year:04d}-{date2.month:02d}-*'
+        path = f'{self.config_file.log_dir}crawl_{gubun}.log.{date2.year:04d}-{date2.month:02d}-*'
 
         for filename in glob.glob(path):  # print(filename)
             os.remove(filename)
@@ -59,7 +59,7 @@ class CcLogger():
         fomatter = CustomFormatter('[%(asctime)s|%(levelname)8s|%(filename)15s:%(lineno)3s] %(message)s')
 
         # '스트림'과 '파일'로 로그를 출력하는 핸들러를 각각 만든다.
-        fileHandler = handlers.TimedRotatingFileHandler(filename=f'{self.config_file.log_dir}act_crawl_{gubun}.log', when='midnight', interval=1, encoding='utf-8')
+        fileHandler = handlers.TimedRotatingFileHandler(filename=f'{self.config_file.log_dir}crawl_{gubun}.log', when='midnight', interval=1, encoding='utf-8')
         streamHandler = log.StreamHandler()
 
         # 각 핸들러에 포매터를 지정한다.
