@@ -48,8 +48,8 @@ class CcSupper(metaclass=ABCMeta):
 
             self.sql_cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name.strip()}'") # 테이블 존재검사
             if self.sql_cursor.fetchone():
-
-                self.sql_cursor.execute(f"DELETE FROM {table_name.strip()}") # 있으면 싹비우고
+                if table_name.strip() != 'mega_region':
+                    self.sql_cursor.execute(f"DELETE FROM {table_name.strip()}") # 있으면 싹비우고
             else:
 
                 query = self.sqlxmp.find(f"query[@id='CREATE_TABLE_{table_name.strip()}']").text.strip() # 없으면 생성!!
@@ -72,9 +72,10 @@ class CcSupper(metaclass=ABCMeta):
     @abstractmethod
     def uploading(self):
 
-        self.logger.info('===============================================================================================================================')
+        
+        self.logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
         self.logger.info(f' ♨. 파일 {self.db_fullfilename} 을 압축                                                                                      ')
-        self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+        self.logger.info('────────────────────────────────────────────────────────────────')
 
         zip_file(f'{self.db_fullfilename}.db', f'{self.db_fullfilename}.zip') # 전송효휼을 위해~!!
 

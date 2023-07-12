@@ -39,9 +39,9 @@ class CcMega(CcSupper):
         def _1_mega_movie():
 
             self.logger.info('')
-            self.logger.info('===============================================================================================================================')
+            self.logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
             self.logger.info(' 1. ### 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다. ###                  ')
-            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('────────────────────────────────────────────────────────────────')
 
             url = 'https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do'
             fields = { "currentPage": "1"
@@ -65,9 +65,9 @@ class CcMega(CcSupper):
             r = requests.post(url, data=fields)
             time.sleep(self.delayTime)
 
-            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('────────────────────────────────────────────────────────────────')
             self.logger.info('영화코드 : 개봉일자, 구분, 영화명    ')
-            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('────────────────────────────────────────────────────────────────')
 
             for movieList in r.json()["movieList"]:
 
@@ -93,19 +93,19 @@ class CcMega(CcSupper):
         def _2_mega_cinema():
 
             self.logger.info('')
-            self.logger.info('===============================================================================================================================')
+            self.logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
             self.logger.info(' 2. ### 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다. ###                                     ')
-            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('────────────────────────────────────────────────────────────────')
             
             r = requests.get('https://www.megabox.co.kr/theater/list')
             time.sleep(self.delayTime)
 
             soup = BeautifulSoup(r.text, 'html.parser') # print(data)
 
-            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
-            self.logger.info('코드 : 지역명                        ')
-            self.logger.info('+-   코드 : 극장명                   ')
-            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('────────────────────────────────────────────────────────────────')
+            self.logger.info('┌코드 : 지역명                        ')
+            self.logger.info('├   코드 : 극장명                    ')
+            self.logger.info('────────────────────────────────────────────────────────────────')
 
             for tagLI in soup.select("div#contents > div > div.theater-box > div.theater-place > ul > li "):  # > button.sel-city # print(tag1)
 
@@ -124,7 +124,7 @@ class CcMega(CcSupper):
                     else:
                         region_cd = ''
 
-                    self.logger.info(f'{region_cd} : {region_nm}')
+                    self.logger.info(f'┌{region_cd} : {region_nm}')
 
                     query = self.sqlxmp.find(f"query[@id='{'INSERT_mega_region'}']").text.strip()
                     parameters = (region_cd, region_nm)
@@ -143,7 +143,7 @@ class CcMega(CcSupper):
                         if len(midxs) == 2:
                             cinemacode = midxs[1]  # 극장코드         
 
-                        self.logger.info(f'+-   {cinemacode} : {cinemaname}')
+                        self.logger.info(f'├   {cinemacode} : {cinemaname}')
 
                         query = self.sqlxmp.find(f"query[@id='{'INSERT_mega_cinema'}']").text.strip()
                         parameters = (cinemacode, region_cd, cinemaname)
@@ -161,9 +161,9 @@ class CcMega(CcSupper):
         def _3_mega_schedule():
 
             self.logger.info('')
-            self.logger.info('===============================================================================================================================')
+            self.logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
             self.logger.info(' 3. ### 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다. ###         ')
-            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('────────────────────────────────────────────────────────────────')
 
             def __3_get_date_range(dateRage):
                 days = []

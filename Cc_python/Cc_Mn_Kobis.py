@@ -38,9 +38,9 @@ class CcKobis(CcSupper):
         def _1_kobis_Boxoffice():
             
             self.logger.info('')
-            self.logger.info('===============================================================================================================================')
+            self.logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
             self.logger.info(' 1. ### 박스오피스/일별 박스오피스(http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do) ###')
-            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('────────────────────────────────────────────────────────────────')
 
             def __1_ranking(tag, curDate):
 
@@ -163,9 +163,9 @@ class CcKobis(CcSupper):
         def _2_kobis_JobA():
             
             self.logger.info('')
-            self.logger.info('===============================================================================================================================')
+            self.logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
             self.logger.info(' 2. ### 영화정보검색/영화상영관정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterInfoList.do) ###')
-            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('────────────────────────────────────────────────────────────────')
 
             url = 'https://www.kobis.or.kr/kobis/business/mast/thea/findTheaterInfoList.do'                      
             fields = { "pageIndex": "1"
@@ -278,9 +278,9 @@ class CcKobis(CcSupper):
         def _3_kobis_JobB():
             
             self.logger.info('')
-            self.logger.info('===============================================================================================================================')
+            self.logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
             self.logger.info(' 3. ### 영화정보/영화상영관/상영스케줄 (http://www.kobis.or.kr/kobis/business/mast/thea/findSchedule.do) ###')
-            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('────────────────────────────────────────────────────────────────')
 
             def __3_get_date_range(date_range):
                 days = []
@@ -306,10 +306,10 @@ class CcKobis(CcSupper):
                 schedule_list = r.json()["schedule"]
                 if len(schedule_list) > 0:  # 해당날에 해당극장에 상영하는 영화
 
-                    self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+                    self.logger.info('────────────────────────────────────────────────────────────────')
                     self.logger.info(f'일자 : /{itday[-2:]} 극장 : ({theatherCd}) {theatherNm}    ')
                     self.logger.info('일자, 상영관코드, 관, 상영시작시간, (영화코드)영화명  ')
-                    self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+                    self.logger.info('────────────────────────────────────────────────────────────────')
 
                     for val in schedule_list:
 
@@ -384,11 +384,11 @@ class CcKobis(CcSupper):
 
                             dicLoop[i][3] = False  # 실패!!
 
-                            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+                            self.logger.info('────────────────────────────────────────────────────────────────')
                             self.logger.error(f'{_itday}:상영관({_theatherNm})크롤링에 예외가 발생되어 실패')
                             self.logger.error(f'오류 내용! {e}')
                             self.logger.error(f'{traceback.print_exc()}')
-                            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+                            self.logger.info('────────────────────────────────────────────────────────────────')
                     # [if not _isDone:]        
 
                     _theatherCd_Old = _theatherCd
@@ -407,9 +407,9 @@ class CcKobis(CcSupper):
         def _4_kobis_JobC():
 
             self.logger.info('')
-            self.logger.info('===============================================================================================================================')
+            self.logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
             self.logger.info(' 4. ### 영화정보검색/영화상영관상세정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterCodeLayer.do?theaCd=[theaterCd]) ###')
-            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('────────────────────────────────────────────────────────────────')
 
             self.sql_cursor.execute(self.sqlxmp.find(f"query[@id='{'SELECT_kobis_theater'}']").text.strip())
             self.sql_cursor.row_factory = sqlite3.Row
@@ -511,9 +511,9 @@ class CcKobis(CcSupper):
         def _5_kobis_JobE():
 
             self.logger.info('')
-            self.logger.info('===============================================================================================================================')
+            self.logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
             self.logger.info(' 5. ### 영화정보검색/영화상영관/상영내역(http://www.kobis.or.kr/kobis/business/mast/thea/findShowHistory.do) ###')
-            self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+            self.logger.info('────────────────────────────────────────────────────────────────')
 
             strDateSt = (datetime.date.today() - datetime.timedelta(days=self.date_range)).strftime('%Y-%m-%d')
             strDateEd = datetime.date.today().strftime('%Y-%m-%d')
@@ -527,7 +527,7 @@ class CcKobis(CcSupper):
                 theatherCd = row['theaterCd']
                 theatherNm = row['theaterNm']
 
-                self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+                self.logger.info('────────────────────────────────────────────────────────────────')
                 self.logger.info(f'({theatherCd}) {theatherNm}                 ')
                 self.logger.info('일자, 상영관, 회차, 시작시간, 금액, 영화명   ')
                 
@@ -573,7 +573,7 @@ class CcKobis(CcSupper):
 
                     self.logger.info('{0}, {1}'.format('상영관', lstShowroom))
                     self.logger.info('{0}, {1}'.format('좌석수', lstSeatnum))
-                    self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
+                    self.logger.info('────────────────────────────────────────────────────────────────')
 
                 dicPlayDt = {}
                 dicShowroom = {}
