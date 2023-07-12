@@ -1,5 +1,5 @@
-from At__Supper import ActCrlSupper
-from At__Logger import get_logger, clear_logger
+from Cc__Supper import CcSupper
+from Cc__Logger import CcLogger
 
 import requests
 import sys
@@ -13,20 +13,19 @@ from bs4 import BeautifulSoup  # pip install beautifulsoup4
 from json.decoder import JSONDecodeError
 
 
-class ActCrlKobis(ActCrlSupper):
+class CcKobis(CcSupper):
 
     def __init__(self, date_range): # 생성자
 
-        self.logger = get_logger('Kobis')   # 파이션 로그
+        self.logger = CcLogger.get_logger('Kobis')   # 파이션 로그
         self.date_range = date_range        # 크롤링 할 날 수
-
 
         super().__init__(type(self).__name__)
     # [def __init__(self, date_range): # 생성자]
 
     def __del__(self): # 소멸자
 
-        clear_logger('Kobis')  # 한달전 로그파일을 삭제한다.
+        CcLogger.clear_logger('Kobis')  # 한달전 로그파일을 삭제한다.
         super().__del__()
     # [def __del__(self): # 소멸자]
 
@@ -36,14 +35,14 @@ class ActCrlKobis(ActCrlSupper):
         # =====================================================================================================================================================
         # 1. 박스오피스/일별 박스오피스(http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do) 에서 박스오피스정보를 가지고 온다.
         #
-        def _1_crawlKobis_Boxoffice():
+        def _1_kobis_Boxoffice():
             
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
             self.logger.info(' 1. ### 박스오피스/일별 박스오피스(http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do) ###')
             self.logger.info('-------------------------------------------------------------------------------------------------------------------------------')
 
-            def __1_crawl_ranking(tag, curDate):
+            def __1_ranking(tag, curDate):
 
                 for tag_trs in tag.select("table > tbody > tr"):  # 랭킹 한 줄
 
@@ -134,7 +133,7 @@ class ActCrlKobis(ActCrlSupper):
                     if tag2['style'] == 'overflow-x:auto ;overflow-y:hidden;':  # 날짜별 랭킹테이블 1위에서 10위까지
 
                         no += 1
-                        __1_crawl_ranking(tag2, curDate)
+                        __1_ranking(tag2, curDate)
                     elif tag2['style'] == 'display: none;':
 
                         for tag3 in tag2.findChildren("div", recursive=False):
@@ -150,7 +149,7 @@ class ActCrlKobis(ActCrlSupper):
                                 if tag3['style'] == 'overflow-x:auto ;overflow-y:hidden;':  # 날짜별 랭킹테이블 11위 ~~~
 
                                     no += 1
-                                    __1_crawl_ranking(tag3, curDate)
+                                    __1_ranking(tag3, curDate)
                         # [for tag3 in tag2.findChildren("div", recursive=False):]            
                     #                 
                 # [for tag5 in tag.select("table > tbody > tr"):  # 랭킹 한 줄]  
@@ -161,7 +160,7 @@ class ActCrlKobis(ActCrlSupper):
         # =====================================================================================================================================================
         # 2. 영화정보검색/영화상영관정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterInfoList.do) 에서 영화상영관정보를 가지고 온다. (dicTheaters)
         #
-        def _2_crawlKobis_JobA():
+        def _2_kobis_JobA():
             
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -276,7 +275,7 @@ class ActCrlKobis(ActCrlSupper):
         # =====================================================================================================================================================
         # 3. 영화정보/영화상영관/상영스케줄  (http://www.kobis.or.kr/kobis/business/mast/thea/findSchedule.do) 에서 상영스케줄을 가지고 온다.
         #
-        def _3_crawlKobis_JobB():
+        def _3_kobis_JobB():
             
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -295,7 +294,7 @@ class ActCrlKobis(ActCrlSupper):
 
                 return days
 
-            def __3_crawlKobis_JobB(theatherCd, theatherNm, itday):
+            def __3_kobis_JobB(theatherCd, theatherNm, itday):
 
                 url = 'https://www.kobis.or.kr/kobis/business/mast/thea/findSchedule.do'
                 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
@@ -370,11 +369,11 @@ class ActCrlKobis(ActCrlSupper):
                         arrSchedule = []  # 해당극장의 일자별 스케쥴
 
                     if not _isDone:
-                        cntTry = cntTry + 1                       
+                        cntTry += 1                       
 
                         try:
 
-                            for schedule in __3_crawlKobis_JobB( _theatherCd, _theatherNm, _itday):
+                            for schedule in __3_kobis_JobB( _theatherCd, _theatherNm, _itday):
                                 query = self.sqlxmp.find(f"query[@id='{'INSERT_kobis_schedule'}']").text.strip()
                                 parameters = (_theatherCd, schedule[0], schedule[1], schedule[2], schedule[3]) # arrSchedule.append([itday, scrnNm, showTm, movieCd]) 
                                 self.sql_cursor.execute(query, parameters)
@@ -405,7 +404,7 @@ class ActCrlKobis(ActCrlSupper):
         # =====================================================================================================================================================
         # 4. 영화정보검색/영화상영관상세정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterCodeLayer.do?theaCd=[theaterCd]) 에서 개별상영관정보를 가지고 온다.
         #
-        def _4_crawlKobis_JobC():
+        def _4_kobis_JobC():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -509,7 +508,7 @@ class ActCrlKobis(ActCrlSupper):
         # =====================================================================================================================================================
         # 5. 영화정보검색/영화상영관/상영내역(http://www.kobis.or.kr/kobis/business/mast/thea/findShowHistory.do) 에서 상영내역을 가지고 온다.
         #
-        def _5_crawlKobis_JobE():
+        def _5_kobis_JobE():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -671,11 +670,11 @@ class ActCrlKobis(ActCrlSupper):
 
         try:
 
-            _1_crawlKobis_Boxoffice()  # 1. 박스오피스/일별 박스오피스(http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do) 에서 박스오피스정보를 가지고 온다.
-            _2_crawlKobis_JobA()       # 2. 영화정보검색/영화상영관정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterInfoList.do) 에서 영화상영관정보를 가지고 온다.
-            _3_crawlKobis_JobB()       # 3. 영화정보/영화상영관/상영스케줄  (http://www.kobis.or.kr/kobis/business/mast/thea/findSchedule.do) 에서 상영스케줄을 가지고 온다.
-            _4_crawlKobis_JobC()       # 4. 영화정보검색/영화상영관상세정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterCodeLayer.do?theaCd=[theaterCd]) 에서 개별상영관정보를 가지고 온다.
-            _5_crawlKobis_JobE()       # 5. 영화정보검색/영화상영관/상영내역(http://www.kobis.or.kr/kobis/business/mast/thea/findShowHistory.do) 에서 상영내역을 가지고 온다.
+            _1_kobis_Boxoffice()  # 1. 박스오피스/일별 박스오피스(http://www.kobis.or.kr/kobis/business/stat/boxs/findDailyBoxOfficeList.do) 에서 박스오피스정보를 가지고 온다.
+            _2_kobis_JobA()       # 2. 영화정보검색/영화상영관정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterInfoList.do) 에서 영화상영관정보를 가지고 온다.
+            _3_kobis_JobB()       # 3. 영화정보/영화상영관/상영스케줄  (http://www.kobis.or.kr/kobis/business/mast/thea/findSchedule.do) 에서 상영스케줄을 가지고 온다.
+            _4_kobis_JobC()       # 4. 영화정보검색/영화상영관상세정보(http://www.kobis.or.kr/kobis/business/mast/thea/findTheaterCodeLayer.do?theaCd=[theaterCd]) 에서 개별상영관정보를 가지고 온다.
+            _5_kobis_JobE()       # 5. 영화정보검색/영화상영관/상영내역(http://www.kobis.or.kr/kobis/business/mast/thea/findShowHistory.do) 에서 상영내역을 가지고 온다.
         except Exception as e:
 
             self.logger.error('Kobis 크롤링 중 오류발생!')
@@ -703,8 +702,8 @@ if __name__ == '__main__':
     else:
         dateRange = maxDateRage
 
-    actCrlKobis = ActCrlKobis(date_range = dateRange)  # Kobis
-    actCrlKobis.crawling()
-    actCrlKobis.uploading()
+    crlKobis = CcKobis(date_range = dateRange)  # Kobis
+    crlKobis.crawling()
+    crlKobis.uploading()
     
 # [if __name__ == '__main__':]    

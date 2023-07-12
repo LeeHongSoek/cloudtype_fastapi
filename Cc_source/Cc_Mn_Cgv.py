@@ -1,5 +1,5 @@
-from At__Supper import ActCrlSupper
-from At__Logger import get_logger, clear_logger
+from Cc__Supper import CcSupper
+from Cc__Logger import CcLogger
 
 import requests
 import sys
@@ -18,11 +18,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 
-class ActCrlCgv(ActCrlSupper):
+class CcCgv(CcSupper):
 
     def __init__(self, date_range): # 생성자
 
-        self.logger = get_logger('Cgv')   # 파이션 로그
+        self.logger = CcLogger.get_logger('Cgv')   # 파이션 로그
         self.date_range = date_range      # 크롤링 할 날 수
 
         self.http = urllib3.PoolManager()
@@ -32,7 +32,7 @@ class ActCrlCgv(ActCrlSupper):
 
     def __del__(self): # 소멸자
 
-        clear_logger('Cgv')  # 한달전 로그파일을 삭제한다.
+        CcLogger.clear_logger('Cgv')  # 한달전 로그파일을 삭제한다.
         super().__del__()
     # [def __del__(self): # 소멸자]
 
@@ -42,7 +42,7 @@ class ActCrlCgv(ActCrlSupper):
         # =====================================================================================================================================================
         # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
         #
-        def _1_crawl_cgv_moviechart(chm_driver):
+        def _1_cgv_moviechart(chm_driver):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -125,7 +125,7 @@ class ActCrlCgv(ActCrlSupper):
         # =====================================================================================================================================================
         # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
         #
-        def _2_crawl_cgv_moviescheduled():
+        def _2_cgv_moviescheduled():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -191,7 +191,7 @@ class ActCrlCgv(ActCrlSupper):
         # =====================================================================================================================================================
         # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다.
         #
-        def _3_crawl_cgv_moviefinder():
+        def _3_cgv_moviefinder():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -350,7 +350,7 @@ class ActCrlCgv(ActCrlSupper):
         # =====================================================================================================================================================
         # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
         #
-        def _4_crawl_cgv_theaters():
+        def _4_cgv_theaters():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -439,7 +439,7 @@ class ActCrlCgv(ActCrlSupper):
         # =====================================================================================================================================================
         # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
         #
-        def _5_crawl_cgv_showtimes(chm_driver):
+        def _5_cgv_showtimes(chm_driver):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -646,11 +646,11 @@ class ActCrlCgv(ActCrlSupper):
             chrome_options.add_argument('--ignore-ssl-errors')
             chrome_driver = webdriver.Chrome(options=chrome_options)            
 
-            _1_crawl_cgv_moviechart(chrome_driver)  # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
-            _2_crawl_cgv_moviescheduled()           # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
-            _3_crawl_cgv_moviefinder()              # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
-            _4_crawl_cgv_theaters()                 # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
-            _5_crawl_cgv_showtimes(chrome_driver)   # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
+            _1_cgv_moviechart(chrome_driver)  # 1. 영화/무비차트(http://www.cgv.co.kr/movies/?ft=0) 애서 영화정보를 가지고온다.
+            _2_cgv_moviescheduled()           # 2. 영화/무비차트/상영예정작(http://www.cgv.co.kr/movies/pre-movies.aspx) 애서 영화정보를 가지고온다.
+            _3_cgv_moviefinder()              # 3. 영화/무비파인더(http://www.cgv.co.kr/movies/finder.aspx) 에서 영화데이터를 가지고 온다. - 화면 서비스가 정지 될 수 있어서.. 그 경우 위의 함수를 호출한다.
+            _4_cgv_theaters()                 # 4. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/) 극장정보를 가지고 온다.
+            _5_cgv_showtimes(chrome_driver)   # 5. 예매/상영시간표(http://www.cgv.co.kr/reserve/show-times/)의 프래임에서 상영정보를 가지고 온다.
         except Exception as e:
 
             self.logger.error('Cgv 크롤링 중 오류발생!')
@@ -678,7 +678,7 @@ if __name__ == '__main__':
     else:
         dateRange = maxDateRage
 
-    actCrlCgv = ActCrlCgv(date_range = dateRange)  # Cgv
+    actCrlCgv = CcCgv(date_range = dateRange)  # Cgv
     actCrlCgv.crawling()
     actCrlCgv.uploading()    
 # [if __name__ == '__main__':]    

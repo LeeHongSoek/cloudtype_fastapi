@@ -1,5 +1,5 @@
-from At__Supper import ActCrlSupper
-from At__Logger import get_logger, clear_logger
+from Cc__Supper import CcSupper
+from Cc__Logger import CcLogger
 
 import sys
 import traceback
@@ -17,11 +17,11 @@ from bs4 import BeautifulSoup  # pip install beautifulsoup4
 from urllib.parse import parse_qs, urlparse
 
 
-class ActCrlLotte(ActCrlSupper):
+class CcLotte(CcSupper):
 
     def __init__(self, date_range): # 생성자
 
-        self.logger = get_logger('Lotte')   # 파이션 로그
+        self.logger = CcLogger.get_logger('Lotte')   # 파이션 로그
         self.date_range = date_range        # 크롤링 할 날 수
 
         super().__init__(type(self).__name__)
@@ -29,7 +29,7 @@ class ActCrlLotte(ActCrlSupper):
 
     def __del__(self): # 소멸자
 
-        clear_logger('Lotte')  # 한달전 로그파일을 삭제한다.
+        CcLogger.clear_logger('Lotte')  # 한달전 로그파일을 삭제한다.
         super().__del__()
     # [def __del__(self): # 소멸자]
 
@@ -39,7 +39,7 @@ class ActCrlLotte(ActCrlSupper):
         # =====================================================================================================================================================
         #  1. 영화 / 현재 상영작(https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
         #
-        def _1_crawlLotte_boxoffice(chm_driver):
+        def _1_lotte_boxoffice(chm_driver):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -102,7 +102,7 @@ class ActCrlLotte(ActCrlSupper):
         # =====================================================================================================================================================
         #  2. 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다. 
         #
-        def _2_crawlLotte_cinema(chm_driver):
+        def _2_lotte_cinema(chm_driver):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -179,7 +179,7 @@ class ActCrlLotte(ActCrlSupper):
         # =====================================================================================================================================================
         # 3. 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다.
         #
-        def _3_crawlLotte_ticketing(chm_driver):
+        def _3_lotte_ticketing(chm_driver):
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -500,9 +500,9 @@ class ActCrlLotte(ActCrlSupper):
 
             proxy.new_har("lottecinema", options={'captureHeaders': True, 'captureContent': True})  # 요청 캡처 활성화
 
-            _1_crawlLotte_boxoffice(chrome_driver)  # 1. 영화/현재상영작 (https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
-            _2_crawlLotte_cinema(chrome_driver)     # 2. 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다.             
-            _3_crawlLotte_ticketing(chrome_driver)  # 3. 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다.
+            _1_lotte_boxoffice(chrome_driver)  # 1. 영화/현재상영작 (https://www.lottecinema.co.kr/NLCHS/Movie/List?flag=1) 에서 영화데이터를 가지고 온다. 
+            _2_lotte_cinema(chrome_driver)     # 2. 영화관 (https://www.lottecinema.co.kr/NLCHS/) 에서 극장데이터를 가지고 온다.             
+            _3_lotte_ticketing(chrome_driver)  # 3. 영화관 (https://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx) 에서 극장데이터를 가지고 온다.
 
             chrome_driver.quit()
             server.stop()
@@ -533,8 +533,8 @@ if __name__ == '__main__':
     else:
         dateRange = maxDateRage
 
-    actCrlLotte = ActCrlLotte(date_range = dateRange)  # Lotte
-    actCrlLotte.crawling()
-    actCrlLotte.uploading()
+    crlLotte = CcLotte(date_range = dateRange)  # Lotte
+    crlLotte.crawling()
+    crlLotte.uploading()
     
 # [if __name__ == '__main__':]    

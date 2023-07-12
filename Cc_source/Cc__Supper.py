@@ -1,6 +1,8 @@
 """
 
 """
+from Cc__Config import ConfigFile
+
 from abc import *
 import zipfile
 import sqlite3
@@ -18,14 +20,17 @@ def unzip_file(zip_path, extract_path):
         zipf.extractall(extract_path)
 
 
-class ActCrlSupper(metaclass=ABCMeta):
+class CcSupper(metaclass=ABCMeta):
     
-    sqlmap_dir = 'crawl_sqlmap'
+    'crawl_sqlmap'
     delayTime = 0.5  # 딜레이(초)
 
     def __init__(self, db_filename): # 생성자
 
-        self.db_fullfilename = f'{self.sqlmap_dir}/{db_filename}'
+        config_file = ConfigFile('Cc__Config.properties')
+
+        self.sqlmap_fullfilename = f'{config_file.sqlmap_dir}{db_filename}'
+        self.db_fullfilename = f'{config_file.db_dir}{db_filename}'
 
         # zip_file_name = f'{self.db_fullfilename}.zip' # 압축파일
         # zip_path = os.path.join(os.getcwd(), zip_file_name)
@@ -38,7 +43,7 @@ class ActCrlSupper(metaclass=ABCMeta):
         self.sql_conn = sqlite3.connect(f'{self.db_fullfilename}.db') # Connect to SQLite database
         self.sql_cursor = self.sql_conn.cursor()
             
-        self.sqlxmp = ET.parse(f'{self.db_fullfilename}.xml').getroot() # sqlmap XML 파일 읽기
+        self.sqlxmp = ET.parse(f'{self.sqlmap_fullfilename}.xml').getroot() # sqlmap XML 파일 읽기
         for table_name in self.sqlxmp.find("tables").text.strip().split(';'):  # 만들어지고 관리되어질 테이블 목록
 
             self.sql_cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name.strip()}'") # 테이블 존재검사

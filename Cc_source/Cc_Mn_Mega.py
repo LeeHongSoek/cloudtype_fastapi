@@ -1,5 +1,5 @@
-from At__Supper import ActCrlSupper
-from At__Logger import get_logger, clear_logger
+from Cc__Supper import CcSupper
+from Cc__Logger import CcLogger
 
 import requests
 import sys
@@ -12,11 +12,11 @@ import datetime
 from bs4 import BeautifulSoup  # pip install beautifulsoup4
 
 
-class ActCrlMega(ActCrlSupper):
+class CcMega(CcSupper):
 
     def __init__(self, date_range): # 생성자
 
-        self.logger = get_logger('Mega')   # 파이션 로그
+        self.logger = CcLogger.get_logger('Mega')   # 파이션 로그
         self.date_range = date_range        # 크롤링 할 날 수
         
         super().__init__(type(self).__name__)
@@ -24,7 +24,7 @@ class ActCrlMega(ActCrlSupper):
 
     def __del__(self): # 소멸자
 
-        clear_logger('Mega')  # 한달전 로그파일을 삭제한다.
+        CcLogger.clear_logger('Mega')  # 한달전 로그파일을 삭제한다.
         super().__del__()
     # [def __del__(self): # 소멸자]
 
@@ -34,7 +34,7 @@ class ActCrlMega(ActCrlSupper):
         # =====================================================================================================================================================
         # 1. 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다.
         #
-        def _1_crawl_mega_movie():
+        def _1_mega_movie():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -88,7 +88,7 @@ class ActCrlMega(ActCrlSupper):
         # =====================================================================================================================================================
         # 2. 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다.
         #
-        def _2_crawl_mega_cinema():
+        def _2_mega_cinema():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -156,7 +156,7 @@ class ActCrlMega(ActCrlSupper):
         # =====================================================================================================================================================
         # 3. 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다.
         #
-        def _3_crawl_mega_schedule():
+        def _3_mega_schedule():
 
             self.logger.info('')
             self.logger.info('===============================================================================================================================')
@@ -310,19 +310,16 @@ class ActCrlMega(ActCrlSupper):
                                 self.sql_cursor.execute(query, parameters)
 
             # [for playdt in __3_get_date_range(dateRange): # 1 ~ 13 일간 자료 가져오기]
-
-            
-
+       
             self.sql_conn.commit()
-
         # [def _3_crawl_mega_schedule():]
 
 
         try:
             
-            _1_crawl_mega_movie()    # 1. 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다.
-            _2_crawl_mega_cinema()   # 2. 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다.
-            _3_crawl_mega_schedule() # 3. 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다.        
+            _1_mega_movie()    # 1. 영화(https://www.megabox.co.kr/on/oh/oha/Movie/selectMovieList.do) 에서 영화데이터를 가지고 온다.
+            _2_mega_cinema()   # 2. 영화관(https://www.megabox.co.kr/theater/list)에서 영화관데이터를 가지고 온다.
+            _3_mega_schedule() # 3. 상영시간표 > 극장별 (https://www.megabox.co.kr/booking/timetable)에서 영화관에 스케줄데이터를 가지고 온다.        
         except Exception as e:    
 
             self.logger.error('Mega 크롤링 중 오류발생!')
@@ -350,8 +347,8 @@ if __name__ == '__main__':
     else:
         dateRange = maxDateRage
 
-    actCrlMega = ActCrlMega(date_range = dateRange)  # Mega
-    actCrlMega.crawling()
-    actCrlMega.uploading()
+    crlMega = CcMega(date_range = dateRange)  # Mega
+    crlMega.crawling()
+    crlMega.uploading()
     
 # [if __name__ == '__main__':]    
