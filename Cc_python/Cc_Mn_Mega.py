@@ -350,7 +350,7 @@ if __name__ == '__main__':
         dateRange = maxDateRage
 
     crlMega = CcMega(date_range = dateRange)  # Mega
-    #crlMega.crawling()
+    #ccrlMega.crawling()
     crlMega.uploading()
     
 # [if __name__ == '__main__':]    
