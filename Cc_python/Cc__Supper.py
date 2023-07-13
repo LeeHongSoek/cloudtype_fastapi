@@ -13,6 +13,11 @@ import gzip
 import shutil
 import os
 
+def parse_strings(str, delimiter=';'):
+    parsed_str = [s.strip() for s in str.split(delimiter)]
+    return parsed_str
+
+
 def compress_file(input_file, output_file):
     with open(input_file, 'rb') as f_in, gzip.open(output_file, 'wb') as f_out:
         shutil.copyfileobj(f_in, f_out)
@@ -49,16 +54,17 @@ class CcSupper(metaclass=ABCMeta):
         self.sql_conn = sqlite3.connect(f'{self.db_fullfilename}.db') # Connect to SQLite database
         self.sql_cursor = self.sql_conn.cursor()
             
-        self.sqlxmp = ET.parse(f'{self.sqlmap_fullfilename}.xml').getroot() # sqlmap XML 파일 읽기
-        for table_name in self.sqlxmp.find("tables").text.strip().split(';'):  # 만들어지고 관리되어질 테이블 목록
+        self.sqlxmp = ET.parse(f'{self.sqlmap_fullfilename}.xml').getroot() # sqlmap XML 파일 읽기        
+        for table_name in parse_strings(self.sqlxmp.find("tables").text,';'):  # 만들어지고 관리되어질 테이블 목록
 
-            self.sql_cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name.strip()}'") # 테이블 존재검사
+            table_name2 = parse_strings(table_name,':')
+            self.sql_cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name2[0]}'") # 테이블 존재검사
             if self.sql_cursor.fetchone():
-                if table_name.strip() != 'mega_region':
-                    self.sql_cursor.execute(f"DELETE FROM {table_name.strip()}") # 있으면 싹비우고
+                if len(table_name2) > 1 and table_name2[1] == 'Clear':
+                    self.sql_cursor.execute(f"DELETE FROM {table_name2[0]}") # 있으면 싹비우고
             else:
 
-                query = self.sqlxmp.find(f"query[@id='CREATE_TABLE_{table_name.strip()}']").text.strip() # 없으면 생성!!
+                query = self.sqlxmp.find(f"query[@id='CREATE_TABLE_{table_name2[0]}']").text.strip() # 없으면 생성!!
                 for qry in query.split(";"):
                     self.sql_cursor.execute(qry.strip()) if qry.strip() else None
         # [for table_name in table_names:]

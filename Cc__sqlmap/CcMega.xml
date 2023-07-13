@@ -1,6 +1,6 @@
 <queries>
 
-    <tables> mega_movie ; mega_region ; mega_cinema ; mega_play </tables>
+    <tables> mega_movie ; mega_region ; mega_cinema ; mega_play:Clear </tables>
 
     <query id="CREATE_TABLE_mega_movie"><![CDATA[
                CREATE TABLE IF NOT EXISTS mega_movie ( moviecode    TEXT NULL   /* 영화코드   */
