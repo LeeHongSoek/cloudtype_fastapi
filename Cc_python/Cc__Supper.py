@@ -13,20 +13,20 @@ import gzip
 import shutil
 import os
 
-def parse_strings(str, delimiter=';'):
+def _parse_strings(str, delimiter=';'):
     parsed_str = [s.strip() for s in str.split(delimiter)]
     return parsed_str
 
 
-def compress_file(input_file, output_file):
+def _gz_file(input_file, output_file):
     with open(input_file, 'rb') as f_in, gzip.open(output_file, 'wb') as f_out:
         shutil.copyfileobj(f_in, f_out)
 
-def zip_file(file_path, zip_path):
+def _zip_file(file_path, zip_path):
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
         zipf.write(file_path, os.path.basename(file_path))
 
-def unzip_file(zip_path, extract_path):
+def _unzip_file(zip_path, extract_path):
     with zipfile.ZipFile(zip_path, 'r') as zipf:
         zipf.extractall(extract_path)
 
@@ -49,19 +49,19 @@ class CcSupper(metaclass=ABCMeta):
 
         # if os.path.exists(zip_path): # 압축파일이 있다면 먼저 푼다.. (쌓이는 구조가 아니라 패스~!!)
         #     self.logger.info(f' 파일 {zip_file_name} 을 압축해제! ')
-        #     unzip_file(zip_path, extract_path)
+        #     _unzip_file(zip_path, extract_path)
 
         self.sql_conn = sqlite3.connect(f'{self.db_fullfilename}.db') # Connect to SQLite database
         self.sql_cursor = self.sql_conn.cursor()
             
         self.sqlxmp = ET.parse(f'{self.sqlmap_fullfilename}.xml').getroot() # sqlmap XML 파일 읽기        
-        for table_name in parse_strings(self.sqlxmp.find("tables").text,';'):  # 만들어지고 관리되어질 테이블 목록
+        for table_name in _parse_strings(self.sqlxmp.find("tables").text,';'):  # 만들어지고 관리되어질 테이블 목록
 
-            table_name2 = parse_strings(table_name,':')
+            table_name2 = _parse_strings(table_name,':')
             self.sql_cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name2[0]}'") # 테이블 존재검사
             if self.sql_cursor.fetchone():
-                if len(table_name2) > 1 and table_name2[1] == 'Clear':
-                    self.sql_cursor.execute(f"DELETE FROM {table_name2[0]}") # 있으면 싹비우고
+                if len(table_name2) > 1 and table_name2[1] == 'Clear': # Clear가 붙어있는 테이블만 
+                    self.sql_cursor.execute(f"DELETE FROM {table_name2[0]}") # 일단 자료가 있으면 싹 비운다.
             else:
 
                 query = self.sqlxmp.find(f"query[@id='CREATE_TABLE_{table_name2[0]}']").text.strip() # 없으면 생성!!
@@ -83,14 +83,13 @@ class CcSupper(metaclass=ABCMeta):
 
     @abstractmethod
     def uploading(self):
-
         
         self.logger.info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
         self.logger.info(f' ♨. 파일 {self.db_fullfilename} 을 압축                                                                                      ')
         self.logger.info('────────────────────────────────────────────────────────────────')
 
-        zip_file(f'{self.db_fullfilename}.db', f'{self.db_fullfilename}.zip') # 의미 없음.. zip를 업로드해도 압축풀기를 못함.
-        compress_file(f'{self.db_fullfilename}.db', f'{self.db_fullfilename}.db.gz') # 반드기 gz파일로 압축해야 리눅스에서 압축을 풀수 있음..
+        _zip_file(f'{self.db_fullfilename}.db', f'{self.db_fullfilename}.zip') # 의미 없음.. zip를 업로드해도 압축풀기를 못함.
+        _gz_file(f'{self.db_fullfilename}.db', f'{self.db_fullfilename}.db.gz') # 반드기 gz파일로 압축해야 리눅스에서 압축을 풀수 있음..
 
         baseUrl = "http://www.mtns7.co.kr/totalscore/upload_gz_file.php"
         r = requests.post(baseUrl, files={'upload': open(f'{self.db_fullfilename}.db.gz', "rb")})
