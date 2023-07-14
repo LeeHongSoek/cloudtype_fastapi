@@ -33,6 +33,7 @@ class Crawling:
         self.__lasttime_lotte = _config_file.lasttime_lotte  # 최근 완료일시 (LOTTE)
         self.__lasttime_cgv = _config_file.lasttime_cgv  # 최근 완료일시 (CGV)
         self.__lasttime_kobis = _config_file.lasttime_kobis  # 최근 완료일시 (KOBIS)
+    # [def __init__(self, _config_file):]    
 
     def getMyName(self):
         return self.__my_name
@@ -102,7 +103,8 @@ class Crawling:
 
     def crawling_all(self):
         while True:  # 무한 루프로 대기 ............
-            if self.__crawlling_sw_all:  # 크롤링 스위치(False)
+            if self.__crawlling_sw_all:  # ALL 크롤링 스위치(False)
+
                 try:
                     subprocess.run(['Crawl_Mega.bat'], shell=True, check=True)
                     subprocess.run(['Crawl_Lotte.bat'], shell=True, check=True)
@@ -122,10 +124,14 @@ class Crawling:
                 finally:
                     self.__crawlling_sw_all = False
                     self.ccLogger.clean_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
+            # [if self.__crawlling_sw_all:]        
+        # [while True:]            
+    # [def crawling_all(self):]                
 
     def crawling_mega(self):
         while True:  # 무한 루프로 대기 ............
             if self.__crawlling_sw_mega:  # MEGA 크롤링 스위치(False)
+
                 try:
                     lstMsg = self.__updater.message.text.split(' ')
                     if len(lstMsg) > 2:
@@ -150,10 +156,14 @@ class Crawling:
                 finally:
                     self.__crawlling_sw_mega = False
                     self.ccLogger.clean_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
+            # [if self.__crawlling_sw_mega:]        
+        # [while True:]            
+    # [def crawling_mega(self):]
 
     def crawling_lotte(self):
         while True:  # 무한 루프로 대기 ............
             if self.__crawlling_sw_lotte:  # LOTTE 크롤링 스위치(False)
+
                 try:
                     lstMsg = self.__updater.message.text.split(' ')
                     if len(lstMsg) > 2:
@@ -178,10 +188,14 @@ class Crawling:
                 finally:
                     self.__crawlling_sw_lotte = False
                     self.ccLogger.clean_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
-
+            # [if self.__crawlling_sw_lotte:]        
+        # [while True:]            
+    # [def crawling_lotte(self):]    
+    
     def crawling_cgv(self):
         while True:  # 무한 루프로 대기 ............
             if self.__crawlling_sw_cgv:  # CGV 크롤링 스위치(False)
+
                 try:
                     lstMsg = self.__updater.message.text.split(' ')
                     if len(lstMsg) > 2:
@@ -206,10 +220,14 @@ class Crawling:
                 finally:
                     self.__crawlling_sw_cgv = False
                     self.ccLogger.clean_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
+            # [if self.__crawlling_sw_cgv:]        
+        # [while True:]            
+    # [def crawling_cgv(self):]
 
     def crawling_kobis(self):
         while True:  # 무한 루프로 대기 ............
             if self.__crawlling_sw_kobis:  # Kobis 크롤링 스위치(False)
+
                 try:
                     lstMsg = self.__updater.message.text.split(' ')
                     if len(lstMsg) > 2:
@@ -234,7 +252,10 @@ class Crawling:
                 finally:
                     self.__crawlling_sw_kobis = False
                     self.ccLogger.clean_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
-
+            # [if self.__crawlling_sw_kobis:]        
+        # [while True:]            
+    # [def crawling_kobis(self):]                
+# [class Crawling:]
 
 def start(update, context):  # /start 명령에 대한 반응
 
@@ -461,3 +482,4 @@ if __name__ == '__main__':
 
     updater.start_polling()
     updater.idle()
+# [if __name__ == '__main__':]
