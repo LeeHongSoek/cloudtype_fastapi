@@ -4,7 +4,7 @@ from Cc__Logger import CcLogger
 import datetime
 import subprocess
 from threading import Thread
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters #pip install python-telegram-bot==13.0
 
 
 def get_now():

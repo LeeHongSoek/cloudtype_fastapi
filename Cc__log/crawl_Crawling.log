@@ -15,3 +15,5 @@
 [14:06|    INFO|Cc_Mn_Telegram.py:255] 크롤링 실행을 시작합니다!
 (최근 완료일시: 2020-02-24 20:48)
 [14:06|    INFO|Cc_Mn_Telegram.py:120] 크롤링 중 오류발생: Command '['Crawl_Mega.bat']' returned non-zero exit status 1.
+[21:19|    INFO|Cc_Mn_Telegram.py:264] 안녕하세요!
+극장체인점 & 영진위 상영정보 크로링서비스 (leehs) 입니다.
