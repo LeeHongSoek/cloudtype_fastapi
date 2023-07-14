@@ -11,7 +11,8 @@ def get_now():
     today = datetime.datetime.now()
     return f'{today:%Y-%m-%d %H:%M}'
 
-logger = CcLogger().get_logger('Crawling')   # 파이션 로그
+ccLogger = CcLogger()
+logger = ccLogger.get_logger('Crawling')   # 파이션 로그
 
 
 class Crawling:
@@ -117,13 +118,13 @@ class Crawling:
                     self.__updater.message.reply_text('크롤링을 모두 마칩니다!')
 
                 except Exception as e:
-                    message = f'크롤링 중 오류발생: {str(e)}'
+                    message = f'크롤링 중 오류발생:\n{str(e)}'
                     self.__updater.message.reply_text(message)
                     logger.info(message)
 
                 finally:
                     self.__crawlling_sw_all = False
-                    self.ccLogger.clean_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
+                    ccLogger.clear_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
             # [if self.__crawlling_sw_all:]        
         # [while True:]            
     # [def crawling_all(self):]                
@@ -149,13 +150,13 @@ class Crawling:
                     self.__updater.message.reply_text(message)
                     logger.info(message)
                 except Exception as e:
-                    message = f'MEGAf 크롤링 중 오류발생: {str(e)}'
+                    message = f'MEGAf 크롤링 중 오류발생:\n{str(e)}'
                     self.__updater.message.reply_text(message)
                     logger.info(message)
 
                 finally:
                     self.__crawlling_sw_mega = False
-                    self.ccLogger.clean_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
+                    ccLogger.clear_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
             # [if self.__crawlling_sw_mega:]        
         # [while True:]            
     # [def crawling_mega(self):]
@@ -181,13 +182,13 @@ class Crawling:
                     self.__updater.message.reply_text(message)
                     logger.info(message)
                 except Exception as e:
-                    message = f'LOTTEf 크롤링 중 오류발생: {str(e)}'
+                    message = f'LOTTEf 크롤링 중 오류발생:\n{str(e)}'
                     self.__updater.message.reply_text(message)
                     logger.info(message)
 
                 finally:
                     self.__crawlling_sw_lotte = False
-                    self.ccLogger.clean_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
+                    ccLogger.clear_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
             # [if self.__crawlling_sw_lotte:]        
         # [while True:]            
     # [def crawling_lotte(self):]    
@@ -213,13 +214,13 @@ class Crawling:
                     self.__updater.message.reply_text(message)
                     logger.info(message)
                 except Exception as e:
-                    message = f'CGVf 크롤링 중 오류발생: {str(e)}'
+                    message = f'CGVf 크롤링 중 오류발생:\n{str(e)}'
                     self.__updater.message.reply_text(message)
                     logger.info(message)
 
                 finally:
                     self.__crawlling_sw_cgv = False
-                    self.ccLogger.clean_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
+                    ccLogger.clear_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
             # [if self.__crawlling_sw_cgv:]        
         # [while True:]            
     # [def crawling_cgv(self):]
@@ -245,26 +246,41 @@ class Crawling:
                     self.__updater.message.reply_text(message)
                     logger.info(message)
                 except Exception as e:
-                    message = f'KOBISf 크롤링 중 오류발생: {str(e)}'
+                    message = f'KOBISf 크롤링 중 오류발생:\n{str(e)}'
                     self.__updater.message.reply_text(message)
                     logger.info(message)
 
                 finally:
                     self.__crawlling_sw_kobis = False
-                    self.ccLogger.clean_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
+                    ccLogger.clear_logger()  # 로그파일을 정리한다. 한달 전 로그 삭제
             # [if self.__crawlling_sw_kobis:]        
         # [while True:]            
     # [def crawling_kobis(self):]                
 # [class Crawling:]
 
-def start(update, context):  # /start 명령에 대한 반응
+def start(update, context):  # /start
 
-    message = f'안녕하세요!\n극장체인점 & 영진위 상영정보 크로링서비스 ({crawling.getMyName()}) 입니다.'
+    message = f"""안녕하세요!\n
+극장체인점 & 영진위 상영정보 크로링서비스 ({crawling.getMyName()}) 입니다.
+/crawl : 크롤링 전체 실행
+/0 : 크롤링 전체 실행
+/crawl_all : 크롤링 전체 실행
+/1 : 크롤링 mega 실행
+/2 : 크롤링 lotte 실행
+/3 : 크롤링 cgv 실행
+/4 : 크롤링 kobis 실행
+/7 : 크롤링 mega_lotte_cgv 실행
+/mega : 크롤링 mega 실행
+/lotte : 크롤링 lotte 실행
+/cgv : 크롤링 cgv 실행
+/kobis : 크롤링 kobis 실행
+/123 : 크롤링 mega_lotte_cgv 실행"""
+    
     update.message.reply_text(message)
     logger.info(message)
 
 
-def crawl(update, context):  # /crawl  명령에 대한 반응
+def crawl(update, context):  # /crawl 
 
     if crawling.getCrawllingSwAll():  # 크롤링 시작 스위치 검사
         message = '지금 크롤링이 실행 중입니다!'
@@ -279,22 +295,22 @@ def crawl(update, context):  # /crawl  명령에 대한 반응
         crawling.setUpdater(update)  # 텔레그램 전송을 위한 변수 등록
 
 
-def crawl_all(update, context):  # /crawl_all  명령에 대한 반응
+def crawl_all(update, context):  # /crawl_all 
 
-    crawl_mega(update, context)  # /crawl_mega  명령에 대한 반응
-    crawl_lotte(update, context)  # /crawl_lotte  명령에 대한 반응
-    crawl_cgv(update, context)  # /crawl_cgv  명령에 대한 반응
-    crawl_kobis(update, context)  # /crawl_kobis  명령에 대한 반응
+    crawl_mega(update, context)  # /crawl_mega 
+    crawl_lotte(update, context)  # /crawl_lotte 
+    crawl_cgv(update, context)  # /crawl_cgv 
+    crawl_kobis(update, context)  # /crawl_kobis 
 
 
-def crawl_mega_lotte_cgv(update, context):  # /crawl_3  명령에 대한 반응
+def crawl_mega_lotte_cgv(update, context):  # /crawl_3 
     
-    crawl_mega(update, context)  # /crawl_mega  명령에 대한 반응
-    crawl_lotte(update, context)  # /crawl_lotte  명령에 대한 반응
-    crawl_cgv(update, context)  # /crawl_cgv  명령에 대한 반응
+    crawl_mega(update, context)  # /crawl_mega 
+    crawl_lotte(update, context)  # /crawl_lotte 
+    crawl_cgv(update, context)  # /crawl_cgv 
 
 
-def crawl_mega(update, context):  # /crawl_mega  명령에 대한 반응
+def crawl_mega(update, context):  # /crawl_mega 
     if crawling.getCrawllingSwMega():  # 크롤링 시작 스위치 검사
         message = '지금 MEGA 크롤링이 실행 중입니다!'
         update.message.reply_text(message)
@@ -326,7 +342,7 @@ def crawl_mega(update, context):  # /crawl_mega  명령에 대한 반응
         crawling.setUpdater(update)  # 텔레그램 전송을 위한 변수 등록
 
 
-def crawl_lotte(update, context):  # /crawl_lotte  명령에 대한 반응
+def crawl_lotte(update, context):  # /crawl_lotte 
     if crawling.getCrawllingSwLotte():  # 크롤링 시작 스위치 검사
         message = '지금 LOTTE 크롤링이 실행 중입니다!'
         update.message.reply_text(message)
@@ -358,7 +374,7 @@ def crawl_lotte(update, context):  # /crawl_lotte  명령에 대한 반응
         crawling.setUpdater(update)  # 텔레그램 전송을 위한 변수 등록
 
 
-def crawl_cgv(update, context):  # /crawl_cgv  명령에 대한 반응
+def crawl_cgv(update, context):  # /crawl_cgv 
     if crawling.getCrawllingSwCgv():  # 크롤링 시작 스위치 검사
         message = '지금 CGV 크롤링이 실행 중입니다!'
         update.message.reply_text(message)
@@ -390,7 +406,7 @@ def crawl_cgv(update, context):  # /crawl_cgv  명령에 대한 반응
         crawling.setUpdater(update)  # 텔레그램 전송을 위한 변수 등록
 
 
-def crawl_kobis(update, context):  # /crawl_kobis  명령에 대한 반응
+def crawl_kobis(update, context):  # /crawl_kobis 
     if crawling.getCrawllingSwKobis():  # 크롤링 시작 스위치 검사
         message = '지금 KOBIS 크롤링이 실행 중입니다!'
         update.message.reply_text(message)
@@ -448,7 +464,6 @@ if __name__ == '__main__':
     dp.add_handler(CommandHandler("start", start))
 
     dp.add_handler(CommandHandler("crawl", crawl))
-
     dp.add_handler(CommandHandler("0", crawl_all))
     dp.add_handler(CommandHandler("crawl_all", crawl_all))
 

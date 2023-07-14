@@ -17,3 +17,78 @@
 [14:06|    INFO|Cc_Mn_Telegram.py:120] 크롤링 중 오류발생: Command '['Crawl_Mega.bat']' returned non-zero exit status 1.
 [21:19|    INFO|Cc_Mn_Telegram.py:264] 안녕하세요!
 극장체인점 & 영진위 상영정보 크로링서비스 (leehs) 입니다.
+[21:24|    INFO|Cc_Mn_Telegram.py:266] 안녕하세요!
+                극장체인점 & 영진위 상영정보 크로링서비스 (leehs) 입니다.
+    /crawl : 크롤링 전체 실행
+[21:24|    INFO|Cc_Mn_Telegram.py:266] 안녕하세요!
+                극장체인점 & 영진위 상영정보 크로링서비스 (leehs) 입니다.
+    /crawl : 크롤링 전체 실행
+[21:24|    INFO|Cc_Mn_Telegram.py:266] 안녕하세요!
+                극장체인점 & 영진위 상영정보 크로링서비스 (leehs) 입니다.
+    /crawl : 크롤링 전체 실행
+[21:25|    INFO|Cc_Mn_Telegram.py:278] 크롤링 실행을 시작합니다!
+(최근 완료일시: 2020-02-24 20:48)
+[21:25|    INFO|Cc_Mn_Telegram.py:122] 크롤링 중 오류발생: Command '['Crawl_Mega.bat']' returned non-zero exit status 1.
+[21:30|    INFO|Cc_Mn_Telegram.py:282] 
+안녕하세요!
+
+극장체인점 & 영진위 상영정보 크로링서비스 (leehs) 입니다.
+/crawl     : 크롤링 전체 실행
+/0         : 크롤링 전체 실행
+/crawl_all : 크롤링 전체 실행
+/1         : 크롤링 mega 실행
+/mega      : 크롤링 mega 실행
+/2         : 크롤링 lotte 실행
+/lotte     : 크롤링 lotte 실행
+/3         : 크롤링 cgv 실행
+/cgv       : 크롤링 cgv 실행
+/4         : 크롤링 kobis 실행
+/kobis     : 크롤링 kobis 실행
+/123       : 크롤링 mega_lotte_cgv 실행
+/7         : 크롤링 mega_lotte_cgv 실행
+
+
+[21:31|    INFO|Cc_Mn_Telegram.py:282] 
+안녕하세요!
+
+극장체인점 & 영진위 상영정보 크로링서비스 (leehs) 입니다.
+/crawl : 크롤링 전체 실행
+/0 : 크롤링 전체 실행
+/crawl_all : 크롤링 전체 실행
+/1 : 크롤링 mega 실행
+/2 : 크롤링 lotte 실행
+/3 : 크롤링 cgv 실행
+/4 : 크롤링 kobis 실행
+/7 : 크롤링 mega_lotte_cgv 실행
+/mega : 크롤링 mega 실행
+/lotte : 크롤링 lotte 실행
+/cgv : 크롤링 cgv 실행
+/kobis : 크롤링 kobis 실행
+/123 : 크롤링 mega_lotte_cgv 실행
+
+
+[21:31|    INFO|Cc_Mn_Telegram.py:341] MEGA 크롤링 실행(~7일 후까지)을 시작합니다!
+(최근 완료일시: 2020-03-02 21:55)
+[21:31|    INFO|Cc_Mn_Telegram.py:373] LOTTE 크롤링 실행(~7일 후까지)을 시작합니다!
+(최근 완료일시: 2020-03-02 21:55)
+[21:31|    INFO|Cc_Mn_Telegram.py:405] CGV 크롤링 실행(~7일 후까지)을 시작합니다!
+(최근 완료일시: 2020-03-02 21:55)
+[21:31|    INFO|Cc_Mn_Telegram.py:154] MEGAf 크롤링 중 오류발생:
+Command '['Crawl_Mega.bat']' returned non-zero exit status 1.
+[21:40|    INFO|Cc_Mn_Telegram.py:281] 
+안녕하세요!
+
+극장체인점 & 영진위 상영정보 크로링서비스 (leehs) 입니다.
+/crawl : 크롤링 전체 실행
+/0 : 크롤링 전체 실행
+/crawl_all : 크롤링 전체 실행
+/1 : 크롤링 mega 실행
+/2 : 크롤링 lotte 실행
+/3 : 크롤링 cgv 실행
+/4 : 크롤링 kobis 실행
+/7 : 크롤링 mega_lotte_cgv 실행
+/mega : 크롤링 mega 실행
+/lotte : 크롤링 lotte 실행
+/cgv : 크롤링 cgv 실행
+/kobis : 크롤링 kobis 실행
+/123 : 크롤링 mega_lotte_cgv 실행
