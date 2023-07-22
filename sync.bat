@@ -1,1 +1,1 @@
-python  .\.gitAutoPush\gitAutoPush.py
+python .\.gitAutoPush\gitAutoPush.py
