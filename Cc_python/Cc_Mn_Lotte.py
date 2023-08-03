@@ -206,6 +206,9 @@ class CcLotte(CcSupper):
                 chm_driver.get(link)   # 웹사이트로 이동
                 chm_driver.implicitly_wait(1)  # 1초 대기
 
+                if len(chm_driver.find_elements(By.XPATH,  '//h3[@class="tit"]')) == 0: # 극장명이 없다..
+                    return
+
                 theather_nm = chm_driver.find_elements(By.XPATH,  '//h3[@class="tit"]')[0].text  # 타이틀의 극장명을 읽는다.
 
                 button = chm_driver.find_elements(By.XPATH, '//*[text()="확인"]')  # 난데없는 팝업창이 나오면 '확인'을 누를다...
