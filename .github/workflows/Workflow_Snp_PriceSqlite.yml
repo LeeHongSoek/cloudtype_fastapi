@@ -1,7 +1,7 @@
 name: "Workflow_Snp_PriceSqlite"
 on:
   schedule:
-    - cron_: '0 * * * *'
+    - cron: '0 * * * *'
 
 jobs:
   python-job:
